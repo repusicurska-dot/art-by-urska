@@ -3,6 +3,8 @@ export interface Category {
   name: string;
   nameEn: string;
   moodDescription: string;
+  /** Short line shown during the page-transition ceremony when entering this category. */
+  epigraph: string;
   accentColor: string;
   order: number;
 }
@@ -17,6 +19,8 @@ export interface Painting {
   title: string;
   categorySlug: string;
   heroImage?: string;
+  /** Short line shown during the page-transition ceremony when entering this painting's story. */
+  epigraph: string;
   storyBeats: StoryBeat[];
   price: number;
   currency: "EUR";

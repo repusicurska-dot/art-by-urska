@@ -6,6 +6,7 @@ export const paintings: Painting[] = [
     slug: "jutranja-svetloba",
     title: "Jutranja svetloba",
     categorySlug: "dobra-volja",
+    epigraph: "Svetloba, ki še ni izbrala imena za dan.",
     storyBeats: [
       {
         heading: "Origin",
@@ -31,6 +32,7 @@ export const paintings: Painting[] = [
     slug: "smeh-brez-razloga",
     title: "Smeh brez razloga",
     categorySlug: "dobra-volja",
+    epigraph: "Nekateri trenutki ne potrebujejo razloga, samo prostor.",
     storyBeats: [
       {
         heading: "Origin",
@@ -56,6 +58,7 @@ export const paintings: Painting[] = [
     slug: "odprto-okno",
     title: "Odprto okno",
     categorySlug: "dobra-volja",
+    epigraph: "Zrak je vstopil, preden je kdorkoli povabil.",
     storyBeats: [
       {
         heading: "Origin",
@@ -83,6 +86,7 @@ export const paintings: Painting[] = [
     slug: "zadrzan-dih",
     title: "Zadržan dih",
     categorySlug: "nervoza",
+    epigraph: "Med enim in drugim udarcem srca.",
     storyBeats: [
       {
         heading: "Origin",
@@ -108,6 +112,7 @@ export const paintings: Painting[] = [
     slug: "prazna-soba",
     title: "Prazna soba",
     categorySlug: "nervoza",
+    epigraph: "Prostor, ki še pomni zadnji korak.",
     storyBeats: [
       {
         heading: "Origin",
@@ -133,6 +138,7 @@ export const paintings: Painting[] = [
     slug: "utrip-pred-nevihto",
     title: "Utrip pred nevihto",
     categorySlug: "nervoza",
+    epigraph: "Nebo še molči, a že ve.",
     storyBeats: [
       {
         heading: "Origin",
@@ -160,6 +166,7 @@ export const paintings: Painting[] = [
     slug: "voda-brez-vetra",
     title: "Voda brez vetra",
     categorySlug: "mir",
+    epigraph: "Mirovanje, ki ni odsotnost, temveč izbira.",
     storyBeats: [
       {
         heading: "Origin",
@@ -185,6 +192,7 @@ export const paintings: Painting[] = [
     slug: "prostor-brez-nujnosti",
     title: "Prostor brez nujnosti",
     categorySlug: "mir",
+    epigraph: "Nič se ne mudi tja, kamor je že prišlo.",
     storyBeats: [
       {
         heading: "Origin",
@@ -210,6 +218,7 @@ export const paintings: Painting[] = [
     slug: "tih-dan",
     title: "Tih dan",
     categorySlug: "mir",
+    epigraph: "Dan, ki ni zahteval nič in dobil vse.",
     storyBeats: [
       {
         heading: "Origin",
@@ -237,6 +246,7 @@ export const paintings: Painting[] = [
     slug: "vrata-odprta-namenoma",
     title: "Vrata, odprta namenoma",
     categorySlug: "hrepenenje",
+    epigraph: "Odprto za nekoga, ki še ne ve, da prihaja.",
     storyBeats: [
       {
         heading: "Origin",
@@ -262,6 +272,7 @@ export const paintings: Painting[] = [
     slug: "pismo-ki-ni-poslano",
     title: "Pismo, ki ni poslano",
     categorySlug: "hrepenenje",
+    epigraph: "Nekatere besede so resničnejše, ko ostanejo doma.",
     storyBeats: [
       {
         heading: "Origin",
@@ -287,6 +298,7 @@ export const paintings: Painting[] = [
     slug: "obzorje-ki-se-ne-priblizuje",
     title: "Obzorje, ki se ne približuje",
     categorySlug: "hrepenenje",
+    epigraph: "Hoja proti nečemu, kar te že ima.",
     storyBeats: [
       {
         heading: "Origin",
@@ -314,6 +326,7 @@ export const paintings: Painting[] = [
     slug: "korenine-pred-vejami",
     title: "Korenine pred vejami",
     categorySlug: "moc",
+    epigraph: "Preden je bilo vidno, je bilo trdno.",
     storyBeats: [
       {
         heading: "Origin",
@@ -339,6 +352,7 @@ export const paintings: Painting[] = [
     slug: "teza-brez-prosnje",
     title: "Teža, brez prošnje",
     categorySlug: "moc",
+    epigraph: "Nosi se, ne da bi vprašalo za dovoljenje.",
     storyBeats: [
       {
         heading: "Origin",
@@ -364,6 +378,7 @@ export const paintings: Painting[] = [
     slug: "stojim-se",
     title: "Stojim še",
     categorySlug: "moc",
+    epigraph: "Še vedno tu. To je cela zgodba.",
     storyBeats: [
       {
         heading: "Origin",
@@ -391,6 +406,7 @@ export const paintings: Painting[] = [
     slug: "dez-s-hvaleznostjo",
     title: "Dež, s hvaležnostjo",
     categorySlug: "melanholija",
+    epigraph: "Hvaležnost, oblečena v sivo.",
     storyBeats: [
       {
         heading: "Origin",
@@ -416,6 +432,7 @@ export const paintings: Painting[] = [
     slug: "spomin-ki-obledi-lepo",
     title: "Spomin, ki obledi lepo",
     categorySlug: "melanholija",
+    epigraph: "Ne vsaka izguba je hrup.",
     storyBeats: [
       {
         heading: "Origin",
@@ -441,6 +458,7 @@ export const paintings: Painting[] = [
     slug: "modra-ura",
     title: "Modra ura",
     categorySlug: "melanholija",
+    epigraph: "Dan se poslavlja, ne da bi zaloputnil vrata.",
     storyBeats: [
       {
         heading: "Origin",
@@ -468,6 +486,7 @@ export const paintings: Painting[] = [
     slug: "razpoka-svetlobe",
     title: "Razpoka svetlobe",
     categorySlug: "upanje",
+    epigraph: "Dovolj je ena reža, da vera zadiha.",
     storyBeats: [
       {
         heading: "Origin",
@@ -493,6 +512,7 @@ export const paintings: Painting[] = [
     slug: "prva-ura-novega-leta",
     title: "Prva ura novega leta",
     categorySlug: "upanje",
+    epigraph: "Nič še ni napisano. Vse je še mogoče.",
     storyBeats: [
       {
         heading: "Origin",
@@ -518,6 +538,7 @@ export const paintings: Painting[] = [
     slug: "seme-pod-snegom",
     title: "Seme pod snegom",
     categorySlug: "upanje",
+    epigraph: "Pod tišino že nekaj šteje dneve.",
     storyBeats: [
       {
         heading: "Origin",

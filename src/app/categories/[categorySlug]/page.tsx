@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Container from "@/components/shared/Container";
 import PlaceholderArt from "@/components/shared/PlaceholderArt";
+import BackLink from "@/components/shared/BackLink";
 import { getAllCategories, getCategory, getPaintingsByCategory } from "@/lib/content";
 
 export function generateStaticParams() {
@@ -28,6 +29,9 @@ export default async function CategoryPage({
         }}
       >
         <Container>
+          <div className="mb-8 text-left">
+            <BackLink />
+          </div>
           <span
             className="inline-block h-2 w-2 rounded-full mb-4"
             style={{ backgroundColor: category.accentColor }}
