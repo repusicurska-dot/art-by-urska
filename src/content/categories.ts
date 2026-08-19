@@ -1,0 +1,60 @@
+import { Category } from "./types";
+
+export const categories: Category[] = [
+  {
+    slug: "dobra-volja",
+    name: "Dobra volja",
+    nameEn: "Good Mood",
+    moodDescription: "Morning light, open windows, the ease of a held breath released.",
+    accentColor: "#C9A24B",
+    order: 1,
+  },
+  {
+    slug: "nervoza",
+    name: "Nervoza",
+    nameEn: "Nervousness",
+    moodDescription: "A held breath. A room too quiet. The moment before the moment.",
+    accentColor: "#4A2E3A",
+    order: 2,
+  },
+  {
+    slug: "mir",
+    name: "Mir",
+    nameEn: "Stillness",
+    moodDescription: "Water without wind. A place where nothing needs to happen.",
+    accentColor: "#8A9A82",
+    order: 3,
+  },
+  {
+    slug: "hrepenenje",
+    name: "Hrepenenje",
+    nameEn: "Longing",
+    moodDescription: "A door left open on purpose. Something on its way, not yet arrived.",
+    accentColor: "#B5654A",
+    order: 4,
+  },
+  {
+    slug: "moc",
+    name: "Moč",
+    nameEn: "Strength",
+    moodDescription: "Roots before branches. Weight carried without asking for help.",
+    accentColor: "#8F6C2C",
+    order: 5,
+  },
+  {
+    slug: "melanholija",
+    name: "Melanholija",
+    nameEn: "Melancholy",
+    moodDescription: "Rain remembered fondly. A beauty that aches a little, on purpose.",
+    accentColor: "#3D3A4A",
+    order: 6,
+  },
+  {
+    slug: "upanje",
+    name: "Upanje",
+    nameEn: "Hope",
+    moodDescription: "A crack of light under a closed door. The first hour of a new year.",
+    accentColor: "#C97B4B",
+    order: 7,
+  },
+];
