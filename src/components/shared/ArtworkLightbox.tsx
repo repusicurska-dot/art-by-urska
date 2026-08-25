@@ -109,7 +109,7 @@ export default function ArtworkLightbox({
 
       <div
         key={artwork.slug}
-        className="w-full max-w-7xl my-auto grid md:grid-cols-[1fr_1.4fr_1fr] gap-6 md:gap-8 items-center md:items-stretch py-16 md:py-10"
+        className="w-full max-w-7xl my-auto grid md:grid-cols-[1fr_1.4fr_1fr] gap-6 md:gap-8 items-center md:items-stretch pt-16 pb-24 md:py-10"
       >
         <div className="order-2 md:order-1 flex md:flex-col md:justify-start">
           {openingText && (
@@ -177,13 +177,20 @@ export default function ArtworkLightbox({
             </span>
             <Link
               href={`/artworks/${artwork.slug}`}
-              className="inline-block mt-6 text-xs tracking-widest uppercase text-bone/80 hover:text-bone transition-colors border-b border-bone/40 pb-1"
+              className="hidden md:inline-block mt-6 text-xs tracking-widest uppercase text-bone/80 hover:text-bone transition-colors border-b border-bone/40 pb-1"
             >
               Discover the full story →
             </Link>
           </motion.div>
         </div>
       </div>
+
+      <Link
+        href={`/artworks/${artwork.slug}`}
+        className="md:hidden fixed inset-x-0 bottom-0 z-30 border-t border-bone/10 bg-gradient-to-t from-ink via-ink/95 to-transparent py-6 text-center text-xs tracking-widest uppercase text-bone/90 transition-colors hover:text-bone"
+      >
+        Discover the full story →
+      </Link>
     </motion.div>
   );
 }
