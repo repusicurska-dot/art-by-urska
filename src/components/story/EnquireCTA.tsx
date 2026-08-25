@@ -1,22 +1,38 @@
-import Link from "next/link";
-import { Painting } from "@/content/types";
+"use client";
 
-export default function EnquireCTA({ painting }: { painting: Painting }) {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Artwork } from "@/content/types";
+import { useCart } from "@/lib/cart/CartContext";
+
+export default function EnquireCTA({ artwork }: { artwork: Artwork }) {
+  const cart = useCart();
+  const router = useRouter();
+  const inCart = cart.has(artwork.slug);
+  const purchasable = artwork.availability === "available" || artwork.availability === "reserved";
+
   return (
     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
       <Link
-        href={`/contact?piece=${painting.slug}`}
-        className="text-sm tracking-widest uppercase bg-charcoal text-ivory hover:bg-gold-600 transition-colors rounded-full px-8 py-3"
+        href={`/contact?piece=${artwork.slug}`}
+        className="btn-primary"
       >
-        Povpraševanje o delu
+        Inquire about this piece
       </Link>
       <button
         type="button"
-        disabled
-        title="Plačila prihajajo kmalu"
-        className="text-sm tracking-widest uppercase text-charcoal/40 border border-charcoal/20 rounded-full px-8 py-3 cursor-not-allowed"
+        disabled={!purchasable}
+        title={purchasable ? undefined : "Not currently available to purchase online"}
+        onClick={() => {
+          if (inCart) {
+            router.push("/cart");
+          } else {
+            cart.add(artwork.slug);
+          }
+        }}
+        className="btn-secondary border-bone/30 text-bone hover:border-bone hover:text-bone disabled:cursor-not-allowed"
       >
-        Kupi zdaj — kmalu na voljo
+        {inCart ? "View cart" : "Add to cart"}
       </button>
     </div>
   );

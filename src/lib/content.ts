@@ -1,23 +1,19 @@
-import { categories } from "@/content/categories";
-import { paintings } from "@/content/paintings";
-import { Category, Painting } from "@/content/types";
+import { artworks } from "@/content/artworks";
+import { quotes } from "@/content/quotes";
+import { Artwork, QuotePrint } from "@/content/types";
 
-export function getAllCategories(): Category[] {
-  return [...categories].sort((a, b) => a.order - b.order);
+export function getAllArtworks(): Artwork[] {
+  return [...artworks].sort((a, b) => a.order - b.order);
 }
 
-export function getCategory(slug: string): Category | undefined {
-  return categories.find((c) => c.slug === slug);
+export function getArtworkBySlug(slug: string): Artwork | undefined {
+  return artworks.find((a) => a.slug === slug);
 }
 
-export function getPaintingsByCategory(categorySlug: string): Painting[] {
-  return paintings.filter((p) => p.categorySlug === categorySlug);
+export function getAllQuotes(): QuotePrint[] {
+  return [...quotes].sort((a, b) => a.order - b.order);
 }
 
-export function getPaintingBySlug(slug: string): Painting | undefined {
-  return paintings.find((p) => p.slug === slug);
-}
-
-export function getAllPaintings(): Painting[] {
-  return paintings;
+export function getQuoteBySlug(slug: string): QuotePrint | undefined {
+  return quotes.find((q) => q.slug === slug);
 }

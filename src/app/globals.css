@@ -1,24 +1,56 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ivory: #f7f3ec;
-  --color-charcoal: #2a2622;
-  --color-midnight: #1b1b24;
-  --color-gold-400: #c9a24b;
-  --color-gold-600: #8f6c2c;
-  --color-terracotta: #b5654a;
-  --color-deepplum: #4a2e3a;
-  --color-sage: #8a9a82;
+  /* "gold" tokens are now a monochrome silver/graphite accent, not literal gold —
+     kept the names to avoid renaming ~30 component files' class strings. */
+  --color-ivory: #f5f5f3;
+  --color-charcoal: #232323;
+  --color-midnight: #121212;
+  --color-gold-400: #c9c9c5;
+  --color-gold-600: #6b6b67;
+  --color-terracotta: #8b5a52;
+  /* Dark-fantasy homepage/chrome palette. */
+  --color-ink: #030303;
+  --color-bone: #f2f0eb;
+  --color-smoke: #8f8d88;
   --font-heading: var(--font-cormorant), serif;
   --font-body: var(--font-inter), sans-serif;
+  --font-gothic: var(--font-unifraktur), serif;
 }
 
 body {
-  background: var(--color-ivory);
-  color: var(--color-charcoal);
+  background: var(--color-ink);
+  color: var(--color-bone);
   font-family: var(--font-body);
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-600);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  @apply text-sm tracking-widest uppercase bg-charcoal text-ivory rounded-full px-8 py-3
+    transition-all duration-300 ease-out hover:bg-gold-600 hover:shadow-[0_12px_30px_-8px_rgba(0,0,0,0.35)]
+    hover:-translate-y-0.5 active:translate-y-0 active:shadow-none
+    disabled:opacity-50 disabled:pointer-events-none disabled:hover:translate-y-0 disabled:hover:shadow-none;
+}
+
+.btn-secondary {
+  @apply text-sm tracking-widest uppercase border rounded-full px-8 py-3
+    transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0
+    disabled:opacity-40 disabled:pointer-events-none disabled:hover:translate-y-0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

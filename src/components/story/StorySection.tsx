@@ -9,17 +9,17 @@ export default function StorySection({
   beat,
   index,
   accentColor,
-  paintingTitle,
+  artworkTitle,
 }: {
   beat: StoryBeat;
   index: number;
   accentColor: string;
-  paintingTitle: string;
+  artworkTitle: string;
 }) {
   const imageFirst = index % 2 === 0;
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-16 md:py-24 bg-ink">
       <Container>
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <motion.div
@@ -30,7 +30,7 @@ export default function StorySection({
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <PlaceholderArt
-              label={paintingTitle}
+              label={artworkTitle}
               accentColor={accentColor}
               className="aspect-[4/5] rounded-sm"
             />
@@ -50,7 +50,7 @@ export default function StorySection({
                 {beat.heading}
               </span>
             )}
-            <p className="font-heading text-2xl md:text-3xl leading-snug text-charcoal">
+            <p className="font-heading text-2xl md:text-3xl leading-snug text-bone whitespace-pre-line">
               {beat.text}
             </p>
           </motion.div>

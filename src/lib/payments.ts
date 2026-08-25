@@ -1,7 +1,8 @@
 // TODO(phase-2): implement real Stripe Checkout + crypto payments here (e.g. Coinbase
-// Commerce). See README "Phase 2 — Payments" for the intended flow. The disabled
-// "Buy Now" button in EnquireCTA is the UI anchor point this will wire up to,
-// most likely via a POST to /api/checkout that calls createCheckoutSession().
+// Commerce). See README "Phase 2 — Payments". The full cart → checkout flow is already
+// built and wired: POST /api/checkout (src/app/api/checkout/route.ts) validates the
+// order server-side and calls this function — it just needs a real implementation and
+// live Stripe keys.
 
 export async function createCheckoutSession(
   paintingSlug: string
