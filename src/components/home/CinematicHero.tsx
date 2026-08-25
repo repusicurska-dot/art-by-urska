@@ -25,7 +25,7 @@ function Panel({
         fill
         sizes={variant === "center" ? "70vw" : "16vw"}
         priority={variant === "center"}
-        className={`scale-90 ${variant === "center" ? "object-contain" : "object-cover"}`}
+        className={`md:scale-90 ${variant === "center" ? "object-contain" : "object-cover"}`}
       />
       {variant === "center" ? (
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent pointer-events-none" />
@@ -39,7 +39,10 @@ function Panel({
 export default function CinematicHero({ artworks }: { artworks: Artwork[] }) {
   const withImages = artworks.filter((a) => a.heroImage);
   const count = withImages.length;
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => {
+    const featured = withImages.findIndex((a) => a.slug === "artwork-02");
+    return featured >= 0 ? featured : 0;
+  });
   const [hovering, setHovering] = useState(false);
   const [hidden, setHidden] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -68,13 +71,13 @@ export default function CinematicHero({ artworks }: { artworks: Artwork[] }) {
 
   return (
     <section
-      className="relative h-[92vh] min-h-[600px] bg-ink overflow-hidden"
+      className="relative h-[75vh] md:h-[92vh] min-h-[520px] md:min-h-[600px] bg-ink overflow-hidden"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       aria-roledescription="carousel"
       aria-label="Featured artworks"
     >
-      <div className="absolute inset-0 flex items-stretch px-[1cm]">
+      <div className="absolute inset-0 flex items-stretch md:px-[1cm]">
         <div className="hidden md:block w-[15%] opacity-40">
           <Panel artwork={prevArtwork} variant="side" />
         </div>
@@ -101,10 +104,19 @@ export default function CinematicHero({ artworks }: { artworks: Artwork[] }) {
         </div>
       </div>
 
+      <div
+        className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[60%] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(closest-side, rgba(3,3,3,0.65) 0%, rgba(3,3,3,0.35) 55%, rgba(3,3,3,0) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
       <div className="relative h-full flex flex-col items-center justify-center px-6 text-center pointer-events-none">
         <motion.span
           key={`label-${active.slug}`}
-          className="text-xs tracking-[0.3em] uppercase text-smoke"
+          className="text-xs tracking-[0.3em] uppercase text-smoke drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -112,7 +124,7 @@ export default function CinematicHero({ artworks }: { artworks: Artwork[] }) {
           Original paintings
         </motion.span>
         <motion.h1
-          className="mt-6 font-gothic text-5xl md:text-7xl text-bone"
+          className="mt-6 font-gothic text-5xl md:text-7xl text-bone drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
@@ -120,7 +132,7 @@ export default function CinematicHero({ artworks }: { artworks: Artwork[] }) {
           Art by Urška
         </motion.h1>
         <motion.p
-          className="mt-5 max-w-md font-heading italic text-lg text-bone/80"
+          className="mt-5 max-w-md font-heading italic text-lg text-bone/80 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}

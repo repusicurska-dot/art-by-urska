@@ -70,9 +70,9 @@ export default function ArtworkLightbox({
       aria-modal="true"
       aria-label={`${artwork.title} — full view`}
       className="fixed inset-0 z-[200] bg-ink/80 flex items-center justify-center p-4 md:p-10 overflow-y-auto"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ opacity: 1, backdropFilter: reduceMotion ? "blur(0px)" : "blur(14px)" }}
+      transition={{ duration: reduceMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       {prevSrc && <link rel="prefetch" as="image" href={prevSrc} />}
       {nextSrc && <link rel="prefetch" as="image" href={nextSrc} />}
@@ -122,29 +122,42 @@ export default function ArtworkLightbox({
           )}
         </div>
 
-        <motion.div
-          className="order-1 md:order-2 relative w-full max-w-lg mx-auto md:max-w-none aspect-[4/5] md:h-[80vh] shadow-[0_40px_120px_-20px_rgba(0,0,0,0.7)] bg-ink"
-          initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.92, y: reduceMotion ? 0 : 18 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={
-            reduceMotion
-              ? { duration: 0 }
-              : { type: "spring", stiffness: 260, damping: 28, delay: 0.08 }
-          }
-        >
-          {artwork.heroImage ? (
-            <Image
-              src={artwork.heroImage}
-              alt={artwork.heroImageAlt ?? artwork.title}
-              fill
-              sizes="(min-width: 768px) 45vw, 90vw"
-              className="object-contain rounded-sm"
-              priority
-            />
-          ) : (
-            <PlaceholderArt label={artwork.title} accentColor={artwork.accentColor} className="h-full w-full rounded-sm" />
-          )}
-        </motion.div>
+        <div className="order-1 md:order-2 flex flex-col items-center">
+          <motion.h2
+            {...textMotion(0.05)}
+            className="mb-4 font-heading text-xl md:text-2xl text-bone text-center"
+          >
+            {artwork.title}
+          </motion.h2>
+          <motion.div
+            className="relative w-full max-w-lg mx-auto md:max-w-none aspect-[4/5] md:h-[80vh] shadow-[0_40px_120px_-20px_rgba(0,0,0,0.7)] bg-ink"
+            initial={{
+              opacity: 0,
+              scale: reduceMotion ? 1 : 0.85,
+              y: reduceMotion ? 0 : 28,
+              filter: reduceMotion ? "blur(0px)" : "blur(10px)",
+            }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+            transition={
+              reduceMotion
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 220, damping: 24, delay: 0.1 }
+            }
+          >
+            {artwork.heroImage ? (
+              <Image
+                src={artwork.heroImage}
+                alt={artwork.heroImageAlt ?? artwork.title}
+                fill
+                sizes="(min-width: 768px) 45vw, 90vw"
+                className="object-contain rounded-sm"
+                priority
+              />
+            ) : (
+              <PlaceholderArt label={artwork.title} accentColor={artwork.accentColor} className="h-full w-full rounded-sm" />
+            )}
+          </motion.div>
+        </div>
 
         <div className="order-3 flex md:flex-col md:justify-end text-center md:text-right">
           {closingText && (
@@ -162,7 +175,6 @@ export default function ArtworkLightbox({
             >
               {artwork.editionType === "original" ? "Original artwork" : "Edition"}
             </span>
-            <h2 className="mt-4 font-heading text-2xl text-bone">{artwork.title}</h2>
             <Link
               href={`/artworks/${artwork.slug}`}
               className="inline-block mt-6 text-xs tracking-widest uppercase text-bone/80 hover:text-bone transition-colors border-b border-bone/40 pb-1"
