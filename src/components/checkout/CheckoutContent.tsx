@@ -175,10 +175,10 @@ export default function CheckoutContent() {
             </div>
             <div className="flex justify-between text-sm text-bone/60">
               <span>Shipping</span>
-              <span>Free — covered by the artist</span>
+              <span>To be confirmed before payment</span>
             </div>
             <div className="flex justify-between font-heading text-xl text-bone pt-3">
-              <span>Total</span>
+              <span>Estimated total (excl. shipping)</span>
               <span>{subtotal.toLocaleString("en-IE")} €</span>
             </div>
             {anyUnconfirmed && <ProvisionalPriceNote />}
