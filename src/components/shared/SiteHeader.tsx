@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { Menu, ShoppingBag, User, X } from "lucide-react";
 import Container from "./Container";
+import Logo from "./Logo";
 import { useCart } from "@/lib/cart/CartContext";
 
 const NAV_LINKS = [
@@ -77,8 +78,8 @@ export default function SiteHeader() {
       </a>
 
       <Container className="grid grid-cols-[1fr_auto_1fr] items-center py-5">
-        <Link href="/" className="font-gothic text-2xl text-bone justify-self-start" aria-label="Art by Urška — Home">
-          AU
+        <Link href="/" className="text-bone justify-self-start" aria-label="Art by Urška — Home">
+          <Logo wordmark iconClassName="h-8 w-8" wordmarkClassName="hidden sm:inline" />
         </Link>
 
         <nav aria-label="Primary" className="hidden md:flex items-center gap-10 text-sm tracking-wide text-bone/85">
@@ -147,7 +148,7 @@ export default function SiteHeader() {
             transition={{ duration: 0.3 }}
           >
             <Container className="flex items-center justify-between py-5">
-              <span className="font-gothic text-2xl text-bone">AU</span>
+              <Logo className="text-bone" iconClassName="h-8 w-8" />
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Container from "./Container";
+import Logo from "./Logo";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookies/CookieBanner";
 
 const legalLinks = [
@@ -19,7 +20,7 @@ export default function Footer() {
       <Container>
         <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>
-            <p className="font-gothic text-2xl text-bone">AU</p>
+            <Logo ring wordmark className="text-bone" iconClassName="h-11 w-11" />
             <p className="mt-3 text-sm text-smoke max-w-xs">
               Original paintings, made in Slovenia, shared with the world.
             </p>
