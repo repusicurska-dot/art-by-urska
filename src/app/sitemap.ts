@@ -10,6 +10,7 @@ const STATIC_ROUTES = [
   "/contact",
   "/poetry",
   "/spirituality",
+  "/climb",
   "/legal/terms",
   "/legal/privacy",
   "/legal/cookies",

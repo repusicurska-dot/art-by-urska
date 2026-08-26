@@ -19,6 +19,7 @@ const ROUTE_EPIGRAPHS: Record<string, string> = {
   checkout: "The last quiet step before it's yours.",
   poetry: "Some things are easier to write than to paint.",
   spirituality: "Before the brush, there is the soul.",
+  climb: "Before the canvas, there was the rock.",
 };
 
 export default function PageTransition({ children }: { children: ReactNode }) {
