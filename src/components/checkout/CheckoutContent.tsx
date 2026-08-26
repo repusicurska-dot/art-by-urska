@@ -21,6 +21,7 @@ export default function CheckoutContent() {
     .map((slug) => getArtworkBySlug(slug))
     .filter((a): a is NonNullable<typeof a> => Boolean(a));
   const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+  const anyUnconfirmed = items.some((item) => !item.priceConfirmed);
 
   const [zone, setZone] = useState<ShippingZone>("SI");
   const [name, setName] = useState("");
@@ -174,13 +175,13 @@ export default function CheckoutContent() {
             </div>
             <div className="flex justify-between text-sm text-bone/60">
               <span>Shipping</span>
-              <span>To be confirmed before payment</span>
+              <span>Free — covered by the artist</span>
             </div>
             <div className="flex justify-between font-heading text-xl text-bone pt-3">
-              <span>Estimated total (excl. shipping)</span>
+              <span>Total</span>
               <span>{subtotal.toLocaleString("en-IE")} €</span>
             </div>
-            <ProvisionalPriceNote />
+            {anyUnconfirmed && <ProvisionalPriceNote />}
           </div>
 
           <label className="flex items-start gap-3 text-sm text-bone/70">
