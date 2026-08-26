@@ -155,8 +155,10 @@ review" on the page itself. Before launch:
 
 ## Payments
 
-- [ ] Choose and set up a payment provider (Stripe Checkout was the original plan — see
-      `src/lib/payments.ts`). Implement `createCheckoutSession()` and add live API keys.
+- [x] Stripe Checkout is wired up in code (`src/lib/payments.ts` + `/checkout/success`) — just
+      needs `STRIPE_SECRET_KEY` and `NEXT_PUBLIC_SITE_URL` set as real environment variables
+      (Vercel dashboard for production, `.env.local` for local dev). Until that key is set, the
+      site automatically falls back to the "inquire by email" flow — nothing breaks either way.
 - [ ] Decide on a crypto payment option, if still wanted.
 
 ## Contact / email

@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const session = await createCheckoutSession(items.map((i) => i.slug).join(","));
+    const session = await createCheckoutSession(items, { name: contactName, email: contactEmail });
     return NextResponse.json({ url: session?.url });
   } catch {
     // Payments are intentionally not wired up yet (see src/lib/payments.ts).
