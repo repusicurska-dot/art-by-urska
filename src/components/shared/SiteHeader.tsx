@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
-import { Menu, ShoppingBag, User, X } from "lucide-react";
+import { Menu, ShoppingBag, X } from "lucide-react";
 import Container from "./Container";
 import Logo from "./Logo";
 import { useCart } from "@/lib/cart/CartContext";
@@ -103,14 +103,6 @@ export default function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-5 justify-self-end text-bone/85">
-          <button
-            type="button"
-            className="hidden sm:inline-flex hover:text-bone transition-colors"
-            aria-label="Account (coming soon)"
-            title="Account — coming soon"
-          >
-            <User size={19} strokeWidth={1.5} />
-          </button>
           <Link
             href="/cart"
             className="relative hover:text-bone transition-colors"
