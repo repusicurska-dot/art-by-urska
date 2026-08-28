@@ -1,5 +1,37 @@
 # Owner Action Required
 
+## Cinematic scroll-journey homepage (done — supersedes the "Dark-fantasy homepage rebuild" below)
+
+Rebuilt the homepage again as one continuous scroll-driven journey, per your detailed brief:
+silence → macro reveal of "The Prophecy" → entering the painting → a horizontal gallery of all 5
+originals → a growing-light portal into Original Art / Poetry / Spirituality → a typographic
+poetry moment (built from "Somehow My Heart Still Remembers You"'s real quote) → a calm human
+beat with your real photo and words from `/about` → a final "which story will find you?" choice
+→ the existing compact footer. New chapter navigator on the right edge (desktop) / thin progress
+line (mobile). All built with Framer Motion's scroll hooks + CSS (no GSAP/Three.js added — your
+brief said only add them if there's a clear win, and Motion already covers pinned/scroll-linked
+effects cleanly here). `prefers-reduced-motion` gets fully static, non-pinned versions of every
+section. The old `CinematicHero`/`FeaturedCarousel`/`CategoryBanners` components are deleted —
+nothing else imported them.
+
+- New files: `src/components/home/journey/*` (`HomeJourney`, `SilenceIntro`, `ArtworkReveal`,
+  `ArtworkStory`, `HorizontalGallery`, `WorldsPortal`, `PoetryExperience`, `ArtistMoment`,
+  `FinalInvitation`, `ScrollProgress`, `GrainOverlay`, `CustomCursor`) + `src/lib/usePinnedScroll.ts`
+  + `src/lib/scrollJourney.ts`.
+- Header (`SiteHeader.tsx`): now transparent at the very top, fading to the existing dark/blurred
+  bar once scrolled — same on every page, not homepage-only. Removed the "Home" nav link since
+  the logo already links home (your spec explicitly allowed this).
+- Reused your existing photos throughout — no new image assets were required. The one deliberate
+  compromise: your painting photos are ~1,400–1,600px wide informal phone photos, so the "macro
+  detail → full reveal" zoom in the opening chapters uses a moderate zoom (not an extreme one) to
+  avoid visible softness at full-bleed. If you'd like a punchier macro-zoom effect later, a
+  higher-resolution photo of "The Prophecy" (or whichever piece you feature) — ideally
+  2500px+ wide — would let me push that zoom further.
+- The film-grain texture is pure CSS/SVG (no asset needed). If you'd ever prefer a real scanned
+  canvas-grain photo instead, send one and I can swap it in.
+- Rollback: the pre-redesign homepage is tagged in git as `pre-homepage-redesign` if you want to
+  compare or revert — just say the word.
+
 ## Artist's notes, Meaning & For the collector — AI-drafted, needs your review (important)
 
 You asked me to imagine how you felt painting each piece and write it in a spiritual tone, so

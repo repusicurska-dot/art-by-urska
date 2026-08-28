@@ -10,7 +10,6 @@ import Logo from "./Logo";
 import { useCart } from "@/lib/cart/CartContext";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
   { href: "/collection", label: "Gallery" },
   { href: "/poetry", label: "Poetry" },
   { href: "/spirituality", label: "Spirituality" },
@@ -23,6 +22,7 @@ export default function SiteHeader() {
   const cart = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const lastY = useRef(0);
   const reduceMotion = useReducedMotion();
 
@@ -39,6 +39,7 @@ export default function SiteHeader() {
       } else if (!goingDown) {
         setHidden(false);
       }
+      setScrolled(y > 40);
       lastY.current = y;
       ticking = false;
     }
@@ -48,6 +49,7 @@ export default function SiteHeader() {
         ticking = true;
       }
     }
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [menuOpen]);
@@ -68,7 +70,11 @@ export default function SiteHeader() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 bg-ink border-b border-white/[0.14]"
+      className={`sticky top-0 z-50 border-b transition-colors duration-500 ${
+        scrolled
+          ? "bg-ink/90 backdrop-blur-md border-white/[0.14]"
+          : "bg-transparent border-transparent"
+      }`}
       animate={{ y: hidden ? "-100%" : "0%" }}
       transition={{ duration: reduceMotion ? 0 : 0.35, ease: "easeInOut" }}
     >
@@ -127,7 +133,11 @@ export default function SiteHeader() {
         </div>
       </Container>
 
-      <div className="border-t border-white/[0.14] py-1.5 text-center text-[11px] tracking-widest uppercase text-smoke">
+      <div
+        className={`border-t py-1.5 text-center text-[11px] tracking-widest uppercase text-smoke transition-colors duration-500 ${
+          scrolled ? "border-white/[0.14]" : "border-transparent"
+        }`}
+      >
         Original paintings, made in Slovenia — shipped worldwide
       </div>
 
