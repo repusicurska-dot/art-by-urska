@@ -243,6 +243,13 @@ export const artworks: Artwork[] = [
     heroImage: "/images/eternal-love.jpg",
     heroImageAlt:
       "Photograph of an original painting by Urška depicting a knight kneeling before a bride in a flowing pale gown, offering her a blue rose, under a starry night sky rendered in blue tones.",
+    detailImages: [
+      {
+        src: "/images/eternal-love-holding.jpg",
+        alt: "Urška holding the finished 'Eternal Love' canvas outdoors, alongside 'Blossoming Love'",
+        label: "In the artist's hands",
+      },
+    ],
     accentColor: "#5C5C5C",
     year: 2023,
     medium: "Acrylic on canvas",
