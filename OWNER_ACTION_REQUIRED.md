@@ -1,5 +1,26 @@
 # Owner Action Required
 
+## Horoscope weekly email sign-up — needs a real email provider to actually send anything
+
+The Spirituality page's horoscope now has an email sign-up box ("Get your horoscope every
+week"). **It does not send emails yet.** It validates and accepts the sign-up (`POST
+/api/horoscope-subscribe`), and says so plainly in its own small disclaimer text so visitors
+aren't misled — but nothing is stored durably and nothing goes out weekly. To make this real,
+three things need deciding:
+
+- [ ] An email provider (Resend and Postmark are the usual simple choices — same decision as the
+      still-pending `/api/contact` delivery gap).
+- [ ] Somewhere durable to store `{email, sign}` pairs — this app's serverless functions have no
+      persistent filesystem, so this needs a small database or the email provider's own
+      "audience/list" feature.
+- [ ] A weekly scheduled job (e.g. Vercel Cron) that reads the subscriber list and sends each
+      person that week's content for their sign — the content itself (`profile` +
+      `weeklyFocus[weekIndex]`) already exists in `src/components/spirituality/zodiacData.ts` and
+      is ready to reuse, only the sending mechanism is missing.
+
+The weekly scratch-card game next to it needs nothing from you — it's fully self-contained
+(canvas + localStorage), resets automatically every Monday, no server or account required.
+
 ## Cinematic scroll-journey homepage (done — supersedes the "Dark-fantasy homepage rebuild" below)
 
 Rebuilt the homepage again as one continuous scroll-driven journey, per your detailed brief:
