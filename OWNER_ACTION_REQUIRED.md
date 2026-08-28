@@ -139,12 +139,18 @@ invented — these are the gaps left intentionally, on purpose, for her to fill 
 - [ ] Decide, per artwork, whether it's a standard original, made-to-order, or genuinely
       personalized/custom piece — this determines which withdrawal-rights section of the
       Returns policy applies to it.
-- [x] **Poetry and Spirituality** (2026-08-28) — per your request, both were simplified to plain
-      "coming soon" pages (matching `/climb`'s existing pattern) instead of carrying built-out
-      placeholder content. The old poem-print catalog (`src/content/quotes.ts`, individual
-      `/poetry/[slug]` pages) and the Spirituality editorial page were removed entirely — the site
-      now stays focused on the paintings and your own story, with Poetry/Climb/Spirituality as
-      simple links to pages you'll build out separately later.
+- [x] **Poetry** stays a "coming soon" page (2026-08-28), matching `/climb`'s pattern — no built
+      content, just a link back to the paintings. The old poem-print catalog
+      (`src/content/quotes.ts`, individual `/poetry/[slug]` pages) was removed entirely.
+- [ ] **Spirituality got real content (2026-08-28), but it's AI-drafted — please read it.** You
+      said you didn't know what to put there, so I wrote a starting voice from what I genuinely
+      know about you (climber → painter) and the themes already in your real paintings (soul
+      recognition across lifetimes, courage as a choice, darkness giving way to light). It is
+      **not your verbatim words** — same category as the artist's notes in `artworks.ts`. Read
+      through `src/components/spirituality/SpiritualityContent.tsx` (Slovenian is the default,
+      English is a toggle on the page) and rewrite anything that doesn't sound like you, or tell
+      me what to change. Every link to this page (nav, footer, homepage, artwork pages) now opens
+      it in a new tab, per your request, since you consider it a separate space.
 
 ## Business & legal facts (`src/content/business.ts`)
 
