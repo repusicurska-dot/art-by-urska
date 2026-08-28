@@ -7,7 +7,7 @@ import { motion, useMotionValueEvent, useReducedMotion, useTransform } from "fra
 import { Artwork } from "@/content/types";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
 
-const SPECS_THRESHOLD = 0.78;
+const SPECS_THRESHOLD = 0.7;
 
 /**
  * Scroll-controlled reveal: plain dark space with a soft accent glow, while the painting
@@ -24,12 +24,12 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
     else if (v < SPECS_THRESHOLD - 0.05 && showSpecs) setShowSpecs(false);
   });
 
-  const cardOpacity = useTransform(progress, [0.18, 0.42], [0, 1]);
-  const cardScale = useTransform(progress, [0.18, 0.5, 0.85], [0.86, 1, 0.66]);
-  const radius = useTransform(progress, [0.6, 0.85], [4, 14]);
-  const glowOpacity = useTransform(progress, [0.55, 0.85], [0, 0.5]);
-  const specsOpacity = useTransform(progress, [0.76, 0.92], [0, 1]);
-  const specsY = useTransform(progress, [0.76, 0.92], [16, 0]);
+  const cardOpacity = useTransform(progress, [0.06, 0.26], [0, 1]);
+  const cardScale = useTransform(progress, [0.06, 0.32, 0.75], [0.86, 1, 0.66]);
+  const radius = useTransform(progress, [0.5, 0.75], [4, 14]);
+  const glowOpacity = useTransform(progress, [0, 0.3, 0.75], [0.15, 0.5, 0.5]);
+  const specsOpacity = useTransform(progress, [0.68, 0.85], [0, 1]);
+  const specsY = useTransform(progress, [0.68, 0.85], [16, 0]);
 
   const meta = [artwork.year, artwork.dimensions, artwork.medium].filter(Boolean).join("  ·  ");
 
@@ -49,7 +49,7 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
   }
 
   return (
-    <section ref={ref} className="relative h-[320vh] bg-ink">
+    <section ref={ref} className="relative h-[150vh] md:h-[230vh] bg-ink">
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         <motion.div
           aria-hidden="true"

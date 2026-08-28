@@ -30,11 +30,11 @@ export default function WorldsPortal() {
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
 
-  const orbScale = useTransform(progress, [0, 0.6], [0.15, 3.6]);
-  const orbOpacity = useTransform(progress, [0, 0.15, 0.6], [0, 0.85, 1]);
-  const washOpacity = useTransform(progress, [0.4, 0.75], [0, 1]);
-  const linksOpacity = useTransform(progress, [0.65, 0.92], [0, 1]);
-  const linksY = useTransform(progress, [0.65, 0.92], [18, 0]);
+  const orbScale = useTransform(progress, [0, 0.42], [0.15, 3.6]);
+  const orbOpacity = useTransform(progress, [0, 0.1, 0.42], [0, 0.85, 1]);
+  const washOpacity = useTransform(progress, [0.26, 0.55], [0, 1]);
+  const linksOpacity = useTransform(progress, [0.46, 0.7], [0, 1]);
+  const linksY = useTransform(progress, [0.46, 0.7], [18, 0]);
 
   if (reduceMotion) {
     return (
@@ -49,7 +49,7 @@ export default function WorldsPortal() {
   }
 
   return (
-    <section ref={ref} className="relative h-[220vh] bg-ink">
+    <section ref={ref} className="relative h-[140vh] md:h-[175vh] bg-ink">
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         <motion.div
           aria-hidden="true"

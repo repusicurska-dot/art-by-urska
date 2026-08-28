@@ -25,6 +25,13 @@
   --font-gothic: var(--font-unifraktur), serif;
 }
 
+html {
+  /* The homepage's scroll journey is many viewport-heights tall with lazily-loaded images —
+     without this, some mobile browsers "scroll anchor" against in-flight layout shifts and can
+     land on reload somewhere far down the page instead of the top. */
+  overflow-anchor: none;
+}
+
 body {
   background: var(--color-ink);
   color: var(--color-bone);

@@ -27,6 +27,14 @@ export default function SiteHeader() {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    // Some mobile browsers restore the previous scroll position on reload, which on this
+    // very tall homepage can land far down the page instead of the top. Take manual control.
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  useEffect(() => {
     lastY.current = window.scrollY;
     let ticking = false;
     function update() {

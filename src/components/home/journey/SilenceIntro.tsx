@@ -10,11 +10,11 @@ export default function SilenceIntro() {
   const { ref, progress } = usePinnedScroll();
 
   // Fully visible at rest (progress 0) — only fades out once the user actually starts scrolling.
-  const textScrollOpacity = useTransform(progress, [0, 0.08, 0.4], [1, 1, 0]);
-  const textSpacing = useTransform(progress, [0, 0.4], [0, 10]);
+  const textScrollOpacity = useTransform(progress, [0, 0.12, 0.55], [1, 1, 0]);
+  const textSpacing = useTransform(progress, [0, 0.55], [0, 10]);
   const textSpacingPx = useTransform(textSpacing, (v) => `${v}px`);
-  const textY = useTransform(progress, [0, 0.4], [0, -18]);
-  const hintOpacity = useTransform(progress, [0, 0.1, 0.28], [1, 1, 0]);
+  const textY = useTransform(progress, [0, 0.55], [0, -18]);
+  const hintOpacity = useTransform(progress, [0, 0.15, 0.4], [1, 1, 0]);
 
   if (reduceMotion) {
     return (
@@ -29,7 +29,7 @@ export default function SilenceIntro() {
   }
 
   return (
-    <section ref={ref} className="relative h-[180vh] bg-ink">
+    <section ref={ref} className="relative h-[115vh] md:h-[135vh] bg-ink">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
           {/* Mount-triggered fade-in, independent of scroll, so the line is never invisible at rest. */}

@@ -160,7 +160,10 @@ export default function HorizontalGallery({ artworks }: { artworks: Artwork[] })
 
 function GalleryMobile({ artworks }: { artworks: Artwork[] }) {
   return (
-    <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div
+      className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      style={{ scrollPaddingLeft: "1.5rem", scrollPaddingRight: "1.5rem" }}
+    >
       {artworks.map((artwork, i) => (
         <Link
           key={artwork.slug}

@@ -13,11 +13,11 @@ export default function PoetryExperience({ artwork }: { artwork: Artwork }) {
   const { ref, progress } = usePinnedScroll();
   const words = useMemo(() => artwork.quote.split(" "), [artwork.quote]);
 
-  const sentenceOpacity = useTransform(progress, [0.62, 0.72], [1, 0]);
-  const imageOpacity = useTransform(progress, [0.55, 0.85], [0, 0.45]);
-  const imageScale = useTransform(progress, [0.55, 1], [1.1, 1]);
-  const ctaOpacity = useTransform(progress, [0.8, 1], [0, 1]);
-  const ctaY = useTransform(progress, [0.8, 1], [14, 0]);
+  const sentenceOpacity = useTransform(progress, [0.5, 0.6], [1, 0]);
+  const imageOpacity = useTransform(progress, [0.4, 0.68], [0, 0.45]);
+  const imageScale = useTransform(progress, [0.4, 0.85], [1.1, 1]);
+  const ctaOpacity = useTransform(progress, [0.64, 0.85], [0, 1]);
+  const ctaY = useTransform(progress, [0.64, 0.85], [14, 0]);
 
   if (reduceMotion) {
     return (
@@ -36,7 +36,7 @@ export default function PoetryExperience({ artwork }: { artwork: Artwork }) {
   }
 
   return (
-    <section ref={ref} className="relative h-[240vh] bg-ink">
+    <section ref={ref} className="relative h-[170vh] md:h-[240vh] bg-ink">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {artwork.heroImage && (
           <motion.div className="absolute inset-0" style={{ opacity: imageOpacity, scale: imageScale }}>
