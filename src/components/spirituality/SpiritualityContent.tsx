@@ -48,7 +48,7 @@ const COPY: Record<Lang, Copy> = {
     sections: [
       {
         heading: "Tišina pred barvo",
-        text: "Preden se dotaknem platna, se za trenutek ustavim. Ne zato, ker bi čakala na navdih, ampak zato, ker vem, da tisto, kar je res moje, ne pride v hrupu. Prihaja v tistem tihem prostoru med enim vdihom in naslednjim — tam, kjer strahu, kaj bo nastalo, ni več.",
+        text: "Preden se dotaknem platna, se za trenutek ustavim. Ne zato, ker bi čakala na navdih, ampak zato, ker vem, da tisto, kar je res moje, ne pride v hrupu. Prihaja v tistem tihem prostoru med enim vdihom in naslednjim — tam, kjer ni več strahu pred tem, kar bo nastalo.",
       },
       {
         heading: "Od skale do platna",

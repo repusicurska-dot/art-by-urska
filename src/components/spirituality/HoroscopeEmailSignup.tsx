@@ -17,7 +17,7 @@ const LABELS: Record<
 > = {
   sl: {
     heading: "Prejemaj svoj horoskop vsak teden",
-    body: "Pusti email in tvoje znamenje, in vsak teden ti pošljemo novo sporočilo zate.",
+    body: "Pusti svoj email in svoje znamenje — vsak teden ti pošljemo novo sporočilo zate.",
     placeholder: "tvoj@email.com",
     button: "Prijavi se",
     sending: "Pošiljam …",

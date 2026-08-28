@@ -18,7 +18,7 @@ const LABELS: Record<
   sl: {
     heading: "Horoskop",
     intro:
-      "Zvezde ne pišejo usode namesto naju — samo ponujajo jezik za tisto, kar že čutiva. Izberi svoje znamenje, ali poglej, katero trenutno vodi nebo.",
+      "Zvezde ne pišejo usode namesto naju — samo ponujajo jezik za tisto, kar že čutiva. Izberi svoje znamenje ali poglej, katero trenutno vodi nebo.",
     today: "Trenutno znamenje",
     element: "Element",
     thisWeek: "Ta teden",
