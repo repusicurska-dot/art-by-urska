@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Container from "@/components/shared/Container";
+import ZodiacIcon from "./ZodiacIcon";
 
 type Lang = "sl" | "en";
 
 interface Sign {
   key: string;
-  symbol: string;
   name: { sl: string; en: string };
   dates: { sl: string; en: string };
   element: { sl: string; en: string };
@@ -23,7 +23,6 @@ interface Sign {
 const SIGNS: Sign[] = [
   {
     key: "aries",
-    symbol: "♈",
     name: { sl: "Oven", en: "Aries" },
     dates: { sl: "21. mar – 19. apr", en: "Mar 21 – Apr 19" },
     element: { sl: "Ogenj", en: "Fire" },
@@ -35,7 +34,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "taurus",
-    symbol: "♉",
     name: { sl: "Bik", en: "Taurus" },
     dates: { sl: "20. apr – 20. maj", en: "Apr 20 – May 20" },
     element: { sl: "Zemlja", en: "Earth" },
@@ -47,7 +45,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "gemini",
-    symbol: "♊",
     name: { sl: "Dvojčka", en: "Gemini" },
     dates: { sl: "21. maj – 20. jun", en: "May 21 – Jun 20" },
     element: { sl: "Zrak", en: "Air" },
@@ -59,7 +56,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "cancer",
-    symbol: "♋",
     name: { sl: "Rak", en: "Cancer" },
     dates: { sl: "21. jun – 22. jul", en: "Jun 21 – Jul 22" },
     element: { sl: "Voda", en: "Water" },
@@ -71,7 +67,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "leo",
-    symbol: "♌",
     name: { sl: "Lev", en: "Leo" },
     dates: { sl: "23. jul – 22. avg", en: "Jul 23 – Aug 22" },
     element: { sl: "Ogenj", en: "Fire" },
@@ -83,7 +78,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "virgo",
-    symbol: "♍",
     name: { sl: "Devica", en: "Virgo" },
     dates: { sl: "23. avg – 22. sep", en: "Aug 23 – Sep 22" },
     element: { sl: "Zemlja", en: "Earth" },
@@ -95,7 +89,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "libra",
-    symbol: "♎",
     name: { sl: "Tehtnica", en: "Libra" },
     dates: { sl: "23. sep – 22. okt", en: "Sep 23 – Oct 22" },
     element: { sl: "Zrak", en: "Air" },
@@ -107,7 +100,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "scorpio",
-    symbol: "♏",
     name: { sl: "Škorpijon", en: "Scorpio" },
     dates: { sl: "23. okt – 21. nov", en: "Oct 23 – Nov 21" },
     element: { sl: "Voda", en: "Water" },
@@ -119,7 +111,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "sagittarius",
-    symbol: "♐",
     name: { sl: "Strelec", en: "Sagittarius" },
     dates: { sl: "22. nov – 21. dec", en: "Nov 22 – Dec 21" },
     element: { sl: "Ogenj", en: "Fire" },
@@ -131,7 +122,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "capricorn",
-    symbol: "♑",
     name: { sl: "Kozorog", en: "Capricorn" },
     dates: { sl: "22. dec – 19. jan", en: "Dec 22 – Jan 19" },
     element: { sl: "Zemlja", en: "Earth" },
@@ -143,7 +133,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "aquarius",
-    symbol: "♒",
     name: { sl: "Vodnar", en: "Aquarius" },
     dates: { sl: "20. jan – 18. feb", en: "Jan 20 – Feb 18" },
     element: { sl: "Zrak", en: "Air" },
@@ -155,7 +144,6 @@ const SIGNS: Sign[] = [
   },
   {
     key: "pisces",
-    symbol: "♓",
     name: { sl: "Ribi", en: "Pisces" },
     dates: { sl: "19. feb – 20. mar", en: "Feb 19 – Mar 20" },
     element: { sl: "Voda", en: "Water" },
@@ -253,7 +241,7 @@ export default function Horoscope({ lang }: { lang: Lang }) {
               >
                 {isToday ? (
                   <motion.span
-                    className="relative flex h-16 w-16 items-center justify-center rounded-full font-heading text-3xl"
+                    className="relative flex h-16 w-16 items-center justify-center rounded-full p-3"
                     style={{
                       background:
                         "radial-gradient(circle at 35% 30%, var(--color-accent-warm), var(--color-terracotta) 75%)",
@@ -263,17 +251,17 @@ export default function Horoscope({ lang }: { lang: Lang }) {
                     animate={reduceMotion ? {} : { scale: [1, 1.06, 1] }}
                     transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    {sign.symbol}
+                    <ZodiacIcon signKey={sign.key} className="h-full w-full" />
                   </motion.span>
                 ) : (
                   <span
-                    className={`flex h-9 w-9 items-center justify-center rounded-full border font-heading text-lg transition-colors ${
+                    className={`flex h-9 w-9 items-center justify-center rounded-full border p-1.5 transition-colors ${
                       isSelected
                         ? "border-bone/60 text-bone bg-raised"
                         : "border-bone/15 text-smoke hover:text-bone hover:border-bone/40"
                     }`}
                   >
-                    {sign.symbol}
+                    <ZodiacIcon signKey={sign.key} className="h-full w-full" />
                   </span>
                 )}
               </button>
