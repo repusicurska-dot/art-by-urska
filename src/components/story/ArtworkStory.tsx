@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Artwork } from "@/content/types";
 import StoryHero from "./StoryHero";
 import StorySection from "./StorySection";
+import DetailImages from "./DetailImages";
 import ArtworkSpecs from "./ArtworkSpecs";
 import PriceReveal from "./PriceReveal";
 
@@ -16,6 +17,8 @@ export default function ArtworkStory({ artwork }: { artwork: Artwork }) {
           index={index}
           accentColor={artwork.accentColor}
           artworkTitle={artwork.title}
+          image={artwork.heroImage}
+          imageAlt={artwork.heroImageAlt}
         />
       ))}
       {artwork.artistNote && (
@@ -36,6 +39,7 @@ export default function ArtworkStory({ artwork }: { artwork: Artwork }) {
           </div>
         </section>
       )}
+      <DetailImages images={artwork.detailImages} />
       <ArtworkSpecs artwork={artwork} />
       <div className="border-t border-bone/10">
         <PriceReveal artwork={artwork} />

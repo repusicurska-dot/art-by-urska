@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { StoryBeat } from "@/content/types";
 import PlaceholderArt from "@/components/shared/PlaceholderArt";
@@ -10,11 +11,15 @@ export default function StorySection({
   index,
   accentColor,
   artworkTitle,
+  image,
+  imageAlt,
 }: {
   beat: StoryBeat;
   index: number;
   accentColor: string;
   artworkTitle: string;
+  image?: string;
+  imageAlt?: string;
 }) {
   const imageFirst = index % 2 === 0;
 
@@ -29,11 +34,23 @@ export default function StorySection({
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <PlaceholderArt
-              label={artworkTitle}
-              accentColor={accentColor}
-              className="aspect-[4/5] rounded-sm"
-            />
+            {image ? (
+              <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+                <Image
+                  src={image}
+                  alt={imageAlt ?? artworkTitle}
+                  fill
+                  sizes="(min-width: 768px) 45vw, 90vw"
+                  className="object-cover"
+                />
+              </div>
+            ) : (
+              <PlaceholderArt
+                label={artworkTitle}
+                accentColor={accentColor}
+                className="aspect-[4/5] rounded-sm"
+              />
+            )}
           </motion.div>
           <motion.div
             className={imageFirst ? "md:order-2" : "md:order-1"}

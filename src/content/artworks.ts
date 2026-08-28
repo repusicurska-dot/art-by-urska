@@ -160,6 +160,13 @@ export const artworks: Artwork[] = [
     heroImage: "/images/blossoming-love.jpg",
     heroImageAlt:
       "Photograph of an original painting by Urška depicting a couple embracing beneath a canopy of falling stars, one holding a red rose, over a rose-patterned ground.",
+    detailImages: [
+      {
+        src: "/images/blossoming-love-holding.jpg",
+        alt: "Urška holding the finished 'Blossoming Love' canvas outdoors",
+        label: "In the artist's hands",
+      },
+    ],
     accentColor: "#4A4A4A",
     year: 2023,
     medium: "Acrylic on canvas",
