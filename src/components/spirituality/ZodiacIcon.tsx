@@ -1,9 +1,13 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 /**
  * Custom constellation-style glyphs, replacing generic Unicode astrological
- * characters with something drawn in the site's own visual language — thin lines
- * connecting stars of varying brightness, echoing SpiritualBackdrop's star field
- * and loosely gesturing at each sign's real asterism (Scorpio's curling tail,
- * Sagittarius's teapot, Pisces's long cord between two fish, Taurus/Cancer's
+ * characters with something drawn in the site's own visual language — glowing
+ * stars of varying brightness connected by thin lines, echoing SpiritualBackdrop's
+ * star field and loosely gesturing at each sign's real asterism (Scorpio's curling
+ * tail, Sagittarius's teapot, Pisces's long cord between two fish, Taurus/Cancer's
  * companion star clusters) rather than a literal star atlas.
  */
 type Star = [x: number, y: number, weight?: number];
@@ -230,35 +234,79 @@ export const ZODIAC_PATTERNS: Record<string, Pattern> = {
 export default function ZodiacIcon({
   signKey,
   className = "",
+  animateIn = false,
 }: {
   signKey: string;
   className?: string;
+  /** Play a one-time "connecting the stars" draw-in instead of rendering statically. */
+  animateIn?: boolean;
 }) {
   const pattern = ZODIAC_PATTERNS[signKey];
   if (!pattern) return null;
 
+  const glowId = `zodiac-glow-${signKey}`;
+
   return (
     <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
-      {pattern.lines.map(([a, b], i) => {
-        const [x1, y1] = pattern.stars[a];
-        const [x2, y2] = pattern.stars[b];
-        return (
-          <line
+      <defs>
+        <filter id={glowId} x="-120%" y="-120%" width="340%" height="340%">
+          <feGaussianBlur stdDeviation="3.2" />
+        </filter>
+      </defs>
+
+      {pattern.lines.map(([a, b], i) =>
+        animateIn ? (
+          <motion.line
             key={i}
-            x1={x1}
-            y1={y1}
-            x2={x2}
-            y2={y2}
+            x1={pattern.stars[a][0]}
+            y1={pattern.stars[a][1]}
+            x2={pattern.stars[b][0]}
+            y2={pattern.stars[b][1]}
             stroke="currentColor"
             strokeWidth={2.25}
             strokeLinecap="round"
-            opacity={0.5}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.6 }}
+            transition={{ duration: 0.5, delay: i * 0.09, ease: "easeOut" }}
           />
+        ) : (
+          <line
+            key={i}
+            x1={pattern.stars[a][0]}
+            y1={pattern.stars[a][1]}
+            x2={pattern.stars[b][0]}
+            y2={pattern.stars[b][1]}
+            stroke="currentColor"
+            strokeWidth={2.25}
+            strokeLinecap="round"
+            opacity={0.55}
+          />
+        )
+      )}
+
+      {pattern.stars.map(([x, y, weight = 1], i) => {
+        const r = 3.4 * weight;
+        const delay = pattern.lines.length * 0.09 + i * 0.05;
+        return (
+          <g key={i}>
+            <circle cx={x} cy={y} r={r * 2.1} fill="currentColor" opacity={0.4} filter={`url(#${glowId})`} />
+            {animateIn ? (
+              <motion.circle
+                cx={x}
+                cy={y}
+                r={r}
+                fill="currentColor"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.4, delay, ease: "backOut" }}
+                style={{ transformOrigin: `${x}px ${y}px` }}
+              />
+            ) : (
+              <circle cx={x} cy={y} r={r} fill="currentColor" />
+            )}
+          </g>
         );
       })}
-      {pattern.stars.map(([x, y, weight = 1], i) => (
-        <circle key={i} cx={x} cy={y} r={3.4 * weight} fill="currentColor" />
-      ))}
     </svg>
   );
 }
