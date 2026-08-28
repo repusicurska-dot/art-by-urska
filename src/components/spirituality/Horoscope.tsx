@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import ZodiacIcon from "./ZodiacIcon";
+import ScratchCard from "./ScratchCard";
+import HoroscopeEmailSignup from "./HoroscopeEmailSignup";
 import { SIGNS, getCurrentSignKey, getWeeklyFocusIndex, type Lang } from "./zodiacData";
 
 const WHEEL_RADIUS_PERCENT = 42;
@@ -126,12 +128,28 @@ export default function Horoscope({ lang }: { lang: Lang }) {
                         <ZodiacIcon key={sign.key} signKey={sign.key} className="h-full w-full" animateIn />
                       </motion.span>
                     ) : isToday ? (
-                      <span
-                        className="flex h-12 w-12 items-center justify-center rounded-full border-2 p-2.5 text-smoke transition-colors hover:text-bone"
-                        style={{ borderColor: "color-mix(in srgb, var(--color-accent-warm) 70%, transparent)" }}
+                      <motion.span
+                        className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 p-2.5 text-bone"
+                        style={{
+                          borderColor: "var(--color-accent-warm)",
+                          background:
+                            "radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--color-accent-warm) 35%, transparent), color-mix(in srgb, var(--color-accent-warm) 10%, transparent) 75%)",
+                        }}
+                        animate={
+                          reduceMotion
+                            ? {}
+                            : {
+                                boxShadow: [
+                                  "0 0 0 0 color-mix(in srgb, var(--color-accent-warm) 45%, transparent)",
+                                  "0 0 16px 4px color-mix(in srgb, var(--color-accent-warm) 45%, transparent)",
+                                  "0 0 0 0 color-mix(in srgb, var(--color-accent-warm) 45%, transparent)",
+                                ],
+                              }
+                        }
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
                       >
                         <ZodiacIcon signKey={sign.key} className="h-full w-full" />
-                      </span>
+                      </motion.span>
                     ) : (
                       <span className="flex h-10 w-10 items-center justify-center rounded-full border border-bone/15 p-2 text-smoke transition-colors hover:text-bone hover:border-bone/40">
                         <ZodiacIcon signKey={sign.key} className="h-full w-full" />
@@ -165,18 +183,39 @@ export default function Horoscope({ lang }: { lang: Lang }) {
                 {selected.tagline[lang]}
               </p>
 
-              <div className="mt-10 w-full max-w-lg rounded-sm border border-bone/10 bg-raised/40 px-6 py-5 text-left">
-                <span className="text-xs tracking-widest uppercase text-smoke">
-                  {labels.thisWeek}
-                </span>
-                <p className="mt-2 text-bone/85 leading-relaxed">
-                  {selected.weeklyFocus[lang][focusIndex]}
-                </p>
+              <div
+                className="mt-10 w-full max-w-lg rounded-lg px-7 py-8 text-left md:px-10 md:py-10"
+                style={{
+                  background:
+                    "linear-gradient(160deg, color-mix(in srgb, var(--color-accent-warm) 14%, var(--color-raised)) 0%, color-mix(in srgb, var(--color-terracotta) 10%, var(--color-raised)) 100%)",
+                  border: "1px solid color-mix(in srgb, var(--color-accent-warm) 30%, transparent)",
+                  boxShadow:
+                    "0 25px 60px -25px rgba(0,0,0,0.5), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 25%, transparent)",
+                }}
+              >
+                <div
+                  className="rounded-sm px-5 py-4"
+                  style={{
+                    background: "color-mix(in srgb, var(--color-accent-warm) 16%, transparent)",
+                    borderLeft: "2px solid var(--color-accent-warm)",
+                  }}
+                >
+                  <span className="text-xs tracking-widest uppercase text-bone/70">
+                    {labels.thisWeek}
+                  </span>
+                  <p className="mt-2 text-bone leading-relaxed">
+                    {selected.weeklyFocus[lang][focusIndex]}
+                  </p>
+                </div>
+
+                <div className="mt-8 text-bone/75 leading-relaxed whitespace-pre-line">
+                  {selected.profile[lang]}
+                </div>
               </div>
 
-              <div className="mt-10 max-w-lg text-left text-bone/70 leading-relaxed whitespace-pre-line">
-                {selected.profile[lang]}
-              </div>
+              <ScratchCard lang={lang} />
+
+              <HoroscopeEmailSignup lang={lang} signKey={selected.key} signName={selected.name[lang]} />
             </motion.div>
         )}
       </Container>
