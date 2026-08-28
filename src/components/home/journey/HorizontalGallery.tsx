@@ -68,19 +68,12 @@ function GalleryCard({
             />
           )}
         </div>
-        <div className="mt-5 flex items-start justify-between gap-4">
-          <div>
-            <span className="text-xs tracking-widest text-smoke">{String(index + 1).padStart(2, "0")}</span>
-            <h3 className="mt-1 font-heading text-xl text-bone">{artwork.title}</h3>
-            <p className="mt-1 text-xs text-smoke">
-              {[artwork.year, artwork.dimensions].filter(Boolean).join(" · ")}
-            </p>
-          </div>
-          <span className="mt-1 shrink-0 text-xs tracking-widest uppercase text-bone/70">
-            {artwork.availability === "available"
-              ? `${artwork.price.toLocaleString("en-IE")} €`
-              : "Inquire"}
-          </span>
+        <div className="mt-5">
+          <span className="text-xs tracking-widest text-smoke">{String(index + 1).padStart(2, "0")}</span>
+          <h3 className="mt-1 font-heading text-xl text-bone">{artwork.title}</h3>
+          <p className="mt-1 text-xs text-smoke">
+            {[artwork.year, artwork.dimensions].filter(Boolean).join(" · ")}
+          </p>
         </div>
         <span className="mt-3 inline-block border-b border-bone/0 pb-1 text-[11px] tracking-widest uppercase text-bone/70 transition-colors group-hover:border-bone/50 group-hover:text-bone">
           View artwork
@@ -185,15 +178,10 @@ function GalleryMobile({ artworks }: { artworks: Artwork[] }) {
               />
             )}
           </div>
-          <div className="mt-4 flex items-start justify-between gap-4">
-            <div>
-              <span className="text-xs tracking-widest text-smoke">{String(i + 1).padStart(2, "0")}</span>
-              <h3 className="mt-1 font-heading text-lg text-bone">{artwork.title}</h3>
-              <p className="mt-1 text-xs text-smoke">{[artwork.year, artwork.dimensions].filter(Boolean).join(" · ")}</p>
-            </div>
-            <span className="mt-1 shrink-0 text-xs tracking-widest uppercase text-bone/70">
-              {artwork.availability === "available" ? `${artwork.price.toLocaleString("en-IE")} €` : "Inquire"}
-            </span>
+          <div className="mt-4">
+            <span className="text-xs tracking-widest text-smoke">{String(i + 1).padStart(2, "0")}</span>
+            <h3 className="mt-1 font-heading text-lg text-bone">{artwork.title}</h3>
+            <p className="mt-1 text-xs text-smoke">{[artwork.year, artwork.dimensions].filter(Boolean).join(" · ")}</p>
           </div>
         </Link>
       ))}
