@@ -1,5 +1,4 @@
 import { Artwork } from "@/content/types";
-import GrainOverlay from "./GrainOverlay";
 import SilenceIntro from "./SilenceIntro";
 import ArtworkReveal from "./ArtworkReveal";
 import ArtworkStory from "./ArtworkStory";
@@ -22,7 +21,7 @@ export default function HomeJourney({ artworks }: { artworks: Artwork[] }) {
   return (
     <>
       <div id="arrival" />
-      <SilenceIntro artwork={signature} />
+      <SilenceIntro />
 
       <div id="painting" />
       <ArtworkReveal artwork={signature} />
@@ -40,7 +39,6 @@ export default function HomeJourney({ artworks }: { artworks: Artwork[] }) {
       <FinalInvitation />
 
       <ScrollProgress />
-      <GrainOverlay />
     </>
   );
 }

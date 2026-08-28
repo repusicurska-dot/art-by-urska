@@ -10,9 +10,9 @@ import { usePinnedScroll } from "@/lib/usePinnedScroll";
 const SPECS_THRESHOLD = 0.78;
 
 /**
- * Scroll-controlled reveal: a soft, full-bleed macro backdrop dims away while the actual
- * painting arrives as its own floating canvas — two separate layers, so the canvas is never
- * scaled past the viewport edge (which read as "everything's too zoomed in").
+ * Scroll-controlled reveal: plain dark space with a soft accent glow, while the painting
+ * arrives as its own floating canvas — kept as a separate, bounded layer so it's never scaled
+ * past the viewport edge (which previously read as "everything's too zoomed in").
  */
 export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
   const reduceMotion = useReducedMotion();
@@ -24,8 +24,6 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
     else if (v < SPECS_THRESHOLD - 0.05 && showSpecs) setShowSpecs(false);
   });
 
-  const backdropScale = useTransform(progress, [0, 0.5], [1.2, 1.02]);
-  const backdropOpacity = useTransform(progress, [0, 0.35, 0.6], [0.9, 0.55, 0.12]);
   const cardOpacity = useTransform(progress, [0.18, 0.42], [0, 1]);
   const cardScale = useTransform(progress, [0.18, 0.5, 0.85], [0.86, 1, 0.66]);
   const radius = useTransform(progress, [0.6, 0.85], [4, 14]);
@@ -53,24 +51,6 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
   return (
     <section ref={ref} className="relative h-[320vh] bg-ink">
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
-        {artwork.heroImage && (
-          <motion.div
-            aria-hidden="true"
-            className="absolute inset-0"
-            style={{ scale: backdropScale, opacity: backdropOpacity }}
-          >
-            <Image
-              src={artwork.heroImage}
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover"
-              style={{ filter: "blur(2px) saturate(1.05)" }}
-            />
-            <div className="absolute inset-0 bg-ink/40" />
-          </motion.div>
-        )}
-
         <motion.div
           aria-hidden="true"
           className="absolute h-[70vmin] w-[70vmin] rounded-full blur-[140px]"

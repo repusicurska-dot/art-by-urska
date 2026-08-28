@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { Artwork } from "@/content/types";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
 
-/** Opening chapter: a whispered line appears immediately, then gives way to scroll as texture emerges. */
-export default function SilenceIntro({ artwork }: { artwork: Artwork }) {
+/** Opening chapter: plain dark space (the site's own star field shows through), a whispered line. */
+export default function SilenceIntro() {
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
 
@@ -16,8 +14,6 @@ export default function SilenceIntro({ artwork }: { artwork: Artwork }) {
   const textSpacing = useTransform(progress, [0, 0.4], [0, 10]);
   const textSpacingPx = useTransform(textSpacing, (v) => `${v}px`);
   const textY = useTransform(progress, [0, 0.4], [0, -18]);
-  const textureOpacity = useTransform(progress, [0, 0.3, 1], [0.12, 0.24, 0.45]);
-  const textureScale = useTransform(progress, [0, 1], [1.1, 1.25]);
   const hintOpacity = useTransform(progress, [0, 0.1, 0.28], [1, 1, 0]);
 
   if (reduceMotion) {
@@ -35,21 +31,6 @@ export default function SilenceIntro({ artwork }: { artwork: Artwork }) {
   return (
     <section ref={ref} className="relative h-[180vh] bg-ink">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {artwork.heroImage && (
-          <motion.div className="absolute inset-0" style={{ opacity: textureOpacity, scale: textureScale }}>
-            <Image
-              src={artwork.heroImage}
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-              style={{ filter: "grayscale(0.35) contrast(1.1) blur(1px)" }}
-            />
-          </motion.div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink" />
-
         <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
           {/* Mount-triggered fade-in, independent of scroll, so the line is never invisible at rest. */}
           <motion.div
