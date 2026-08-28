@@ -235,8 +235,18 @@ export const artworks: Artwork[] = [
     quote: "No flower has ever bloomed as beautifully as your soul.",
     shortIntro: "A knight offers a bride a blue rose beneath a starry, triangular arch of night sky.",
     storyBeats: [
-      { heading: "Her words", text: ETERNAL_LOVE_POEM },
-      { heading: "Meaning", text: ETERNAL_LOVE_MEANING },
+      {
+        heading: "Her words",
+        text: ETERNAL_LOVE_POEM,
+        image: "/images/eternal-love-story-1.jpg",
+        imageAlt: "Urška holding the finished 'Eternal Love' canvas at the castle gates",
+      },
+      {
+        heading: "Meaning",
+        text: ETERNAL_LOVE_MEANING,
+        image: "/images/eternal-love-story-2.jpg",
+        imageAlt: "'Eternal Love' held up in front of the castle grounds",
+      },
       { heading: "For the collector", text: ETERNAL_LOVE_COLLECTOR },
     ],
     artistNote: ETERNAL_LOVE_NOTE,
