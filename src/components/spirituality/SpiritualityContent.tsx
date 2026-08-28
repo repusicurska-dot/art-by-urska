@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import { fadeInUp } from "@/lib/motion";
+import Horoscope from "./Horoscope";
 
 type Lang = "sl" | "en";
 
@@ -125,7 +126,17 @@ export default function SpiritualityContent() {
   const copy = COPY[lang];
 
   return (
-    <div className="bg-ink">
+    <div
+      className="bg-ink"
+      style={{
+        background: [
+          "radial-gradient(1100px circle at 15% -10%, color-mix(in srgb, var(--color-accent-spirit) 40%, transparent), transparent 60%)",
+          "radial-gradient(900px circle at 90% 25%, color-mix(in srgb, var(--color-accent-poetry) 28%, transparent), transparent 55%)",
+          "radial-gradient(1300px circle at 50% 115%, color-mix(in srgb, var(--color-accent-warm) 22%, transparent), transparent 60%)",
+          "var(--color-ink)",
+        ].join(", "),
+      }}
+    >
       <section className="min-h-[60vh] flex items-center justify-center px-6 py-24 text-center">
         <Container className="max-w-2xl">
           <div className="flex justify-center gap-2 mb-8" role="group" aria-label="Language">
@@ -161,7 +172,7 @@ export default function SpiritualityContent() {
       <section className="pb-24 md:pb-32">
         <Container className="max-w-2xl">
           <div className="space-y-16">
-            {copy.sections.map((section, i) => (
+            {copy.sections.map((section: Section, i: number) => (
               <motion.div
                 key={`${lang}-${i}`}
                 initial={{ opacity: 0, y: 30 }}
@@ -197,14 +208,20 @@ export default function SpiritualityContent() {
               </motion.div>
             ))}
           </div>
+        </Container>
+      </section>
 
+      <Horoscope lang={lang} />
+
+      <section className="pb-24 md:pb-32">
+        <Container className="max-w-2xl">
           <motion.div
             key={`${lang}-closing`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mt-20 pt-16 border-t border-bone/10 text-center"
+            className="pt-16 border-t border-bone/10 text-center"
           >
             <p className="font-heading italic text-xl md:text-2xl text-bone leading-relaxed max-w-xl mx-auto">
               {copy.closing}
