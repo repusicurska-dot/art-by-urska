@@ -201,6 +201,8 @@ const LABELS: Record<Lang, { heading: string; intro: string; today: string; elem
   },
 };
 
+const WHEEL_RADIUS_PERCENT = 42;
+
 export default function Horoscope({ lang }: { lang: Lang }) {
   const reduceMotion = useReducedMotion();
   const [todayKey, setTodayKey] = useState<string | null>(null);
@@ -224,22 +226,69 @@ export default function Horoscope({ lang }: { lang: Lang }) {
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.heading}</span>
         <p className="mt-6 text-bone/70 leading-relaxed max-w-xl mx-auto">{labels.intro}</p>
 
+        {/* A real zodiac wheel: 12 signs arranged around a circle, today's sign glowing. */}
+        <div className="relative mx-auto mt-16 aspect-square w-[280px] sm:w-[340px]">
+          <div
+            aria-hidden="true"
+            className="absolute inset-[10%] rounded-full border border-bone/10"
+          />
+          {SIGNS.map((sign, i) => {
+            const angle = (i / SIGNS.length) * 2 * Math.PI - Math.PI / 2;
+            // Fixed precision avoids a server/client hydration mismatch from tiny
+            // floating-point string differences between JS engines.
+            const x = (50 + WHEEL_RADIUS_PERCENT * Math.cos(angle)).toFixed(4);
+            const y = (50 + WHEEL_RADIUS_PERCENT * Math.sin(angle)).toFixed(4);
+            const isToday = sign.key === todayKey;
+            const isSelected = sign.key === selectedKey;
+
+            return (
+              <button
+                key={sign.key}
+                type="button"
+                onClick={() => setSelectedKey(sign.key)}
+                aria-pressed={isSelected}
+                aria-label={`${sign.name[lang]}${isToday ? ` — ${labels.today}` : ""}`}
+                className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full transition-transform hover:scale-110"
+                style={{ left: `${x}%`, top: `${y}%` }}
+              >
+                {isToday ? (
+                  <motion.span
+                    className="relative flex h-16 w-16 items-center justify-center rounded-full font-heading text-3xl"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 35% 30%, var(--color-accent-warm), var(--color-terracotta) 75%)",
+                      color: "var(--color-ink)",
+                      boxShadow: "0 0 0 1px color-mix(in srgb, var(--color-accent-warm) 60%, transparent), 0 0 40px 6px color-mix(in srgb, var(--color-accent-warm) 55%, transparent)",
+                    }}
+                    animate={reduceMotion ? {} : { scale: [1, 1.06, 1] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    {sign.symbol}
+                  </motion.span>
+                ) : (
+                  <span
+                    className={`flex h-9 w-9 items-center justify-center rounded-full border font-heading text-lg transition-colors ${
+                      isSelected
+                        ? "border-bone/60 text-bone bg-raised"
+                        : "border-bone/15 text-smoke hover:text-bone hover:border-bone/40"
+                    }`}
+                  >
+                    {sign.symbol}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
         {selected && (
-          <div className="mt-14 flex flex-col items-center">
+          <div className="mt-10 flex flex-col items-center">
             {selected.key === todayKey && (
-              <span className="text-xs tracking-widest uppercase text-smoke mb-6">
+              <span className="text-xs tracking-widest uppercase text-smoke mb-3">
                 {labels.today}
               </span>
             )}
-
-            <ZodiacMedallion
-              symbol={selected.symbol}
-              spinning={selected.key === todayKey && !reduceMotion}
-            />
-
-            <h3 className="mt-8 font-heading text-2xl text-bone">
-              {selected.name[lang]}
-            </h3>
+            <h3 className="font-heading text-2xl text-bone">{selected.name[lang]}</h3>
             <p className="mt-1 text-xs tracking-widest uppercase text-smoke">
               {selected.dates[lang]} · {labels.element}: {selected.element[lang]}
             </p>
@@ -248,73 +297,7 @@ export default function Horoscope({ lang }: { lang: Lang }) {
             </p>
           </div>
         )}
-
-        <div className="mt-16 flex flex-wrap justify-center gap-3">
-          {SIGNS.map((sign) => (
-            <button
-              key={sign.key}
-              type="button"
-              onClick={() => setSelectedKey(sign.key)}
-              aria-pressed={selectedKey === sign.key}
-              aria-label={sign.name[lang]}
-              className={`flex h-11 w-11 items-center justify-center rounded-full border font-heading text-xl transition-colors ${
-                selectedKey === sign.key
-                  ? "border-bone/60 text-bone bg-raised"
-                  : "border-bone/15 text-smoke hover:text-bone hover:border-bone/40"
-              }`}
-            >
-              {sign.symbol}
-            </button>
-          ))}
-        </div>
       </Container>
     </section>
-  );
-}
-
-const DEPTH_LAYERS = 18;
-
-/**
- * A genuinely extruded 3D badge (not a flat glyph spinning on its axis): the symbol is
- * stacked as many thin, depth-offset copies inside a preserve-3d container, so rotating it
- * actually reveals a solid edge/thickness, like a carved medallion, rather than a card flip.
- */
-function ZodiacMedallion({ symbol, spinning }: { symbol: string; spinning: boolean }) {
-  return (
-    <div style={{ perspective: 900 }}>
-      <motion.div
-        className="relative h-32 w-32"
-        style={{ transformStyle: "preserve-3d" }}
-        animate={spinning ? { rotateY: 360 } : { rotateY: 0 }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      >
-        {/* Rim, set back in Z so the extruded glyph reads as raised relief on a coin. */}
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            transform: "translateZ(-10px)",
-            background:
-              "radial-gradient(circle at 35% 30%, var(--color-accent-warm) 0%, var(--color-raised) 75%)",
-            boxShadow: "0 20px 50px -15px rgba(0,0,0,0.65)",
-          }}
-        />
-        {Array.from({ length: DEPTH_LAYERS }).map((_, i) => {
-          const t = i / (DEPTH_LAYERS - 1); // 0 = back of the extrusion, 1 = front face
-          return (
-            <span
-              key={i}
-              aria-hidden={i !== DEPTH_LAYERS - 1}
-              className="absolute inset-0 flex items-center justify-center font-heading text-6xl"
-              style={{
-                transform: `translateZ(${-8 + t * 16}px)`,
-                color: `color-mix(in srgb, var(--color-accent-warm) ${20 + t * 60}%, var(--color-raised))`,
-              }}
-            >
-              {symbol}
-            </span>
-          );
-        })}
-      </motion.div>
-    </div>
   );
 }

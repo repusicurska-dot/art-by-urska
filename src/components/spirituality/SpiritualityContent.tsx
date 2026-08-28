@@ -130,9 +130,10 @@ export default function SpiritualityContent() {
       className="bg-ink"
       style={{
         background: [
-          "radial-gradient(1100px circle at 15% -10%, color-mix(in srgb, var(--color-accent-spirit) 40%, transparent), transparent 60%)",
-          "radial-gradient(900px circle at 90% 25%, color-mix(in srgb, var(--color-accent-poetry) 28%, transparent), transparent 55%)",
-          "radial-gradient(1300px circle at 50% 115%, color-mix(in srgb, var(--color-accent-warm) 22%, transparent), transparent 60%)",
+          "radial-gradient(1200px circle at 20% -5%, color-mix(in srgb, var(--color-accent-warm) 65%, transparent), transparent 55%)",
+          "radial-gradient(1000px circle at 85% 20%, color-mix(in srgb, var(--color-terracotta) 55%, transparent), transparent 55%)",
+          "radial-gradient(1100px circle at 75% 65%, color-mix(in srgb, var(--color-accent-poetry) 50%, transparent), transparent 55%)",
+          "radial-gradient(1400px circle at 15% 100%, color-mix(in srgb, var(--color-accent-warm) 45%, transparent), transparent 60%)",
           "var(--color-ink)",
         ].join(", "),
       }}
