@@ -75,3 +75,19 @@ h1, h2, h3, h4 {
     display: none !important;
   }
 }
+
+/* Plain CSS (not JS-driven) infinite rotation for the horoscope wheel — the compositor
+   can run these on its own thread, which matters with 12 icons animating at once.
+   The global prefers-reduced-motion rule above already collapses these to a standstill. */
+@keyframes zodiac-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes zodiac-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+.zodiac-wheel-spin {
+  animation: zodiac-spin 120s linear infinite;
+}
+.zodiac-icon-counter-spin {
+  animation: zodiac-spin-reverse 120s linear infinite;
+}

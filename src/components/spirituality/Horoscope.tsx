@@ -10,7 +10,6 @@ import { SIGNS, getCurrentSignKey, getWeeklyFocusIndex, type Lang } from "./zodi
 
 const WHEEL_RADIUS_PERCENT = 42;
 const FOCUS_POOL_SIZE = 4;
-const ROTATION_SECONDS = 120;
 
 const LABELS: Record<
   Lang,
@@ -82,11 +81,7 @@ export default function Horoscope({ lang }: { lang: Lang }) {
             }}
           />
 
-          <motion.div
-            className="absolute inset-0"
-            animate={reduceMotion ? {} : { rotate: 360 }}
-            transition={{ duration: ROTATION_SECONDS, repeat: Infinity, ease: "linear" }}
-          >
+          <div className="absolute inset-0 zodiac-wheel-spin">
             {SIGNS.map((sign, i) => {
               const angle = (i / SIGNS.length) * 2 * Math.PI - Math.PI / 2;
               // Fixed precision avoids a server/client hydration mismatch from tiny
@@ -107,11 +102,7 @@ export default function Horoscope({ lang }: { lang: Lang }) {
                   style={{ left: `${x}%`, top: `${y}%` }}
                 >
                   {/* Counter-rotate the icon itself so it stays upright while it orbits. */}
-                  <motion.span
-                    className="flex items-center justify-center"
-                    animate={reduceMotion ? {} : { rotate: -360 }}
-                    transition={{ duration: ROTATION_SECONDS, repeat: Infinity, ease: "linear" }}
-                  >
+                  <span className="flex items-center justify-center zodiac-icon-counter-spin">
                     {isSelected ? (
                       <motion.span
                         className="relative flex h-24 w-24 items-center justify-center rounded-full p-5"
@@ -155,11 +146,11 @@ export default function Horoscope({ lang }: { lang: Lang }) {
                         <ZodiacIcon signKey={sign.key} className="h-full w-full" />
                       </span>
                     )}
-                  </motion.span>
+                  </span>
                 </button>
               );
             })}
-          </motion.div>
+          </div>
         </div>
 
         {selected && (

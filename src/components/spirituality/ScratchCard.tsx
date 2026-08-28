@@ -5,14 +5,14 @@ import type { Lang } from "./zodiacData";
 
 const REWARDS: Record<Lang, string[]> = {
   sl: [
-    "Nekaj, kar si dolgo odlašala, je pripravljeno, da to tega tedna narediš.",
+    "Nekaj, kar dolgo odlašaš, je pripravljeno, da to narediš ta teden.",
     "Nekdo misli nate danes, čeprav ti tega ne bo povedal.",
     "Ta teden ti bo vesolje poslalo znak — pazi na ponavljajoča se števila ali besede.",
-    "Tvoja intuicija je bila ves teden glasnejša od navadno. Poslušaj jo.",
+    "Tvoja intuicija je bila ves teden glasnejša kot ponavadi. Poslušaj jo.",
     "Majhno presenečenje te čaka nekje, kjer ga najmanj pričakuješ.",
-    "Nekaj, česar si se bala, se bo izkazalo za lažje, kot si mislila.",
+    "Nekaj, česar se bojiš, se bo izkazalo za lažje, kot pričakuješ.",
     "Tvoje srce ve nekaj, česar tvoj um še ni ujel. Zaupaj mu.",
-    "En pogovor to tedna bo pomembnejši, kot se bo zdel v trenutku, ko se zgodi.",
+    "En pogovor ta teden bo pomembnejši, kot se zdi v trenutku, ko se zgodi.",
   ],
   en: [
     "Something you've been putting off is ready for you to finally do this week.",

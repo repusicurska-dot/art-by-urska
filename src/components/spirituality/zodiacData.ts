@@ -241,7 +241,7 @@ export const SIGNS: Sign[] = [
         "Ta teden nekaj staro v tebi umira, da lahko nekaj novo zaživi. Ne boj se konca.",
         "Zaupanje se gradi počasi. Tokrat ponudi en majhen delček sebe nekomu, ki si ga zaslužil.",
         "Intenzivnost, ki jo nosiš, ni preveč. Samo poišči prostor, ki jo zna sprejeti.",
-        "Resnica, ki se ji izogibaš, te čaka. Sooči se z njo, ko boš pripravljen — mogoče je to zdaj.",
+        "Resnica, ki se ji izogibaš, te čaka. Sooči se z njo, ko bo čas pravi — morda že zdaj.",
       ],
       en: [
         "Something old in you is dying this week so something new can live. Don't fear the ending.",
@@ -296,10 +296,10 @@ export const SIGNS: Sign[] = [
     },
     weeklyFocus: {
       sl: [
-        "Ta teden si dovoli počitek, ne da bi ga moral zaslužiti z delom.",
-        "Uspeh, ki ga gradiš, je viden tudi tebi samemu — ne rabiš tuje potrditve, da veš, da si dosegel nekaj.",
+        "Ta teden si dovoli počitek, brez potrebe, da si ga prej prislužiš z delom.",
+        "Uspeh, ki ga gradiš, je viden tudi tebi samemu — ne rabiš tuje potrditve, da prepoznaš svoj napredek.",
         "Nekomu blizu tebe povej, kaj čutiš, ne samo, kaj načrtuješ.",
-        "Gora, ki jo plezaš, ni tekma. Pogledaj nazaj in vidi, kako daleč si že prišel.",
+        "Gora, ki jo plezaš, ni tekma. Poglej, kako velik del poti je že za tabo.",
       ],
       en: [
         "Let yourself rest this week without having to earn it first through work.",
@@ -325,9 +325,9 @@ export const SIGNS: Sign[] = [
     },
     weeklyFocus: {
       sl: [
-        "Ta teden pusti nekomu blizu, da ti pomaga — ni ti treba vsega narediti sam.",
+        "Ta teden pusti nekomu blizu, da ti pomaga — ni ti treba vsega narediti brez pomoči.",
         "Ideja, ki jo nosiš, si zasluži, da jo poveš naglas, tudi če zveni drugačna od ostalih.",
-        "Bližina ni past. Tokrat ostani en trenutek dlje, namesto da bi odšel.",
+        "Bližina ni past. Tokrat ostani en trenutek dlje, namesto da odideš.",
         "Svet, ki si ga zamišljaš, se začne z enim majhnim dejanjem — naredi ga danes.",
       ],
       en: [

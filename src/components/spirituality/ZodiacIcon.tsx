@@ -244,16 +244,12 @@ export default function ZodiacIcon({
   const pattern = ZODIAC_PATTERNS[signKey];
   if (!pattern) return null;
 
-  const glowId = `zodiac-glow-${signKey}`;
-
   return (
+    // No SVG blur filters here on purpose — feGaussianBlur forces a repaint every frame
+    // on anything that's also being transformed (this icon spins continuously inside the
+    // wheel), which is expensive across 12 icons at once. The soft halo below is a plain
+    // low-opacity solid circle instead — visually close, effectively free to render.
     <svg viewBox="0 0 100 100" className={className} aria-hidden="true">
-      <defs>
-        <filter id={glowId} x="-120%" y="-120%" width="340%" height="340%">
-          <feGaussianBlur stdDeviation="3.2" />
-        </filter>
-      </defs>
-
       {pattern.lines.map(([a, b], i) =>
         animateIn ? (
           <motion.line
@@ -289,7 +285,7 @@ export default function ZodiacIcon({
         const delay = pattern.lines.length * 0.09 + i * 0.05;
         return (
           <g key={i}>
-            <circle cx={x} cy={y} r={r * 2.1} fill="currentColor" opacity={0.4} filter={`url(#${glowId})`} />
+            <circle cx={x} cy={y} r={r * 1.9} fill="currentColor" opacity={0.22} />
             {animateIn ? (
               <motion.circle
                 cx={x}
