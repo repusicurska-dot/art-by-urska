@@ -35,8 +35,8 @@ export default function HomeJourney({ artworks }: { artworks: Artwork[] }) {
       <PoetryExperience artwork={poetryPiece} />
 
       <div id="artist" />
-      <ArtistMoment />
       <FinalInvitation />
+      <ArtistMoment />
 
       <ScrollProgress />
     </>
