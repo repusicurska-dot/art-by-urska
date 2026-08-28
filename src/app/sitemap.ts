@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllArtworks, getAllQuotes } from "@/lib/content";
+import { getAllArtworks } from "@/lib/content";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -30,10 +30,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const quoteEntries: MetadataRoute.Sitemap = getAllQuotes().map((quote) => ({
-    url: `${SITE_URL}/poetry/${quote.slug}`,
-    lastModified: new Date(),
-  }));
-
-  return [...staticEntries, ...artworkEntries, ...quoteEntries];
+  return [...staticEntries, ...artworkEntries];
 }

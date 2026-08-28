@@ -3,7 +3,7 @@ import SpiritualityContent from "@/components/spirituality/SpiritualityContent";
 
 export const metadata: Metadata = {
   title: "Spirituality — Art by Urška",
-  description: "On soul, painting, and the quiet recognition between two people meeting through art.",
+  description: "Spirituality by Urška — coming soon.",
   alternates: { canonical: "/spirituality" },
 };
 

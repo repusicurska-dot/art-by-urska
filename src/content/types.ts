@@ -59,21 +59,3 @@ export interface Artwork {
   shipsTo: ShippingZone[];
   careInfo?: string;
 }
-
-/**
- * A standalone quote/poem print — a lighter, more affordable product line
- * distinct from the original paintings. Not tied to a specific artwork image.
- */
-export interface QuotePrint {
-  slug: string;
-  order: number;
-  title: string;
-  text: string;
-  accentColor: string;
-  format: string;
-  price: number;
-  currency: "EUR";
-  priceConfirmed: boolean;
-  availability: Availability;
-  sku: string;
-}

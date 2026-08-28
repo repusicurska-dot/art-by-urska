@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { getArtworkBySlug, getQuoteBySlug } from "@/lib/content";
+import { getArtworkBySlug } from "@/lib/content";
 
 const CATEGORIES = [
   "Artwork inquiry",
@@ -17,20 +17,11 @@ export default function ContactForm() {
   const searchParams = useSearchParams();
   const pieceSlug = searchParams.get("piece");
   const piece = pieceSlug ? getArtworkBySlug(pieceSlug) : undefined;
-  const quoteSlug = searchParams.get("quote");
-  const quote = quoteSlug ? getQuoteBySlug(quoteSlug) : undefined;
-  const referenced = piece ?? quote;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [category, setCategory] = useState(referenced ? "Artwork inquiry" : "");
-  const [message, setMessage] = useState(
-    piece
-      ? `I'm interested in "${piece.title}". `
-      : quote
-        ? `I'm interested in the "${quote.title}" print. `
-        : ""
-  );
+  const [category, setCategory] = useState(piece ? "Artwork inquiry" : "");
+  const [message, setMessage] = useState(piece ? `I'm interested in "${piece.title}". ` : "");
   const [company, setCompany] = useState(""); // honeypot
   const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
   const [error, setError] = useState("");
@@ -70,9 +61,9 @@ export default function ContactForm() {
       }}
       className="space-y-6"
     >
-      {referenced && (
+      {piece && (
         <div className="rounded-sm border border-gold-600/30 bg-gold-400/10 px-4 py-3 text-sm text-bone/80">
-          Regarding: <strong>{piece ? piece.title : quote?.title}</strong>
+          Regarding: <strong>{piece.title}</strong>
         </div>
       )}
 

@@ -3,7 +3,7 @@
 import { useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
-import { getArtworkBySlug, getQuoteBySlug } from "@/lib/content";
+import { getArtworkBySlug } from "@/lib/content";
 import { consumeNavigationDirection } from "@/lib/navigationDirection";
 import VeilTransition from "./transitions/VeilTransition";
 import PageTurnTransition from "./transitions/PageTurnTransition";
@@ -42,15 +42,6 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       <PageTurnTransition
         accent={artwork?.accentColor ?? "#121212"}
         epigraph={artwork?.quote}
-        direction={direction}
-      />
-    );
-  } else if (segments[0] === "poetry" && segments[1]) {
-    const quote = getQuoteBySlug(segments[1]);
-    overlay = (
-      <PageTurnTransition
-        accent={quote?.accentColor ?? "#121212"}
-        epigraph={quote?.title}
         direction={direction}
       />
     );
