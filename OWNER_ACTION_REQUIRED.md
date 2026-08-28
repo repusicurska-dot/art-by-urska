@@ -139,18 +139,12 @@ invented — these are the gaps left intentionally, on purpose, for her to fill 
 - [ ] Decide, per artwork, whether it's a standard original, made-to-order, or genuinely
       personalized/custom piece — this determines which withdrawal-rights section of the
       Returns policy applies to it.
-- [ ] **Poetry section** (`/poetry`, `src/content/quotes.ts`) — new sibling section selling
-      quote/poem prints as a lighter, more affordable product line alongside the paintings.
-      Entirely placeholder right now (6 empty slots) per your instruction — needs real quote
-      text, titles, and confirmed prices. Currently "inquire to purchase" only (via the contact
-      form), not integrated into the cart/checkout flow — say if you want that added.
-- [ ] **Spirituality page** (`/spirituality`) — reuses real lines from `Backgrounds and me.docx`
-      (the "soul"/"art from my soul" statements) that weren't used on `/about`. Not placeholder,
-      but it's my curation/ordering of your draft lines, not a finished piece you wrote as one —
-      worth a read-through and edit in your own voice.
-- [ ] Both new sections are only cross-linked from the footer ("More from Urška") for now, not
-      in the main header nav — say if you want them promoted more prominently, or if/when we do
-      the bigger "Art / Poetry / Climb" hub restructuring you mentioned.
+- [x] **Poetry and Spirituality** (2026-08-28) — per your request, both were simplified to plain
+      "coming soon" pages (matching `/climb`'s existing pattern) instead of carrying built-out
+      placeholder content. The old poem-print catalog (`src/content/quotes.ts`, individual
+      `/poetry/[slug]` pages) and the Spirituality editorial page were removed entirely — the site
+      now stays focused on the paintings and your own story, with Poetry/Climb/Spirituality as
+      simple links to pages you'll build out separately later.
 
 ## Business & legal facts (`src/content/business.ts`)
 
