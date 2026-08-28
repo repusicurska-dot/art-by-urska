@@ -199,8 +199,45 @@ export default function Horoscope({ lang }: { lang: Lang }) {
                   </p>
                 </div>
 
-                <div className="mt-8 text-bone/75 leading-relaxed whitespace-pre-line">
-                  {selected.profile[lang]}
+                <div className="mt-8 space-y-5 text-left">
+                  {selected.profile[lang].split("\n\n").map((para, i, arr) => {
+                    const isFirst = i === 0;
+                    const isLast = i === arr.length - 1;
+
+                    if (isFirst) {
+                      return (
+                        <p key={i} className="text-bone/75 leading-relaxed">
+                          <span
+                            className="float-left mr-2 pt-1 font-heading text-5xl leading-[0.8]"
+                            style={{ color: "var(--color-accent-warm)" }}
+                          >
+                            {para.charAt(0)}
+                          </span>
+                          {para.slice(1)}
+                        </p>
+                      );
+                    }
+
+                    if (isLast) {
+                      return (
+                        <p
+                          key={i}
+                          className="clear-both font-heading italic text-lg leading-relaxed"
+                          style={{
+                            color: "color-mix(in srgb, var(--color-accent-warm) 70%, var(--color-bone))",
+                          }}
+                        >
+                          {para}
+                        </p>
+                      );
+                    }
+
+                    return (
+                      <p key={i} className="clear-both text-bone/75 leading-relaxed">
+                        {para}
+                      </p>
+                    );
+                  })}
                 </div>
               </div>
 
