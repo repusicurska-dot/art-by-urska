@@ -18,7 +18,7 @@ export default function ArtistMoment() {
       <Container>
         <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:gap-16">
           <motion.div
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-sm md:aspect-[3/4]"
+            className="relative aspect-[6/5] w-full overflow-hidden rounded-sm"
             initial={{ opacity: 0, scale: 1.06 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -26,7 +26,7 @@ export default function ArtistMoment() {
           >
             <motion.div className="absolute inset-0" style={{ y: parallaxY }}>
               <Image
-                src="/images/about-castle-1.jpg"
+                src="/images/about-castle-5.jpg"
                 alt="Urška among roses in front of a historic mansion"
                 fill
                 sizes="(min-width: 768px) 55vw, 90vw"
