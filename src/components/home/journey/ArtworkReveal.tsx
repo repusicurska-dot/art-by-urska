@@ -24,8 +24,8 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
     else if (v < SPECS_THRESHOLD - 0.05 && showSpecs) setShowSpecs(false);
   });
 
-  const cardOpacity = useTransform(progress, [0.06, 0.26], [0, 1]);
-  const cardScale = useTransform(progress, [0.06, 0.32, 0.75], [0.86, 1, 0.66]);
+  const cardOpacity = useTransform(progress, [0, 0.18], [0, 1]);
+  const cardScale = useTransform(progress, [0, 0.28, 0.7], [0.86, 1, 0.66]);
   const radius = useTransform(progress, [0.5, 0.75], [4, 14]);
   const glowOpacity = useTransform(progress, [0, 0.3, 0.75], [0.15, 0.5, 0.5]);
   const specsOpacity = useTransform(progress, [0.68, 0.85], [0, 1]);
