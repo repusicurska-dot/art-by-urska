@@ -2,29 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Lang } from "./zodiacData";
-
-const REWARDS: Record<Lang, string[]> = {
-  sl: [
-    "Nekaj, kar dolgo odlašaš, je pripravljeno, da to narediš ta teden.",
-    "Nekdo misli nate danes, čeprav ti tega ne bo povedal.",
-    "Ta teden ti bo vesolje poslalo znak — pazi na ponavljajoča se števila ali besede.",
-    "Tvoja intuicija je bila ves teden glasnejša kot ponavadi. Poslušaj jo.",
-    "Majhno presenečenje te čaka nekje, kjer ga najmanj pričakuješ.",
-    "Nekaj, česar se bojiš, se bo izkazalo za lažje, kot pričakuješ.",
-    "Tvoje srce ve nekaj, česar tvoj um še ni ujel. Zaupaj mu.",
-    "En pogovor ta teden bo pomembnejši, kot se zdi v trenutku, ko se zgodi.",
-  ],
-  en: [
-    "Something you've been putting off is ready for you to finally do this week.",
-    "Someone is thinking of you today, even if they never say it.",
-    "The universe will send you a sign this week — watch for repeating numbers or words.",
-    "Your intuition has been louder than usual all week. Listen to it.",
-    "A small surprise is waiting somewhere you least expect it.",
-    "Something you've been afraid of will turn out easier than you thought.",
-    "Your heart knows something your mind hasn't caught up to yet. Trust it.",
-    "One conversation this week will matter more than it seems to in the moment.",
-  ],
-};
+import { SCRATCH_REWARDS } from "./scratchRewards";
 
 const LABELS: Record<Lang, { heading: string; hint: string; revealedLabel: string; comeback: string }> = {
   sl: {
@@ -70,7 +48,7 @@ export default function ScratchCard({ lang }: { lang: Lang }) {
   useEffect(() => {
     const key = getISOWeekKey(new Date());
     const weekNumber = parseInt(key.split("-W")[1], 10) || 0;
-    const rewardText = REWARDS[lang][weekNumber % REWARDS[lang].length];
+    const rewardText = SCRATCH_REWARDS[lang][weekNumber % SCRATCH_REWARDS[lang].length];
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setWeekKey(key);
     setReward(rewardText);
