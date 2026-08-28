@@ -80,6 +80,8 @@ function DirectionLinks() {
         <Link
           key={d.label}
           href={d.href}
+          target={d.href === "/spirituality" ? "_blank" : undefined}
+          rel={d.href === "/spirituality" ? "noopener noreferrer" : undefined}
           className="group relative block rounded-sm border border-bone/10 px-6 py-8 transition-colors duration-500 hover:border-bone/25"
         >
           <span

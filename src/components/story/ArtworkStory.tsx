@@ -32,6 +32,8 @@ export default function ArtworkStory({ artwork }: { artwork: Artwork }) {
             </p>
             <Link
               href="/spirituality"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block mt-8 text-xs tracking-widest uppercase text-ivory/60 hover:text-gold-400 transition-colors border-b border-ivory/20 pb-1"
             >
               More on the soul behind the work →

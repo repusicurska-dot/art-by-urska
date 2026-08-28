@@ -49,7 +49,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/spirituality" className="hover:text-bone transition-colors">
+                <Link
+                  href="/spirituality"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-bone transition-colors"
+                >
                   Spirituality
                 </Link>
               </li>

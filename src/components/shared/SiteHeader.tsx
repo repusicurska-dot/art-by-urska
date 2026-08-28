@@ -105,6 +105,8 @@ export default function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
+                target={link.href === "/spirituality" ? "_blank" : undefined}
+                rel={link.href === "/spirituality" ? "noopener noreferrer" : undefined}
                 aria-current={active ? "page" : undefined}
                 className={`border-b pb-0.5 transition-colors hover:text-bone ${
                   active ? "border-bone/60 text-bone" : "border-transparent"
@@ -180,6 +182,8 @@ export default function SiteHeader() {
                 >
                   <Link
                     href={link.href}
+                    target={link.href === "/spirituality" ? "_blank" : undefined}
+                    rel={link.href === "/spirituality" ? "noopener noreferrer" : undefined}
                     onClick={() => setMenuOpen(false)}
                     className="font-heading text-3xl text-bone/90 hover:text-bone transition-colors"
                   >
