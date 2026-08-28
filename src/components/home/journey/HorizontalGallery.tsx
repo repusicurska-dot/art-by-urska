@@ -64,7 +64,7 @@ function GalleryCard({
               alt={artwork.heroImageAlt ?? artwork.title}
               fill
               sizes="45vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="object-contain p-6 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           )}
         </div>
@@ -181,7 +181,7 @@ function GalleryMobile({ artworks }: { artworks: Artwork[] }) {
                 alt={artwork.heroImageAlt ?? artwork.title}
                 fill
                 sizes="82vw"
-                className="object-cover"
+                className="object-contain p-5"
               />
             )}
           </div>
