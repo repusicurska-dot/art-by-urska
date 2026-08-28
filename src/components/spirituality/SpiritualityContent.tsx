@@ -1,15 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import { fadeInUp } from "@/lib/motion";
 
 type Lang = "sl" | "en";
 
+interface RelatedArtwork {
+  slug: string;
+  title: string;
+  image: string;
+  cta: string;
+}
+
 interface Section {
   heading: string;
   text: string;
+  artwork?: RelatedArtwork;
 }
 
 interface Copy {
@@ -18,6 +28,7 @@ interface Copy {
   lead: string;
   sections: Section[];
   closing: string;
+  closingCta: string;
   signature: string;
 }
 
@@ -26,6 +37,8 @@ interface Copy {
 // not presented as her verbatim words. Built from what's genuinely known about her
 // (competition climber turned painter) and the recurring themes in her own real work
 // (soul recognition across lifetimes, courage as a choice, darkness giving way to light).
+// Each reflection that maps onto a real painting links straight to it, so the page has
+// somewhere to go rather than being read once and left.
 const COPY: Record<Lang, Copy> = {
   sl: {
     eyebrow: "Duhovnost pri Urški",
@@ -42,15 +55,28 @@ const COPY: Record<Lang, Copy> = {
       },
       {
         heading: "Duše, ki se prepoznajo",
-        text: "Verjamem, da nekatera srečanja niso naključna. Da obstaja starejša oblika spomina, ki nima nič opraviti z datumi ali kraji — samo z občutkom, da si nekoga že poznal, še preden si izvedel njegovo ime. Večina mojih slik govori prav o tem: o ljubezni, ki ne potrebuje razlage, ker jo duša prepozna sama.",
+        text: "Verjamem, da nekatera srečanja niso naključna. Da obstaja starejša oblika spomina, ki nima nič opraviti z datumi ali kraji — samo z občutkom, da si nekoga že poznal, še preden si izvedel njegovo ime. To platno se je rodilo prav iz tega občutka.",
+        artwork: {
+          slug: "artwork-05",
+          title: "Somehow My Heart Still Remembers You",
+          image: "/images/somehow-my-heart.jpg",
+          cta: "Poglej to delo →",
+        },
       },
       {
         heading: "Ko tema ni sovražnik",
-        text: "Nekaj mojih najtemnejših platen je nastalo v obdobjih, ko sem se počutila najbolj izgubljeno. In vsakič znova sem odkrila isto: tema ni nasprotje svetlobe, je le prostor, kjer se svetloba še ni pokazala. Pogum ni odsotnost strahu. Je odločitev, da kljub strahu pokleknemo in začnemo.",
+        text: "Nekaj mojih najtemnejših platen je nastalo v obdobjih, ko sem se počutila najbolj izgubljeno. In vsakič znova sem odkrila isto: tema ni nasprotje svetlobe, je le prostor, kjer se svetloba še ni pokazala. Pogum ni odsotnost strahu — je odločitev, da kljub strahu pokleknemo in začnemo. Iz tega je nastala ta slika.",
+        artwork: {
+          slug: "artwork-02",
+          title: "The Prophecy",
+          image: "/images/the-prophecy.jpg",
+          cta: "Poglej to delo →",
+        },
       },
     ],
     closing:
-      "To je šele začetek tega prostora. Sčasoma bo rasel — z besedami, mislimi, morda tudi z vprašanji, na katera še nimam odgovora. Hvala, da si tukaj, medtem ko to gradim.",
+      "Vsaka slika na tej strani se je rodila iz nečesa, kar sem prej začutila kot duhovno resnico, šele nato kot podobo. Če te je katera od zgornjih misli nagovorila, je verjetno platno, ki ji pripada, zate.",
+    closingCta: "Razišči vso zbirko →",
     signature: "— Urška",
   },
   en: {
@@ -68,15 +94,28 @@ const COPY: Record<Lang, Copy> = {
       },
       {
         heading: "Souls that recognize each other",
-        text: "I believe some meetings aren't accidental. That there's an older kind of memory that has nothing to do with dates or places — only with the feeling that you already knew someone before you learned their name. Most of my paintings are really about this: a love that needs no explanation, because the soul recognizes it on its own.",
+        text: "I believe some meetings aren't accidental. That there's an older kind of memory that has nothing to do with dates or places — only with the feeling that you already knew someone before you learned their name. This canvas was born from exactly that feeling.",
+        artwork: {
+          slug: "artwork-05",
+          title: "Somehow My Heart Still Remembers You",
+          image: "/images/somehow-my-heart.jpg",
+          cta: "View this piece →",
+        },
       },
       {
         heading: "When darkness isn't the enemy",
-        text: "Some of my darkest canvases were made in the seasons I felt most lost. And every time, I discovered the same thing: darkness isn't the opposite of light — it's just the space where light hasn't arrived yet. Courage isn't the absence of fear. It's the decision to kneel down and begin anyway.",
+        text: "Some of my darkest canvases were made in the seasons I felt most lost. And every time, I discovered the same thing: darkness isn't the opposite of light — it's just the space where light hasn't arrived yet. Courage isn't the absence of fear — it's the decision to kneel down and begin anyway. This piece came out of that.",
+        artwork: {
+          slug: "artwork-02",
+          title: "The Prophecy",
+          image: "/images/the-prophecy.jpg",
+          cta: "View this piece →",
+        },
       },
     ],
     closing:
-      "This is only the beginning of this space. It will grow over time — with more words, more thoughts, maybe even questions I don't have answers to yet. Thank you for being here while I build it.",
+      "Every painting on this site started as something I felt as a spiritual truth before it ever became an image. If one of these reflections spoke to you, the canvas it belongs to probably will too.",
+    closingCta: "Explore the full collection →",
     signature: "— Urška",
   },
 };
@@ -107,12 +146,7 @@ export default function SpiritualityContent() {
             ))}
           </div>
 
-          <motion.div
-            key={lang}
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-          >
+          <motion.div key={lang} initial="hidden" animate="visible" variants={fadeInUp}>
             <span className="block text-xs tracking-[0.3em] uppercase text-smoke">
               {copy.eyebrow}
             </span>
@@ -137,6 +171,29 @@ export default function SpiritualityContent() {
               >
                 <h2 className="font-heading text-xl md:text-2xl text-bone">{section.heading}</h2>
                 <p className="mt-4 text-bone/70 leading-relaxed">{section.text}</p>
+
+                {section.artwork && (
+                  <Link
+                    href={`/artworks/${section.artwork.slug}`}
+                    className="group mt-6 flex items-center gap-4 rounded-sm border border-bone/10 p-3 transition-colors hover:border-bone/30"
+                  >
+                    <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-sm bg-raised">
+                      <Image
+                        src={section.artwork.image}
+                        alt={section.artwork.title}
+                        fill
+                        sizes="64px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-heading text-base text-bone">{section.artwork.title}</p>
+                      <span className="text-xs tracking-widest uppercase text-bone/60 group-hover:text-bone transition-colors">
+                        {section.artwork.cta}
+                      </span>
+                    </div>
+                  </Link>
+                )}
               </motion.div>
             ))}
           </div>
@@ -152,7 +209,13 @@ export default function SpiritualityContent() {
             <p className="font-heading italic text-xl md:text-2xl text-bone leading-relaxed max-w-xl mx-auto">
               {copy.closing}
             </p>
-            <p className="mt-6 font-heading text-lg text-bone">{copy.signature}</p>
+            <Link
+              href="/collection"
+              className="inline-block mt-8 text-xs tracking-widest uppercase text-bone/85 hover:text-bone transition-colors border-b border-bone/40 pb-1"
+            >
+              {copy.closingCta}
+            </Link>
+            <p className="mt-8 font-heading text-lg text-bone">{copy.signature}</p>
           </motion.div>
         </Container>
       </section>
