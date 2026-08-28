@@ -232,26 +232,10 @@ export default function Horoscope({ lang }: { lang: Lang }) {
               </span>
             )}
 
-            <div style={{ perspective: 800 }}>
-              <motion.div
-                key={selected.key}
-                className="relative flex h-32 w-32 items-center justify-center rounded-full"
-                style={{
-                  transformStyle: "preserve-3d",
-                  background:
-                    "radial-gradient(circle at 35% 30%, var(--color-accent-warm) 0%, var(--color-raised) 70%)",
-                  boxShadow: "0 20px 50px -15px rgba(0,0,0,0.6)",
-                }}
-                animate={
-                  selected.key === todayKey && !reduceMotion ? { rotateY: 360 } : { rotateY: 0 }
-                }
-                transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
-              >
-                <span className="font-heading text-6xl text-ink drop-shadow-sm">
-                  {selected.symbol}
-                </span>
-              </motion.div>
-            </div>
+            <ZodiacMedallion
+              symbol={selected.symbol}
+              spinning={selected.key === todayKey && !reduceMotion}
+            />
 
             <h3 className="mt-8 font-heading text-2xl text-bone">
               {selected.name[lang]}
@@ -285,5 +269,52 @@ export default function Horoscope({ lang }: { lang: Lang }) {
         </div>
       </Container>
     </section>
+  );
+}
+
+const DEPTH_LAYERS = 18;
+
+/**
+ * A genuinely extruded 3D badge (not a flat glyph spinning on its axis): the symbol is
+ * stacked as many thin, depth-offset copies inside a preserve-3d container, so rotating it
+ * actually reveals a solid edge/thickness, like a carved medallion, rather than a card flip.
+ */
+function ZodiacMedallion({ symbol, spinning }: { symbol: string; spinning: boolean }) {
+  return (
+    <div style={{ perspective: 900 }}>
+      <motion.div
+        className="relative h-32 w-32"
+        style={{ transformStyle: "preserve-3d" }}
+        animate={spinning ? { rotateY: 360 } : { rotateY: 0 }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      >
+        {/* Rim, set back in Z so the extruded glyph reads as raised relief on a coin. */}
+        <div
+          className="absolute inset-0 rounded-full"
+          style={{
+            transform: "translateZ(-10px)",
+            background:
+              "radial-gradient(circle at 35% 30%, var(--color-accent-warm) 0%, var(--color-raised) 75%)",
+            boxShadow: "0 20px 50px -15px rgba(0,0,0,0.65)",
+          }}
+        />
+        {Array.from({ length: DEPTH_LAYERS }).map((_, i) => {
+          const t = i / (DEPTH_LAYERS - 1); // 0 = back of the extrusion, 1 = front face
+          return (
+            <span
+              key={i}
+              aria-hidden={i !== DEPTH_LAYERS - 1}
+              className="absolute inset-0 flex items-center justify-center font-heading text-6xl"
+              style={{
+                transform: `translateZ(${-8 + t * 16}px)`,
+                color: `color-mix(in srgb, var(--color-accent-warm) ${20 + t * 60}%, var(--color-raised))`,
+              }}
+            >
+              {symbol}
+            </span>
+          );
+        })}
+      </motion.div>
+    </div>
   );
 }

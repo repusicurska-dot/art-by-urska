@@ -169,6 +169,8 @@ export default function SpiritualityContent() {
         </Container>
       </section>
 
+      <Horoscope lang={lang} />
+
       <section className="pb-24 md:pb-32">
         <Container className="max-w-2xl">
           <div className="space-y-16">
@@ -210,8 +212,6 @@ export default function SpiritualityContent() {
           </div>
         </Container>
       </section>
-
-      <Horoscope lang={lang} />
 
       <section className="pb-24 md:pb-32">
         <Container className="max-w-2xl">
