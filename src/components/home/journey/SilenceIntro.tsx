@@ -2,21 +2,23 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { Artwork } from "@/content/types";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
 
-/** Opening chapter: near-black viewport, a whispered line, then the faintest hint of texture. */
+/** Opening chapter: a whispered line appears immediately, then gives way to scroll as texture emerges. */
 export default function SilenceIntro({ artwork }: { artwork: Artwork }) {
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
 
-  const textOpacity = useTransform(progress, [0, 0.18, 0.42], [0, 1, 0]);
-  const textSpacing = useTransform(progress, [0, 0.42], [0, 10]);
+  // Fully visible at rest (progress 0) — only fades out once the user actually starts scrolling.
+  const textScrollOpacity = useTransform(progress, [0, 0.08, 0.4], [1, 1, 0]);
+  const textSpacing = useTransform(progress, [0, 0.4], [0, 10]);
   const textSpacingPx = useTransform(textSpacing, (v) => `${v}px`);
-  const textY = useTransform(progress, [0, 0.42], [0, -18]);
-  const textureOpacity = useTransform(progress, [0, 0.3, 1], [0.05, 0.16, 0.4]);
-  const textureScale = useTransform(progress, [0, 1], [1.15, 1.35]);
-  const hintOpacity = useTransform(progress, [0, 0.12, 0.3], [1, 1, 0]);
+  const textY = useTransform(progress, [0, 0.4], [0, -18]);
+  const textureOpacity = useTransform(progress, [0, 0.3, 1], [0.12, 0.24, 0.45]);
+  const textureScale = useTransform(progress, [0, 1], [1.1, 1.25]);
+  const hintOpacity = useTransform(progress, [0, 0.1, 0.28], [1, 1, 0]);
 
   if (reduceMotion) {
     return (
@@ -42,34 +44,41 @@ export default function SilenceIntro({ artwork }: { artwork: Artwork }) {
               priority
               sizes="100vw"
               className="object-cover"
-              style={{ filter: "grayscale(0.4) contrast(1.15) blur(1px)" }}
+              style={{ filter: "grayscale(0.35) contrast(1.1) blur(1px)" }}
             />
           </motion.div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/70 to-ink" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink" />
 
         <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
-          <motion.p
-            style={{ opacity: textOpacity, y: textY, letterSpacing: textSpacingPx }}
-            className="font-heading italic text-2xl md:text-4xl text-bone"
+          {/* Mount-triggered fade-in, independent of scroll, so the line is never invisible at rest. */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.4, delay: 0.3, ease: "easeOut" }}
           >
-            Before every painting,
-            <br />
-            there is silence.
-          </motion.p>
+            <motion.p
+              style={{ opacity: textScrollOpacity, y: textY, letterSpacing: textSpacingPx }}
+              className="font-heading italic text-3xl md:text-5xl text-bone"
+            >
+              Before every painting,
+              <br />
+              there is silence.
+            </motion.p>
+          </motion.div>
         </div>
 
         <motion.div
           style={{ opacity: hintOpacity }}
-          className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 text-bone/60"
+          className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-2 text-bone/75"
         >
-          <span className="text-[11px] tracking-[0.3em] uppercase">Scroll to enter</span>
-          <motion.span
-            className="h-8 w-px bg-bone/40"
-            animate={{ scaleY: [0.3, 1, 0.3] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-            style={{ transformOrigin: "top" }}
-          />
+          <span className="text-xs tracking-[0.3em] uppercase">Scroll to enter</span>
+          <motion.div
+            animate={{ y: [0, 6, 0], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown size={20} strokeWidth={1.25} />
+          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -9,7 +9,11 @@ import { usePinnedScroll } from "@/lib/usePinnedScroll";
 
 const SPECS_THRESHOLD = 0.78;
 
-/** Scroll-controlled zoom-out: a macro detail pulls back into the full, floating canvas. */
+/**
+ * Scroll-controlled reveal: a soft, full-bleed macro backdrop dims away while the actual
+ * painting arrives as its own floating canvas — two separate layers, so the canvas is never
+ * scaled past the viewport edge (which read as "everything's too zoomed in").
+ */
 export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
@@ -20,10 +24,12 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
     else if (v < SPECS_THRESHOLD - 0.05 && showSpecs) setShowSpecs(false);
   });
 
-  const scale = useTransform(progress, [0, 0.55, 0.85], [1.7, 1, 0.6]);
-  const radius = useTransform(progress, [0.6, 0.85], [0, 14]);
+  const backdropScale = useTransform(progress, [0, 0.5], [1.2, 1.02]);
+  const backdropOpacity = useTransform(progress, [0, 0.35, 0.6], [0.9, 0.55, 0.12]);
+  const cardOpacity = useTransform(progress, [0.18, 0.42], [0, 1]);
+  const cardScale = useTransform(progress, [0.18, 0.5, 0.85], [0.86, 1, 0.66]);
+  const radius = useTransform(progress, [0.6, 0.85], [4, 14]);
   const glowOpacity = useTransform(progress, [0.55, 0.85], [0, 0.5]);
-  const bgDim = useTransform(progress, [0, 0.55], [0, 1]);
   const specsOpacity = useTransform(progress, [0.76, 0.92], [0, 1]);
   const specsY = useTransform(progress, [0.76, 0.92], [16, 0]);
 
@@ -47,23 +53,41 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
   return (
     <section ref={ref} className="relative h-[320vh] bg-ink">
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
-        <motion.div className="absolute inset-0 bg-ink" style={{ opacity: bgDim }} />
+        {artwork.heroImage && (
+          <motion.div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{ scale: backdropScale, opacity: backdropOpacity }}
+          >
+            <Image
+              src={artwork.heroImage}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+              style={{ filter: "blur(2px) saturate(1.05)" }}
+            />
+            <div className="absolute inset-0 bg-ink/40" />
+          </motion.div>
+        )}
+
         <motion.div
           aria-hidden="true"
           className="absolute h-[70vmin] w-[70vmin] rounded-full blur-[140px]"
           style={{ opacity: glowOpacity, background: `radial-gradient(circle, ${artwork.accentColor}55, transparent 70%)` }}
         />
+
         {artwork.heroImage && (
           <motion.div
-            className="relative aspect-[4/5] h-[80vh] max-w-[92vw] overflow-hidden"
-            style={{ scale, borderRadius: radius }}
+            className="relative aspect-[4/5] h-[72vh] max-h-[600px] w-auto max-w-[88vw] overflow-hidden shadow-[0_40px_120px_-30px_rgba(0,0,0,0.7)]"
+            style={{ opacity: cardOpacity, scale: cardScale, borderRadius: radius }}
           >
             <Image
               src={artwork.heroImage}
               alt={artwork.heroImageAlt ?? artwork.title}
               fill
               priority
-              sizes="90vw"
+              sizes="80vw"
               className="object-cover"
             />
           </motion.div>
