@@ -17,8 +17,8 @@ export default function ArtworkStory({ artwork }: { artwork: Artwork }) {
           index={index}
           accentColor={artwork.accentColor}
           artworkTitle={artwork.title}
-          image={artwork.heroImage}
-          imageAlt={artwork.heroImageAlt}
+          image={beat.image ?? artwork.heroImage}
+          imageAlt={beat.imageAlt ?? artwork.heroImageAlt}
         />
       ))}
       {artwork.artistNote && (

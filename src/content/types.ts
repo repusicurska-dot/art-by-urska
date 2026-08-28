@@ -12,6 +12,9 @@ export type Availability = "available" | "reserved" | "sold" | "inquire";
 export interface StoryBeat {
   heading?: string;
   text: string;
+  /** Optional photo for this beat — falls back to the artwork's heroImage when omitted. */
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface Artwork {

@@ -152,8 +152,18 @@ export const artworks: Artwork[] = [
     quote: "In a thousand different lifetimes, I would choose you.",
     shortIntro: "A love that returns, season after season, like a rose that blooms again.",
     storyBeats: [
-      { heading: "Her words", text: BLOSSOMING_LOVE_POEM },
-      { heading: "Meaning", text: BLOSSOMING_LOVE_MEANING },
+      {
+        heading: "Her words",
+        text: BLOSSOMING_LOVE_POEM,
+        image: "/images/blossoming-love-story-1.jpg",
+        imageAlt: "Urška holding the finished 'Blossoming Love' canvas",
+      },
+      {
+        heading: "Meaning",
+        text: BLOSSOMING_LOVE_MEANING,
+        image: "/images/blossoming-love-story-2.jpg",
+        imageAlt: "'Blossoming Love' held up against the castle gates",
+      },
       { heading: "For the collector", text: BLOSSOMING_LOVE_COLLECTOR },
     ],
     artistNote: BLOSSOMING_LOVE_NOTE,
