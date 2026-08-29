@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import { fadeInUp } from "@/lib/motion";
 import Horoscope from "./Horoscope";
+import SpiritualityStarfield from "./SpiritualityStarfield";
+import SpiritualityAurora from "./SpiritualityAurora";
 
 type Lang = "sl" | "en";
 
@@ -126,19 +128,11 @@ export default function SpiritualityContent() {
   const copy = COPY[lang];
 
   return (
-    <div
-      className="bg-ink"
-      style={{
-        background: [
-          "radial-gradient(1200px circle at 20% -5%, color-mix(in srgb, var(--color-accent-warm) 65%, transparent), transparent 55%)",
-          "radial-gradient(1000px circle at 85% 20%, color-mix(in srgb, var(--color-terracotta) 55%, transparent), transparent 55%)",
-          "radial-gradient(1100px circle at 75% 65%, color-mix(in srgb, var(--color-accent-poetry) 50%, transparent), transparent 55%)",
-          "radial-gradient(1400px circle at 15% 100%, color-mix(in srgb, var(--color-accent-warm) 45%, transparent), transparent 60%)",
-          "var(--color-ink)",
-        ].join(", "),
-      }}
-    >
-      <section className="min-h-[60vh] flex items-center justify-center px-6 py-24 text-center">
+    <div className="relative bg-ink">
+      <SpiritualityAurora />
+      <SpiritualityStarfield />
+
+      <section className="relative min-h-[60vh] flex items-center justify-center px-6 py-24 text-center">
         <Container className="max-w-2xl">
           <div className="flex justify-center gap-2 mb-8" role="group" aria-label="Language">
             {(["sl", "en"] as const).map((l) => (
