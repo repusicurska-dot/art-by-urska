@@ -27,6 +27,7 @@ export default function SpiritualityStarfield() {
         {stars.map((s, i) => (
           <circle
             key={i}
+            className="ambient-motion"
             cx={`${s.x}%`}
             cy={`${s.y}%`}
             r={s.size}
@@ -42,4 +43,3 @@ export default function SpiritualityStarfield() {
     </div>
   );
 }
-
