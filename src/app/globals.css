@@ -20,6 +20,11 @@
   --color-accent-warm: #c5aa82;
   --color-accent-poetry: #8a5a63;
   --color-accent-spirit: #5b6f95;
+  /* Soft gold-to-violet iridescence for the Spirituality nebula — gentler and
+     warmer than the plain night-indigo above, same muted/dusty family as the
+     rest of the palette. */
+  --color-aurora-gold: #cba876;
+  --color-aurora-violet: #7d6a99;
   --font-heading: var(--font-cormorant), serif;
   --font-body: var(--font-inter), sans-serif;
   --font-gothic: var(--font-unifraktur), serif;
@@ -90,4 +95,25 @@ h1, h2, h3, h4 {
 }
 .zodiac-icon-counter-spin {
   animation: zodiac-spin-reverse 120s linear infinite;
+}
+
+/* Gentle star twinkle for the Spirituality page's night-sky backdrop. */
+@keyframes spirit-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.4); }
+}
+
+/* Slow-drifting nebula blobs behind the Spirituality star field — three
+   distinct paths so the blobs don't all move in lockstep. */
+@keyframes aurora-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vw, 8vw) scale(1.15); }
+}
+@keyframes aurora-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-8vw, 6vw) scale(1.1); }
+}
+@keyframes aurora-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5vw, -7vw) scale(1.2); }
 }
