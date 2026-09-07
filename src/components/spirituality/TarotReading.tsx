@@ -237,10 +237,11 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                 {selected.keywords[lang].map((word) => (
                   <span
                     key={word}
-                    className="rounded-full border px-3 py-1 text-xs tracking-wide text-bone"
+                    className="rounded-full border px-3 py-1 text-xs tracking-wide"
                     style={{
-                      borderColor: "color-mix(in srgb, var(--color-accent-warm) 35%, transparent)",
-                      background: "color-mix(in srgb, var(--color-ink) 55%, transparent)",
+                      borderColor: "color-mix(in srgb, var(--color-terracotta) 35%, transparent)",
+                      background: "var(--color-accent-warm)",
+                      color: "var(--color-ink)",
                     }}
                   >
                     {word}
@@ -248,18 +249,19 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                 ))}
               </div>
 
-              <p className="mt-6 max-w-md text-bone leading-relaxed italic font-heading text-lg">
+              <p
+                className="mt-6 max-w-md rounded-md px-5 py-3 leading-relaxed italic font-heading text-lg"
+                style={{ background: "var(--color-bone)", color: "var(--color-ink)" }}
+              >
                 {selected.meaning[lang]}
               </p>
 
               <div
                 className="mt-10 w-full max-w-lg rounded-lg px-7 py-8 text-left md:px-10 md:py-10"
                 style={{
-                  background:
-                    "linear-gradient(160deg, color-mix(in srgb, var(--color-accent-warm) 7%, var(--color-raised)) 0%, color-mix(in srgb, var(--color-terracotta) 6%, var(--color-raised)) 100%)",
-                  border: "1px solid color-mix(in srgb, var(--color-accent-warm) 30%, transparent)",
-                  boxShadow:
-                    "0 25px 60px -25px rgba(0,0,0,0.5), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 25%, transparent)",
+                  background: "var(--color-bone)",
+                  border: "1px solid color-mix(in srgb, var(--color-terracotta) 30%, transparent)",
+                  boxShadow: "0 25px 60px -25px rgba(0,0,0,0.6)",
                 }}
               >
                 <div className="space-y-5 text-left">
@@ -269,10 +271,10 @@ export default function TarotReading({ lang }: { lang: Lang }) {
 
                     if (isFirst) {
                       return (
-                        <p key={i} className="text-bone/90 leading-relaxed">
+                        <p key={i} className="leading-relaxed" style={{ color: "var(--color-ink)" }}>
                           <span
                             className="float-left mr-2 pt-1 font-heading text-5xl leading-[0.8]"
-                            style={{ color: "var(--color-accent-warm)" }}
+                            style={{ color: "var(--color-terracotta)" }}
                           >
                             {para.charAt(0)}
                           </span>
@@ -286,9 +288,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                         <p
                           key={i}
                           className="clear-both font-heading italic text-lg leading-relaxed"
-                          style={{
-                            color: "color-mix(in srgb, var(--color-accent-warm) 55%, var(--color-bone))",
-                          }}
+                          style={{ color: "var(--color-terracotta)" }}
                         >
                           {para}
                         </p>
@@ -296,7 +296,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                     }
 
                     return (
-                      <p key={i} className="clear-both text-bone/90 leading-relaxed">
+                      <p key={i} className="clear-both leading-relaxed" style={{ color: "var(--color-ink)" }}>
                         {para}
                       </p>
                     );

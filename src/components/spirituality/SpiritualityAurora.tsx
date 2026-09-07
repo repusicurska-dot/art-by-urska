@@ -9,7 +9,7 @@ export default function SpiritualityAurora() {
           left: "5vw",
           top: "5vh",
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-violet) 30%, transparent) 0%, color-mix(in srgb, var(--color-aurora-gold) 16%, transparent) 45%, transparent 75%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-violet) 16%, transparent) 0%, color-mix(in srgb, var(--color-aurora-gold) 8%, transparent) 45%, transparent 75%)",
           filter: "blur(80px)",
         }}
       />
@@ -21,8 +21,8 @@ export default function SpiritualityAurora() {
           left: "-18vw",
           top: "-22vw",
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-gold) 85%, transparent) 0%, color-mix(in srgb, var(--color-aurora-violet) 45%, transparent) 40%, transparent 72%)",
-          filter: "blur(60px)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-gold) 40%, transparent) 0%, color-mix(in srgb, var(--color-aurora-violet) 22%, transparent) 40%, transparent 72%)",
+          filter: "blur(70px)",
           animation: "aurora-drift-a 52s ease-in-out infinite",
         }}
       />
@@ -34,8 +34,8 @@ export default function SpiritualityAurora() {
           right: "-20vw",
           top: "-8vw",
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-violet) 85%, transparent) 0%, color-mix(in srgb, var(--color-aurora-gold) 30%, transparent) 45%, transparent 72%)",
-          filter: "blur(65px)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-violet) 40%, transparent) 0%, color-mix(in srgb, var(--color-aurora-gold) 14%, transparent) 45%, transparent 72%)",
+          filter: "blur(75px)",
           animation: "aurora-drift-b 64s ease-in-out infinite",
         }}
       />
@@ -47,8 +47,8 @@ export default function SpiritualityAurora() {
           left: "8vw",
           bottom: "-28vw",
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-gold) 75%, transparent) 0%, color-mix(in srgb, var(--color-aurora-violet) 55%, transparent) 45%, transparent 72%)",
-          filter: "blur(60px)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-gold) 35%, transparent) 0%, color-mix(in srgb, var(--color-aurora-violet) 26%, transparent) 45%, transparent 72%)",
+          filter: "blur(70px)",
           animation: "aurora-drift-c 58s ease-in-out infinite",
         }}
       />
@@ -60,8 +60,8 @@ export default function SpiritualityAurora() {
           right: "2vw",
           bottom: "-12vw",
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-violet) 80%, transparent) 0%, transparent 68%)",
-          filter: "blur(55px)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-violet) 38%, transparent) 0%, transparent 68%)",
+          filter: "blur(65px)",
           animation: "aurora-drift-a 70s ease-in-out infinite reverse",
         }}
       />
