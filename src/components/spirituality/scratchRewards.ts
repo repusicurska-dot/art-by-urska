@@ -1,4 +1,4 @@
-import type { Lang } from "./zodiacData";
+import type { Lang } from "./tarotData";
 
 /**
  * AI-drafted, evergreen "excitement" lines for the weekly scratch card (not a

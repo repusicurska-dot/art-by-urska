@@ -4,6 +4,18 @@ export default function SpiritualityAurora() {
       <div
         className="absolute rounded-full"
         style={{
+          width: "90vw",
+          height: "90vh",
+          left: "5vw",
+          top: "5vh",
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--color-aurora-violet) 30%, transparent) 0%, color-mix(in srgb, var(--color-aurora-gold) 16%, transparent) 45%, transparent 75%)",
+          filter: "blur(80px)",
+        }}
+      />
+      <div
+        className="absolute rounded-full"
+        style={{
           width: "75vw",
           height: "75vw",
           left: "-18vw",

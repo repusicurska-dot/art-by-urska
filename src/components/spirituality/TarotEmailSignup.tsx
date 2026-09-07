@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Lang } from "./zodiacData";
+import type { Lang } from "./tarotData";
 
 const LABELS: Record<
   Lang,
@@ -16,8 +16,8 @@ const LABELS: Record<
   }
 > = {
   sl: {
-    heading: "Prejemaj svoj horoskop vsak teden",
-    body: "Pusti svoj email in svoje znamenje — vsak teden ti pošljemo novo sporočilo zate.",
+    heading: "Prejemaj svojo tedensko karto",
+    body: "Pusti svoj email — vsak teden ti pošljemo novo karto in njeno sporočilo zate.",
     placeholder: "tvoj@email.com",
     button: "Prijavi se",
     sending: "Pošiljam …",
@@ -26,8 +26,8 @@ const LABELS: Record<
       "Ta obrazec še ni povezan s pravim sistemom za pošiljanje e-pošte — prijave se trenutno beležijo, a še ne prejmeš tedenskih sporočil.",
   },
   en: {
-    heading: "Get your horoscope every week",
-    body: "Leave your email and your sign, and we'll send you a new message every week.",
+    heading: "Get your weekly card",
+    body: "Leave your email, and we'll send you a new card and its message every week.",
     placeholder: "you@email.com",
     button: "Subscribe",
     sending: "Sending …",
@@ -37,14 +37,14 @@ const LABELS: Record<
   },
 };
 
-export default function HoroscopeEmailSignup({
+export default function TarotEmailSignup({
   lang,
-  signKey,
-  signName,
+  cardKey,
+  cardName,
 }: {
   lang: Lang;
-  signKey: string;
-  signName: string;
+  cardKey: string;
+  cardName: string;
 }) {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState(""); // honeypot
@@ -68,10 +68,10 @@ export default function HoroscopeEmailSignup({
               setStatus("submitting");
               setError("");
               try {
-                const res = await fetch("/api/horoscope-subscribe", {
+                const res = await fetch("/api/tarot-subscribe", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ email, sign: signKey, company }),
+                  body: JSON.stringify({ email, card: cardKey, company }),
                 });
                 const data = await res.json();
                 if (!res.ok) {
@@ -87,9 +87,9 @@ export default function HoroscopeEmailSignup({
             }}
           >
             <div className="hidden" aria-hidden="true">
-              <label htmlFor="hs-company">Company</label>
+              <label htmlFor="ts-company">Company</label>
               <input
-                id="hs-company"
+                id="ts-company"
                 type="text"
                 tabIndex={-1}
                 autoComplete="off"
@@ -97,11 +97,11 @@ export default function HoroscopeEmailSignup({
                 onChange={(e) => setCompany(e.target.value)}
               />
             </div>
-            <label htmlFor="hs-email" className="sr-only">
+            <label htmlFor="ts-email" className="sr-only">
               Email
             </label>
             <input
-              id="hs-email"
+              id="ts-email"
               required
               type="email"
               value={email}
@@ -122,7 +122,7 @@ export default function HoroscopeEmailSignup({
         )}
 
         <p className="mt-4 text-[11px] text-bone/40 italic">{labels.disclaimer}</p>
-        <p className="mt-1 text-[11px] text-bone/30">{signName}</p>
+        <p className="mt-1 text-[11px] text-bone/30">{cardName}</p>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Lang } from "./zodiacData";
+import type { Lang } from "./tarotData";
 import { SCRATCH_REWARDS } from "./scratchRewards";
 
 const LABELS: Record<Lang, { heading: string; hint: string; revealedLabel: string; comeback: string }> = {

@@ -1,22 +1,41 @@
 # Owner Action Required
 
-## Horoscope weekly email sign-up — needs a real email provider to actually send anything
+## Tarot rebuild (2026-09-06) — replaced the horoscope section, needs your review
 
-The Spirituality page's horoscope now has an email sign-up box ("Get your horoscope every
-week"). **It does not send emails yet.** It validates and accepts the sign-up (`POST
-/api/horoscope-subscribe`), and says so plainly in its own small disclaimer text so visitors
-aren't misled — but nothing is stored durably and nothing goes out weekly. To make this real,
-three things need deciding:
+Per your request, the Spirituality page's interactive section is now a **Tarot** reading
+instead of the zodiac horoscope wheel: all 22 Major Arcana, a "card of the day" (auto-picked,
+face-down until turned over), a "draw a card" random-shuffle button, and a manual deck strip to
+pick any specific card. New files: `src/components/spirituality/tarotData.ts` (the 22 cards —
+name, keywords, tagline, and a ~150-220 word evergreen reading per card, both languages),
+`TarotIcon.tsx` (constellation-style glyphs, same visual language as the old zodiac icons),
+`TarotReading.tsx`, `TarotEmailSignup.tsx`, `POST /api/tarot-subscribe`.
+
+**The card meanings are AI-drafted** — same category as the artist's notes and the old horoscope
+profiles: traditional, evergreen archetypal readings (not personalized), safe to show as-is, but
+read through `tarotData.ts` and rewrite anything that doesn't sound like you. They're
+upright-only for now (no reversed meanings yet) — a natural next step, along with the Minor
+Arcana, whenever you want to expand this further.
+
+The old horoscope wheel (`Horoscope.tsx`, `zodiacData.ts`, `ZodiacIcon.tsx`,
+`/api/horoscope-subscribe`) was removed rather than kept alongside — say the word if you'd like
+it restored or merged back in some form later.
+
+## Tarot weekly email sign-up — needs a real email provider to actually send anything
+
+The Tarot section has an email sign-up box ("Get your weekly card"). **It does not send emails
+yet.** It validates and accepts the sign-up (`POST /api/tarot-subscribe`), and says so plainly in
+its own small disclaimer text so visitors aren't misled — but nothing is stored durably and
+nothing goes out weekly. To make this real, three things need deciding:
 
 - [ ] An email provider (Resend and Postmark are the usual simple choices — same decision as the
       still-pending `/api/contact` delivery gap).
-- [ ] Somewhere durable to store `{email, sign}` pairs — this app's serverless functions have no
+- [ ] Somewhere durable to store `{email, card}` pairs — this app's serverless functions have no
       persistent filesystem, so this needs a small database or the email provider's own
       "audience/list" feature.
 - [ ] A weekly scheduled job (e.g. Vercel Cron) that reads the subscriber list and sends each
-      person that week's content for their sign — the content itself (`profile` +
-      `weeklyFocus[weekIndex]`) already exists in `src/components/spirituality/zodiacData.ts` and
-      is ready to reuse, only the sending mechanism is missing.
+      person a drawn card and its reading — the content itself already exists in
+      `src/components/spirituality/tarotData.ts` and is ready to reuse, only the sending
+      mechanism is missing.
 
 The weekly scratch-card game next to it needs nothing from you — it's fully self-contained
 (canvas + localStorage), resets automatically every Monday, no server or account required.

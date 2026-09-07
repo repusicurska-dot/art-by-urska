@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import { fadeInUp } from "@/lib/motion";
-import Horoscope from "./Horoscope";
+import TarotReading from "./TarotReading";
 import SpiritualityStarfield from "./SpiritualityStarfield";
 import SpiritualityAurora from "./SpiritualityAurora";
 
@@ -164,7 +164,7 @@ export default function SpiritualityContent() {
         </Container>
       </section>
 
-      <Horoscope lang={lang} />
+      <TarotReading lang={lang} />
 
       <section className="pb-24 md:pb-32">
         <Container className="max-w-2xl">
