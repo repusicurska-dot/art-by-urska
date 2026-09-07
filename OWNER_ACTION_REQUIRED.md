@@ -1,5 +1,48 @@
 # Owner Action Required
 
+## Live Tarot Reading booking (2026-09-06) — needs a database, email/SMS, and a scheduling job
+
+Added a "Live Tarot Reading" section right under the card reading, so visitors can request a
+real, live session with you (video call today; phone call is a **placeholder** — visible in the
+UI marked "coming soon", per your request, not wired up yet). New files:
+`src/components/spirituality/LiveReadingBooking.tsx`, `liveReadingData.ts` (packages, formats,
+the slot picker's copy, and the `generateCandidateSlots()` logic), `POST /api/live-reading-booking`,
+`src/lib/ics.ts` (generates the "add to calendar" .ics file offered to the visitor after they
+submit — that part works today, no backend needed).
+
+**What this does today:** shows two reading lengths (pricing left as `[CENA]` — I didn't invent a
+number, same rule as everywhere else placeholder pricing appears), a format toggle, and a picker
+of candidate time slots for the next 3 weeks (Tue–Sat, 10:00/13:00/16:00/19:00 — an arbitrary
+default, easy to change in `liveReadingData.ts`). A visitor picks a slot and submits a request;
+the API validates and accepts it, and the visitor gets an "add to calendar" button for their own
+calendar app.
+
+**What this does *not* do yet, and needs deciding:**
+
+- [ ] **A database.** Nothing persists anywhere right now — this app's serverless functions have
+      no filesystem, same gap as every other form on the site. Without one, the slot picker can't
+      actually know which times are taken: two visitors could request the same slot, and you'd
+      resolve the conflict by hand over email. Fixing this needs a real datastore (Vercel
+      Postgres, Supabase, or similar) so a slot is marked unavailable the moment it's requested.
+- [ ] **Somewhere for you to actually see requests.** Right now a submitted request goes nowhere
+      — it's validated and thrown away. At minimum this needs an email provider (Resend/Postmark,
+      same still-open decision as `/api/contact` and the tarot/horoscope sign-ups) so you get
+      notified per request. A simple durable list (the database above, or even the email
+      provider's own inbox) doubles as your booking log until something fancier is worth building.
+- [ ] **Your iPhone Calendar, automatically.** The realistic path — once email is wired up — is
+      attaching an `.ics` file (same generator already built in `src/lib/ics.ts`) to *your*
+      notification email for each request: opening it in iPhone Mail offers "Add to Calendar" in
+      one tap. A live, auto-syncing calendar feed is a bigger, separate project (it needs the
+      database above, plus care so the feed URL can't leak your bookings publicly) — worth
+      revisiting once requests are actually flowing somewhere durable.
+- [ ] **A reminder email one day before the appointment.** Needs the email provider above *and* a
+      scheduled job (Vercel Cron) that checks confirmed bookings daily and sends it. Not built yet.
+- [ ] **SMS reminders** — you mentioned this as a nice-to-have for later. Once the above exists,
+      adding SMS (e.g. via Twilio) alongside the email reminder is a small addition, not a rebuild.
+- [ ] **Phone-call readings** — the option is visible and disabled ("coming soon") per your
+      request. Enable it in `LIVE_READING_FORMATS` (`liveReadingData.ts`) once you're ready to
+      actually take calls; nothing else needs to change for that specific option to go live.
+
 ## Tarot rebuild (2026-09-06) — replaced the horoscope section, needs your review
 
 Per your request, the Spirituality page's interactive section is now a **Tarot** reading
