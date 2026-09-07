@@ -126,7 +126,12 @@ export default function TarotReading({ lang }: { lang: Lang }) {
     <section className="border-t border-bone/10 py-24 md:py-32">
       <Container className="max-w-2xl text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.heading}</span>
-        <p className="mt-6 text-bone/70 leading-relaxed max-w-xl mx-auto">{labels.intro}</p>
+        <p
+          className="mt-6 text-bone/90 leading-relaxed max-w-xl mx-auto"
+          style={{ textShadow: "0 1px 12px rgba(0,0,0,0.5)" }}
+        >
+          {labels.intro}
+        </p>
 
         {/* The big reading card: flips between a decorative back and the drawn front. */}
         <div className="relative mx-auto mt-16 h-[300px] w-[210px] sm:h-[340px] sm:w-[240px]" style={{ perspective: 1200 }}>
@@ -232,15 +237,18 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                 {selected.keywords[lang].map((word) => (
                   <span
                     key={word}
-                    className="rounded-full border px-3 py-1 text-xs tracking-wide text-bone/75"
-                    style={{ borderColor: "color-mix(in srgb, var(--color-accent-warm) 30%, transparent)" }}
+                    className="rounded-full border px-3 py-1 text-xs tracking-wide text-bone"
+                    style={{
+                      borderColor: "color-mix(in srgb, var(--color-accent-warm) 35%, transparent)",
+                      background: "color-mix(in srgb, var(--color-ink) 55%, transparent)",
+                    }}
                   >
                     {word}
                   </span>
                 ))}
               </div>
 
-              <p className="mt-6 max-w-md text-bone/75 leading-relaxed italic font-heading text-lg">
+              <p className="mt-6 max-w-md text-bone leading-relaxed italic font-heading text-lg">
                 {selected.meaning[lang]}
               </p>
 
@@ -248,7 +256,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                 className="mt-10 w-full max-w-lg rounded-lg px-7 py-8 text-left md:px-10 md:py-10"
                 style={{
                   background:
-                    "linear-gradient(160deg, color-mix(in srgb, var(--color-accent-warm) 14%, var(--color-raised)) 0%, color-mix(in srgb, var(--color-terracotta) 10%, var(--color-raised)) 100%)",
+                    "linear-gradient(160deg, color-mix(in srgb, var(--color-accent-warm) 7%, var(--color-raised)) 0%, color-mix(in srgb, var(--color-terracotta) 6%, var(--color-raised)) 100%)",
                   border: "1px solid color-mix(in srgb, var(--color-accent-warm) 30%, transparent)",
                   boxShadow:
                     "0 25px 60px -25px rgba(0,0,0,0.5), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 25%, transparent)",
@@ -261,7 +269,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
 
                     if (isFirst) {
                       return (
-                        <p key={i} className="text-bone/75 leading-relaxed">
+                        <p key={i} className="text-bone/90 leading-relaxed">
                           <span
                             className="float-left mr-2 pt-1 font-heading text-5xl leading-[0.8]"
                             style={{ color: "var(--color-accent-warm)" }}
@@ -279,7 +287,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                           key={i}
                           className="clear-both font-heading italic text-lg leading-relaxed"
                           style={{
-                            color: "color-mix(in srgb, var(--color-accent-warm) 70%, var(--color-bone))",
+                            color: "color-mix(in srgb, var(--color-accent-warm) 55%, var(--color-bone))",
                           }}
                         >
                           {para}
@@ -288,7 +296,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                     }
 
                     return (
-                      <p key={i} className="clear-both text-bone/75 leading-relaxed">
+                      <p key={i} className="clear-both text-bone/90 leading-relaxed">
                         {para}
                       </p>
                     );
