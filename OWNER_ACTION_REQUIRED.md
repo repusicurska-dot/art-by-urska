@@ -1,5 +1,9 @@
 # Owner Action Required
 
+> **The current list of open items lives in [`STANJE.md`](STANJE.md).** This file is the
+> running history of what was built and why — read it for context on a past decision, not
+> to find out what still needs doing. Sections below predate later work and may be stale.
+
 ## TO DO list worked through (2026-09-12) — three things still need you
 
 From your shared note and the 16 photos: pricing is in (20 min = 50 €, 50 min = 100 €),
