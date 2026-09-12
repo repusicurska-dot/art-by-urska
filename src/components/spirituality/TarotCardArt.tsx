@@ -396,15 +396,16 @@ export default function TarotCardArt({
 
       {EMBLEMS[cardKey] ?? null}
 
-      {/* title plate */}
+      {/* Title plate. Slovenian card names run long ("Vrhovna Duhovnica"), so the
+          type steps down rather than running off the edge of the card. */}
       <line x1="92" y1="434" x2="208" y2="434" stroke={GOLD} strokeWidth="0.8" opacity="0.5" />
       <text
         x="150"
         y="462"
         textAnchor="middle"
         fill={GOLD}
-        fontSize="15"
-        letterSpacing="2.6"
+        fontSize={title.length > 15 ? 10.5 : title.length > 10 ? 12.5 : 15}
+        letterSpacing={title.length > 15 ? 1.2 : title.length > 10 ? 1.9 : 2.6}
         style={{ fontFamily: "var(--font-cormorant), serif" }}
       >
         {title.toUpperCase()}
