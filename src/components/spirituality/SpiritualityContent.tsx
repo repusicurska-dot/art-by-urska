@@ -125,7 +125,10 @@ const COPY: Record<Lang, Copy> = {
 };
 
 export default function SpiritualityContent() {
-  const [lang, setLang] = useState<Lang>("sl");
+  // English by default so this page matches the rest of the site — a visitor arriving
+  // from an English nav shouldn't suddenly hit Slovenian. The toggle keeps Slovenian
+  // one click away, and also switches the tarot reading and the booking form.
+  const [lang, setLang] = useState<Lang>("en");
   const copy = COPY[lang];
 
   return (
@@ -137,7 +140,16 @@ export default function SpiritualityContent() {
 
       <section className="relative min-h-[60vh] flex items-center justify-center px-6 py-24 text-center">
         <Container className="max-w-2xl">
-          <div className="flex justify-center gap-2 mb-8" role="group" aria-label="Language">
+          {/* Labelled as page-scoped: without it the two buttons read like a site-wide
+              language switch, which the rest of the site doesn't offer. */}
+          <div
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mb-8"
+            role="group"
+            aria-label="Language for this page"
+          >
+            <span className="text-[10px] tracking-[0.25em] uppercase text-smoke/70">
+              Read this page in
+            </span>
             {(["sl", "en"] as const).map((l) => (
               <button
                 key={l}
