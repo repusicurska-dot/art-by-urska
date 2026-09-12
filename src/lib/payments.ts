@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { Artwork } from "@/content/types";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 // TODO(phase-2): crypto payments (e.g. Coinbase Commerce) — Stripe Checkout only for now.
 // Set STRIPE_SECRET_KEY (and NEXT_PUBLIC_SITE_URL) to go live; until then this throws and
@@ -23,7 +24,7 @@ export async function createCheckoutSession(
   contact: { name: string; email: string }
 ): Promise<{ url: string } | null> {
   const stripe = getStripeClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = getSiteUrl();
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",

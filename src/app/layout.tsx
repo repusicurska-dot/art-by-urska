@@ -10,6 +10,7 @@ import CookieBanner from "@/components/shared/cookies/CookieBanner";
 import StructuredData from "@/components/seo/StructuredData";
 import { CartProvider } from "@/lib/cart/CartContext";
 import { organizationJsonLd } from "@/lib/structuredData";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -29,7 +30,7 @@ const gothic = UnifrakturMaguntia({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: "Art by Urška",
     template: "%s",

@@ -19,11 +19,11 @@ export default function SilenceIntro() {
   if (reduceMotion) {
     return (
       <section className="relative flex min-h-[80vh] items-center justify-center bg-ink px-6 py-24 text-center">
-        <p className="font-heading italic text-2xl text-bone/90">
+        <h1 className="font-heading italic text-2xl text-bone/90">
           These paintings are more than art —
           <br />
           they are pieces of my spirit, woven into every brushstroke.
-        </p>
+        </h1>
       </section>
     );
   }
@@ -38,14 +38,16 @@ export default function SilenceIntro() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, delay: 0.3, ease: "easeOut" }}
           >
-            <motion.p
+            {/* The opening line doubles as the homepage's h1 — the page had none,
+                which left it without a heading for search engines and screen readers. */}
+            <motion.h1
               style={{ opacity: textScrollOpacity, y: textY, letterSpacing: textSpacingPx }}
               className="font-heading italic text-2xl md:text-4xl text-bone max-w-3xl"
             >
               These paintings are more than art —
               <br />
               they are pieces of my spirit, woven into every brushstroke.
-            </motion.p>
+            </motion.h1>
           </motion.div>
         </div>
 

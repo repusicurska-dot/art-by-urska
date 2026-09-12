@@ -129,7 +129,9 @@ export default function SpiritualityContent() {
   const copy = COPY[lang];
 
   return (
-    <div className="relative bg-ink">
+    // lang follows the toggle: the page is Slovenian by default while the document is
+    // English, and without this a screen reader reads the Slovenian with an English voice.
+    <div className="relative bg-ink" lang={lang}>
       <SpiritualityAurora />
       <SpiritualityStarfield />
 

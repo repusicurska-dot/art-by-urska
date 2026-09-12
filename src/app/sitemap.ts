@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getAllArtworks } from "@/lib/content";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { getSiteUrl } from "@/lib/siteUrl";
+
+const SITE_URL = getSiteUrl();
 
 const STATIC_ROUTES = [
   "",

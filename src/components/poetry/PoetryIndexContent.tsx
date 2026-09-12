@@ -15,7 +15,7 @@ export default function PoetryIndexContent() {
   return (
     <div className="bg-ink">
       <section className="flex min-h-[35vh] items-end justify-center px-6 pt-24 text-center">
-        <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Poetry by Urška</span>
+        <h1 className="block text-xs tracking-[0.3em] uppercase text-smoke">Poetry by Urška</h1>
       </section>
 
       <QuoteSequence quotes={POETRY_QUOTES} />
