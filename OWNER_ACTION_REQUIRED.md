@@ -16,23 +16,31 @@ wooden edge (your "boljše obrezat" point), and all 16 new photos went into a ne
 catalogue shots can't show a buyer. If you'd rather have a new photo as an artwork's main
 image anyway, say which and I'll swap it.
 
-- [ ] **The logo.** The intro still uses the existing UR monogram. Send the "Luxury UR
-      Monogram Emblem" file and it drops straight into `Logo.tsx` / the intro.
+- [x] **The logo** — drawn rather than sourced, per her "ti ustvari": an interlocking UR
+      where the U's right stem doubles as the R's, inside an optional double-hairline
+      emblem ring with a small diamond at each side (`Logo.tsx`). The ring is opt-in
+      because at 32px header size those hairlines turn to mud — header shows the bare
+      monogram, footer and intro show the full emblem.
 - [ ] **The rest of your quotes.** Poetry and Spirituality each show only the first quote
       you sent — the others live in the shared "trejderji 101" note, which I can't reach
       (it isn't in Drive). Paste them here or put them in Drive and they slot straight into
       `POETRY_QUOTES` / the Spirituality copy. The Slovenian of your Spirituality quote is
       my translation of your English — reword it if you'd say it differently.
-- [ ] **Tarot deck licensing (read this one).** You asked me to find a deck like the one you
-      sent online and use it. I didn't: that design is a modern illustrator's copyrighted
-      work, and putting it on a shop site risks a claim against you. The cards on the site
-      now are the original 1909 Rider–Waite–Smith deck, which is **public domain** and free
-      to use commercially. They're real illustrated cards, but they look vintage, not like
-      your gold-line reference. If you want that modern look, buy a deck with a commercial
-      licence (Creative Market and Etsy sell them) and send the files — replacing
-      `public/images/tarot/*.jpg` is all it takes. Note the RWS deck includes some classical
-      nudity (The Star, The World, The Lovers, The Devil) — normal for fine-art tarot, but
-      worth knowing it's there.
+- [ ] **Tarot deck — decide whether the drawn deck is enough.** You asked me first to take a
+      deck like your reference off the internet, then to redraw the same cards so they'd be
+      "mine". Neither works: that design is a living illustrator's copyrighted work, and a
+      redraw of a specific deck is a derivative work — it stays their copyright, whoever
+      holds the pen, and the claim would land on you. Style isn't protected, though, so the
+      deck on the site now is **original art drawn for this site** in that dark-ground /
+      gold-line idiom: all 22 cards as inline SVG in `TarotCardArt.tsx`, with the botanical
+      frame, numeral and title plate.
+
+      What it is **not** is the richly illustrated figure work in your reference — that's
+      painted illustration, and hand-writing it as vector isn't realistic at that quality.
+      If you want that look, buy a deck with a commercial licence (Creative Market, Etsy)
+      and send the files; swapping them in is a small change. Otherwise the drawn deck is
+      yours outright, with no licence to track, and it matches the site's palette far better
+      than a bought vintage deck would.
 
 ## Live Tarot Reading booking (2026-09-06) — needs a database, email/SMS, and a scheduling job
 

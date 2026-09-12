@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import TarotIcon from "./TarotIcon";
 import TarotCardFrame from "./TarotCardFrame";
+import TarotCardArt from "./TarotCardArt";
 import ScratchCard from "./ScratchCard";
 import TarotEmailSignup from "./TarotEmailSignup";
-import { TAROT_CARDS, getCardOfTheDayKey, tarotImage, type Lang } from "./tarotData";
+import { TAROT_CARDS, getCardOfTheDayKey, type Lang } from "./tarotData";
 
 const LABELS: Record<
   Lang,
@@ -167,17 +167,15 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                   "0 25px 60px -25px rgba(0,0,0,0.6), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 22%, transparent)",
               }}
             >
-              {/* The deck artwork already carries its own border, numeral and title, so
-                  it fills the whole card face rather than sitting inside our frame. */}
+              {/* The card art carries its own frame, numeral and title, so it fills the
+                  whole face rather than sitting inside another border. */}
               {selected && (
-                <Image
+                <TarotCardArt
                   key={selected.key}
-                  src={tarotImage(selected)}
-                  alt={selected.name[lang]}
-                  fill
-                  sizes="(min-width: 640px) 250px, 220px"
-                  className="rounded-lg object-cover"
-                  priority
+                  cardKey={selected.key}
+                  number={selected.number}
+                  title={selected.name[lang]}
+                  className="h-full w-full rounded-lg"
                 />
               )}
             </div>
@@ -303,12 +301,11 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                   opacity: isSelected ? 1 : 0.62,
                 }}
               >
-                <Image
-                  src={tarotImage(card)}
-                  alt=""
-                  fill
-                  sizes="40px"
-                  className="object-cover"
+                <TarotCardArt
+                  cardKey={card.key}
+                  number={card.number}
+                  title={card.name[lang]}
+                  className="h-full w-full"
                 />
               </button>
             );

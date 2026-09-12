@@ -4,23 +4,19 @@ export interface TarotCard {
   key: string;
   number: number;
   name: { sl: string; en: string };
-  /** Overrides the deck artwork for this one card. Normally left unset — the image
-   *  is derived from the key by `tarotImage()`, so a whole new deck is a matter of
-   *  replacing the files in `public/images/tarot/`. */
-  image?: string;
   /** 3-4 word association list shown as tags under the card name. */
   keywords: { sl: string[]; en: string[] };
-  /** Short evergreen line shown right under the card image. */
+  /** Short evergreen line shown right under the card. */
   meaning: { sl: string; en: string };
-  /** Longer read (~150-220 words, paragraphs separated by blank lines). Evergreen,
-   *  upright-only for now — reversed meanings are a natural next addition. */
+  /** The reading itself: four paragraphs, ~550 words, about a three-minute read.
+   *  Evergreen and upright-only — reversed meanings are a natural next addition. */
   profile: { sl: string; en: string };
 }
 
-// The 22 Major Arcana. Traditional, evergreen card meanings (not a personalized reading) —
-// same category as zodiacData.ts's sign profiles: generic archetypal characterization, safe
-// to show without her review, but she's welcome to rewrite the voice. Deliberately upright-
-// only for this first pass; reversed meanings and the Minor Arcana are natural follow-ups.
+// The 22 Major Arcana. Traditional, evergreen card meanings (not a personalized reading):
+// generic archetypal characterization, safe to show without her review, but she's welcome
+// to rewrite the voice. Deliberately upright-only for this first pass; reversed meanings
+// and the Minor Arcana are natural follow-ups. The card artwork lives in TarotCardArt.tsx.
 export const TAROT_CARDS: TarotCard[] = [
   {
     key: "fool",
@@ -331,16 +327,6 @@ export const TAROT_CARDS: TarotCard[] = [
     },
   },
 ];
-
-/**
- * The deck artwork for a card. These are the original 1909 Rider–Waite–Smith
- * illustrations by Pamela Colman Smith — public domain, so they're safe to use
- * commercially, unlike the modern deck design that inspired this. Swapping in a
- * licensed deck later means replacing the files in `public/images/tarot/`, nothing else.
- */
-export function tarotImage(card: TarotCard): string {
-  return card.image ?? `/images/tarot/${card.key}.jpg`;
-}
 
 export function getCardOfTheDayKey(): string {
   const now = new Date();
