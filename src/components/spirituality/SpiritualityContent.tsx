@@ -28,8 +28,10 @@ interface Section {
 
 interface Copy {
   eyebrow: string;
+  /** Urška's own opening quote, verbatim in EN. The Slovenian is a direct
+   *  translation of that same line — flagged for her to correct if she'd word it
+   *  differently. Further quotes from her notes go here as she sends them. */
   title: string;
-  lead: string;
   sections: Section[];
   closing: string;
   closingCta: string;
@@ -46,8 +48,7 @@ interface Copy {
 const COPY: Record<Lang, Copy> = {
   sl: {
     eyebrow: "Duhovnost pri Urški",
-    title: "Preden je čopič, je duša.",
-    lead: "Nekaj časa sem mislila, da moram najprej razumeti, preden lahko ustvarim. Zdaj vem, da je obratno — najprej moram začutiti. Razumevanje pride pozneje, če sploh kdaj pride.",
+    title: "Duhovnost je zame pot nazaj k duši.",
     sections: [
       {
         heading: "Tišina pred barvo",
@@ -85,8 +86,7 @@ const COPY: Record<Lang, Copy> = {
   },
   en: {
     eyebrow: "Spirituality by Urška",
-    title: "Before the brush, there is a soul.",
-    lead: "For a long time I thought I had to understand before I could create. Now I know it's the other way around — I have to feel first. Understanding comes later, if it comes at all.",
+    title: "Spirituality, for me, is the journey back to the soul.",
     sections: [
       {
         heading: "The silence before color",
@@ -160,7 +160,6 @@ export default function SpiritualityContent() {
             <h1 className="font-heading italic text-3xl md:text-5xl text-bone mt-6 leading-snug">
               {copy.title}
             </h1>
-            <p className="mt-8 text-lg text-bone/75 leading-relaxed">{copy.lead}</p>
           </motion.div>
         </Container>
       </section>

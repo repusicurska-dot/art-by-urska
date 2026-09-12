@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 import { getArtworkBySlug } from "@/lib/content";
 import { consumeNavigationDirection } from "@/lib/navigationDirection";
+import { isIntroActive } from "@/lib/introSplash";
 import VeilTransition from "./transitions/VeilTransition";
 import PageTurnTransition from "./transitions/PageTurnTransition";
 import FadeTransition from "./transitions/FadeTransition";
 
-const HOME_EPIGRAPH = "Before every painting, there is silence.";
+const HOME_EPIGRAPH =
+  "These paintings are more than art — they are pieces of my spirit, woven into every brushstroke.";
 
 const ROUTE_EPIGRAPHS: Record<string, string> = {
   about: "Behind every painting is a hand that learned to feel.",
@@ -27,7 +29,9 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const direction = consumeNavigationDirection();
 
-  if (reduceMotion) {
+  // On a hard load the IntroSplash already covers the screen with the monogram —
+  // don't stack a second curtain underneath it.
+  if (reduceMotion || isIntroActive()) {
     return <>{children}</>;
   }
 

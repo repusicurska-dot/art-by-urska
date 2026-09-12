@@ -20,9 +20,9 @@ export default function SilenceIntro() {
     return (
       <section className="relative flex min-h-[80vh] items-center justify-center bg-ink px-6 py-24 text-center">
         <p className="font-heading italic text-2xl text-bone/90">
-          Before every painting,
+          These paintings are more than art —
           <br />
-          there is silence.
+          they are pieces of my spirit, woven into every brushstroke.
         </p>
       </section>
     );
@@ -40,11 +40,11 @@ export default function SilenceIntro() {
           >
             <motion.p
               style={{ opacity: textScrollOpacity, y: textY, letterSpacing: textSpacingPx }}
-              className="font-heading italic text-3xl md:text-5xl text-bone"
+              className="font-heading italic text-2xl md:text-4xl text-bone max-w-3xl"
             >
-              Before every painting,
+              These paintings are more than art —
               <br />
-              there is silence.
+              they are pieces of my spirit, woven into every brushstroke.
             </motion.p>
           </motion.div>
         </div>

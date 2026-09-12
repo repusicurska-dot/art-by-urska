@@ -8,7 +8,7 @@ export default function ClimbContent() {
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Climb by Urška</span>
         <h1 className="font-heading text-4xl md:text-5xl text-bone mt-6">A new chapter, coming soon.</h1>
         <p className="mt-6 text-bone/70 leading-relaxed">
-          This part of Urška's story — her life on the rock, before the canvas — is still being
+          This part of Urška&rsquo;s story — her life on the rock, before the canvas — is still being
           written. Check back soon.
         </p>
         <Link

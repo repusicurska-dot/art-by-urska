@@ -14,7 +14,7 @@ export default function CollectionContent({ artworks }: { artworks: Artwork[] })
   return (
     <section className="py-24 md:py-32 bg-ink min-h-screen">
       <Container>
-        <span className="block text-xs tracking-widest uppercase text-smoke">Gallery</span>
+        <span className="block text-xs tracking-widest uppercase text-smoke">Art</span>
         <h1 className="font-gothic text-4xl md:text-5xl text-bone mt-4 mb-14">
           Every original, in one place
         </h1>

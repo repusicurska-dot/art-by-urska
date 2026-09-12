@@ -10,7 +10,7 @@ import Logo from "./Logo";
 import { useCart } from "@/lib/cart/CartContext";
 
 const NAV_LINKS = [
-  { href: "/collection", label: "Gallery" },
+  { href: "/collection", label: "Art" },
   { href: "/poetry", label: "Poetry" },
   { href: "/spirituality", label: "Spirituality" },
   { href: "/climb", label: "Climb" },

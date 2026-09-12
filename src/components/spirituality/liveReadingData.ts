@@ -5,8 +5,7 @@ export interface LiveReadingPackage {
   duration: { sl: string; en: string };
   title: { sl: string; en: string };
   description: { sl: string; en: string };
-  /** Bracketed placeholder — Urška hasn't set real pricing for this yet. Do not
-   *  invent a number; fill in here once she decides. */
+  /** Real pricing, set by Urška on 2026-09-12. */
   price: string;
 }
 
@@ -19,7 +18,7 @@ export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
       sl: "Eno vprašanje, ki ti trenutno teži misli, in jasen prostor zanj.",
       en: "One question that's been on your mind, and a clear space for it.",
     },
-    price: "[CENA]",
+    price: "50 €",
   },
   {
     key: "deep",
@@ -29,7 +28,7 @@ export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
       sl: "Celoten razlog, čas za več vprašanj in za pogovor o tem, kar karte pokažejo.",
       en: "A full spread, room for several questions, and a conversation about what the cards show.",
     },
-    price: "[CENA]",
+    price: "100 €",
   },
 ];
 
@@ -140,7 +139,7 @@ export const LIVE_READING_LABELS: Record<
     addToCalendar: "Dodaj predlagan termin v svoj koledar",
     disclaimer:
       "To še ni samodejni koledar ali plačilni sistem — povpraševanja se trenutno beležijo, Urška pa termine potrjuje ročno po emailu. Samodejni email opomnik dan pred terminom bo dodan, ko bo povezan pravi sistem za pošiljanje pošte.",
-    priceNote: "Cenik še ni potrjen — ceno uskladita ob dogovoru za termin.",
+    priceNote: "Plačilo se uredi ob potrditvi termina.",
   },
   en: {
     heading: "Live Tarot Reading with Urška",
@@ -162,6 +161,6 @@ export const LIVE_READING_LABELS: Record<
     addToCalendar: "Add the proposed time to your calendar",
     disclaimer:
       "This isn't an automatic calendar or payment system yet — requests are currently recorded, and Urška confirms time slots manually by email. An automatic reminder email the day before will be added once a real email-sending system is connected.",
-    priceNote: "Pricing isn't finalized yet — you'll agree on it together when confirming a time.",
+    priceNote: "Payment is arranged when the time slot is confirmed.",
   },
 };

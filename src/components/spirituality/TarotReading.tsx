@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import TarotIcon from "./TarotIcon";
+import TarotCardFrame from "./TarotCardFrame";
 import ScratchCard from "./ScratchCard";
 import TarotEmailSignup from "./TarotEmailSignup";
 import { TAROT_CARDS, getCardOfTheDayKey, type Lang } from "./tarotData";
@@ -134,7 +136,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
         </p>
 
         {/* The big reading card: flips between a decorative back and the drawn front. */}
-        <div className="relative mx-auto mt-16 h-[300px] w-[210px] sm:h-[340px] sm:w-[240px]" style={{ perspective: 1200 }}>
+        <div className="relative mx-auto mt-16 h-[374px] w-[220px] sm:h-[425px] sm:w-[250px]" style={{ perspective: 1200 }}>
           <motion.div
             className="relative h-full w-full cursor-pointer"
             style={{ transformStyle: "preserve-3d" }}
@@ -155,21 +157,18 @@ export default function TarotReading({ lang }: { lang: Lang }) {
           >
             {/* Back */}
             <div
-              className="absolute inset-0 flex items-center justify-center rounded-lg border"
+              className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-lg border"
               style={{
                 backfaceVisibility: "hidden",
                 borderColor: "color-mix(in srgb, var(--color-accent-warm) 35%, transparent)",
                 background:
-                  "linear-gradient(160deg, color-mix(in srgb, var(--color-accent-warm) 10%, var(--color-raised)) 0%, color-mix(in srgb, var(--color-terracotta) 14%, var(--color-raised)) 100%)",
-                boxShadow: "0 25px 60px -25px rgba(0,0,0,0.5)",
+                  "radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-accent-warm) 9%, var(--color-ink)) 0%, var(--color-ink) 72%)",
+                boxShadow: "0 25px 60px -25px rgba(0,0,0,0.6)",
               }}
             >
-              <div
-                className="absolute inset-3 rounded-sm"
-                style={{ border: "1px solid color-mix(in srgb, var(--color-accent-warm) 30%, transparent)" }}
-              />
+              <TarotCardFrame />
               <span
-                className="flex h-16 w-16 items-center justify-center rounded-full"
+                className="flex h-20 w-20 items-center justify-center"
                 style={{ color: "var(--color-accent-warm)" }}
               >
                 <TarotIcon cardKey="star" className="h-full w-full" />
@@ -178,34 +177,69 @@ export default function TarotReading({ lang }: { lang: Lang }) {
 
             {/* Front */}
             <div
-              className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-lg border px-5 text-center"
+              className="absolute inset-0 flex flex-col items-center overflow-hidden rounded-lg border px-4 py-6 text-center"
               style={{
                 backfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
-                borderColor: "color-mix(in srgb, var(--color-accent-warm) 40%, transparent)",
+                borderColor: "color-mix(in srgb, var(--color-accent-warm) 45%, transparent)",
                 background:
-                  "linear-gradient(160deg, color-mix(in srgb, var(--color-accent-warm) 14%, var(--color-raised)) 0%, color-mix(in srgb, var(--color-terracotta) 10%, var(--color-raised)) 100%)",
+                  "radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--color-accent-warm) 11%, var(--color-ink)) 0%, var(--color-ink) 75%)",
                 boxShadow:
-                  "0 25px 60px -25px rgba(0,0,0,0.5), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 25%, transparent)",
+                  "0 25px 60px -25px rgba(0,0,0,0.6), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 22%, transparent)",
               }}
             >
+              <TarotCardFrame />
               {selected && (
                 <>
-                  <span className="text-xs tracking-widest uppercase text-smoke">
-                    {labels.numberPrefix} {romanNumeral(selected.number)}
-                  </span>
                   <span
-                    className="flex h-20 w-20 items-center justify-center rounded-full p-4"
-                    style={{
-                      background: "radial-gradient(circle at 35% 30%, var(--color-accent-warm), var(--color-terracotta) 75%)",
-                      color: "var(--color-ink)",
-                      boxShadow:
-                        "0 0 0 1px color-mix(in srgb, var(--color-accent-warm) 60%, transparent), 0 0 50px 10px color-mix(in srgb, var(--color-accent-warm) 45%, transparent)",
-                    }}
+                    className="relative z-10 text-[11px] tracking-[0.35em]"
+                    style={{ color: "color-mix(in srgb, var(--color-accent-warm) 85%, transparent)" }}
                   >
-                    <TarotIcon key={selected.key} cardKey={selected.key} className="h-full w-full" animateIn />
+                    {romanNumeral(selected.number)}
                   </span>
-                  <h3 className="font-heading text-xl text-bone leading-snug">{selected.name[lang]}</h3>
+
+                  <div className="relative z-10 flex flex-1 items-center justify-center py-3">
+                    {selected.image ? (
+                      <div className="relative h-full w-full overflow-hidden rounded-sm">
+                        <Image
+                          src={selected.image}
+                          alt={selected.name[lang]}
+                          fill
+                          sizes="250px"
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <span
+                        className="flex h-24 w-24 items-center justify-center rounded-full p-5"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 35% 30%, var(--color-accent-warm), var(--color-terracotta) 75%)",
+                          color: "var(--color-ink)",
+                          boxShadow:
+                            "0 0 0 1px color-mix(in srgb, var(--color-accent-warm) 60%, transparent), 0 0 50px 10px color-mix(in srgb, var(--color-accent-warm) 40%, transparent)",
+                        }}
+                      >
+                        <TarotIcon key={selected.key} cardKey={selected.key} className="h-full w-full" animateIn />
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="relative z-10 w-full">
+                    <div
+                      className="mx-auto mb-2.5 h-px w-16"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-accent-warm) 60%, transparent), transparent)",
+                      }}
+                    />
+                    <h3
+                      className="font-heading text-[13px] tracking-[0.22em] uppercase leading-snug"
+                      style={{ color: "color-mix(in srgb, var(--color-accent-warm) 55%, var(--color-bone))" }}
+                    >
+                      {selected.name[lang]}
+                    </h3>
+                  </div>
                 </>
               )}
             </div>

@@ -1,23 +1,35 @@
 import Link from "next/link";
 import Container from "@/components/shared/Container";
+import QuoteSequence from "@/components/shared/QuoteSequence";
+
+/**
+ * Urška's own words, verbatim from her notes — do not edit or add to these without
+ * her. The rest of the poetry quotes are still coming from her; drop them into this
+ * array in her order and the page extends itself.
+ */
+const POETRY_QUOTES = [
+  "Poetry is the bridge between what my soul remembers and what my heart longs to say.",
+];
 
 export default function PoetryIndexContent() {
   return (
-    <section className="min-h-[70vh] flex items-center justify-center bg-ink px-6 py-24 text-center">
-      <Container className="max-w-xl">
+    <div className="bg-ink">
+      <section className="flex min-h-[35vh] items-end justify-center px-6 pt-24 text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Poetry by Urška</span>
-        <h1 className="font-heading text-4xl md:text-5xl text-bone mt-6">A new chapter, coming soon.</h1>
-        <p className="mt-6 text-bone/70 leading-relaxed">
-          The words behind the paintings are still being gathered into their own home. Check back
-          soon.
-        </p>
-        <Link
-          href="/"
-          className="inline-block mt-10 text-sm tracking-widest uppercase text-bone/85 hover:text-bone transition-colors border-b border-bone/40 pb-1"
-        >
-          ← Back to the paintings
-        </Link>
-      </Container>
-    </section>
+      </section>
+
+      <QuoteSequence quotes={POETRY_QUOTES} />
+
+      <section className="px-6 pb-28 text-center">
+        <Container className="max-w-xl">
+          <Link
+            href="/collection"
+            className="inline-block text-xs tracking-widest uppercase text-bone/85 hover:text-bone transition-colors border-b border-bone/40 pb-1"
+          >
+            See the paintings these words belong to →
+          </Link>
+        </Container>
+      </section>
+    </div>
   );
 }

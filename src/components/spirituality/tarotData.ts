@@ -4,6 +4,11 @@ export interface TarotCard {
   key: string;
   number: number;
   name: { sl: string; en: string };
+  /** Path under `public/` to this card's illustration (e.g. "/images/tarot/fool.jpg").
+   *  When set, the card shows the artwork; when absent it falls back to the
+   *  constellation glyph. Urška is supplying the illustrated deck — dropping the
+   *  files in and adding this one line per card is all that's needed. */
+  image?: string;
   /** 3-4 word association list shown as tags under the card name. */
   keywords: { sl: string[]; en: string[] };
   /** Short evergreen line shown right under the card image. */

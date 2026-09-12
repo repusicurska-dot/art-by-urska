@@ -3,7 +3,8 @@ import PoetryIndexContent from "@/components/poetry/PoetryIndexContent";
 
 export const metadata: Metadata = {
   title: "Poetry by Urška",
-  description: "Poetry by Urška — coming soon.",
+  description:
+    "Poetry by Urška — the bridge between what the soul remembers and what the heart longs to say.",
   alternates: { canonical: "/poetry" },
 };
 

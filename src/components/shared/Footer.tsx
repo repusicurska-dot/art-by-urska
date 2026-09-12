@@ -40,7 +40,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-smoke">
               <li>
                 <Link href="/collection" className="hover:text-bone transition-colors">
-                  Gallery
+                  Art
                 </Link>
               </li>
               <li>

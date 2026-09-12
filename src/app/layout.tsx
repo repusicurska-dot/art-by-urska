@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter, UnifrakturMaguntia } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/shared/SiteHeader";
+import IntroSplash from "@/components/shared/IntroSplash";
 import SpiritualBackdrop from "@/components/shared/SpiritualBackdrop";
 import Footer from "@/components/shared/Footer";
 import PlaceholderBanner from "@/components/shared/PlaceholderBanner";
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-ink text-bone">
         <StructuredData data={organizationJsonLd()} />
+        <IntroSplash />
         <SpiritualBackdrop />
         <CartProvider>
           <PlaceholderBanner />
