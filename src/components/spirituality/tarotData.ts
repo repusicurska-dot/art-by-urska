@@ -4,10 +4,9 @@ export interface TarotCard {
   key: string;
   number: number;
   name: { sl: string; en: string };
-  /** Path under `public/` to this card's illustration (e.g. "/images/tarot/fool.jpg").
-   *  When set, the card shows the artwork; when absent it falls back to the
-   *  constellation glyph. Urška is supplying the illustrated deck — dropping the
-   *  files in and adding this one line per card is all that's needed. */
+  /** Overrides the deck artwork for this one card. Normally left unset — the image
+   *  is derived from the key by `tarotImage()`, so a whole new deck is a matter of
+   *  replacing the files in `public/images/tarot/`. */
   image?: string;
   /** 3-4 word association list shown as tags under the card name. */
   keywords: { sl: string[]; en: string[] };
@@ -332,6 +331,16 @@ export const TAROT_CARDS: TarotCard[] = [
     },
   },
 ];
+
+/**
+ * The deck artwork for a card. These are the original 1909 Rider–Waite–Smith
+ * illustrations by Pamela Colman Smith — public domain, so they're safe to use
+ * commercially, unlike the modern deck design that inspired this. Swapping in a
+ * licensed deck later means replacing the files in `public/images/tarot/`, nothing else.
+ */
+export function tarotImage(card: TarotCard): string {
+  return card.image ?? `/images/tarot/${card.key}.jpg`;
+}
 
 export function getCardOfTheDayKey(): string {
   const now = new Date();

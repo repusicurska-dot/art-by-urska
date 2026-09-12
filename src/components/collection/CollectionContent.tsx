@@ -12,7 +12,7 @@ export default function CollectionContent({ artworks }: { artworks: Artwork[] })
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 md:py-32 bg-ink min-h-screen">
+    <section className="py-24 md:py-32 bg-ink">
       <Container>
         <span className="block text-xs tracking-widest uppercase text-smoke">Art</span>
         <h1 className="font-gothic text-4xl md:text-5xl text-bone mt-4 mb-14">

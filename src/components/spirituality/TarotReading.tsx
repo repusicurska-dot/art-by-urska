@@ -8,7 +8,7 @@ import TarotIcon from "./TarotIcon";
 import TarotCardFrame from "./TarotCardFrame";
 import ScratchCard from "./ScratchCard";
 import TarotEmailSignup from "./TarotEmailSignup";
-import { TAROT_CARDS, getCardOfTheDayKey, type Lang } from "./tarotData";
+import { TAROT_CARDS, getCardOfTheDayKey, tarotImage, type Lang } from "./tarotData";
 
 const LABELS: Record<
   Lang,
@@ -20,7 +20,6 @@ const LABELS: Record<
     cardOfDay: string;
     yourCard: string;
     chooseInstead: string;
-    numberPrefix: string;
     backHint: string;
   }
 > = {
@@ -33,7 +32,6 @@ const LABELS: Record<
     cardOfDay: "Karta dneva",
     yourCard: "Tvoja karta",
     chooseInstead: "Ali izberi karto sama",
-    numberPrefix: "Karta",
     backHint: "Klikni za obračanje",
   },
   en: {
@@ -45,30 +43,9 @@ const LABELS: Record<
     cardOfDay: "Card of the day",
     yourCard: "Your card",
     chooseInstead: "Or choose a card yourself",
-    numberPrefix: "Card",
     backHint: "Click to turn",
   },
 };
-
-function romanNumeral(n: number): string {
-  if (n === 0) return "0";
-  const table: [number, string][] = [
-    [10, "X"],
-    [9, "IX"],
-    [5, "V"],
-    [4, "IV"],
-    [1, "I"],
-  ];
-  let remaining = n;
-  let out = "";
-  for (const [value, symbol] of table) {
-    while (remaining >= value) {
-      out += symbol;
-      remaining -= value;
-    }
-  }
-  return out;
-}
 
 export default function TarotReading({ lang }: { lang: Lang }) {
   const reduceMotion = useReducedMotion();
@@ -177,70 +154,31 @@ export default function TarotReading({ lang }: { lang: Lang }) {
 
             {/* Front */}
             <div
-              className="absolute inset-0 flex flex-col items-center overflow-hidden rounded-lg border px-4 py-6 text-center"
+              className="absolute inset-0 overflow-hidden rounded-lg border"
               style={{
                 backfaceVisibility: "hidden",
+                // Without flattening, the card art inherits the wrapper's preserve-3d and
+                // silently fails to paint once the card is flipped — the face renders blank.
+                transformStyle: "flat",
                 transform: "rotateY(180deg)",
                 borderColor: "color-mix(in srgb, var(--color-accent-warm) 45%, transparent)",
-                background:
-                  "radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--color-accent-warm) 11%, var(--color-ink)) 0%, var(--color-ink) 75%)",
+                background: "var(--color-ink)",
                 boxShadow:
                   "0 25px 60px -25px rgba(0,0,0,0.6), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 22%, transparent)",
               }}
             >
-              <TarotCardFrame />
+              {/* The deck artwork already carries its own border, numeral and title, so
+                  it fills the whole card face rather than sitting inside our frame. */}
               {selected && (
-                <>
-                  <span
-                    className="relative z-10 text-[11px] tracking-[0.35em]"
-                    style={{ color: "color-mix(in srgb, var(--color-accent-warm) 85%, transparent)" }}
-                  >
-                    {romanNumeral(selected.number)}
-                  </span>
-
-                  <div className="relative z-10 flex flex-1 items-center justify-center py-3">
-                    {selected.image ? (
-                      <div className="relative h-full w-full overflow-hidden rounded-sm">
-                        <Image
-                          src={selected.image}
-                          alt={selected.name[lang]}
-                          fill
-                          sizes="250px"
-                          className="object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <span
-                        className="flex h-24 w-24 items-center justify-center rounded-full p-5"
-                        style={{
-                          background:
-                            "radial-gradient(circle at 35% 30%, var(--color-accent-warm), var(--color-terracotta) 75%)",
-                          color: "var(--color-ink)",
-                          boxShadow:
-                            "0 0 0 1px color-mix(in srgb, var(--color-accent-warm) 60%, transparent), 0 0 50px 10px color-mix(in srgb, var(--color-accent-warm) 40%, transparent)",
-                        }}
-                      >
-                        <TarotIcon key={selected.key} cardKey={selected.key} className="h-full w-full" animateIn />
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="relative z-10 w-full">
-                    <div
-                      className="mx-auto mb-2.5 h-px w-16"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-accent-warm) 60%, transparent), transparent)",
-                      }}
-                    />
-                    <h3
-                      className="font-heading text-[13px] tracking-[0.22em] uppercase leading-snug"
-                      style={{ color: "color-mix(in srgb, var(--color-accent-warm) 55%, var(--color-bone))" }}
-                    >
-                      {selected.name[lang]}
-                    </h3>
-                  </div>
-                </>
+                <Image
+                  key={selected.key}
+                  src={tarotImage(selected)}
+                  alt={selected.name[lang]}
+                  fill
+                  sizes="(min-width: 640px) 250px, 220px"
+                  className="rounded-lg object-cover"
+                  priority
+                />
               )}
             </div>
           </motion.div>
@@ -357,18 +295,21 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                 aria-pressed={isSelected}
                 aria-label={card.name[lang]}
                 title={card.name[lang]}
-                className="flex h-11 w-8 items-center justify-center rounded-sm border p-1.5 transition-transform hover:scale-110"
+                className="relative h-[68px] w-10 overflow-hidden rounded-sm border transition-all hover:scale-110"
                 style={{
                   borderColor: isSelected
                     ? "var(--color-accent-warm)"
                     : "color-mix(in srgb, var(--color-bone) 15%, transparent)",
-                  background: isSelected
-                    ? "color-mix(in srgb, var(--color-accent-warm) 18%, transparent)"
-                    : "transparent",
-                  color: isSelected ? "var(--color-accent-warm)" : "var(--color-smoke)",
+                  opacity: isSelected ? 1 : 0.62,
                 }}
               >
-                <TarotIcon cardKey={card.key} className="h-full w-full" />
+                <Image
+                  src={tarotImage(card)}
+                  alt=""
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
               </button>
             );
           })}

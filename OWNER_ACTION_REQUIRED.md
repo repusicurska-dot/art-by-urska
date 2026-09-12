@@ -1,5 +1,39 @@
 # Owner Action Required
 
+## TO DO list worked through (2026-09-12) — three things still need you
+
+From your shared note and the 16 photos: pricing is in (20 min = 50 €, 50 min = 100 €),
+"Gallery" is now "Art" everywhere, the homepage opens with your "more than art" line, the
+monogram plays for a moment on every visit, Poetry is a live page again, and Spirituality
+opens with your own quote.
+
+**Your 16 photos** are all on the site. The five catalogue shots were *not* replaced with
+them: the existing photos are ~1400×1864, while a painting cropped out of the new frames
+comes to 284–905px, so swapping them in would have made the artwork pages softer, not
+sharper. Instead the old "The Prophecy" photo was re-cropped to drop the floor, rug and
+wooden edge (your "boljše obrezat" point), and all 16 new photos went into a new
+**"What they look like on a wall"** section at the bottom of `/collection` — the thing the
+catalogue shots can't show a buyer. If you'd rather have a new photo as an artwork's main
+image anyway, say which and I'll swap it.
+
+- [ ] **The logo.** The intro still uses the existing UR monogram. Send the "Luxury UR
+      Monogram Emblem" file and it drops straight into `Logo.tsx` / the intro.
+- [ ] **The rest of your quotes.** Poetry and Spirituality each show only the first quote
+      you sent — the others live in the shared "trejderji 101" note, which I can't reach
+      (it isn't in Drive). Paste them here or put them in Drive and they slot straight into
+      `POETRY_QUOTES` / the Spirituality copy. The Slovenian of your Spirituality quote is
+      my translation of your English — reword it if you'd say it differently.
+- [ ] **Tarot deck licensing (read this one).** You asked me to find a deck like the one you
+      sent online and use it. I didn't: that design is a modern illustrator's copyrighted
+      work, and putting it on a shop site risks a claim against you. The cards on the site
+      now are the original 1909 Rider–Waite–Smith deck, which is **public domain** and free
+      to use commercially. They're real illustrated cards, but they look vintage, not like
+      your gold-line reference. If you want that modern look, buy a deck with a commercial
+      licence (Creative Market and Etsy sell them) and send the files — replacing
+      `public/images/tarot/*.jpg` is all it takes. Note the RWS deck includes some classical
+      nudity (The Star, The World, The Lovers, The Devil) — normal for fine-art tarot, but
+      worth knowing it's there.
+
 ## Live Tarot Reading booking (2026-09-06) — needs a database, email/SMS, and a scheduling job
 
 Added a "Live Tarot Reading" section right under the card reading, so visitors can request a
