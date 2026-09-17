@@ -31,6 +31,11 @@ const COPY = {
     priceNote: "Prvih 7 dni brezplačno · odpoveš kadarkoli z enim klikom",
     formTitle: "Ustvari svoj koledar",
     email: "E-naslov",
+    password: "Geslo (vsaj 8 znakov)",
+    passwordRepeat: "Ponovi geslo",
+    passwordHint: "Z e-naslovom in geslom se pozneje prijaviš do svojega koledarja.",
+    mismatch: "Gesli se ne ujemata.",
+    exists: "Račun s tem e-naslovom že obstaja. Prijavi se — če naročnina ni aktivna, jo dokončaš na svoji strani.",
     consent: "Strinjam se s pogoji naročnine. Razumem, da se po 7 dneh brezplačnega preizkusa naročnina samodejno podaljšuje za 5,99 € na mesec, dokler je ne odpovem, in da storitev začne teči takoj.",
     terms: "Pogoji",
     submit: "Nadaljuj na plačilo — 7 dni brezplačno",
@@ -73,6 +78,11 @@ const COPY = {
     priceNote: "First 7 days free · cancel any time with one click",
     formTitle: "Create your calendar",
     email: "Email",
+    password: "Password (at least 8 characters)",
+    passwordRepeat: "Repeat password",
+    passwordHint: "You'll sign in to your calendar with this email and password.",
+    mismatch: "The passwords don't match.",
+    exists: "An account with this email already exists. Sign in — if the subscription isn't active, you can finish it on your account page.",
     consent: "I agree to the subscription terms. I understand that after the 7-day free trial the subscription renews automatically at €5.99 per month until I cancel, and that the service starts immediately.",
     terms: "Terms",
     submit: "Continue to payment — 7 days free",
@@ -107,9 +117,11 @@ export default function StarCalendarLanding({
   const [lang, setLang] = useState<Lang>("sl");
   const t = COPY[lang];
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRepeat, setPasswordRepeat] = useState("");
   const [birth, setBirth] = useState<BirthValue>({ birthDate: "", birthTime: "", birthTimeZone: "Europe/Ljubljana" });
   const [consent, setConsent] = useState(false);
-  const [status, setStatus] = useState<"idle" | "submitting" | "already" | "complimentary" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "already" | "complimentary" | "exists" | "error">("idle");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -120,16 +132,25 @@ export default function StarCalendarLanding({
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (password !== passwordRepeat) {
+      setError(t.mismatch);
+      setStatus("error");
+      return;
+    }
     setStatus("submitting");
     setError("");
     try {
       const res = await fetch("/api/sbc/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, lang, consent, ...birth }),
+        body: JSON.stringify({ email, password, lang, consent, ...birth }),
       });
       const data = await res.json();
       if (!res.ok) {
+        if (data.code === "account_exists") {
+          setStatus("exists");
+          return;
+        }
         setError(data.error ?? "Error");
         setStatus("error");
         return;
@@ -235,6 +256,13 @@ export default function StarCalendarLanding({
 
             {!available ? (
               <p className="mt-8 text-center text-bone">🌙 {t.soon}</p>
+            ) : status === "exists" ? (
+              <div className="mt-8 text-center">
+                <p className="text-bone">👋 {t.exists}</p>
+                <Link href="/zvezdni-koledar/prijava" className="btn-primary mt-5 inline-block">
+                  {t.login}
+                </Link>
+              </div>
             ) : status === "already" || status === "complimentary" ? (
               <p className="mt-8 text-center text-bone">✉️ {t[status]}</p>
             ) : (
@@ -253,6 +281,39 @@ export default function StarCalendarLanding({
                     className="w-full rounded-sm border border-bone/20 bg-paper px-4 py-3 text-bone focus:border-bone focus:outline-none"
                   />
                 </div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="sbc-password" className="mb-2 block text-xs uppercase tracking-widest text-bone">
+                      {t.password}
+                    </label>
+                    <input
+                      id="sbc-password"
+                      type="password"
+                      required
+                      minLength={8}
+                      autoComplete="new-password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full rounded-sm border border-bone/20 bg-paper px-4 py-3 text-bone focus:border-bone focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="sbc-password-2" className="mb-2 block text-xs uppercase tracking-widest text-bone">
+                      {t.passwordRepeat}
+                    </label>
+                    <input
+                      id="sbc-password-2"
+                      type="password"
+                      required
+                      minLength={8}
+                      autoComplete="new-password"
+                      value={passwordRepeat}
+                      onChange={(e) => setPasswordRepeat(e.target.value)}
+                      className="w-full rounded-sm border border-bone/20 bg-paper px-4 py-3 text-bone focus:border-bone focus:outline-none"
+                    />
+                  </div>
+                </div>
+                <p className="-mt-2 text-xs italic text-smoke">{t.passwordHint}</p>
                 <BirthFields lang={lang} value={birth} onChange={setBirth} />
                 <label className="flex items-start gap-3 text-sm leading-relaxed text-bone">
                   <input type="checkbox" required checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" />

@@ -45,6 +45,9 @@ export interface Member {
   accessUntil?: string;
   /** True when the member cancelled but still has access until `accessUntil`. */
   cancelAtPeriodEnd?: boolean;
+  /** scrypt hash — see lib/starCalendar/password.ts. Absent for members from before passwords. */
+  passwordHash?: string;
+  passwordUpdatedAt?: string;
   feedToken: string;
   /** Set once a subscription has ever existed — the free trial is offered only once. */
   hadTrial?: boolean;

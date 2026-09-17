@@ -20,6 +20,7 @@ interface MemberView {
   accessUntil: string | null;
   cancelAtPeriodEnd: boolean;
   complimentary: boolean;
+  hasPassword: boolean;
 }
 
 type Summary = { title: string; paragraphs: string[] };
@@ -64,6 +65,11 @@ export default function MemberCalendar({
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [subState, setSubState] = useState<"idle" | "working" | "error">("idle");
   const [copied, setCopied] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordRepeat, setNewPasswordRepeat] = useState("");
+  const [passwordState, setPasswordState] = useState<"idle" | "working" | "saved" | "error">("idle");
+  const [passwordError, setPasswordError] = useState("");
 
   const selectedDay = days.find((d) => d.date === selected);
   const firstWeekday = days.length ? (new Date(`${days[0].date}T12:00:00Z`).getUTCDay() + 6) % 7 : 0;
@@ -88,6 +94,18 @@ export default function MemberCalendar({
     router.refresh();
   }
 
+  async function resubscribe() {
+    setSubState("working");
+    const res = await fetch("/api/sbc/resubscribe", { method: "POST" }).catch(() => null);
+    const data = res ? await res.json().catch(() => ({})) : {};
+    const url = (data as { url?: string }).url;
+    if (!res?.ok || !url) {
+      setSubState("error");
+      return;
+    }
+    window.location.href = url;
+  }
+
   async function saveProfile(e: React.FormEvent) {
     e.preventDefault();
     setSaveState("saving");
@@ -104,7 +122,36 @@ export default function MemberCalendar({
     router.refresh();
   }
 
+  async function savePassword(e: React.FormEvent) {
+    e.preventDefault();
+    if (newPassword !== newPasswordRepeat) {
+      setPasswordError(sl ? "Gesli se ne ujemata." : "The passwords don't match.");
+      setPasswordState("error");
+      return;
+    }
+    setPasswordState("working");
+    setPasswordError("");
+    const res = await fetch("/api/sbc/password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "change", currentPassword, password: newPassword, lang }),
+    }).catch(() => null);
+    const data = res ? await res.json().catch(() => ({})) : {};
+    if (!res?.ok) {
+      setPasswordError((data as { error?: string }).error ?? (sl ? "Ni uspelo." : "That didn't work."));
+      setPasswordState("error");
+      return;
+    }
+    setCurrentPassword("");
+    setNewPassword("");
+    setNewPasswordRepeat("");
+    setPasswordState("saved");
+    router.refresh();
+  }
+
   const box = "rounded-3xl bg-paper/85 p-6 md:p-8 shadow-[0_30px_70px_-40px_rgba(75,58,94,0.45)]";
+  const field = "w-full rounded-sm border border-bone/20 bg-paper px-4 py-3 text-bone focus:border-bone focus:outline-none";
+  const fieldLabel = "mb-2 block text-xs uppercase tracking-widest text-bone";
 
   return (
     <div className="spirit-light spirit-ground relative isolate" lang={lang}>
@@ -158,9 +205,10 @@ export default function MemberCalendar({
                   ? "Ko se znova naročiš, se koledar takoj vrne — z vsemi tvojimi podatki."
                   : "Subscribe again and your calendar is back straight away, with all your details."}
             </p>
-            <Link href="/zvezdni-koledar#narocnina" className="btn-primary mt-6 inline-block">
-              {sl ? "Znova se naroči" : "Subscribe again"}
-            </Link>
+            <button type="button" onClick={resubscribe} disabled={subState === "working"} className="btn-primary mt-6">
+              {subState === "working" ? "…" : sl ? "Nadaljuj na plačilo" : "Continue to payment"}
+            </button>
+            {subState === "error" && <p className="mt-3 text-sm text-terracotta">{sl ? "Ni uspelo. Poskusi znova." : "That didn't work. Please try again."}</p>}
           </div>
         ) : (
           <>
@@ -273,6 +321,15 @@ export default function MemberCalendar({
           </>
         )}
 
+        {!member.hasPassword && (
+          <p className="mt-6 rounded-2xl bg-paper/85 px-5 py-4 text-bone">
+            🔐{" "}
+            {sl
+              ? "Tvoj račun še nima gesla. Nastavi ga spodaj, da se boš lahko prijavljal brez povezave iz emaila."
+              : "Your account has no password yet. Set one below so you can sign in without an email link."}
+          </p>
+        )}
+
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <form onSubmit={saveProfile} className={box}>
             <h2 className="font-heading text-2xl text-bone">🪐 {sl ? "Rojstni podatki" : "Birth details"}</h2>
@@ -284,6 +341,64 @@ export default function MemberCalendar({
               {saveState === "saving" ? "…" : saveState === "saved" ? (sl ? "Shranjeno ✓" : "Saved ✓") : sl ? "Shrani" : "Save"}
             </button>
             {saveState === "error" && <p className="mt-2 text-sm text-terracotta">{sl ? "Preveri podatke." : "Please check the details."}</p>}
+          </form>
+
+          <form onSubmit={savePassword} className={box}>
+            <h2 className="font-heading text-2xl text-bone">
+              🔐 {member.hasPassword ? (sl ? "Sprememba gesla" : "Change password") : sl ? "Nastavi geslo" : "Set a password"}
+            </h2>
+            <div className="mt-5 space-y-4">
+              {member.hasPassword && (
+                <div>
+                  <label htmlFor="sbc-current-password" className={fieldLabel}>
+                    {sl ? "Trenutno geslo" : "Current password"}
+                  </label>
+                  <input
+                    id="sbc-current-password"
+                    type="password"
+                    required
+                    autoComplete="current-password"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    className={field}
+                  />
+                </div>
+              )}
+              <div>
+                <label htmlFor="sbc-change-password" className={fieldLabel}>
+                  {sl ? "Novo geslo (vsaj 8 znakov)" : "New password (at least 8 characters)"}
+                </label>
+                <input
+                  id="sbc-change-password"
+                  type="password"
+                  required
+                  minLength={8}
+                  autoComplete="new-password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className={field}
+                />
+              </div>
+              <div>
+                <label htmlFor="sbc-change-password-2" className={fieldLabel}>
+                  {sl ? "Ponovi novo geslo" : "Repeat new password"}
+                </label>
+                <input
+                  id="sbc-change-password-2"
+                  type="password"
+                  required
+                  minLength={8}
+                  autoComplete="new-password"
+                  value={newPasswordRepeat}
+                  onChange={(e) => setNewPasswordRepeat(e.target.value)}
+                  className={field}
+                />
+              </div>
+            </div>
+            <button type="submit" disabled={passwordState === "working"} className="btn-primary mt-5">
+              {passwordState === "working" ? "…" : passwordState === "saved" ? (sl ? "Shranjeno ✓" : "Saved ✓") : sl ? "Shrani geslo" : "Save password"}
+            </button>
+            {passwordState === "error" && <p className="mt-2 text-sm text-terracotta">{passwordError}</p>}
           </form>
 
           <div className={box}>
