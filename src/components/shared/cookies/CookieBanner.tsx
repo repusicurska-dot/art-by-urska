@@ -57,10 +57,10 @@ export default function CookieBanner() {
       aria-label="Cookie preferences"
       className="fixed inset-x-0 bottom-0 z-[200] p-4 sm:p-6"
     >
-      <div className="mx-auto max-w-2xl bg-charcoal text-ivory rounded-sm shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] p-6 md:p-8">
+      <div className="reading-panel mx-auto max-w-2xl rounded-2xl p-6 text-bone md:p-8">
         {!managing ? (
           <>
-            <p className="text-sm leading-relaxed text-ivory/85">
+            <p className="text-sm leading-relaxed text-bone/85">
               We use necessary cookies to run this site. With your consent, we&rsquo;d also use
               analytics, marketing, and preference cookies — none are currently active. Read more
               in our{" "}
@@ -86,7 +86,7 @@ export default function CookieBanner() {
                   rejectNonEssential();
                   close();
                 }}
-                className="text-sm tracking-widest uppercase border border-ivory/30 hover:border-gold-400 transition-colors rounded-full px-6 py-3"
+                className="text-sm tracking-widest uppercase border border-bone/30 hover:border-gold-400 transition-colors rounded-full px-6 py-3"
               >
                 Reject non-essential
               </button>
@@ -96,7 +96,7 @@ export default function CookieBanner() {
                   setDraft(getConsentSnapshot()?.categories ?? DEFAULT_DRAFT);
                   setManaging(true);
                 }}
-                className="text-sm tracking-widest uppercase text-ivory/70 hover:text-gold-400 transition-colors px-2 py-3"
+                className="text-sm tracking-widest uppercase text-bone/70 hover:text-gold-400 transition-colors px-2 py-3"
               >
                 Manage preferences
               </button>
@@ -123,10 +123,10 @@ export default function CookieBanner() {
                       <span className="block text-sm">
                         {info.label}
                         {info.required && (
-                          <span className="text-ivory/50"> — always on</span>
+                          <span className="text-smoke"> — always on</span>
                         )}
                       </span>
-                      <span className="block text-xs text-ivory/50 mt-0.5">{info.description}</span>
+                      <span className="block text-xs text-smoke mt-0.5">{info.description}</span>
                     </span>
                   </label>
                 );
@@ -146,7 +146,7 @@ export default function CookieBanner() {
               <button
                 type="button"
                 onClick={() => setManaging(false)}
-                className="text-sm tracking-widest uppercase text-ivory/70 hover:text-gold-400 transition-colors px-2 py-3"
+                className="text-sm tracking-widest uppercase text-bone/70 hover:text-gold-400 transition-colors px-2 py-3"
               >
                 Back
               </button>
