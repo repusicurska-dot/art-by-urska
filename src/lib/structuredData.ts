@@ -33,7 +33,6 @@ export function organizationJsonLd() {
     "@type": "Organization",
     name: business.tradingName,
     legalName: business.legalName,
-    email: business.contactEmail,
     address: business.registeredAddress,
   };
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LegalPageShell from "@/components/legal/LegalPageShell";
 import { business } from "@/content/business";
+import ProtectedEmail from "@/components/shared/ProtectedEmail";
 
 export const metadata: Metadata = {
   title: "Returns & Cancellations — Art by Urška",
@@ -24,7 +25,7 @@ export default function ReturnsPage() {
           If you are a consumer buying from within the EU, you generally have the right to
           withdraw from your order within 14 days of receiving the artwork, without giving a
           reason, for artworks that are not made or personalized specifically for you. To
-          withdraw, contact us at {business.contactEmail} with your order number before the
+          withdraw, contact us at <ProtectedEmail /> with your order number before the
           14-day period ends. You are responsible for return shipping costs unless we state
           otherwise, and the artwork must be returned in the condition it was received.
         </p>
@@ -49,7 +50,7 @@ export default function ReturnsPage() {
       <section>
         <h2>5. How to cancel or return an order</h2>
         <p>
-          Email {business.contactEmail} with your order number and, if returning a received item,
+          Email <ProtectedEmail /> with your order number and, if returning a received item,
           confirmation that it is unused and in its original condition. We will confirm the
           return address (see also {business.returnsAddress}) and next steps, including refund
           timing once the return is received and inspected.
@@ -58,7 +59,7 @@ export default function ReturnsPage() {
       <section>
         <h2>6. Damaged artwork</h2>
         <p>
-          If your artwork arrives damaged, contact us at {business.contactEmail} as soon as
+          If your artwork arrives damaged, contact us at <ProtectedEmail /> as soon as
           possible with:
         </p>
         <ul>
@@ -82,7 +83,7 @@ export default function ReturnsPage() {
       </section>
       <section>
         <h2>8. Contact</h2>
-        <p>{business.contactEmail}</p>
+        <p><ProtectedEmail /></p>
       </section>
     </LegalPageShell>
   );

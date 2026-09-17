@@ -1,4 +1,5 @@
 import { LIVE_READING_PACKAGES, formatSlotDate } from "@/components/spirituality/liveReadingData";
+import { business } from "@/content/business";
 import type { Booking } from "./bookings";
 import { BOOKING_TIME_ZONE } from "./bookings";
 import { oneLine, ownerEmail, sendEmail } from "./email";
@@ -140,6 +141,7 @@ export function sendVisitorConfirmed(booking: Booking) {
           "",
           "V priponki je termin za tvoj koledar. Dan prej ti pošljemo še opomnik.",
           "Za plačilo in povezavo za video klic ti Urška piše posebej — če imaš vprašanje, odgovori na ta email.",
+          ...(business.phone ? [`Urškin telefon (samo za potrjene termine): ${business.phone}`] : []),
           "",
           "Se vidimo,",
           "Art by Urška",
@@ -154,6 +156,7 @@ export function sendVisitorConfirmed(booking: Booking) {
           "",
           "The attachment adds it to your calendar, and we'll send you a reminder the day before.",
           "Urška will write separately about payment and the video call link — if you have a question, just reply to this email.",
+          ...(business.phone ? [`Urška's phone (for confirmed readings only): ${business.phone}`] : []),
           "",
           "See you soon,",
           "Art by Urška",
