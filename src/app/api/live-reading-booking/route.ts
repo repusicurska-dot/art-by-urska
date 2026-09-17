@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { LIVE_READING_PACKAGES, LIVE_READING_FORMATS, formatSlotDate } from "@/components/spirituality/liveReadingData";
-import { isEmailConfigured, oneLine, ownerEmail, sendEmail, warnEmailNotConfigured } from "@/lib/email";
-import { buildIcsEventInZone } from "@/lib/ics";
+import { LIVE_READING_PACKAGES, LIVE_READING_FORMATS } from "@/components/spirituality/liveReadingData";
+import { isEmailConfigured, warnEmailNotConfigured } from "@/lib/email";
+import { isRedisConfigured } from "@/lib/redis";
+import { createBooking, ljubljanaDate, setBookingStatus, type Booking } from "@/lib/bookings";
+import { sendOwnerRequest, sendVisitorReceived } from "@/lib/bookingEmails";
 
 const VALID_PACKAGE_KEYS = new Set<string>(LIVE_READING_PACKAGES.map((p) => p.key));
 const VALID_FORMAT_KEYS = new Set<string>(LIVE_READING_FORMATS.filter((f) => !f.comingSoon).map((f) => f.key));
@@ -40,6 +42,7 @@ export async function POST(request: NextRequest) {
   const message = typeof body.message === "string" ? body.message.trim() : "";
   const pkg = typeof body.package === "string" ? body.package : "";
   const format = typeof body.format === "string" ? body.format : "";
+  const lang = body.lang === "sl" ? "sl" : "en";
   const slotDate = typeof body.slot?.date === "string" ? body.slot.date : "";
   const slotTime = typeof body.slot?.time === "string" ? body.slot.time : "";
 
@@ -55,56 +58,60 @@ export async function POST(request: NextRequest) {
   if (!VALID_FORMAT_KEYS.has(format)) {
     return NextResponse.json({ error: "Please select a reading format." }, { status: 400 });
   }
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(slotDate) || !/^\d{2}:\d{2}$/.test(slotTime)) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(slotDate) || !/^\d{2}:\d{2}$/.test(slotTime) || slotDate <= ljubljanaDate()) {
     return NextResponse.json({ error: "Please pick a proposed time." }, { status: 400 });
   }
   if (message.length > 5000) {
     return NextResponse.json({ error: "Message is too long." }, { status: 400 });
   }
 
-  // STILL MISSING (see STANJE.md): a database, so a taken slot disappears from the picker and
-  // two visitors can't request the same time, and a scheduled reminder the day before.
-  const lang = body.lang === "sl" ? "sl" : "en";
-  const selectedPackage = LIVE_READING_PACKAGES.find((p) => p.key === pkg)!;
-
   if (!isEmailConfigured()) {
     warnEmailNotConfigured("live-reading-booking");
     return NextResponse.json({ ok: true });
   }
 
-  const when = `${formatSlotDate(slotDate, "sl")} ob ${slotTime}`;
-  // The .ics makes the request one tap away from Urška's iPhone calendar.
-  const ics = buildIcsEventInZone({
-    title: `Tarot branje (${selectedPackage.title.sl}) — ${name}`,
-    description: `${name} <${email}>\n${selectedPackage.title.sl}, ${selectedPackage.price}\n\n${message}\n\nŠe ni potrjeno — odgovori stranki.`,
-    date: slotDate,
-    time: slotTime,
-    durationMinutes: selectedPackage.minutes,
-    uid: `${slotDate}-${slotTime}-${Date.now()}@byurska.com`,
-    tzid: "Europe/Ljubljana",
-  });
+  const input = { name, email, message, packageKey: pkg, format, lang, date: slotDate, time: slotTime } as const;
+  const withDatabase = isRedisConfigured();
 
-  const notified = await sendEmail({
-    to: ownerEmail(),
-    replyTo: email,
-    subject: oneLine(`Novo povpraševanje za branje: ${name}, ${when}`),
-    text: [
-      `Ime: ${name}`,
-      `Email: ${email}`,
-      `Branje: ${selectedPackage.title.sl} (${selectedPackage.duration.sl}, ${selectedPackage.price})`,
-      `Način: ${format === "video" ? "video klic" : "telefonski klic"}`,
-      `Predlagan termin: ${when} (slovenski čas)`,
-      `Jezik strani: ${lang === "sl" ? "slovenščina" : "angleščina"}`,
-      "",
-      message ? `Vprašanje / kontekst:\n${message}` : "(brez sporočila)",
-      "",
-      "Termin še ni potrjen. Odgovori na ta email, da ga potrdiš ali predlagaš drugega.",
-      "Priponka .ics doda predlagan termin v tvoj koledar.",
-    ].join("\n"),
-    attachments: [{ filename: `branje-${slotDate}.ics`, content: ics, contentType: "text/calendar" }],
-  });
+  let booking: Booking;
+  if (withDatabase) {
+    let created: Booking | null;
+    try {
+      created = await createBooking(input);
+    } catch (err) {
+      console.error("[booking] could not store booking:", err);
+      return NextResponse.json(
+        {
+          error:
+            lang === "sl"
+              ? "Povpraševanja trenutno ni bilo mogoče poslati. Poskusi znova čez nekaj minut."
+              : "Your request couldn't be sent right now. Please try again in a few minutes.",
+        },
+        { status: 502 }
+      );
+    }
+    if (!created) {
+      return NextResponse.json(
+        {
+          error:
+            lang === "sl"
+              ? "Ta termin je pravkar zasedel nekdo drug. Izberi drugega."
+              : "Someone has just taken this time. Please choose another.",
+          code: "slot_taken",
+        },
+        { status: 409 }
+      );
+    }
+    booking = created;
+  } else {
+    // No database yet: nothing to hold or confirm, Urška just gets the request by email.
+    booking = { ...input, id: `${slotDate}-${slotTime}-${Date.now()}`, status: "pending", createdAt: new Date().toISOString() };
+  }
 
+  const notified = await sendOwnerRequest(booking, withDatabase);
   if (!notified) {
+    // Urška would never hear about it, so don't leave the slot held.
+    if (withDatabase) await setBookingStatus(booking, "declined").catch(() => {});
     return NextResponse.json(
       {
         error:
@@ -116,43 +123,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Confirmation to the visitor. Urška already has the request, so a failure here isn't
-  // worth failing the whole booking over.
-  const visitorWhen = `${formatSlotDate(slotDate, lang)}, ${slotTime}`;
-  await sendEmail({
-    to: email,
-    replyTo: ownerEmail(),
-    subject:
-      lang === "sl" ? "Tvoje povpraševanje za tarot branje je prispelo" : "Your tarot reading request has arrived",
-    text:
-      lang === "sl"
-        ? [
-            `Pozdrav, ${name},`,
-            "",
-            "hvala za povpraševanje. Urška ga je prejela in se ti oglasi v nekaj dneh, da potrdi termin ali predlaga drugega.",
-            "",
-            `Branje: ${selectedPackage.title.sl} (${selectedPackage.duration.sl}, ${selectedPackage.price})`,
-            `Predlagan termin: ${visitorWhen} (slovenski čas)`,
-            "",
-            "Termin še ni rezerviran, dokler ga Urška ne potrdi. Če želiš kaj dodati, preprosto odgovori na ta email.",
-            "",
-            "Lep pozdrav,",
-            "Art by Urška",
-          ].join("\n")
-        : [
-            `Hi ${name},`,
-            "",
-            "thank you for your request. Urška has received it and will get back to you within a few days to confirm the time or suggest another.",
-            "",
-            `Reading: ${selectedPackage.title.en} (${selectedPackage.duration.en}, ${selectedPackage.price})`,
-            `Proposed time: ${visitorWhen} (Slovenian time)`,
-            "",
-            "The time isn't booked until Urška confirms it. If you'd like to add anything, just reply to this email.",
-            "",
-            "Warm wishes,",
-            "Art by Urška",
-          ].join("\n"),
-  });
+  // Urška already has the request, so a failed confirmation isn't worth failing the booking over.
+  await sendVisitorReceived(booking);
 
   return NextResponse.json({ ok: true });
 }

@@ -66,17 +66,24 @@ vsi štirje emaili.
       točko 3.
 - [ ] **Dvojezična stran** (angleško + slovensko na vseh straneh) — blokirano na točki 3.
 
-## 5. Zaledje, ki ga je treba zgraditi — rabim tvoje odločitve
+## 5. Rezervacije in tedenski tarot — koda narejena 2026-09-17
 
-Trenutno v projektu ni baze podatkov. Zato:
+Baza (Upstash Redis prek Vercela, brezplačno), opomniki in tedensko pošiljanje so napisani.
+Začnejo delovati, ko je baza povezana s projektom v Vercelu — do takrat vse deluje kot prej.
 
-- [ ] **Baza podatkov**, da zaseden termin izgine iz izbirnika. Zdaj lahko dva obiskovalca
-      rezervirata isti termin in to rešuješ ročno.
-- [ ] **Opomnik dan pred terminom** po e-pošti — e-pošta zdaj deluje, manjka baza (zgoraj) in časovnik.
+- [ ] **Poveži bazo:** Vercel → Storage → Upstash for Redis (Free) → Connect to project.
+- [ ] (priporočeno) V Vercelu dodaj `CRON_SECRET` (poljubno dolgo naključno besedilo).
+- [ ] Preizkus: rezervacija → termin izgine iz izbirnika → email s povezavo „Potrdi / Zavrni“.
+
+Kako deluje, ko je baza povezana:
+- **Zasedeni termini** — izbrani termin se takoj zadrži in izgine iz izbirnika za vse.
+  Urška ga potrdi ali zavrne na povezavi iz emaila; zavrnitev termin spet sprosti.
+- **Opomnik** — vsak dan ob ~9h stranke s potrjenim branjem jutri dobijo opomnik,
+  Urška pa povzetek jutrišnjih branj.
+- **Tedenski tarot** — vsak ponedeljek ob ~8h vsak naročnik dobi karto tedna v svojem
+  jeziku, s povezavo za odjavo. Brezplačni Resend dovoli 100 emailov na dan — nad ~100
+  naročniki bo treba plačljiv paket.
 - [ ] **SMS opomniki** — rekla si, da lahko počaka.
-- [x] **Termini v tvoj iPhone koledar** — obvestilo o rezervaciji ima priponko `.ics`.
-- [ ] **Tedenski tarot e-mail** — naročniki se zbirajo v Resend → Contacts; zaenkrat pošiljaš
-      ročno kot Broadcast (doda povezavo za odjavo). Samodejno tedensko pošiljanje še ni narejeno.
 - [ ] **Analitika** — ali jo sploh hočeš in katero. Sistem za privolitev je že pripravljen.
 
 ## 6. Ob zagonu

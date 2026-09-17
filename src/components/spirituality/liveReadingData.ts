@@ -131,7 +131,7 @@ export const LIVE_READING_LABELS: Record<
     comingSoonTag: "kmalu",
     slotLabel: "Izberi predlagan termin",
     slotHint:
-      "To je predlog termina, ne dokončna rezervacija — Urška ga potrdi ali predlaga drugega po emailu.",
+      "Prikazani so samo prosti termini. Izbrani termin se zadrži zate, rezerviran pa je, ko ga Urška potrdi.",
     nameLabel: "Ime in priimek",
     emailLabel: "Email",
     messageLabel: "Vprašanje ali kontekst (neobvezno)",
@@ -139,10 +139,10 @@ export const LIVE_READING_LABELS: Record<
     submit: "Povprašaj za termin",
     submitting: "Pošiljam …",
     successTitle: "Hvala!",
-    successBody: "Urška te bo v nekaj dneh kontaktirala po emailu, da uskladita termin in ceno.",
+    successBody: "Termin je zadržan zate. Ko ga Urška potrdi, dobiš potrdilo po emailu, dan pred branjem pa še opomnik.",
     addToCalendar: "Dodaj predlagan termin v svoj koledar",
     disclaimer:
-      "Povpraševanje prejme Urška po emailu, ti pa potrdilo, da je prispelo. Termin še ni rezerviran, dokler ga Urška ne potrdi — tudi plačilo se uredi šele takrat.",
+      "Povpraševanje prejme Urška po emailu, ti pa potrdilo, da je prispelo. Ko Urška termin potrdi, dobiš potrdilo s terminom za koledar in dan prej opomnik. Plačilo se uredi ob potrditvi.",
     priceNote: "Plačilo se uredi ob potrditvi termina.",
   },
   en: {
@@ -153,7 +153,7 @@ export const LIVE_READING_LABELS: Record<
     formatLabel: "Format",
     comingSoonTag: "coming soon",
     slotLabel: "Pick a proposed time",
-    slotHint: "This is a proposed time, not a confirmed booking — Urška confirms it or suggests another by email.",
+    slotHint: "Only free times are shown. The time you pick is held for you and becomes a booking once Urška confirms it.",
     nameLabel: "Full name",
     emailLabel: "Email",
     messageLabel: "Question or context (optional)",
@@ -161,10 +161,10 @@ export const LIVE_READING_LABELS: Record<
     submit: "Ask about a time slot",
     submitting: "Sending …",
     successTitle: "Thank you!",
-    successBody: "Urška will contact you by email within a few days to confirm a time and price.",
+    successBody: "Your time is held. Once Urška confirms it you'll get a confirmation by email, and a reminder the day before.",
     addToCalendar: "Add the proposed time to your calendar",
     disclaimer:
-      "Urška receives your request by email, and you get a confirmation that it arrived. The time isn't booked until Urška confirms it — payment is arranged at that point too.",
+      "Urška receives your request by email, and you get a confirmation that it arrived. Once she confirms, you'll get the time for your calendar and a reminder the day before. Payment is arranged on confirmation.",
     priceNote: "Payment is arranged when the time slot is confirmed.",
   },
 };

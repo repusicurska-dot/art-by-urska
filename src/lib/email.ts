@@ -82,6 +82,26 @@ export function sendEmail(params: {
   });
 }
 
+/**
+ * Sends up to 100 emails in one request (Resend's batch limit — callers chunk larger lists).
+ * Batch sends can't carry attachments.
+ */
+export function sendBatch(
+  emails: { to: string; subject: string; text: string; replyTo?: string; headers?: Record<string, string> }[]
+): Promise<boolean> {
+  return resend(
+    "/emails/batch",
+    emails.map((e) => ({
+      from: process.env.EMAIL_FROM,
+      to: e.to,
+      subject: e.subject,
+      text: e.text,
+      ...(e.replyTo ? { reply_to: e.replyTo } : {}),
+      ...(e.headers ? { headers: e.headers } : {}),
+    }))
+  );
+}
+
 /** Adds a contact in Resend (Audience → Contacts), so Urška can send them Broadcasts. */
 export function addContact(email: string): Promise<boolean> {
   return resend("/contacts", { email, unsubscribed: false });
