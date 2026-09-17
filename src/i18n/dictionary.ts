@@ -153,6 +153,20 @@ export interface Dictionary {
     genericError: string;
     networkError: string;
   };
+  about: {
+    eyebrow: string;
+    name: string;
+    lead: string;
+    remembered: string;
+    climbing: string;
+    shaped: string;
+    today: string;
+    work: string;
+    dialogue: string;
+    invitation: string;
+    welcome: string;
+    alt: { portrait: string; garden: string; lookingBack: string; roses: string };
+  };
   climb: { eyebrow: string; title: string; text: string; back: string };
   poetry: {
     eyebrow: string;
@@ -349,6 +363,31 @@ const en: Dictionary = {
     },
     genericError: "Something went wrong. Please try again.",
     networkError: "Couldn't reach the server. Please try again.",
+  },
+  about: {
+    eyebrow: "About the artist",
+    name: "Urška",
+    lead: "These paintings are more than art — they are pieces of my spirit, woven into every brushstroke.",
+    remembered:
+      "My art is not simply something I create — it is something I remember. Perhaps that is why certain paintings feel like silent echoes of something our souls already know.",
+    climbing:
+      "Before I became an artist, I dedicated my life to climbing. As a professional competition climber, I had the honor of competing at the highest international level. Along the way, I became the European Champion in bouldering, overall National Champion in both bouldering and speed climbing, a European Cup medalist, a World Youth Vice Champion, European Youth Cup overall winner and earned a podium finish at the World Beach Games.",
+    shaped:
+      "Climbing shaped who I am. It taught me discipline, resilience, presence, and the courage to trust my instincts. Every route was a lesson in perseverance, every challenge an invitation to grow. But as meaningful as that journey was, it eventually led me toward a deeper search — one that could not be expressed through movement alone.",
+    today: "Today, I express that journey through art.",
+    work:
+      "My work is a way of giving form to my soul. Every painting is a reflection of emotions, experiences, and moments that cannot always be put into words. Just as every climb tells a story, every artwork carries a part of my inner world.",
+    dialogue:
+      "For me, art is more than creating something beautiful. It is a dialogue between the soul, the heart, and the unseen. It is a space where intuition leads, where silence speaks, and where the invisible becomes visible through color, texture, and movement.",
+    invitation:
+      "Each piece is an invitation to slow down, to feel deeply, and to reconnect with something beyond the surface — something timeless that already lives within us.",
+    welcome: "Welcome to my world.",
+    alt: {
+      portrait: "Urška among roses in front of a historic mansion",
+      garden: "Urška in a rose garden in front of a historic mansion",
+      lookingBack: "Urška looking back toward the mansion garden",
+      roses: "Urška among the roses, softly out of focus",
+    },
   },
   climb: {
     eyebrow: "Climb by Urška",
@@ -572,6 +611,31 @@ const sl: Dictionary = {
     genericError: "Nekaj je šlo narobe. Poskusi znova.",
     networkError: "Povezava s strežnikom ni uspela. Poskusi znova.",
   },
+  about: {
+    eyebrow: "O umetnici",
+    name: "Urška",
+    lead: "Te slike so več kot umetnost — so koščki mojega duha, vtkani v vsako potezo čopiča.",
+    remembered:
+      "Moja umetnost ni nekaj, kar preprosto ustvarim — je nekaj, česar se spomnim. Morda zato nekatere slike zvenijo kot tihi odmevi nečesa, kar naše duše že poznajo.",
+    climbing:
+      "Preden sem postala umetnica, sem svoje življenje posvetila plezanju. Kot poklicna tekmovalna plezalka sem imela čast tekmovati na najvišji mednarodni ravni. Na tej poti sem postala evropska prvakinja v balvanih, skupna državna prvakinja v balvanih in hitrostnem plezanju, dobitnica medalje evropskega pokala, mladinska svetovna podprvakinja, skupna zmagovalka evropskega mladinskega pokala in stopila na oder za zmagovalce na Svetovnih obalnih igrah.",
+    shaped:
+      "Plezanje me je oblikovalo. Naučilo me je discipline, vztrajnosti, prisotnosti in poguma, da zaupam svojim občutkom. Vsaka smer je bila lekcija iz potrpežljivosti, vsak izziv povabilo k rasti. A čeprav je bila ta pot dragocena, me je sčasoma vodila v globlje iskanje — takšno, ki ga zgolj z gibanjem ni bilo mogoče izraziti.",
+    today: "Danes to pot izražam skozi umetnost.",
+    work:
+      "Moje delo je način, kako dam obliko svoji duši. Vsaka slika je odsev čustev, izkušenj in trenutkov, ki jih ni vedno mogoče ubesediti. Tako kot vsaka smer pripoveduje zgodbo, tudi vsaka slika nosi del mojega notranjega sveta.",
+    dialogue:
+      "Zame je umetnost več kot ustvarjanje nečesa lepega. Je pogovor med dušo, srcem in nevidnim. Je prostor, kjer vodi intuicija, kjer govori tišina in kjer nevidno postane vidno skozi barvo, teksturo in gib.",
+    invitation:
+      "Vsako delo je povabilo, da se upočasniš, globoko začutiš in se znova povežeš z nečim onkraj površine — z nečim brezčasnim, kar že živi v nas.",
+    welcome: "Dobrodošel v mojem svetu.",
+    alt: {
+      portrait: "Urška med vrtnicami pred zgodovinskim dvorcem",
+      garden: "Urška na vrtnicnem vrtu pred zgodovinskim dvorcem",
+      lookingBack: "Urška se ozira nazaj proti vrtu dvorca",
+      roses: "Urška med vrtnicami, mehko zamegljena",
+    },
+  },
   climb: {
     eyebrow: "Plezanje z Urško",
     title: "Novo poglavje, kmalu.",
@@ -793,6 +857,31 @@ const hr: Dictionary = {
     },
     genericError: "Nešto je pošlo po zlu. Pokušaj ponovno.",
     networkError: "Povezivanje s poslužiteljem nije uspjelo. Pokušaj ponovno.",
+  },
+  about: {
+    eyebrow: "O umjetnici",
+    name: "Urška",
+    lead: "Ove slike su više od umjetnosti — one su djelići mog duha, utkani u svaki potez kista.",
+    remembered:
+      "Moja umjetnost nije nešto što jednostavno stvorim — ona je nešto čega se sjetim. Možda zato neke slike zvuče kao tihi odjeci nečega što naše duše već poznaju.",
+    climbing:
+      "Prije nego što sam postala umjetnica, život sam posvetila penjanju. Kao profesionalna natjecateljska penjačica imala sam čast natjecati se na najvišoj međunarodnoj razini. Na tom putu postala sam europska prvakinja u boulderingu, ukupna državna prvakinja u boulderingu i brzinskom penjanju, osvajačica medalje europskog kupa, juniorska svjetska doprvakinja, ukupna pobjednica europskog juniorskog kupa i stala na postolje na Svjetskim obalnim igrama.",
+    shaped:
+      "Penjanje me oblikovalo. Naučilo me disciplini, otpornosti, prisutnosti i hrabrosti da vjerujem svojim instinktima. Svaki smjer bio je lekcija iz ustrajnosti, svaki izazov poziv na rast. No koliko god je taj put bio vrijedan, na kraju me odveo u dublju potragu — onu koju samo pokretom nije bilo moguće izraziti.",
+    today: "Danas taj put izražavam kroz umjetnost.",
+    work:
+      "Moj rad je način da dam oblik svojoj duši. Svaka slika odraz je emocija, iskustava i trenutaka koje nije uvijek moguće izreći riječima. Kao što svaki uspon priča priču, tako i svaka slika nosi dio mog unutarnjeg svijeta.",
+    dialogue:
+      "Za mene je umjetnost više od stvaranja nečega lijepog. Ona je razgovor između duše, srca i neviđenog. Prostor je u kojem vodi intuicija, u kojem govori tišina i u kojem nevidljivo postaje vidljivo kroz boju, teksturu i pokret.",
+    invitation:
+      "Svako je djelo poziv da usporiš, duboko osjetiš i ponovno se povežeš s nečim onkraj površine — s nečim bezvremenskim što već živi u nama.",
+    welcome: "Dobro došao u moj svijet.",
+    alt: {
+      portrait: "Urška među ružama ispred povijesnog dvorca",
+      garden: "Urška u ružičnjaku ispred povijesnog dvorca",
+      lookingBack: "Urška se osvrće prema vrtu dvorca",
+      roses: "Urška među ružama, meko zamućena",
+    },
   },
   climb: {
     eyebrow: "Penjanje s Urškom",
@@ -1016,6 +1105,31 @@ const de: Dictionary = {
     genericError: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     networkError: "Der Server war nicht erreichbar. Bitte versuche es erneut.",
   },
+  about: {
+    eyebrow: "Über die Künstlerin",
+    name: "Urška",
+    lead: "Diese Bilder sind mehr als Kunst — sie sind Stücke meines Geistes, in jeden Pinselstrich gewoben.",
+    remembered:
+      "Meine Kunst ist nicht einfach etwas, das ich erschaffe — sie ist etwas, an das ich mich erinnere. Vielleicht klingen manche Bilder deshalb wie leise Echos von etwas, das unsere Seelen längst kennen.",
+    climbing:
+      "Bevor ich Künstlerin wurde, widmete ich mein Leben dem Klettern. Als professionelle Wettkampfkletterin hatte ich die Ehre, auf höchstem internationalem Niveau anzutreten. Auf diesem Weg wurde ich Europameisterin im Bouldern, Gesamt-Staatsmeisterin im Bouldern und im Speedklettern, Europacup-Medaillengewinnerin, Junioren-Vizeweltmeisterin, Gesamtsiegerin des Junioren-Europacups und stand bei den World Beach Games auf dem Podium.",
+    shaped:
+      "Das Klettern hat mich geprägt. Es lehrte mich Disziplin, Widerstandskraft, Gegenwärtigkeit und den Mut, meinem Gefühl zu vertrauen. Jede Route war eine Lektion in Ausdauer, jede Schwierigkeit eine Einladung zu wachsen. So wertvoll dieser Weg war, führte er mich schließlich in eine tiefere Suche — eine, die sich durch Bewegung allein nicht ausdrücken ließ.",
+    today: "Heute drücke ich diesen Weg durch Kunst aus.",
+    work:
+      "Meine Arbeit ist eine Art, meiner Seele Gestalt zu geben. Jedes Bild ist ein Spiegel von Gefühlen, Erfahrungen und Momenten, die sich nicht immer in Worte fassen lassen. So wie jede Kletterroute eine Geschichte erzählt, trägt jedes Bild ein Stück meiner inneren Welt.",
+    dialogue:
+      "Kunst ist für mich mehr, als etwas Schönes zu schaffen. Sie ist ein Gespräch zwischen der Seele, dem Herzen und dem Ungesehenen. Ein Raum, in dem die Intuition führt, in dem die Stille spricht und in dem das Unsichtbare durch Farbe, Textur und Bewegung sichtbar wird.",
+    invitation:
+      "Jedes Werk ist eine Einladung, langsamer zu werden, tief zu fühlen und sich wieder mit etwas jenseits der Oberfläche zu verbinden — mit etwas Zeitlosem, das schon in uns lebt.",
+    welcome: "Willkommen in meiner Welt.",
+    alt: {
+      portrait: "Urška zwischen Rosen vor einem historischen Herrenhaus",
+      garden: "Urška in einem Rosengarten vor einem historischen Herrenhaus",
+      lookingBack: "Urška blickt zurück zum Garten des Herrenhauses",
+      roses: "Urška zwischen den Rosen, weich unscharf",
+    },
+  },
   climb: {
     eyebrow: "Klettern mit Urška",
     title: "Ein neues Kapitel, bald.",
@@ -1237,6 +1351,31 @@ const it: Dictionary = {
     },
     genericError: "Qualcosa è andato storto. Riprova.",
     networkError: "Impossibile raggiungere il server. Riprova.",
+  },
+  about: {
+    eyebrow: "Sull'artista",
+    name: "Urška",
+    lead: "Questi dipinti sono più che arte — sono pezzi del mio spirito, intrecciati in ogni pennellata.",
+    remembered:
+      "La mia arte non è semplicemente qualcosa che creo — è qualcosa che ricordo. Forse per questo certi dipinti suonano come echi silenziosi di qualcosa che le nostre anime già conoscono.",
+    climbing:
+      "Prima di diventare artista ho dedicato la mia vita all'arrampicata. Come arrampicatrice agonistica professionista ho avuto l'onore di gareggiare ai massimi livelli internazionali. Lungo quel cammino sono diventata campionessa europea di boulder, campionessa nazionale assoluta di boulder e di velocità, medaglia di Coppa Europa, vicecampionessa mondiale giovanile, vincitrice assoluta della Coppa Europa giovanile e sono salita sul podio ai World Beach Games.",
+    shaped:
+      "L'arrampicata mi ha formata. Mi ha insegnato la disciplina, la tenacia, la presenza e il coraggio di fidarmi del mio istinto. Ogni via era una lezione di perseveranza, ogni difficoltà un invito a crescere. Ma per quanto quel percorso fosse prezioso, mi ha portata infine a una ricerca più profonda — una ricerca che il solo movimento non poteva esprimere.",
+    today: "Oggi esprimo quel percorso attraverso l'arte.",
+    work:
+      "Il mio lavoro è un modo di dare forma alla mia anima. Ogni dipinto riflette emozioni, esperienze e momenti che non sempre si possono mettere in parole. Come ogni salita racconta una storia, ogni opera porta con sé una parte del mio mondo interiore.",
+    dialogue:
+      "Per me l'arte è più che creare qualcosa di bello. È un dialogo tra l'anima, il cuore e l'invisibile. È uno spazio in cui guida l'intuizione, in cui parla il silenzio e in cui l'invisibile diventa visibile attraverso colore, materia e movimento.",
+    invitation:
+      "Ogni opera è un invito a rallentare, a sentire in profondità e a ricollegarsi a qualcosa oltre la superficie — a qualcosa di senza tempo che vive già in noi.",
+    welcome: "Benvenuto nel mio mondo.",
+    alt: {
+      portrait: "Urška tra le rose davanti a una dimora storica",
+      garden: "Urška in un roseto davanti a una dimora storica",
+      lookingBack: "Urška si volta verso il giardino della dimora",
+      roses: "Urška tra le rose, leggermente sfocata",
+    },
   },
   climb: {
     eyebrow: "Arrampicata con Urška",
