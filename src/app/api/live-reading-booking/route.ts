@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { LIVE_READING_PACKAGES, LIVE_READING_FORMATS } from "@/components/spirituality/liveReadingData";
 import { isEmailConfigured, warnEmailNotConfigured } from "@/lib/email";
 import { isRedisConfigured } from "@/lib/redis";
+import { clientIp, withinDailyLimit } from "@/lib/rateLimit";
 import { createBooking, ljubljanaDate, setBookingStatus, type Booking } from "@/lib/bookings";
 import { sendOwnerRequest, sendVisitorReceived } from "@/lib/bookingEmails";
 
@@ -63,6 +64,18 @@ export async function POST(request: NextRequest) {
   }
   if (message.length > 5000) {
     return NextResponse.json({ error: "Message is too long." }, { status: 400 });
+  }
+
+  if (!(await withinDailyLimit("booking", { ip: clientIp(request), email }, { perIp: 5, perEmail: 3 }))) {
+    return NextResponse.json(
+      {
+        error:
+          lang === "sl"
+            ? "Danes je bilo poslanih že največ povpraševanj. Poskusi znova jutri ali odgovori na email s potrdilom."
+            : "You've reached today's limit for reading requests. Please try again tomorrow, or reply to your confirmation email.",
+      },
+      { status: 429 }
+    );
   }
 
   if (!isEmailConfigured()) {

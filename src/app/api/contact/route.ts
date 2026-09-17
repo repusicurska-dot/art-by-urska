@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { clientIp, withinDailyLimit } from "@/lib/rateLimit";
 import { isEmailConfigured, oneLine, ownerEmail, sendEmail, warnEmailNotConfigured } from "@/lib/email";
 
 const VALID_CATEGORIES = [
@@ -55,6 +56,16 @@ export async function POST(request: NextRequest) {
   }
 
   const piece = typeof body.piece === "string" ? body.piece.trim().slice(0, 200) : "";
+
+  if (!(await withinDailyLimit("contact", { ip: clientIp(request), email }, { perIp: 5, perEmail: 3 }))) {
+    return NextResponse.json(
+      {
+        error:
+          "You've reached today's limit for messages through this form. Please try again tomorrow — Urška will reply to the ones you've already sent.",
+      },
+      { status: 429 }
+    );
+  }
 
   if (!isEmailConfigured()) {
     warnEmailNotConfigured("contact");

@@ -3,6 +3,7 @@ import { TAROT_CARDS } from "@/components/spirituality/tarotData";
 import { addContact, isEmailConfigured, ownerEmail, sendEmail, warnEmailNotConfigured } from "@/lib/email";
 import { getSiteUrl } from "@/lib/siteUrl";
 import { isRedisConfigured } from "@/lib/redis";
+import { clientIp, withinDailyLimit } from "@/lib/rateLimit";
 import { addSubscriber, unsubscribeUrl } from "@/lib/tarotSubscribers";
 
 const VALID_CARD_KEYS = new Set(TAROT_CARDS.map((c) => c.key));
@@ -39,6 +40,18 @@ export async function POST(request: NextRequest) {
 
   const lang = body.lang === "sl" ? "sl" : "en";
   const tarotCard = TAROT_CARDS.find((c) => c.key === card)!;
+
+  if (!(await withinDailyLimit("subscribe", { ip: clientIp(request), email }, { perIp: 3, perEmail: 2 }))) {
+    return NextResponse.json(
+      {
+        error:
+          lang === "sl"
+            ? "Danes je bilo s tega naslova že dovolj prijav. Poskusi znova jutri."
+            : "Too many sign-ups today. Please try again tomorrow.",
+      },
+      { status: 429 }
+    );
+  }
 
   if (!isEmailConfigured()) {
     warnEmailNotConfigured("tarot-subscribe");
