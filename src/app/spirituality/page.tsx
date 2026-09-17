@@ -4,7 +4,7 @@ import SpiritualityContent from "@/components/spirituality/SpiritualityContent";
 export const metadata: Metadata = {
   title: "Spirituality — Art by Urška",
   description:
-    "Spirituality by Urška — on the soul, painting as practice, and the journey from climbing to canvas.",
+    "Spirituality by Urška — card of the day, the moon today, a minute of stillness, a gratitude practice, and live tarot readings with Urška.",
   alternates: { canonical: "/spirituality" },
 };
 

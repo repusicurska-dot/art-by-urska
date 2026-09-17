@@ -105,10 +105,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
     <section className="border-t border-bone/10 py-24 md:py-32">
       <Container className="max-w-2xl text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.heading}</span>
-        <p
-          className="mt-6 text-bone/90 leading-relaxed max-w-xl mx-auto"
-          style={{ textShadow: "0 1px 12px rgba(0,0,0,0.5)" }}
-        >
+        <p className="mt-6 text-bone/90 leading-relaxed max-w-xl mx-auto">
           {labels.intro}
         </p>
 
@@ -140,7 +137,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                 borderColor: "color-mix(in srgb, var(--color-accent-warm) 35%, transparent)",
                 background:
                   "radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-accent-warm) 9%, var(--color-ink)) 0%, var(--color-ink) 72%)",
-                boxShadow: "0 25px 60px -25px rgba(0,0,0,0.6)",
+                boxShadow: "0 25px 60px -28px rgba(75,58,94,0.4)",
               }}
             >
               <TarotCardFrame />
@@ -164,7 +161,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                 borderColor: "color-mix(in srgb, var(--color-accent-warm) 45%, transparent)",
                 background: "var(--color-ink)",
                 boxShadow:
-                  "0 25px 60px -25px rgba(0,0,0,0.6), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 22%, transparent)",
+                  "0 25px 60px -28px rgba(75,58,94,0.4), 0 0 40px -10px color-mix(in srgb, var(--color-accent-warm) 22%, transparent)",
               }}
             >
               {/* The card art carries its own frame, numeral and title, so it fills the
@@ -221,7 +218,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
 
               <p
                 className="mt-6 max-w-md rounded-md px-5 py-3 leading-relaxed italic font-heading text-lg"
-                style={{ background: "var(--color-bone)", color: "var(--color-ink)" }}
+                style={{ background: "var(--color-paper)", color: "var(--color-bone)" }}
               >
                 {selected.meaning[lang]}
               </p>
@@ -229,9 +226,9 @@ export default function TarotReading({ lang }: { lang: Lang }) {
               <div
                 className="mt-10 w-full max-w-lg rounded-lg px-7 py-8 text-left md:px-10 md:py-10"
                 style={{
-                  background: "var(--color-bone)",
+                  background: "var(--color-paper)",
                   border: "1px solid color-mix(in srgb, var(--color-terracotta) 30%, transparent)",
-                  boxShadow: "0 25px 60px -25px rgba(0,0,0,0.6)",
+                  boxShadow: "0 25px 60px -30px rgba(75,58,94,0.35)",
                 }}
               >
                 <div className="space-y-5 text-left">
@@ -241,7 +238,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
 
                     if (isFirst) {
                       return (
-                        <p key={i} className="leading-relaxed" style={{ color: "var(--color-ink)" }}>
+                        <p key={i} className="leading-relaxed" style={{ color: "var(--color-bone)" }}>
                           <span
                             className="float-left mr-2 pt-1 font-heading text-5xl leading-[0.8]"
                             style={{ color: "var(--color-terracotta)" }}
@@ -266,7 +263,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
                     }
 
                     return (
-                      <p key={i} className="clear-both leading-relaxed" style={{ color: "var(--color-ink)" }}>
+                      <p key={i} className="clear-both leading-relaxed" style={{ color: "var(--color-bone)" }}>
                         {para}
                       </p>
                     );

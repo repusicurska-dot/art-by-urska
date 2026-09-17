@@ -171,7 +171,7 @@ export default function ScratchCard({ lang }: { lang: Lang }) {
     <div className="mt-16 flex flex-col items-center">
       <span className="text-xs tracking-widest uppercase text-smoke">{labels.heading}</span>
 
-      <div className="relative mt-5 h-40 w-72 max-w-full overflow-hidden rounded-lg border border-bone/10 shadow-[0_25px_60px_-25px_rgba(0,0,0,0.6)]">
+      <div className="relative mt-5 h-40 w-72 max-w-full overflow-hidden rounded-lg border border-bone/10 bg-paper shadow-[0_25px_60px_-30px_rgba(75,58,94,0.35)]">
         <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
           <p className="font-heading italic text-base text-bone">{reward}</p>
         </div>

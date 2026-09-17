@@ -25,6 +25,8 @@
      rest of the palette. */
   --color-aurora-gold: #cba876;
   --color-aurora-violet: #7d6a99;
+  /* Card surface — only the light Spirituality page redefines it to something distinct. */
+  --color-paper: #f2f0eb;
   --font-heading: var(--font-cormorant), serif;
   --font-body: var(--font-inter), sans-serif;
   --font-gothic: var(--font-unifraktur), serif;
@@ -79,6 +81,29 @@ h1, h2, h3, h4 {
   .journey-cursor {
     display: none !important;
   }
+}
+
+/* Spirituality is the one light page on the site — a warm dawn instead of the night sky.
+   Rather than restyling every tarot/booking component, the page's marker class flips the
+   shared tokens for the whole body (header, footer and banners included), so "ink" becomes
+   the pearl ground and "bone" the deep plum text. Keyed off :has() so it applies from the
+   first server-rendered paint, with no dark flash before hydration. */
+body:has(.spirit-light) {
+  --color-ink: #fbf7f0;
+  --color-bone: #2f2838;
+  --color-smoke: #6f6470;
+  --color-raised: #f3ebe0;
+  --color-paper: #fffdf9;
+  --color-charcoal: #4b3a5e;
+  --color-ivory: #fffdf8;
+  --color-gold-600: #8f672d;
+  --color-terracotta: #9b5a4f;
+  --color-accent-warm: #8f672d;
+  --color-accent-cold: #d9b46f;
+  --color-aurora-gold: #f4cf94;
+  --color-aurora-violet: #cdb8ec;
+  background: var(--color-ink);
+  color: var(--color-bone);
 }
 
 /* Gentle star twinkle for the Spirituality page's night-sky backdrop. */
