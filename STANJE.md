@@ -4,7 +4,7 @@ Edini veljaven seznam odprtih stvari za byurska.com. Urejeno po tem, kaj kaj blo
 Zgodovina že opravljenega dela je v `OWNER_ACTION_REQUIRED.md` — tam ne iščem odprtih
 nalog, tu so.
 
-Zadnjič posodobljeno: 2026-09-12
+Zadnjič posodobljeno: 2026-09-17
 
 ---
 
@@ -29,18 +29,15 @@ vse ostalo, kar bi kupec pričakoval.
 - [ ] Odloči, ali je posamezna slika običajen original, izdelan po naročilu ali osebno
       prilagojen — od tega je odvisno, kateri člen o pravici do odstopa velja.
 
-## 2. Nihče te ne more doseči
+## 2. ~~Nihče te ne more doseči~~ — urejeno 2026-09-17
 
-Izbran je **Resend** (brezplačno: 3.000 emailov na mesec, 100 na dan). Koda je napisana
-(`src/lib/email.ts`) — obrazci začnejo pošiljati, ko so v Vercelu nastavljene tri
-spremenljivke. Do takrat se obnašajo kot prej.
+Vsi trije obrazci pošiljajo prek **Resend** (brezplačno: 3.000 emailov/mesec, 100/dan;
+domena byurska.com potrjena, nastavitve v Vercelu). Preizkušeno na živi strani — prišli so
+vsi štirje emaili.
 
-- [ ] Račun na resend.com in potrditev domene byurska.com (DNS zapisi).
-- [ ] V Vercelu nastavi `RESEND_API_KEY`, `EMAIL_FROM` (npr.
-      `Art by Urška <obvestila@byurska.com>`) in `OWNER_EMAIL` (Urškin inbox).
-- [ ] Preizkus vseh treh obrazcev na testnem naslovu:
-      kontakt → email Urški; branje v živo → email Urški s priponko za koledar + potrdilo
-      stranki; tedenski tarot → stik v Resend + pozdravni email.
+- [x] Kontakt → email na `OWNER_EMAIL`, odgovor gre neposredno obiskovalcu.
+- [x] Branje v živo → email s priponko `.ics` (en dotik do iPhone koledarja) + potrdilo stranki.
+- [x] Tedenski tarot → stik v Resend (Contacts) + pozdravni email s karto.
 
 ## 3. Čakam na tvoje vsebine
 
@@ -75,11 +72,11 @@ Trenutno v projektu ni baze podatkov. Zato:
 
 - [ ] **Baza podatkov**, da zaseden termin izgine iz izbirnika. Zdaj lahko dva obiskovalca
       rezervirata isti termin in to rešuješ ročno.
-- [ ] **Opomnik dan pred terminom** po e-pošti — rabi ponudnika iz točke 2 in časovnik.
+- [ ] **Opomnik dan pred terminom** po e-pošti — e-pošta zdaj deluje, manjka baza (zgoraj) in časovnik.
 - [ ] **SMS opomniki** — rekla si, da lahko počaka.
-- [ ] **Termini v tvoj iPhone koledar** — realna pot je priponka `.ics` v obvestilu, ki ga
-      dobiš po e-pošti; generator je že napisan.
-- [ ] **Tedenski tarot e-mail** — vsebina obstaja, manjka le pošiljanje.
+- [x] **Termini v tvoj iPhone koledar** — obvestilo o rezervaciji ima priponko `.ics`.
+- [ ] **Tedenski tarot e-mail** — naročniki se zbirajo v Resend → Contacts; zaenkrat pošiljaš
+      ročno kot Broadcast (doda povezavo za odjavo). Samodejno tedensko pošiljanje še ni narejeno.
 - [ ] **Analitika** — ali jo sploh hočeš in katero. Sistem za privolitev je že pripravljen.
 
 ## 6. Ob zagonu
