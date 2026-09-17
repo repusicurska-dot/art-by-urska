@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Container from "@/components/shared/Container";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 /**
  * Urška's own photographs of the originals on real walls — the one thing a catalogue
@@ -36,17 +39,13 @@ function WideShot({ src, alt, ratio }: { src: string; alt: string; ratio: string
 }
 
 export default function InTheHome() {
+  const { t } = useLanguage();
   return (
     <section className="border-t border-bone/10 px-2 py-24 md:py-28">
       <Container>
-        <span className="block text-xs tracking-[0.35em] uppercase text-accent-warm">In a home</span>
-        <h2 className="font-gothic text-3xl md:text-5xl text-bone mt-5 leading-[1.1]">
-          What they look like on a wall
-        </h2>
-        <p className="mt-6 max-w-xl text-lg text-bone/75 leading-relaxed">
-          Every piece here is an original, photographed where it actually hangs — so you can see
-          the scale before it ever reaches your own wall.
-        </p>
+        <span className="block text-xs tracking-[0.35em] uppercase text-accent-warm">{t.collection.inHomeEyebrow}</span>
+        <h2 className="font-gothic text-3xl md:text-5xl text-bone mt-5 leading-[1.1]">{t.collection.inHomeTitle}</h2>
+        <p className="mt-6 max-w-xl text-lg text-bone/75 leading-relaxed">{t.collection.inHomeText}</p>
 
         <div className="mt-14">
           <WideShot

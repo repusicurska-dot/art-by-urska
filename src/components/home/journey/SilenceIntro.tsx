@@ -3,9 +3,11 @@
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 /** Opening chapter: plain dark space (the site's own star field shows through), a whispered line. */
 export default function SilenceIntro() {
+  const { t } = useLanguage();
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
 
@@ -55,7 +57,7 @@ export default function SilenceIntro() {
           style={{ opacity: hintOpacity }}
           className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-2 text-bone/75"
         >
-          <span className="text-xs tracking-[0.3em] uppercase">Scroll to enter</span>
+          <span className="text-xs tracking-[0.3em] uppercase">{t.home.scrollToEnter}</span>
           <motion.div
             animate={{ y: [0, 6, 0], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}

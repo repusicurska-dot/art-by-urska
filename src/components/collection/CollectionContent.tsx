@@ -7,48 +7,49 @@ import Container from "@/components/shared/Container";
 import PlaceholderArt from "@/components/shared/PlaceholderArt";
 import ArtworkLightbox from "@/components/shared/ArtworkLightbox";
 import { Artwork } from "@/content/types";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
-const AVAILABILITY: Record<Artwork["availability"], { label: string; dot: string }> = {
-  available: { label: "Available", dot: "#7fae8b" },
-  reserved: { label: "Reserved", dot: "#c5aa82" },
-  sold: { label: "Sold", dot: "#8f8d88" },
-  inquire: { label: "Ask about it", dot: "#afc4d6" },
+const AVAILABILITY_DOT: Record<Artwork["availability"], string> = {
+  available: "#7fae8b",
+  reserved: "#c5aa82",
+  sold: "#8f8d88",
+  inquire: "#afc4d6",
 };
 
 export default function CollectionContent({ artworks }: { artworks: Artwork[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   return (
     <section className="px-2 pt-20 pb-20 md:pt-28 md:pb-28">
       <Container>
         {/* The room's title wall: one line of context, then the works themselves. */}
         <div className="max-w-2xl">
-          <span className="block text-xs tracking-[0.35em] uppercase text-accent-warm">The collection</span>
-          <h1 className="font-gothic text-4xl md:text-6xl text-bone mt-5 leading-[1.05]">Every original, in one place</h1>
-          <p className="mt-6 text-lg leading-relaxed text-bone/75">
-            Each painting here exists once. Acrylic on canvas, painted by hand in Slovenia, and shipped
-            worldwide — tap any piece to see it full size, or open its story.
-          </p>
+          <span className="block text-xs tracking-[0.35em] uppercase text-accent-warm">{t.collection.eyebrow}</span>
+          <h1 className="font-gothic text-4xl md:text-6xl text-bone mt-5 leading-[1.05]">{t.collection.title}</h1>
+          <p className="mt-6 text-lg leading-relaxed text-bone/75">{t.collection.intro}</p>
           <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs tracking-widest uppercase text-smoke">
-            <span>{artworks.length} originals</span>
+            <span>
+              {artworks.length} {t.collection.originals}
+            </span>
             <span aria-hidden="true">·</span>
-            <span>One of each</span>
+            <span>{t.collection.oneOfEach}</span>
             <span aria-hidden="true">·</span>
-            <span>Shipped worldwide</span>
+            <span>{t.collection.shippedWorldwide}</span>
           </p>
           <span aria-hidden="true" className="mt-10 block h-px w-24 bg-gradient-to-r from-accent-warm/70 to-transparent" />
         </div>
 
         <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-3 md:mt-16 md:gap-9">
           {artworks.map((artwork, i) => {
-            const status = AVAILABILITY[artwork.availability];
+            const status = { label: t.collection[artwork.availability], dot: AVAILABILITY_DOT[artwork.availability] };
             return (
               <article key={artwork.slug} className="art-card group flex flex-col rounded-2xl p-3 md:p-4">
                 <button
                   type="button"
                   onClick={() => setOpenIndex(i)}
                   className="relative aspect-[4/5] w-full cursor-zoom-in overflow-hidden rounded-xl"
-                  aria-label={`View "${artwork.title}" full size`}
+                  aria-label={`${artwork.title} — ${t.collection.viewFullSize}`}
                 >
                   {artwork.heroImage ? (
                     <Image
@@ -72,7 +73,7 @@ export default function CollectionContent({ artworks }: { artworks: Artwork[] })
                     style={{ background: `radial-gradient(75% 55% at 50% 100%, ${artwork.accentColor}33, transparent 70%)` }}
                   />
                   <span className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-ink/70 px-3 py-1 text-[10px] tracking-widest uppercase text-bone opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-100">
-                    View full size
+                    {t.collection.viewFullSize}
                   </span>
                 </button>
 
@@ -100,7 +101,7 @@ export default function CollectionContent({ artworks }: { artworks: Artwork[] })
                     href={`/artworks/${artwork.slug}`}
                     className="mt-4 inline-flex items-center gap-2 border-t border-bone/10 pt-4 text-xs tracking-widest uppercase text-bone/70 transition-colors hover:text-accent-warm"
                   >
-                    Read its story
+                    {t.collection.readStory}
                     <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
                       →
                     </span>

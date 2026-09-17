@@ -11,6 +11,7 @@ import InstallAppPrompt from "@/components/shared/InstallAppPrompt";
 import OwnerAlerts from "@/components/shared/OwnerAlerts";
 import StructuredData from "@/components/seo/StructuredData";
 import { CartProvider } from "@/lib/cart/CartContext";
+import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { organizationJsonLd } from "@/lib/structuredData";
 import { getSiteUrl } from "@/lib/siteUrl";
 
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <StructuredData data={organizationJsonLd()} />
         <IntroSplash />
         <SkyBackdrop />
+        <LanguageProvider>
         <CartProvider>
           <OwnerAlerts />
           <PlaceholderBanner />
@@ -75,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <CookieBanner />
           <InstallAppPrompt />
         </CartProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -6,6 +6,8 @@ import Logo from "./Logo";
 import ProtectedEmail from "./ProtectedEmail";
 import { OPEN_INSTALL_PROMPT_EVENT } from "./InstallAppPrompt";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookies/CookieBanner";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const legalLinks = [
   { href: "/legal/terms", label: "Terms & Conditions" },
@@ -17,6 +19,7 @@ const legalLinks = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer className="border-t border-white/[0.14] py-14">
       <Container>
@@ -24,7 +27,7 @@ export default function Footer() {
           <div>
             <Logo ring wordmark className="text-bone" iconClassName="h-11 w-11" />
             <p className="mt-3 text-sm text-smoke max-w-xs">
-              Original paintings, made in Slovenia, shared with the world.
+              {t.footer.tagline}
             </p>
             <p className="mt-3 text-sm text-smoke">
               <ProtectedEmail className="hover:text-bone transition-colors underline" />
@@ -41,16 +44,16 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs tracking-widest uppercase text-smoke/70 mb-4">Explore</p>
+            <p className="text-xs tracking-widest uppercase text-smoke/70 mb-4">{t.footer.explore}</p>
             <ul className="space-y-2 text-sm text-smoke">
               <li>
                 <Link href="/collection" className="hover:text-bone transition-colors">
-                  Art
+                  {t.nav.art}
                 </Link>
               </li>
               <li>
                 <Link href="/poetry" className="hover:text-bone transition-colors">
-                  Poetry
+                  {t.nav.poetry}
                 </Link>
               </li>
               <li>
@@ -60,29 +63,29 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-bone transition-colors"
                 >
-                  Spirituality
+                  {t.nav.spirituality}
                 </Link>
               </li>
               <li>
                 <Link href="/zvezdni-koledar" className="hover:text-bone transition-colors">
-                  ✨ Star Business Calendar
+                  {t.footer.starCalendar}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-bone transition-colors">
-                  About
+                  {t.nav.about}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-bone transition-colors">
-                  Contact
+                  {t.nav.contact}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="text-xs tracking-widest uppercase text-smoke/70 mb-4">Policies</p>
+            <p className="text-xs tracking-widest uppercase text-smoke/70 mb-4">{t.footer.policies}</p>
             <ul className="space-y-2 text-sm text-smoke">
               {legalLinks.map((link) => (
                 <li key={link.href}>
@@ -99,7 +102,7 @@ export default function Footer() {
                   }
                   className="hover:text-bone transition-colors text-left"
                 >
-                  Cookie Preferences
+                  {t.footer.cookiePreferences}
                 </button>
               </li>
               <li className="md:hidden">
@@ -108,27 +111,20 @@ export default function Footer() {
                   onClick={() => window.dispatchEvent(new Event(OPEN_INSTALL_PROMPT_EVENT))}
                   className="hover:text-bone transition-colors text-left"
                 >
-                  📱 Spirituality app
+                  {t.footer.installApp}
                 </button>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="text-xs tracking-widest uppercase text-smoke/70 mb-4">Language</p>
-            <button
-              type="button"
-              disabled
-              title="More languages coming soon"
-              className="text-sm text-smoke/60 cursor-not-allowed"
-            >
-              English
-            </button>
+            <p className="text-xs tracking-widest uppercase text-smoke/70 mb-4">{t.footer.language}</p>
+            <LanguageSwitcher />
           </div>
         </div>
 
         <p className="mt-12 text-sm text-smoke/60">
-          &copy; {new Date().getFullYear()} Art by Urška. All rights reserved.
+          &copy; {new Date().getFullYear()} Art by Urška. {t.footer.rights}
         </p>
       </Container>
     </footer>

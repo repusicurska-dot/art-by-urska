@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Container from "@/components/shared/Container";
 import QuoteSequence from "@/components/shared/QuoteSequence";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 /**
  * Urška's own words, verbatim from her notes — do not edit or add to these without
@@ -12,10 +15,11 @@ const POETRY_QUOTES = [
 ];
 
 export default function PoetryIndexContent() {
+  const { t } = useLanguage();
   return (
     <div className="">
       <section className="flex min-h-[35vh] items-end justify-center px-6 pt-24 text-center">
-        <h1 className="block text-xs tracking-[0.3em] uppercase text-smoke">Poetry by Urška</h1>
+        <h1 className="block text-xs tracking-[0.3em] uppercase text-smoke">{t.poetry.eyebrow}</h1>
       </section>
 
       <QuoteSequence quotes={POETRY_QUOTES} />
