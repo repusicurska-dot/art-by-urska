@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSubscriptionCheckout } from "@/lib/starCalendar/billing";
 import { sendLoginEmail } from "@/lib/starCalendar/emails";
-import { getMember, hasAccess, newFeedToken, saveMember, type Member } from "@/lib/starCalendar/store";
+import { feedUrls, getMember, hasAccess, isComplimentary, newFeedToken, saveMember, type Member } from "@/lib/starCalendar/store";
+import { sendWelcomeEmail } from "@/lib/starCalendar/emails";
+import { getSiteUrl } from "@/lib/siteUrl";
 import { isAvailable, isEmail, parseBirth, parseLang } from "@/lib/starCalendar/validate";
 import { clientIp, withinDailyLimit } from "@/lib/rateLimit";
 
@@ -45,6 +47,25 @@ export async function POST(request: NextRequest) {
   }
 
   const existing = await getMember(email);
+
+  // Owner / free accounts: no payment — store the details and send the sign-in link.
+  if (isComplimentary(email)) {
+    const member: Member = {
+      ...(existing ?? { feedToken: newFeedToken(), createdAt: new Date().toISOString() }),
+      email,
+      lang,
+      ...birth,
+      status: "active",
+    } as Member;
+    if (!member.welcomedAt) {
+      await sendWelcomeEmail(member, feedUrls(member, getSiteUrl()).webcal);
+      member.welcomedAt = new Date().toISOString();
+    }
+    await saveMember(member);
+    await sendLoginEmail(member);
+    return NextResponse.json({ complimentary: true });
+  }
+
   if (existing && hasAccess(existing)) {
     // Already subscribed: don't charge twice — send a sign-in link instead.
     await sendLoginEmail({ ...existing, lang });

@@ -19,6 +19,7 @@ interface MemberView {
   status: string;
   accessUntil: string | null;
   cancelAtPeriodEnd: boolean;
+  complimentary: boolean;
 }
 
 type Summary = { title: string; paragraphs: string[] };
@@ -288,7 +289,11 @@ export default function MemberCalendar({
           <div className={box}>
             <h2 className="font-heading text-2xl text-bone">💳 {sl ? "Naročnina" : "Subscription"}</h2>
             <p className="mt-3 leading-relaxed text-bone">
-              {member.status === "trialing" && !member.cancelAtPeriodEnd
+              {member.complimentary
+                ? sl
+                  ? "✨ Brezplačen dostop brez omejitev."
+                  : "✨ Free, unlimited access."
+                : member.status === "trialing" && !member.cancelAtPeriodEnd
                 ? sl
                   ? `🎁 Brezplačni preizkus do ${until}. Nato 5,99 € na mesec.`
                   : `🎁 Free trial until ${until}. Then €5.99 per month.`
@@ -303,6 +308,7 @@ export default function MemberCalendar({
                     : ""}
             </p>
             {active &&
+              !member.complimentary &&
               (member.cancelAtPeriodEnd ? (
                 <button type="button" disabled={subState === "working"} onClick={() => changeSubscription("resume")} className="btn-primary mt-5">
                   {sl ? "Obnovi naročnino" : "Resume subscription"}

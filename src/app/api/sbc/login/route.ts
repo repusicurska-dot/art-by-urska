@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendLoginEmail } from "@/lib/starCalendar/emails";
-import { getMember } from "@/lib/starCalendar/store";
+import { getMember, isComplimentary } from "@/lib/starCalendar/store";
 import { isAvailable, isEmail, parseLang } from "@/lib/starCalendar/validate";
 import { clientIp, withinDailyLimit } from "@/lib/rateLimit";
 
@@ -20,6 +20,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: lang === "sl" ? "Preveč poskusov danes." : "Too many attempts today." }, { status: 429 });
   }
   const member = await getMember(email);
-  if (member && member.stripeSubscriptionId) await sendLoginEmail(member);
+  if (member && (member.stripeSubscriptionId || isComplimentary(member.email))) await sendLoginEmail(member);
   return NextResponse.json({ ok: true });
 }

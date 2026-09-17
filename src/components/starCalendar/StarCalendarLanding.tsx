@@ -36,6 +36,7 @@ const COPY = {
     submit: "Nadaljuj na plačilo — 7 dni brezplačno",
     submitting: "Pripravljam …",
     already: "S tem naslovom že imaš naročnino — poslali smo ti povezavo za prijavo.",
+    complimentary: "✨ Ta naslov ima brezplačen dostop. Poslali smo ti povezavo za prijavo.",
     soon: "Naročnina bo na voljo zelo kmalu.",
     loginPrompt: "Že imaš naročnino?",
     login: "Prijava",
@@ -77,6 +78,7 @@ const COPY = {
     submit: "Continue to payment — 7 days free",
     submitting: "Preparing …",
     already: "You already have a subscription with this email — we've sent you a sign-in link.",
+    complimentary: "✨ This address has free access. We've sent you a sign-in link.",
     soon: "Subscriptions open very soon.",
     loginPrompt: "Already subscribed?",
     login: "Sign in",
@@ -107,7 +109,7 @@ export default function StarCalendarLanding({
   const [email, setEmail] = useState("");
   const [birth, setBirth] = useState<BirthValue>({ birthDate: "", birthTime: "", birthTimeZone: "Europe/Ljubljana" });
   const [consent, setConsent] = useState(false);
-  const [status, setStatus] = useState<"idle" | "submitting" | "already" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "already" | "complimentary" | "error">("idle");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -130,6 +132,10 @@ export default function StarCalendarLanding({
       if (!res.ok) {
         setError(data.error ?? "Error");
         setStatus("error");
+        return;
+      }
+      if (data.complimentary) {
+        setStatus("complimentary");
         return;
       }
       if (data.alreadyMember) {
@@ -229,8 +235,8 @@ export default function StarCalendarLanding({
 
             {!available ? (
               <p className="mt-8 text-center text-bone">🌙 {t.soon}</p>
-            ) : status === "already" ? (
-              <p className="mt-8 text-center text-bone">✉️ {t.already}</p>
+            ) : status === "already" || status === "complimentary" ? (
+              <p className="mt-8 text-center text-bone">✉️ {t[status]}</p>
             ) : (
               <form onSubmit={submit} className="mt-8 space-y-5">
                 <h2 className="font-heading text-2xl text-bone">{t.formTitle}</h2>

@@ -6,7 +6,7 @@ import { getSiteUrl } from "@/lib/siteUrl";
 import { syncMember } from "@/lib/starCalendar/billing";
 import { memberMonth, memberSunSign } from "@/lib/starCalendar/readings";
 import { currentMemberEmail } from "@/lib/starCalendar/session";
-import { feedUrls, getMember, hasAccess } from "@/lib/starCalendar/store";
+import { feedUrls, getMember, hasAccess, isComplimentary } from "@/lib/starCalendar/store";
 import MemberCalendar from "@/components/starCalendar/MemberCalendar";
 
 export const metadata: Metadata = {
@@ -55,6 +55,7 @@ export default async function MemberPage({
         status: member.status,
         accessUntil: member.accessUntil ?? null,
         cancelAtPeriodEnd: !!member.cancelAtPeriodEnd,
+        complimentary: isComplimentary(member.email),
       }}
       active={active}
       year={year}
