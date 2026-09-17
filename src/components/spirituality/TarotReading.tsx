@@ -105,7 +105,7 @@ export default function TarotReading({ lang }: { lang: Lang }) {
     <section className="border-t border-bone/10 py-24 md:py-32">
       <Container className="max-w-2xl text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.heading}</span>
-        <p className="mt-6 text-bone/90 leading-relaxed max-w-xl mx-auto">
+        <p className="mt-6 text-bone leading-relaxed max-w-xl mx-auto">
           {labels.intro}
         </p>
 

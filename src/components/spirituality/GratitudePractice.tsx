@@ -62,7 +62,7 @@ export default function GratitudePractice({ lang }: { lang: Lang }) {
       <Container className="max-w-2xl text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.eyebrow}</span>
         <h2 className="mt-5 font-heading italic text-3xl md:text-4xl text-bone">{labels.heading}</h2>
-        <p className="mt-4 text-bone/75 leading-relaxed max-w-lg mx-auto">{labels.intro}</p>
+        <p className="mt-4 text-bone leading-relaxed max-w-lg mx-auto">{labels.intro}</p>
 
         <form
           onSubmit={save}
@@ -96,7 +96,7 @@ export default function GratitudePractice({ lang }: { lang: Lang }) {
                       setLights(next);
                       setSaved(false);
                     }}
-                    className="w-full border-b border-bone/15 bg-transparent py-2 text-bone placeholder:text-smoke/70 focus:border-accent-warm focus:outline-none"
+                    className="w-full border-b border-bone/15 bg-transparent py-2 text-bone placeholder:text-smoke focus:border-accent-warm focus:outline-none"
                   />
                 </div>
               );
@@ -114,7 +114,7 @@ export default function GratitudePractice({ lang }: { lang: Lang }) {
                 {labels.save}
               </button>
             )}
-            <p className="text-[11px] italic text-smoke">{labels.privacy}</p>
+            <p className="text-xs italic text-smoke">{labels.privacy}</p>
           </div>
         </form>
       </Container>

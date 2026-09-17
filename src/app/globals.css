@@ -89,9 +89,9 @@ h1, h2, h3, h4 {
    the pearl ground and "bone" the deep plum text. Keyed off :has() so it applies from the
    first server-rendered paint, with no dark flash before hydration. */
 body:has(.spirit-light) {
-  --color-ink: #fbf7f0;
-  --color-bone: #2f2838;
-  --color-smoke: #6f6470;
+  --color-ink: #f3eadf;
+  --color-bone: #2a2233;
+  --color-smoke: #574b5b;
   --color-raised: #f3ebe0;
   --color-paper: #fffdf9;
   --color-charcoal: #4b3a5e;
@@ -104,6 +104,25 @@ body:has(.spirit-light) {
   --color-aurora-violet: #cdb8ec;
   background: var(--color-ink);
   color: var(--color-bone);
+}
+
+/* The Spirituality page's ground: a slow dawn-to-dusk wash (blush → lavender → honey →
+   lilac) down the length of the page, under a faint seed-of-life lattice in gold. Softer
+   than the flat pearl it replaces, so the plum text doesn't sit on near-white. */
+.spirit-ground {
+  background-color: var(--color-ink);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%238f672d' stroke-opacity='0.09' stroke-width='0.8'%3E%3Ccircle cx='48' cy='48' r='24'/%3E%3Ccircle cx='48' cy='24' r='24'/%3E%3Ccircle cx='48' cy='72' r='24'/%3E%3Ccircle cx='27.2' cy='36' r='24'/%3E%3Ccircle cx='68.8' cy='36' r='24'/%3E%3Ccircle cx='27.2' cy='60' r='24'/%3E%3Ccircle cx='68.8' cy='60' r='24'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='1.2' fill='%238f672d' fill-opacity='0.18'/%3E%3C/svg%3E"),
+    linear-gradient(
+      180deg,
+      #f3e6de 0%,
+      #ebe0ef 22%,
+      #f1e5d3 45%,
+      #e9deee 68%,
+      #f2e4d6 88%,
+      #ece2ea 100%
+    );
+  background-size: 96px 96px, 100% 100%;
 }
 
 /* Gentle star twinkle for the Spirituality page's night-sky backdrop. */

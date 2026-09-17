@@ -61,12 +61,12 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
     <section className="border-t border-bone/10 py-24 md:py-32">
       <Container className="max-w-2xl text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.heading}</span>
-        <p className="mt-6 text-bone/90 leading-relaxed max-w-xl mx-auto">{labels.intro}</p>
+        <p className="mt-6 text-bone leading-relaxed max-w-xl mx-auto">{labels.intro}</p>
 
         {status === "sent" ? (
           <div className="mt-12 flex flex-col items-center rounded-lg border border-bone/10 bg-raised/40 px-7 py-10">
             <h3 className="font-heading text-2xl text-bone">{labels.successTitle}</h3>
-            <p className="mt-3 max-w-sm text-bone/70 leading-relaxed">{labels.successBody}</p>
+            <p className="mt-3 max-w-sm text-bone leading-relaxed">{labels.successBody}</p>
             {selectedSlot && (
               <button type="button" onClick={handleAddToCalendar} className="btn-secondary mt-6">
                 {labels.addToCalendar}
@@ -122,7 +122,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
             </div>
 
             <div>
-              <span className="block text-xs tracking-widest uppercase text-bone/60 mb-3">
+              <span className="block text-xs tracking-widest uppercase text-bone mb-3">
                 {labels.packageLabel}
               </span>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -140,26 +140,26 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                           ? "var(--color-accent-warm)"
                           : "color-mix(in srgb, var(--color-bone) 15%, transparent)",
                         background: isSelected
-                          ? "color-mix(in srgb, var(--color-accent-warm) 12%, transparent)"
-                          : "transparent",
+                          ? "color-mix(in srgb, var(--color-aurora-gold) 45%, var(--color-paper))"
+                          : "color-mix(in srgb, var(--color-paper) 65%, transparent)",
                       }}
                     >
                       <span className="block font-heading text-base text-bone">{pkg.title[lang]}</span>
                       <span className="mt-1 block text-xs tracking-widest uppercase text-smoke">
                         {pkg.duration[lang]} · {pkg.price}
                       </span>
-                      <span className="mt-2 block text-sm text-bone/60 leading-relaxed">
+                      <span className="mt-2 block text-sm text-bone leading-relaxed">
                         {pkg.description[lang]}
                       </span>
                     </button>
                   );
                 })}
               </div>
-              <p className="mt-2 text-xs text-bone/40 italic">{labels.priceNote}</p>
+              <p className="mt-2 text-xs text-bone italic">{labels.priceNote}</p>
             </div>
 
             <div className="mt-8">
-              <span className="block text-xs tracking-widest uppercase text-bone/60 mb-3">
+              <span className="block text-xs tracking-widest uppercase text-bone mb-3">
                 {labels.formatLabel}
               </span>
               <div className="flex flex-wrap gap-2">
@@ -178,14 +178,14 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                           ? "var(--color-accent-warm)"
                           : "color-mix(in srgb, var(--color-bone) 15%, transparent)",
                         background: isSelected
-                          ? "color-mix(in srgb, var(--color-accent-warm) 12%, transparent)"
-                          : "transparent",
-                        color: isSelected ? "var(--color-accent-warm)" : "var(--color-bone)",
+                          ? "color-mix(in srgb, var(--color-aurora-gold) 45%, var(--color-paper))"
+                          : "color-mix(in srgb, var(--color-paper) 65%, transparent)",
+                        color: "var(--color-bone)",
                       }}
                     >
                       {fmt.label[lang]}
                       {fmt.comingSoon && (
-                        <span className="ml-1.5 text-[10px] uppercase tracking-widest text-smoke">
+                        <span className="ml-1.5 text-[11px] uppercase tracking-widest text-smoke">
                           ({labels.comingSoonTag})
                         </span>
                       )}
@@ -196,7 +196,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
             </div>
 
             <div className="mt-8">
-              <span className="block text-xs tracking-widest uppercase text-bone/60 mb-3">{labels.slotLabel}</span>
+              <span className="block text-xs tracking-widest uppercase text-bone mb-3">{labels.slotLabel}</span>
               <div className="flex gap-3 overflow-x-auto pb-2">
                 {Array.from(slotsByDate.entries()).map(([date, daySlots]) => (
                   <div key={date} className="shrink-0">
@@ -220,7 +220,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                                 : "color-mix(in srgb, var(--color-bone) 15%, transparent)",
                               background: isSelected
                                 ? "var(--color-accent-warm)"
-                                : "transparent",
+                                : "color-mix(in srgb, var(--color-paper) 65%, transparent)",
                               color: isSelected ? "var(--color-ink)" : "var(--color-bone)",
                             }}
                           >
@@ -232,11 +232,11 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                   </div>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-bone/40 italic">{labels.slotHint}</p>
+              <p className="mt-3 text-xs text-bone italic">{labels.slotHint}</p>
             </div>
 
             <div className="mt-8">
-              <label htmlFor="lrb-name" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
+              <label htmlFor="lrb-name" className="block text-xs tracking-widest uppercase text-bone mb-2">
                 {labels.nameLabel}
               </label>
               <input
@@ -245,12 +245,12 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border border-bone/20 rounded-sm px-4 py-3 bg-transparent focus:outline-none focus:border-bone"
+                className="w-full border border-bone/20 rounded-sm px-4 py-3 bg-paper/70 focus:outline-none focus:border-bone"
               />
             </div>
 
             <div className="mt-6">
-              <label htmlFor="lrb-email" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
+              <label htmlFor="lrb-email" className="block text-xs tracking-widest uppercase text-bone mb-2">
                 {labels.emailLabel}
               </label>
               <input
@@ -259,12 +259,12 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-bone/20 rounded-sm px-4 py-3 bg-transparent focus:outline-none focus:border-bone"
+                className="w-full border border-bone/20 rounded-sm px-4 py-3 bg-paper/70 focus:outline-none focus:border-bone"
               />
             </div>
 
             <div className="mt-6">
-              <label htmlFor="lrb-message" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
+              <label htmlFor="lrb-message" className="block text-xs tracking-widest uppercase text-bone mb-2">
                 {labels.messageLabel}
               </label>
               <textarea
@@ -273,7 +273,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={labels.messagePlaceholder}
-                className="w-full border border-bone/20 rounded-sm px-4 py-3 bg-transparent focus:outline-none focus:border-bone"
+                className="w-full border border-bone/20 rounded-sm px-4 py-3 bg-paper/70 focus:outline-none focus:border-bone"
               />
             </div>
 
@@ -290,7 +290,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
             >
               {status === "submitting" ? labels.submitting : labels.submit}
             </button>
-            <p className="mt-4 text-xs text-bone/40 italic">{labels.disclaimer}</p>
+            <p className="mt-4 text-xs text-bone italic">{labels.disclaimer}</p>
           </form>
         )}
       </Container>

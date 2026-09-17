@@ -56,10 +56,10 @@ export default function TarotEmailSignup({
     <div className="mt-16 w-full max-w-md">
       <div className="rounded-lg border border-bone/10 bg-raised/40 px-6 py-7 text-center">
         <h4 className="font-heading text-lg text-bone">{labels.heading}</h4>
-        <p className="mt-2 text-sm text-bone/60">{labels.body}</p>
+        <p className="mt-2 text-sm text-bone">{labels.body}</p>
 
         {status === "sent" ? (
-          <p className="mt-5 text-sm text-bone/85">{labels.success}</p>
+          <p className="mt-5 text-sm text-bone">{labels.success}</p>
         ) : (
           <form
             className="mt-5 flex flex-col gap-3 sm:flex-row"
@@ -121,8 +121,8 @@ export default function TarotEmailSignup({
           </p>
         )}
 
-        <p className="mt-4 text-[11px] text-bone/40 italic">{labels.disclaimer}</p>
-        <p className="mt-1 text-[11px] text-bone/30">{cardName}</p>
+        <p className="mt-4 text-xs text-bone italic">{labels.disclaimer}</p>
+        <p className="mt-1 text-xs text-bone">{cardName}</p>
       </div>
     </div>
   );

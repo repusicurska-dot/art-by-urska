@@ -1,6 +1,6 @@
 export default function SpiritualityAurora() {
   return (
-    <div aria-hidden="true" className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div aria-hidden="true" className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
       <div
         className="absolute rounded-full"
         style={{
