@@ -12,6 +12,7 @@ const STATIC_ROUTES = [
   "/contact",
   "/poetry",
   "/spirituality",
+  "/zvezdni-koledar",
   "/climb",
   "/legal/terms",
   "/legal/privacy",

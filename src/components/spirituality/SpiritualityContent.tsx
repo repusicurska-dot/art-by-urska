@@ -14,6 +14,7 @@ import IntentionCompass from "./IntentionCompass";
 import MoonToday from "./MoonToday";
 import BreathingPause from "./BreathingPause";
 import GratitudePractice from "./GratitudePractice";
+import StarCalendarTeaser from "@/components/starCalendar/StarCalendarTeaser";
 
 type Lang = "sl" | "en";
 
@@ -224,6 +225,8 @@ export default function SpiritualityContent() {
       <div id="live-reading" className="scroll-mt-24">
         <LiveReadingBooking lang={lang} />
       </div>
+
+      <StarCalendarTeaser lang={lang} />
 
       <section id="reflections" className="border-t border-bone/10 pt-24 pb-24 md:pt-32 md:pb-32">
         <Container className="max-w-2xl">

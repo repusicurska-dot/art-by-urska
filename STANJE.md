@@ -86,6 +86,19 @@ Kako deluje, ko je baza povezana:
 - [ ] **SMS opomniki** — rekla si, da lahko počaka.
 - [ ] **Analitika** — ali jo sploh hočeš in katero. Sistem za privolitev je že pripravljen.
 
+## 5b. Zvezdni poslovni koledar (naročnina 5,99 €/mesec) — koda narejena 2026-09-17
+
+Stran `/zvezdni-koledar`: osebni astrološki koledar po rojstni karti (🤝 pogodbe, 🚀 začetki,
+⛔ ne začenjaj, 🧘 čas zase + 💞💰🌿), mesečni osebni horoskop, tedenski pregled, koledar v telefonu.
+7 dni brezplačno, plačilo prek Stripa, odpoved z gumbom. Vsa besedila so samodejna (SL + EN).
+
+- [ ] **Poveži bazo** (isto kot točka 5) — brez nje obrazec kaže „na voljo zelo kmalu“.
+- [ ] **Računovodja: davčno potrjevanje računov.** Plačila s kartico v Sloveniji štejejo kot
+      gotovinska, zato računi verjetno potrebujejo davčno potrjevanje (velja tudi za trgovino).
+      Preveri, preden prvi naročnik plača (7 dni po prijavi).
+- [ ] Pravni pregled točke 19 v Pogojih (naročnina, odstop od pogodbe).
+- [ ] Prvi preizkus: prijava s svojim naslovom → Stripe → koledar → odpoved v 7 dneh (brez plačila).
+
 ## 6. Ob zagonu
 
 - [ ] `NEXT_PUBLIC_SITE_URL` nastavi v Vercelu. (Koda zdaj tudi brez tega uporabi pravi
