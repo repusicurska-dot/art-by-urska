@@ -154,3 +154,32 @@ body:has(.spirit-light) {
 .install-demo-tap {
   animation: install-demo-tap 2.6s ease-in-out infinite;
 }
+
+/* The Art page's ground: pure black swallowed the paintings, so this is a warm graphite
+   with a soft light falling from the top, a gentle vignette, and a barely-there grain that
+   keeps large dark areas from banding. Scoped, so the rest of the site keeps its night. */
+.art-ground {
+  --color-ink: #181420;
+  --color-raised: #221d2d;
+  background-color: var(--color-ink);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+    radial-gradient(120% 65% at 50% -12%, rgba(212, 178, 128, 0.2) 0%, rgba(197, 170, 130, 0.06) 38%, transparent 72%),
+    radial-gradient(85% 55% at 6% 100%, rgba(139, 112, 170, 0.18) 0%, transparent 66%),
+    radial-gradient(70% 45% at 96% 55%, rgba(139, 90, 82, 0.13) 0%, transparent 70%),
+    linear-gradient(180deg, #231d2d 0%, #181420 42%, #141019 100%);
+  background-size: 160px 160px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: scroll, fixed, fixed, fixed, fixed;
+}
+/* Gallery frame for an artwork card — a hairline that warms on hover. */
+.art-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(242, 240, 235, 0.09);
+  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.9);
+  transition: transform 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+.art-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-accent-warm) 55%, transparent);
+  box-shadow: 0 40px 70px -40px rgba(0, 0, 0, 0.95), 0 0 30px -12px color-mix(in srgb, var(--color-accent-warm) 45%, transparent);
+}
