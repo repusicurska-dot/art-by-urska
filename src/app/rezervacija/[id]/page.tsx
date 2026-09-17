@@ -35,7 +35,7 @@ export default async function BookingPage({
   const pkg = booking ? LIVE_READING_PACKAGES.find((p) => p.key === booking.packageKey) : null;
 
   return (
-    <section className="min-h-[70vh] bg-ink px-6 py-24">
+    <section className="min-h-[70vh] px-6 py-24">
       <Container className="max-w-xl">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Rezervacija branja</span>
 

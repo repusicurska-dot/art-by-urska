@@ -8,7 +8,7 @@ import BackLink from "@/components/shared/BackLink";
 
 export default function StoryHero({ artwork }: { artwork: Artwork }) {
   return (
-    <section className="grid md:grid-cols-2 md:h-screen bg-ink">
+    <section className="grid md:grid-cols-2 md:h-screen">
       <div className="relative h-[55vh] md:h-screen order-1 bg-midnight">
         {artwork.heroImage ? (
           <Image

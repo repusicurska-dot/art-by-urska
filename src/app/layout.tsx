@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Inter, UnifrakturMaguntia } from "next/font/google"
 import "./globals.css";
 import SiteHeader from "@/components/shared/SiteHeader";
 import IntroSplash from "@/components/shared/IntroSplash";
-import SpiritualBackdrop from "@/components/shared/SpiritualBackdrop";
+import SkyBackdrop from "@/components/shared/SkyBackdrop";
 import Footer from "@/components/shared/Footer";
 import PlaceholderBanner from "@/components/shared/PlaceholderBanner";
 import CookieBanner from "@/components/shared/cookies/CookieBanner";
@@ -60,10 +60,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${cormorant.variable} ${inter.variable} ${gothic.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ink text-bone">
+      <body className="min-h-full flex flex-col text-bone">
         <StructuredData data={organizationJsonLd()} />
         <IntroSplash />
-        <SpiritualBackdrop />
+        <SkyBackdrop />
         <CartProvider>
           <OwnerAlerts />
           <PlaceholderBanner />

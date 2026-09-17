@@ -21,7 +21,7 @@ export default function PoetryExperience({ artwork }: { artwork: Artwork }) {
 
   if (reduceMotion) {
     return (
-      <section className="bg-ink py-28 text-center">
+      <section className="py-28 text-center">
         <div className="mx-auto max-w-2xl px-6">
           <p className="font-heading italic text-2xl md:text-3xl text-bone">{artwork.quote}</p>
           <Link
@@ -36,7 +36,7 @@ export default function PoetryExperience({ artwork }: { artwork: Artwork }) {
   }
 
   return (
-    <section ref={ref} className="relative h-[170vh] md:h-[240vh] bg-ink">
+    <section ref={ref} className="relative h-[170vh] md:h-[240vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {artwork.heroImage && (
           <motion.div className="absolute inset-0" style={{ opacity: imageOpacity, scale: imageScale }}>

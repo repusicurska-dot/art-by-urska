@@ -10,7 +10,7 @@ import Container from "@/components/shared/Container";
  */
 export default function ArtistMoment() {
   return (
-    <section className="bg-ink py-24 md:py-32">
+    <section className="py-24 md:py-32">
       <Container className="max-w-2xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

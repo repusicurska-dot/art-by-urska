@@ -8,8 +8,8 @@ import { fadeInUp } from "@/lib/motion";
 export default function AboutContent() {
   return (
     <div>
-      <section className="py-24 md:py-32 bg-ink">
-        <Container className="max-w-3xl">
+      <section className="py-24 md:py-32">
+        <Container className="reading-panel max-w-3xl rounded-3xl px-6 py-10 md:px-10 md:py-12">
           <motion.span
             className="text-xs tracking-widest uppercase text-gold-400 block"
             initial="hidden"

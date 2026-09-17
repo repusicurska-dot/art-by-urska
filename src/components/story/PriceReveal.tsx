@@ -18,7 +18,7 @@ export default function PriceReveal({ artwork }: { artwork: Artwork }) {
 
   return (
     <motion.div
-      className="text-center py-8 bg-ink"
+      className="text-center py-8"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.6 }}

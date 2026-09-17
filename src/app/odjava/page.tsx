@@ -17,7 +17,7 @@ export default async function UnsubscribePage({
   const { e, t, result } = await searchParams;
 
   return (
-    <section className="min-h-[70vh] flex items-center bg-ink px-6 py-24 text-center">
+    <section className="min-h-[70vh] flex items-center px-6 py-24 text-center">
       <Container className="max-w-lg">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Tedenska karta · Weekly card</span>
 

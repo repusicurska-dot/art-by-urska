@@ -12,8 +12,8 @@ export default function LegalPageShell({
   children: ReactNode;
 }) {
   return (
-    <section className="py-24 md:py-32 bg-ink">
-      <Container className="max-w-2xl">
+    <section className="py-24 md:py-32">
+      <Container className="reading-panel max-w-2xl rounded-3xl px-6 py-10 md:px-10 md:py-12">
         <span className="block text-xs tracking-widest uppercase text-gold-400">Legal</span>
         <h1 className="font-heading text-4xl md:text-5xl text-bone mt-4">{title}</h1>
         {updated && <p className="mt-2 text-xs text-bone/40">Last updated: {updated}</p>}

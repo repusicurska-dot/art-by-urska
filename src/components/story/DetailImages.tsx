@@ -7,7 +7,7 @@ export default function DetailImages({ images }: { images: Artwork["detailImages
   if (!images || images.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-20 bg-ink">
+    <section className="py-16 md:py-20">
       <Container>
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {images.map((img, i) => (

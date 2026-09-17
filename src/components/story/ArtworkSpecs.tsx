@@ -16,7 +16,7 @@ function Row({ label, value }: { label: string; value?: string | number | boolea
 
 export default function ArtworkSpecs({ artwork }: { artwork: Artwork }) {
   return (
-    <section className="py-16 md:py-20 bg-ink">
+    <section className="py-16 md:py-20">
       <Container className="max-w-2xl">
         <span className="block text-xs tracking-widest uppercase text-gold-400 mb-6">
           Specifications

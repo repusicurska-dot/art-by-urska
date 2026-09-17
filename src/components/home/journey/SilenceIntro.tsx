@@ -18,7 +18,7 @@ export default function SilenceIntro() {
 
   if (reduceMotion) {
     return (
-      <section className="relative flex min-h-[80vh] items-center justify-center bg-ink px-6 py-24 text-center">
+      <section className="relative flex min-h-[80vh] items-center justify-center px-6 py-24 text-center">
         <h1 className="font-heading italic text-2xl text-bone/90">
           These paintings are more than art —
           <br />
@@ -29,7 +29,7 @@ export default function SilenceIntro() {
   }
 
   return (
-    <section ref={ref} className="relative h-[118vh] md:h-[128vh] bg-ink">
+    <section ref={ref} className="relative h-[118vh] md:h-[128vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="relative flex h-full flex-col items-center justify-center px-6 text-center">
           {/* Mount-triggered fade-in, independent of scroll, so the line is never invisible at rest. */}

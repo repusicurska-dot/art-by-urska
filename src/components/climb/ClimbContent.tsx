@@ -3,7 +3,7 @@ import Container from "@/components/shared/Container";
 
 export default function ClimbContent() {
   return (
-    <section className="min-h-[70vh] flex items-center justify-center bg-ink px-6 py-24 text-center">
+    <section className="min-h-[70vh] flex items-center justify-center px-6 py-24 text-center">
       <Container className="max-w-xl">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Climb by Urška</span>
         <h1 className="font-heading text-4xl md:text-5xl text-bone mt-6">A new chapter, coming soon.</h1>

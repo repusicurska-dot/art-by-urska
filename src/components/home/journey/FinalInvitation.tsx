@@ -15,7 +15,7 @@ export default function FinalInvitation() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-ink">
+    <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
       {/* Desktop: full-bleed background crossfades with the hovered/focused option. */}
       <div className="absolute inset-0 hidden md:block">
         {OPTIONS.map((o, i) => (

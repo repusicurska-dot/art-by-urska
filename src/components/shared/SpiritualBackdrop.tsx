@@ -17,7 +17,7 @@ const stars = Array.from({ length: STAR_COUNT }, () => ({
   x: rand() * 100,
   y: rand() * 100,
   size: 0.5 + rand() * 1.1,
-  opacity: 0.12 + rand() * 0.22,
+  opacity: 0.1 + rand() * 0.16,
 }));
 
 // A small constellation — abstract, not any specific real zodiac sign —
@@ -45,7 +45,7 @@ export default function SpiritualBackdrop() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-40 overflow-hidden pointer-events-none mix-blend-screen"
+      className="fixed inset-0 z-40 overflow-hidden pointer-events-none mix-blend-multiply"
     >
       <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
         {stars.map((s, i) => (
@@ -54,7 +54,7 @@ export default function SpiritualBackdrop() {
             cx={`${s.x}%`}
             cy={`${s.y}%`}
             r={s.size}
-            fill="rgb(242,240,235)"
+            fill="rgb(150,112,47)"
             opacity={s.opacity}
           />
         ))}
@@ -66,13 +66,13 @@ export default function SpiritualBackdrop() {
             y1={`${CONSTELLATION[a][1]}%`}
             x2={`${CONSTELLATION[b][0]}%`}
             y2={`${CONSTELLATION[b][1]}%`}
-            stroke="rgb(242,240,235)"
+            stroke="rgb(150,112,47)"
             strokeWidth={0.5}
             opacity={0.14}
           />
         ))}
         {CONSTELLATION.map(([x, y], i) => (
-          <circle key={`c${i}`} cx={`${x}%`} cy={`${y}%`} r={1.4} fill="rgb(242,240,235)" opacity={0.55} />
+          <circle key={`c${i}`} cx={`${x}%`} cy={`${y}%`} r={1.4} fill="rgb(150,112,47)" opacity={0.55} />
         ))}
       </svg>
     </div>
