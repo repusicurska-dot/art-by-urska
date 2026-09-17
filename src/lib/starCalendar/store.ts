@@ -14,6 +14,17 @@ import type { Lang } from "@/lib/astro/texts";
  */
 
 export const PRICE_EUR_CENTS = 599;
+
+/**
+ * Free, permanent access without Stripe — the owner (Urška, founder) and Teo. Sign-up with
+ * one of these addresses skips payment entirely. To test the real Stripe flow with the same
+ * inbox, use a Gmail "+" alias (e.g. name+test@gmail.com), which is a different address here.
+ */
+export const COMPLIMENTARY_EMAILS = new Set(["urska.repusic@gmail.com", "teo.simonic7@gmail.com"]);
+
+export function isComplimentary(email: string): boolean {
+  return COMPLIMENTARY_EMAILS.has(email.trim().toLowerCase());
+}
 export const TRIAL_DAYS = 7;
 
 export type MemberStatus = "pending" | "trialing" | "active" | "past_due" | "canceled";
@@ -77,6 +88,7 @@ export function feedUrls(member: Member, site: string): { https: string; webcal:
 /** Whether the member may see the calendar right now. */
 export function hasAccess(member: Member | null): boolean {
   if (!member) return false;
+  if (isComplimentary(member.email)) return true;
   if (member.status !== "trialing" && member.status !== "active" && member.status !== "canceled") return false;
   return !!member.accessUntil && new Date(member.accessUntil).getTime() > Date.now();
 }
