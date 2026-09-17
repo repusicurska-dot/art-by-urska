@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LegalPageShell from "@/components/legal/LegalPageShell";
 import { business } from "@/content/business";
+import ProtectedEmail from "@/components/shared/ProtectedEmail";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions — Art by Urška",
@@ -139,7 +140,7 @@ export default function TermsPage() {
       <section>
         <h2>16. Complaints</h2>
         <p>
-          Contact us first at {business.contactEmail} to resolve any complaint. See our{" "}
+          Contact us first at <ProtectedEmail /> to resolve any complaint. See our{" "}
           <a href="/legal/notice">Legal Notice</a> for applicable dispute resolution contacts.
         </p>
       </section>
@@ -160,7 +161,7 @@ export default function TermsPage() {
       </section>
       <section>
         <h2>19. Contact</h2>
-        <p>{business.contactEmail}</p>
+        <p><ProtectedEmail /></p>
       </section>
     </LegalPageShell>
   );

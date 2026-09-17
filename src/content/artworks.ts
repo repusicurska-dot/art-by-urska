@@ -1,3 +1,4 @@
+import { vatNote } from "./business";
 import { Artwork } from "./types";
 
 // AI-drafted, at Urška's explicit request ("imagine how she felt while painting
@@ -187,7 +188,7 @@ export const artworks: Artwork[] = [
     price: 1111,
     currency: "EUR",
     priceConfirmed: true,
-    vatNote: "[VAT TREATMENT TO BE CONFIRMED]",
+    vatNote,
     availability: "available",
     sku: "AU-ART-01",
     dispatchTime: "[DISPATCH TIME PENDING]",
@@ -220,7 +221,7 @@ export const artworks: Artwork[] = [
     price: 2400,
     currency: "EUR",
     priceConfirmed: true,
-    vatNote: "[VAT TREATMENT TO BE CONFIRMED]",
+    vatNote,
     availability: "available",
     sku: "AU-ART-02",
     dispatchTime: "[DISPATCH TIME PENDING]",
@@ -270,7 +271,7 @@ export const artworks: Artwork[] = [
     price: 1111,
     currency: "EUR",
     priceConfirmed: true,
-    vatNote: "[VAT TREATMENT TO BE CONFIRMED]",
+    vatNote,
     availability: "available",
     sku: "AU-ART-03",
     dispatchTime: "[DISPATCH TIME PENDING]",
@@ -303,7 +304,7 @@ export const artworks: Artwork[] = [
     price: 2400,
     currency: "EUR",
     priceConfirmed: true,
-    vatNote: "[VAT TREATMENT TO BE CONFIRMED]",
+    vatNote,
     availability: "available",
     sku: "AU-ART-04",
     dispatchTime: "[DISPATCH TIME PENDING]",
@@ -336,7 +337,7 @@ export const artworks: Artwork[] = [
     price: 2400,
     currency: "EUR",
     priceConfirmed: true,
-    vatNote: "[VAT TREATMENT TO BE CONFIRMED]",
+    vatNote,
     availability: "available",
     sku: "AU-ART-05",
     dispatchTime: "[DISPATCH TIME PENDING]",

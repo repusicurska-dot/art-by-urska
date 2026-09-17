@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LegalPageShell from "@/components/legal/LegalPageShell";
 import { business } from "@/content/business";
+import ProtectedEmail from "@/components/shared/ProtectedEmail";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Art by Urška",
@@ -15,7 +16,7 @@ export default function PrivacyPage() {
         <p>
           {business.legalName} ({business.legalForm}), {business.registeredAddress},
           {" "}{business.country}, is the data controller for personal data processed through
-          this website. Contact: {business.dataProtectionContact}.
+          this website. Contact: <ProtectedEmail />.
         </p>
       </section>
       <section>
@@ -68,14 +69,14 @@ export default function PrivacyPage() {
         <p>
           Under GDPR, you may have the right to access, correct, delete, or port your personal
           data, to object to or restrict certain processing, and to withdraw consent at any time.
-          Contact {business.dataProtectionContact} to exercise these rights. You also have the
+          Contact <ProtectedEmail /> to exercise these rights. You also have the
           right to lodge a complaint with your local data protection supervisory authority — in
           Slovenia, the Information Commissioner (Informacijski pooblaščenec).
         </p>
       </section>
       <section>
         <h2>7. Contact</h2>
-        <p>{business.dataProtectionContact}</p>
+        <p><ProtectedEmail /></p>
       </section>
     </LegalPageShell>
   );

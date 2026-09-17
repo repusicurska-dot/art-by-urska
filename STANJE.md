@@ -15,15 +15,15 @@ vse ostalo, kar bi kupec pričakoval.
 
 - [ ] **Odloči: pustiti plačila vklopljena ali začasno izklopiti.** Dokler ni spodnjega,
       lahko nekdo plača 2.400 €, ti pa o tem ne izveš po nobeni poti na strani.
-- [ ] **Podatki podjetja** (`src/content/business.ts`) — vseh 10 polj je še v oglatih
-      oklepajih in **vidnih obiskovalcem** na pravnih straneh in v podatkih za Google:
-      pravno ime, pravna oblika (s.p. / d.o.o.), sedež, matična številka, davčna številka,
-      kontaktni e-naslov, telefon, naslov za vračila, bančni podatki, organ za reševanje
-      sporov.
+- [x] **Podatki podjetja** — vpisani 2026-09-17 (Urška Repušič s.p., Rače; ni zavezanka za DDV).
+      E-naslov je na strani skrit pred roboti za spam. Pri vseh 5 slikah piše, da DDV ni obračunan.
+- [ ] **Telefon** — kasneje. Pri branjih ga bo stranka dobila šele v emailu s potrditvijo termina,
+      ne na strani. Za trgovino (prodaja na daljavo) EU pravila običajno zahtevajo telefon —
+      lahko je ločena številka.
 - [ ] **Pravni pregled šestih strani** (`/legal/*`) pri usposobljeni osebi. Vsaka stran
       ima trenutno na sebi napisano, da še ni pregledana.
-- [ ] **Za vseh 5 slik** (`src/content/artworks.ts`): obravnava DDV, rok odpreme, navodila
-      za nego. Vsako se pojavi petkrat, skupaj 15 oznak v oklepajih.
+- [ ] **Za vseh 5 slik** (`src/content/artworks.ts`): rok odpreme in navodila za nego
+      (DDV je urejen).
 - [ ] **Dostava** (`/legal/shipping`): način in material pakiranja, ali je pošiljka
       zavarovana in za koliko, ali kupec dobi sledilno številko in pri katerem prevozniku.
 - [ ] Odloči, ali je posamezna slika običajen original, izdelan po naročilu ali osebno

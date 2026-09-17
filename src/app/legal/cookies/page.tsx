@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LegalPageShell from "@/components/legal/LegalPageShell";
-import { business } from "@/content/business";
+import ProtectedEmail from "@/components/shared/ProtectedEmail";
 
 export const metadata: Metadata = {
   title: "Cookie Policy — Art by Urška",
@@ -52,7 +52,7 @@ export default function CookiesPage() {
       </section>
       <section>
         <h2>4. Contact</h2>
-        <p>{business.contactEmail}</p>
+        <p><ProtectedEmail /></p>
       </section>
     </LegalPageShell>
   );

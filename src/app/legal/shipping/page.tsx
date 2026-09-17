@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LegalPageShell from "@/components/legal/LegalPageShell";
-import { business } from "@/content/business";
+import ProtectedEmail from "@/components/shared/ProtectedEmail";
 import { ZONE_DESCRIPTIONS, ZONE_LABELS, ZONE_ORDER } from "@/lib/shipping";
 
 export const metadata: Metadata = {
@@ -64,7 +64,7 @@ export default function ShippingPage() {
       </section>
       <section>
         <h2>7. Contact</h2>
-        <p>Questions about a shipment: {business.contactEmail}</p>
+        <p>Questions about a shipment: <ProtectedEmail /></p>
       </section>
     </LegalPageShell>
   );
