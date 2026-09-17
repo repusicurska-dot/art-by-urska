@@ -154,7 +154,7 @@ export default function SpiritualityContent() {
     // English, and without this a screen reader reads the Slovenian with an English voice.
     // spirit-light flips the whole site, header and footer included, to the light dawn
     // palette while this page is open (see globals.css).
-    <div className="spirit-light relative bg-ink" lang={lang}>
+    <div className="spirit-light spirit-ground relative" lang={lang}>
       <SpiritualityAurora />
       <SpiritualityStarfield />
 
