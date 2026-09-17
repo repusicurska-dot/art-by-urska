@@ -31,12 +31,16 @@ vse ostalo, kar bi kupec pričakoval.
 
 ## 2. Nihče te ne more doseči
 
-Trije obrazci delujejo, a ne dostavijo nikamor. Vsi trije rabijo isto stvar — **enega
-ponudnika e-pošte** (Resend ali Postmark). Ena odločitev odpre vse tri.
+Izbran je **Resend** (brezplačno: 3.000 emailov na mesec, 100 na dan). Koda je napisana
+(`src/lib/email.ts`) — obrazci začnejo pošiljati, ko so v Vercelu nastavljene tri
+spremenljivke. Do takrat se obnašajo kot prej.
 
-- [ ] Kontaktni obrazec (`/api/contact`) — sporočilo se preveri in zavrže.
-- [ ] Rezervacija branja v živo (`/api/live-reading-booking`) — enako.
-- [ ] Prijava na tedenski tarot (`/api/tarot-subscribe`) — enako, in ničesar ne pošilja.
+- [ ] Račun na resend.com in potrditev domene byurska.com (DNS zapisi).
+- [ ] V Vercelu nastavi `RESEND_API_KEY`, `EMAIL_FROM` (npr.
+      `Art by Urška <obvestila@byurska.com>`) in `OWNER_EMAIL` (Urškin inbox).
+- [ ] Preizkus vseh treh obrazcev na testnem naslovu:
+      kontakt → email Urški; branje v živo → email Urški s priponko za koledar + potrdilo
+      stranki; tedenski tarot → stik v Resend + pozdravni email.
 
 ## 3. Čakam na tvoje vsebine
 

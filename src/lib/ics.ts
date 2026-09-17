@@ -39,6 +39,47 @@ export function buildIcsEvent(params: {
   return lines.join("\r\n");
 }
 
+/**
+ * Same event, but pinned to a named time zone rather than an instant. Used server-side for
+ * the .ics attached to Urška's booking notification: the slot picker offers wall-clock
+ * times ("10:00") meant as Slovenian time, and the server runs in UTC, so converting through
+ * a Date there would shift the reading by an hour or two.
+ */
+export function buildIcsEventInZone(params: {
+  title: string;
+  description: string;
+  /** YYYY-MM-DD */
+  date: string;
+  /** HH:mm, 24h */
+  time: string;
+  durationMinutes: number;
+  uid: string;
+  tzid: string;
+}): string {
+  const [y, m, d] = params.date.split("-").map(Number);
+  const [h, min] = params.time.split(":").map(Number);
+  // Date.UTC is only used as a calendar calculator here, so the end can roll past midnight.
+  const toLocal = (ms: number) => new Date(ms).toISOString().replace(/[-:]/g, "").split(".")[0];
+  const startMs = Date.UTC(y, m - 1, d, h, min);
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Art by Urska//Live Tarot Reading//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:${params.uid}`,
+    `DTSTAMP:${toIcsDate(new Date())}`,
+    `DTSTART;TZID=${params.tzid}:${toLocal(startMs)}`,
+    `DTEND;TZID=${params.tzid}:${toLocal(startMs + params.durationMinutes * 60000)}`,
+    `SUMMARY:${escapeIcsText(params.title)}`,
+    `DESCRIPTION:${escapeIcsText(params.description)}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ];
+  return lines.join("\r\n");
+}
+
 export function downloadIcs(filename: string, icsContent: string) {
   const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);

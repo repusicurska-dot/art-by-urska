@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isEmailConfigured, oneLine, ownerEmail, sendEmail, warnEmailNotConfigured } from "@/lib/email";
 
 const VALID_CATEGORIES = [
   "Artwork inquiry",
@@ -53,8 +54,35 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // TODO(phase-2): no email/CRM provider is wired up yet — this validates and accepts
-  // the inquiry but does not currently deliver it anywhere. Connect an email provider
-  // (e.g. Resend, Postmark) here once one is chosen.
+  const piece = typeof body.piece === "string" ? body.piece.trim().slice(0, 200) : "";
+
+  if (!isEmailConfigured()) {
+    warnEmailNotConfigured("contact");
+    return NextResponse.json({ ok: true });
+  }
+
+  // Reply-To is the visitor, so Urška can answer straight from her inbox.
+  const sent = await sendEmail({
+    to: ownerEmail(),
+    replyTo: email,
+    subject: oneLine(`Novo sporočilo: ${category} — ${name}`),
+    text: [
+      `Ime: ${name}`,
+      `Email: ${email}`,
+      `Vrsta: ${category}`,
+      ...(piece ? [`Slika: ${piece}`] : []),
+      "",
+      message,
+      "",
+      "— poslano prek obrazca na byurska.com/contact (odgovori neposredno na ta email)",
+    ].join("\n"),
+  });
+
+  if (!sent) {
+    return NextResponse.json(
+      { error: "Your message couldn't be sent right now. Please try again in a few minutes." },
+      { status: 502 }
+    );
+  }
   return NextResponse.json({ ok: true });
 }

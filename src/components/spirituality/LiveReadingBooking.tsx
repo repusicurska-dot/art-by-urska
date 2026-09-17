@@ -43,7 +43,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
     const [y, m, d] = selectedSlot.date.split("-").map(Number);
     const [h, min] = selectedSlot.time.split(":").map(Number);
     const start = new Date(y, m - 1, d, h, min);
-    const durationMinutes = selectedPackage.key === "deep" ? 50 : 20;
+    const durationMinutes = selectedPackage.minutes;
     const ics = buildIcsEvent({
       title: `${selectedPackage.title[lang]} — Art by Urška`,
       description:
@@ -90,6 +90,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                     message,
                     company,
                     package: packageKey,
+                    lang,
                     format,
                     slot: selectedSlot,
                   }),

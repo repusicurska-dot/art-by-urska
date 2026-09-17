@@ -23,7 +23,7 @@ const LABELS: Record<
     sending: "Pošiljam …",
     success: "Hvala! Zabeležili smo tvojo prijavo.",
     disclaimer:
-      "Ta obrazec še ni povezan s pravim sistemom za pošiljanje e-pošte — prijave se trenutno beležijo, a še ne prejmeš tedenskih sporočil.",
+      "Takoj prejmeš pozdravni email s svojo karto. Odjaviš se lahko kadarkoli.",
   },
   en: {
     heading: "Get your weekly card",
@@ -33,7 +33,7 @@ const LABELS: Record<
     sending: "Sending …",
     success: "Thank you! We've noted your sign-up.",
     disclaimer:
-      "This form isn't yet connected to a real email-sending system — sign-ups are currently recorded, but you won't receive weekly messages yet.",
+      "You'll get a welcome email with your card right away. You can unsubscribe at any time.",
   },
 };
 
@@ -71,7 +71,7 @@ export default function TarotEmailSignup({
                 const res = await fetch("/api/tarot-subscribe", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ email, card: cardKey, company }),
+                  body: JSON.stringify({ email, card: cardKey, company, lang }),
                 });
                 const data = await res.json();
                 if (!res.ok) {
