@@ -99,6 +99,21 @@ Stran `/zvezdni-koledar`: osebni astrološki koledar po rojstni karti (🤝 pogo
 - [ ] Pravni pregled točke 19 v Pogojih (naročnina, odstop od pogodbe).
 - [ ] Prvi preizkus: prijava s svojim naslovom → Stripe → koledar → odpoved v 7 dneh (brez plačila).
 
+## 5c. Računi in DDV
+
+- [ ] **Moj Račun** (moj-racun.si): Urška naredi račun sama in vnese podatke s.p., digitalno
+      potrdilo za davčne blagajne (eDavki) in poslovni prostor. Nato vklopi dodatek Stripe
+      (4,99 €/mesec) in poveže Stripe. Potem v Stripu izklopim njegova potrdila o plačilu.
+- [x] **Opozorilo za prag OSS (10.000 €)** — vsak dan se iz Stripa sešteje prodaja kupcem v drugih
+      državah EU. Od 9.000 € naprej Urška in Teo vsak dan dobita email, ko sta prijavljena na
+      strani, pa na vrhu vsake strani vidita opozorilo. Stripe zdaj pri plačilu zahteva naslov
+      (država kupca).
+
+## 5d. Aplikacija za telefon
+
+- [x] Stran se lahko doda na domači zaslon (iPhone in Android) in se odpre kot aplikacija z
+      ikono UR. Ob prvem obisku na telefonu se pokaže animiran prikaz, kako jo dodaš.
+
 ## 6. Ob zagonu
 
 - [ ] `NEXT_PUBLIC_SITE_URL` nastavi v Vercelu. (Koda zdaj tudi brez tega uporabi pravi

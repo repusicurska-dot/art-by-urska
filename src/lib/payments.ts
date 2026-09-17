@@ -29,6 +29,8 @@ export async function createCheckoutSession(
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     customer_email: contact.email,
+    // The buyer's country is needed for the EU VAT (OSS) threshold count — see lib/ossThreshold.ts.
+    billing_address_collection: "required",
     line_items: items.map((item) => ({
       quantity: 1,
       price_data: {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Container from "./Container";
 import Logo from "./Logo";
 import ProtectedEmail from "./ProtectedEmail";
+import { OPEN_INSTALL_PROMPT_EVENT } from "./InstallAppPrompt";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookies/CookieBanner";
 
 const legalLinks = [
@@ -99,6 +100,15 @@ export default function Footer() {
                   className="hover:text-bone transition-colors text-left"
                 >
                   Cookie Preferences
+                </button>
+              </li>
+              <li className="md:hidden">
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new Event(OPEN_INSTALL_PROMPT_EVENT))}
+                  className="hover:text-bone transition-colors text-left"
+                >
+                  📱 Spirituality app
                 </button>
               </li>
             </ul>
