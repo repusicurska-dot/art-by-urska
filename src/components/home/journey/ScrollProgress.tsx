@@ -50,14 +50,14 @@ export default function ScrollProgress() {
       {/* Mobile: thin reading-progress line. */}
       <motion.div
         aria-hidden="true"
-        className="fixed left-0 right-0 top-0 z-50 h-[2px] origin-left bg-bone/70 md:hidden"
+        className="fixed left-0 right-0 top-0 z-50 h-[3px] origin-left bg-accent-warm md:hidden"
         style={{ scaleX: barScale }}
       />
 
       {/* Desktop: labelled chapter dots. */}
       <nav
         aria-label="Chapters"
-        className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-5 md:flex"
+        className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-3 md:flex"
       >
         {CHAPTERS.map((chapter) => {
           const isActive = chapter.id === active;
@@ -66,20 +66,22 @@ export default function ScrollProgress() {
               key={chapter.id}
               type="button"
               onClick={() => goTo(chapter.id)}
-              className="group flex items-center gap-3"
+              className="group flex items-center gap-3 rounded-full py-1.5 pl-4 pr-3 transition-colors"
               aria-current={isActive ? "true" : undefined}
               aria-label={chapter.label}
             >
               <span
-                className={`text-[11px] tracking-widest uppercase transition-all duration-300 ${
-                  isActive ? "text-bone opacity-100" : "text-bone/50 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+                className={`rounded-full px-3 py-1 text-sm tracking-[0.18em] uppercase transition-all duration-300 ${
+                  isActive
+                    ? "bg-paper/85 font-semibold text-bone shadow-[0_10px_24px_-16px_rgba(74,58,88,0.8)] backdrop-blur-sm"
+                    : "text-bone/70 group-hover:text-bone group-focus-visible:text-bone"
                 }`}
               >
                 {chapter.label}
               </span>
               <span
-                className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
-                  isActive ? "scale-125 bg-bone" : "bg-bone/35 group-hover:bg-bone/70"
+                className={`rounded-full transition-all duration-300 ${
+                  isActive ? "h-3 w-3 bg-accent-warm ring-4 ring-accent-warm/25" : "h-2 w-2 bg-bone/40 group-hover:bg-bone/80"
                 }`}
               />
             </button>
