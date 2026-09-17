@@ -56,6 +56,7 @@ export default async function MemberPage({
         accessUntil: member.accessUntil ?? null,
         cancelAtPeriodEnd: !!member.cancelAtPeriodEnd,
         complimentary: isComplimentary(member.email),
+        hasPassword: !!member.passwordHash,
       }}
       active={active}
       year={year}

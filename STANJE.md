@@ -99,6 +99,12 @@ Stran `/zvezdni-koledar`: osebni astrološki koledar po rojstni karti (🤝 pogo
 - [ ] Pravni pregled točke 19 v Pogojih (naročnina, odstop od pogodbe).
 - [ ] Prvi preizkus: prijava s svojim naslovom → Stripe → koledar → odpoved v 7 dneh (brez plačila).
 
+## 5b2. Računi uporabnikov (Zvezdni koledar) — narejeno 2026-09-17
+
+Naročnik si ob prijavi izbere geslo; prijava je z e-naslovom in geslom, geslo lahko kadarkoli
+spremeni, ob pozabljenem geslu pa dobi povezavo za novo (velja eno uro in samo enkrat).
+Stari računi brez gesla se lahko prijavijo s povezavo po emailu in si geslo nastavijo.
+
 ## 5c. Računi in DDV
 
 - [ ] **Moj Račun** (moj-racun.si): Urška naredi račun sama in vnese podatke s.p., digitalno

@@ -3,6 +3,7 @@ import { PRODUCT_NAME, SIGN_NAME, SIGN_SYMBOL, TYPE_EMOJI, TYPE_LABEL, formatDat
 import { ownerEmail, sendEmail } from "@/lib/email";
 import { getSiteUrl } from "@/lib/siteUrl";
 import { memberSunSign } from "./readings";
+import { resetToken } from "./password";
 import { loginToken } from "./session";
 import type { Member } from "./store";
 
@@ -117,5 +118,36 @@ export function sendWeeklyEmail(member: Member, week: DayReading[]) {
     replyTo: ownerEmail(),
     subject: sl ? "✨ Tvoj teden v zvezdah" : "✨ Your week in the stars",
     text: `${sl ? "Pregled tvojega tedna:" : "Your week at a glance:"}\n\n${lines.join("\n")}\n\n${tips.join("\n")}\n\n📅 ${memberUrl()}\n${footer(member)}`,
+  });
+}
+
+export function passwordResetUrl(member: Member): string {
+  const { exp, t } = resetToken(member.email, member.passwordHash);
+  return `${getSiteUrl()}/zvezdni-koledar/geslo?e=${encodeURIComponent(member.email.toLowerCase())}&exp=${exp}&t=${t}`;
+}
+
+/** "I forgot my password" — a link that works for an hour, and only until the password changes. */
+export function sendPasswordResetEmail(member: Member) {
+  const sl = member.lang === "sl";
+  return sendEmail({
+    to: member.email,
+    replyTo: ownerEmail(),
+    subject: sl ? "🔑 Ponastavitev gesla — Zvezdni poslovni koledar" : "🔑 Reset your password — Star Business Calendar",
+    text: sl
+      ? `Pozdrav,\n\ntukaj je povezava za nastavitev novega gesla (velja eno uro):\n${passwordResetUrl(member)}\n\nČe te prošnje ne prepoznaš, sporočilo mirno prezri — geslo ostane nespremenjeno.\n${footer(member)}`
+      : `Hi,\n\nhere is your link to set a new password (valid for one hour):\n${passwordResetUrl(member)}\n\nIf you didn't ask for this, you can ignore this email — your password stays as it is.\n${footer(member)}`,
+  });
+}
+
+/** A quiet confirmation, so a password change nobody made doesn't go unnoticed. */
+export function sendPasswordChangedEmail(member: Member) {
+  const sl = member.lang === "sl";
+  return sendEmail({
+    to: member.email,
+    replyTo: ownerEmail(),
+    subject: sl ? "✅ Geslo je spremenjeno" : "✅ Your password was changed",
+    text: sl
+      ? `Pozdrav,\n\ngeslo za tvoj Zvezdni poslovni koledar je bilo pravkar spremenjeno.\n\nČe te spremembe ne prepoznaš, takoj odgovori na ta email.\n${footer(member)}`
+      : `Hi,\n\nthe password for your Star Business Calendar was just changed.\n\nIf that wasn't you, reply to this email right away.\n${footer(member)}`,
   });
 }
