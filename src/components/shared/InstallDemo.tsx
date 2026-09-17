@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 export type DemoPlatform = "ios" | "android";
 
 const STEP_MS = 2600;
-const STEPS = 4;
+// iPhone needs one step more: the share sheet hides "Add to Home Screen" behind "View more".
+const STEPS = { ios: 5, android: 4 } as const;
 
 /**
  * A looping animated "video" of adding byurska.com to the home screen, drawn in HTML/CSS
@@ -20,15 +21,28 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setStep(0);
-    const id = window.setInterval(() => setStep((s) => (s + 1) % STEPS), STEP_MS);
+    const count = STEPS[platform];
+    const id = window.setInterval(() => setStep((s) => (s + 1) % count), STEP_MS);
     return () => window.clearInterval(id);
   }, [platform]);
 
   const ios = platform === "ios";
   const captions = ios
     ? sl
-      ? ["1. Tapni »Deli« ⬆︎", "2. Izberi »Dodaj na domači zaslon« ➕", "3. Tapni »Dodaj«", "✨ Aplikacija je na domačem zaslonu"]
-      : ["1. Tap “Share” ⬆︎", "2. Choose “Add to Home Screen” ➕", "3. Tap “Add”", "✨ The app is on your home screen"]
+      ? [
+          "1. Tapni »Deli« ⬆︎",
+          "2. Podrsaj navzdol in tapni »Več …« (View more)",
+          "3. Izberi »Dodaj na domači zaslon« ➕",
+          "4. Tapni »Dodaj«",
+          "✨ Aplikacija je na domačem zaslonu",
+        ]
+      : [
+          "1. Tap “Share” ⬆︎",
+          "2. Scroll down and tap “View more”",
+          "3. Choose “Add to Home Screen” ➕",
+          "4. Tap “Add”",
+          "✨ The app is on your home screen",
+        ]
     : sl
       ? ["1. Odpri meni ⋮", "2. Izberi »Namesti aplikacijo«", "3. Tapni »Namesti«", "✨ Aplikacija je na domačem zaslonu"]
       : ["1. Open the menu ⋮", "2. Choose “Install app”", "3. Tap “Install”", "✨ The app is on your home screen"];
@@ -37,6 +51,7 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
   const finger = ios
     ? [
         { x: 50, y: 92 },
+        { x: 50, y: 80 },
         { x: 50, y: 66 },
         { x: 84, y: 9 },
         { x: 50, y: 110 },
@@ -58,7 +73,7 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
         aria-hidden="true"
       >
         {/* The website */}
-        <div className="absolute inset-0" style={{ opacity: step === 3 ? 0 : 1, transition: "opacity .5s" }}>
+        <div className="absolute inset-0" style={{ opacity: step === STEPS[platform] - 1 ? 0 : 1, transition: "opacity .5s" }}>
           {!ios && (
             <div className="flex items-center gap-1 px-2" style={{ height: 26, background: "#fff", borderBottom: "1px solid #e6dccf" }}>
               <div className="flex-1 rounded-full px-2 text-[8px] leading-[16px]" style={{ background: "#efe9e2", color: "#555" }}>
@@ -95,18 +110,24 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
         {ios ? (
           <div
             className="absolute inset-x-0 bottom-0 rounded-t-2xl px-2 pb-2 pt-3"
-            style={{ height: "58%", background: "#f2f2f7", transform: step === 1 || step === 2 ? "translateY(0)" : "translateY(105%)", transition: "transform .5s cubic-bezier(.2,.9,.3,1.2)" }}
+            style={{ height: "58%", background: "#f2f2f7", transform: step >= 1 && step <= 3 ? "translateY(0)" : "translateY(105%)", transition: "transform .5s cubic-bezier(.2,.9,.3,1.2)" }}
           >
             <div className="mx-auto mb-2 h-1 w-8 rounded-full bg-[#c7c7cc]" />
-            {[sl ? "Kopiraj" : "Copy", sl ? "Dodaj v bralni seznam" : "Add to Reading List", sl ? "Dodaj na domači zaslon  ➕" : "Add to Home Screen  ➕", sl ? "Natisni" : "Print"].map((row, i) => (
-              <div
-                key={row}
-                className="mb-1 rounded-lg px-2 text-[9px] leading-[22px]"
-                style={{ background: i === 2 && step >= 1 ? "#ffe8b8" : "#fff", color: "#111", fontWeight: i === 2 ? 700 : 400, transition: "background .3s" }}
-              >
-                {row}
-              </div>
-            ))}
+            {(step <= 1
+              ? [sl ? "Kopiraj" : "Copy", sl ? "Dodaj v bralni seznam" : "Add to Reading List", sl ? "Dodaj zaznamek" : "Add Bookmark", sl ? "Več …" : "View more"]
+              : [sl ? "Dodaj zaznamek" : "Add Bookmark", sl ? "Dodaj na domači zaslon  ➕" : "Add to Home Screen  ➕", sl ? "Natisni" : "Print", sl ? "Označi" : "Markup"]
+            ).map((row, i) => {
+              const highlighted = step <= 1 ? i === 3 : i === 1;
+              return (
+                <div
+                  key={row}
+                  className="mb-1 rounded-lg px-2 text-[9px] leading-[22px]"
+                  style={{ background: highlighted ? "#ffe8b8" : "#fff", color: "#111", fontWeight: highlighted ? 700 : 400, transition: "background .3s" }}
+                >
+                  {row}
+                </div>
+              );
+            })}
           </div>
         ) : (
           <div
@@ -124,11 +145,11 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
 
         {/* Step 3 — confirm */}
         {ios ? (
-          <div className="absolute inset-0" style={{ background: "#f2f2f7", opacity: step === 2 ? 1 : 0, transition: "opacity .4s" }}>
+          <div className="absolute inset-0" style={{ background: "#f2f2f7", opacity: step === 3 ? 1 : 0, transition: "opacity .4s" }}>
             <div className="flex items-center justify-between px-2 text-[9px]" style={{ height: 30, color: "#007aff" }}>
               <span>{sl ? "Prekliči" : "Cancel"}</span>
               <span className="font-semibold text-[#111]">{sl ? "Dodaj na domači zaslon" : "Add to Home Screen"}</span>
-              <span className="rounded px-1 font-bold" style={{ background: step === 2 ? "#ffe8b8" : "transparent" }}>
+              <span className="rounded px-1 font-bold" style={{ background: step === 3 ? "#ffe8b8" : "transparent" }}>
                 {sl ? "Dodaj" : "Add"}
               </span>
             </div>
@@ -163,7 +184,7 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
         {/* Step 4 — home screen */}
         <div
           className="absolute inset-0 grid grid-cols-4 content-start gap-x-2 gap-y-3 px-3 pt-8"
-          style={{ background: "linear-gradient(160deg,#3b2f5c,#b36a5e 70%,#e9b973)", opacity: step === 3 ? 1 : 0, transition: "opacity .5s" }}
+          style={{ background: "linear-gradient(160deg,#3b2f5c,#b36a5e 70%,#e9b973)", opacity: step === STEPS[platform] - 1 ? 1 : 0, transition: "opacity .5s" }}
         >
           {["#5ac8fa", "#4cd964", "#ff9500", "#ff2d55", "#5856d6", "#ffcc00", "#34aadc"].map((c, i) => (
             <div key={i} className="mx-auto h-7 w-7 rounded-lg" style={{ background: c, opacity: 0.85 }} />
@@ -176,7 +197,7 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
               width={28}
               height={28}
               className="rounded-lg"
-              style={{ transform: step === 3 ? "scale(1)" : "scale(0)", transition: "transform .6s cubic-bezier(.3,1.8,.5,1) .35s", boxShadow: `0 0 0 2px ${gold}` }}
+              style={{ transform: step === STEPS[platform] - 1 ? "scale(1)" : "scale(0)", transition: "transform .6s cubic-bezier(.3,1.8,.5,1) .35s", boxShadow: `0 0 0 2px ${gold}` }}
             />
             <span className="mt-0.5 text-[6px] text-white">Spirituality</span>
           </div>
@@ -201,7 +222,7 @@ export default function InstallDemo({ platform, sl }: { platform: DemoPlatform; 
         {captions[step]}
       </p>
       <div className="mt-1 flex gap-1.5" aria-hidden="true">
-        {Array.from({ length: STEPS }).map((_, i) => (
+        {Array.from({ length: STEPS[platform] }).map((_, i) => (
           <span key={i} className="h-1.5 rounded-full transition-all" style={{ width: i === step ? 16 : 6, background: i === step ? gold : "rgba(255,255,255,.3)" }} />
         ))}
       </div>
