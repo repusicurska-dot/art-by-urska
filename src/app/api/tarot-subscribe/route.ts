@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { TAROT_CARDS } from "@/components/spirituality/tarotData";
 import { addContact, isEmailConfigured, ownerEmail, sendEmail, warnEmailNotConfigured } from "@/lib/email";
 import { getSiteUrl } from "@/lib/siteUrl";
+import { isRedisConfigured } from "@/lib/redis";
+import { addSubscriber, unsubscribeUrl } from "@/lib/tarotSubscribers";
 
 const VALID_CARD_KEYS = new Set(TAROT_CARDS.map((c) => c.key));
 
@@ -43,10 +45,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  // The subscriber lands in Resend → Audience → Contacts. The weekly card itself is sent
-  // from there as a Broadcast (which adds the unsubscribe link automatically); an automatic
-  // weekly send is still open in STANJE.md.
-  const added = await addContact(email);
+  // With the database, the subscriber is stored with their language and the weekly cron
+  // (/api/cron/weekly-tarot) sends them the card every Monday. Without it, fall back to a
+  // Resend contact so Urška can still send a Broadcast by hand.
+  let added = false;
+  if (isRedisConfigured()) {
+    try {
+      await addSubscriber(email, lang);
+      added = true;
+    } catch (err) {
+      console.error("[tarot-subscribe] could not store subscriber:", err);
+    }
+  } else {
+    added = await addContact(email);
+  }
+  const optOut = isRedisConfigured()
+    ? unsubscribeUrl(email)
+    : null;
 
   const pageUrl = `${getSiteUrl()}/spirituality`;
   const welcomed = await sendEmail({
@@ -64,7 +79,8 @@ export async function POST(request: NextRequest) {
             "",
             `Celotno branje in karto dneva najdeš na ${pageUrl}`,
             "",
-            "Vsak teden ti pošljemo novo karto in njeno sporočilo. Če jih ne želiš več prejemati, odgovori na ta email z besedo »odjava«.",
+            "Vsak ponedeljek ti pošljemo novo karto in njeno sporočilo.",
+            optOut ? `Odjava je mogoča kadarkoli: ${optOut}` : "Če jih ne želiš več prejemati, odgovori na ta email z besedo »odjava«.",
             "",
             "Z lučjo,",
             "Art by Urška",
@@ -78,7 +94,8 @@ export async function POST(request: NextRequest) {
             "",
             `Read the full card and today's draw at ${pageUrl}`,
             "",
-            "Every week we'll send you a new card and its message. If you'd rather not receive them, just reply to this email with \"unsubscribe\".",
+            "Every Monday we'll send you a new card and its message.",
+            optOut ? `You can unsubscribe at any time: ${optOut}` : "If you'd rather not receive them, just reply to this email with \"unsubscribe\".",
             "",
             "With light,",
             "Art by Urška",

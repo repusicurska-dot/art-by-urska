@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Container from "@/components/shared/Container";
 import { buildIcsEvent, downloadIcs } from "@/lib/ics";
 import type { Lang } from "./tarotData";
@@ -16,15 +16,32 @@ import {
 export default function LiveReadingBooking({ lang }: { lang: Lang }) {
   const labels = LIVE_READING_LABELS[lang];
   const slots = useMemo(() => generateCandidateSlots(3), []);
+  // Slots already held by someone else's request, as "YYYY-MM-DDTHH:mm" — hidden from the picker.
+  const [taken, setTaken] = useState<Set<string>>(new Set());
+  const refreshTaken = useCallback(async () => {
+    try {
+      const res = await fetch("/api/live-reading-slots", { cache: "no-store" });
+      const data = (await res.json()) as { taken?: string[] };
+      setTaken(new Set(data.taken ?? []));
+    } catch {
+      // Keep showing every slot; the server still refuses a double booking.
+    }
+  }, []);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    refreshTaken();
+  }, [refreshTaken]);
+
   const slotsByDate = useMemo(() => {
     const map = new Map<string, TimeSlot[]>();
     for (const slot of slots) {
+      if (taken.has(`${slot.date}T${slot.time}`)) continue;
       const list = map.get(slot.date) ?? [];
       list.push(slot);
       map.set(slot.date, list);
     }
     return map;
-  }, [slots]);
+  }, [slots, taken]);
 
   const [packageKey, setPackageKey] = useState(LIVE_READING_PACKAGES[0].key);
   const [format, setFormat] = useState<"video" | "phone">("video");
@@ -97,6 +114,10 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                 });
                 const data = await res.json();
                 if (!res.ok) {
+                  if (data.code === "slot_taken") {
+                    setSelectedSlot(null);
+                    refreshTaken();
+                  }
                   setError(data.error ?? "Something went wrong.");
                   setStatus("error");
                   return;
