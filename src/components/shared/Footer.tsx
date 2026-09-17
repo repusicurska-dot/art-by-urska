@@ -63,6 +63,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/zvezdni-koledar" className="hover:text-bone transition-colors">
+                  ✨ Star Business Calendar
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="hover:text-bone transition-colors">
                   About
                 </Link>

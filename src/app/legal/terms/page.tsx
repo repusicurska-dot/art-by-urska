@@ -160,7 +160,41 @@ export default function TermsPage() {
         </p>
       </section>
       <section>
-        <h2>19. Contact</h2>
+        <h2 id="zvezdni-koledar">19. Star Business Calendar subscription (Zvezdni poslovni koledar)</h2>
+        <ul>
+          <li>
+            <strong>What it is:</strong> a personal digital astrological calendar and monthly horoscope, delivered on
+            this website, by email and as a calendar feed. It is spiritual and entertainment content and is not
+            financial, legal, medical or other professional advice.
+          </li>
+          <li>
+            <strong>Price and renewal:</strong> €5.99 per month. The subscription renews automatically every month
+            until you cancel. No VAT is charged (seller not registered for VAT).
+          </li>
+          <li>
+            <strong>Free trial:</strong> new subscribers get 7 days free, once per email address. If you cancel during
+            the trial, you are not charged. Otherwise the first payment is taken when the trial ends.
+          </li>
+          <li>
+            <strong>Cancellation:</strong> at any time, with the “Cancel subscription” button on your calendar page.
+            Access continues until the end of the trial or the period already paid for; no further payments are
+            taken. Payments for periods already started are not refunded, except where the law requires it.
+          </li>
+          <li>
+            <strong>Right of withdrawal:</strong> the service is digital content supplied immediately. By starting the
+            subscription you expressly request that it begins straight away and acknowledge that you thereby lose the
+            14-day right of withdrawal once supply has begun. The free trial and cancellation at any time apply
+            regardless.
+          </li>
+          <li>
+            <strong>Your data:</strong> we store your email, birth date, optional birth time and birth time zone only to
+            calculate your calendar and send it to you. Payments are processed by Stripe; we never see your card
+            details.
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>20. Contact</h2>
         <p><ProtectedEmail /></p>
       </section>
     </LegalPageShell>
