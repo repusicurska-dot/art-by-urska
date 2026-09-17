@@ -194,7 +194,49 @@ export default function TermsPage() {
         </ul>
       </section>
       <section>
-        <h2>20. Contact</h2>
+        <h2 id="poetry">20. Letters from the studio subscription (Poezija Urške)</h2>
+        <ul>
+          <li>
+            <strong>What it is:</strong> a weekly letter by email — a poem or a short piece of writing by Urška, with
+            one of her paintings beside it — plus an archive of past letters on this website. It is creative writing,
+            not advice of any kind.
+          </li>
+          <li>
+            <strong>Price and renewal:</strong> €4.99 per month. The subscription renews automatically every month
+            until you cancel. No VAT is charged (seller not registered for VAT).
+          </li>
+          <li>
+            <strong>Free trial:</strong> new subscribers get 7 days free, once per email address. If you cancel during
+            the trial, you are not charged. Otherwise the first payment is taken when the trial ends.
+          </li>
+          <li>
+            <strong>Delivery:</strong> letters are sent on Thursdays, normally one per week. In some weeks there is no
+            new letter; the subscription price is for continuing access to the letters and the archive, not for a
+            guaranteed number of letters in a given month.
+          </li>
+          <li>
+            <strong>Cancellation:</strong> at any time, with the “Cancel subscription” button on your letters page.
+            Access continues until the end of the trial or the period already paid for; no further payments are
+            taken. Payments for periods already started are not refunded, except where the law requires it.
+          </li>
+          <li>
+            <strong>Right of withdrawal:</strong> the service is digital content supplied immediately. By starting the
+            subscription you expressly request that it begins straight away and acknowledge that you thereby lose the
+            14-day right of withdrawal once supply has begun. The free trial and cancellation at any time apply
+            regardless.
+          </li>
+          <li>
+            <strong>The letters remain Urška&rsquo;s work:</strong> they are for your own reading. Please do not
+            republish or redistribute them.
+          </li>
+          <li>
+            <strong>Your data:</strong> we store your email address and the language you chose, in the same account as
+            the Star Business Calendar. Payments are processed by Stripe; we never see your card details.
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>21. Contact</h2>
         <p><ProtectedEmail /></p>
       </section>
     </LegalPageShell>

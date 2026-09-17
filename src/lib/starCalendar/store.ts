@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { redis } from "@/lib/redis";
 import type { Lang } from "@/lib/astro/texts";
+import type { PoetrySubscription } from "@/lib/poetry/subscription";
 
 /**
  * Star Business Calendar members, stored in Upstash Redis.
@@ -51,6 +52,8 @@ export interface Member {
   feedToken: string;
   /** Set once a subscription has ever existed — the free trial is offered only once. */
   hadTrial?: boolean;
+  /** The Poetry \"Letters from the studio\" subscription on the same account, if any. */
+  poetry?: PoetrySubscription;
   createdAt: string;
   syncedAt?: string;
   welcomedAt?: string;

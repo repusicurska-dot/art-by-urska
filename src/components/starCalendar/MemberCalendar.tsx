@@ -21,6 +21,8 @@ interface MemberView {
   cancelAtPeriodEnd: boolean;
   complimentary: boolean;
   hasPassword: boolean;
+  /** False for an account made through the Poetry letters, which needs no birth chart. */
+  hasBirth: boolean;
 }
 
 type Summary = { title: string; paragraphs: string[] };
@@ -49,7 +51,7 @@ export default function MemberCalendar({
   today: string;
   days: DayReading[];
   summary: Record<Lang, Summary> | null;
-  sunSign: Sign;
+  sunSign: Sign | null;
   feed: { https: string; webcal: string };
   welcome: boolean;
 }) {
@@ -160,10 +162,12 @@ export default function MemberCalendar({
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-smoke">✨ {sl ? "Zvezdni poslovni koledar" : "Star Business Calendar"}</p>
             <h1 className="mt-3 font-heading text-4xl text-bone md:text-5xl">
-              {SIGN_SYMBOL[sunSign]} {sl ? "Tvoj koledar" : "Your calendar"}
+              {sunSign ? `${SIGN_SYMBOL[sunSign]} ` : ""}
+              {sl ? "Tvoj koledar" : "Your calendar"}
             </h1>
             <p className="mt-2 text-bone">
-              {sl ? "Sončno znamenje" : "Sun sign"}: {SIGN_NAME[sunSign][lang]} · {member.email}
+              {sunSign ? `${sl ? "Sončno znamenje" : "Sun sign"}: ${SIGN_NAME[sunSign][lang]} · ` : ""}
+              {member.email}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -192,7 +196,19 @@ export default function MemberCalendar({
           </p>
         )}
 
-        {!active ? (
+        {!member.hasBirth ? (
+          // An account that came in through the Poetry letters: it exists, but there is no chart
+          // to calculate from yet. Never offer payment here — they may already be paying.
+          <div className={`${box} mt-10 text-center`}>
+            <p className="text-4xl">🪐</p>
+            <h2 className="mt-3 font-heading text-3xl text-bone">{sl ? "Še brez rojstnih podatkov" : "No birth details yet"}</h2>
+            <p className="mt-3 text-bone">
+              {sl
+                ? "Vpiši datum (in po možnosti uro ter kraj) rojstva spodaj, da se koledar lahko izračuna zate."
+                : "Add your birth date below — and your birth time and place if you know them — and the calendar can be calculated for you."}
+            </p>
+          </div>
+        ) : !active ? (
           <div className={`${box} mt-10 text-center`}>
             <p className="text-4xl">🌙</p>
             <h2 className="mt-3 font-heading text-3xl text-bone">{sl ? "Naročnina ni aktivna" : "Your subscription isn't active"}</h2>

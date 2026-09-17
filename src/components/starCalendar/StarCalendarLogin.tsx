@@ -13,7 +13,7 @@ type Mode = "password" | "forgot";
  * to it. Members from before passwords existed (and anyone who would rather not type one) can
  * still ask for a one-time link by email.
  */
-export default function StarCalendarLogin({ expired }: { expired: boolean }) {
+export default function StarCalendarLogin({ expired, next }: { expired: boolean; next: string }) {
   const router = useRouter();
   const [lang, setLang] = useState<Lang>("sl");
   const [mode, setMode] = useState<Mode>("password");
@@ -22,6 +22,8 @@ export default function StarCalendarLogin({ expired }: { expired: boolean }) {
   const [status, setStatus] = useState<"idle" | "working" | "sent" | "error">("idle");
   const [error, setError] = useState("");
   const sl = lang === "sl";
+  // The same sign-in serves both subscriptions; the page dresses itself for wherever they came from.
+  const poetry = next.startsWith("/poetry");
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -48,7 +50,7 @@ export default function StarCalendarLogin({ expired }: { expired: boolean }) {
       setStatus("error");
       return;
     }
-    router.push("/zvezdni-koledar/moj");
+    router.push(next);
     router.refresh();
   }
 
@@ -83,7 +85,11 @@ export default function StarCalendarLogin({ expired }: { expired: boolean }) {
   return (
     <div className="spirit-light relative isolate min-h-[70vh]" lang={lang}>
       <Container className="max-w-md px-6 py-24 text-center">
-        <p className="text-xs uppercase tracking-[0.3em] text-smoke">✨ {sl ? "Zvezdni poslovni koledar" : "Star Business Calendar"}</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-smoke">
+          {poetry
+            ? `🕊️ ${sl ? "Pisma iz ateljeja" : "Letters from the studio"}`
+            : `✨ ${sl ? "Zvezdni poslovni koledar" : "Star Business Calendar"}`}
+        </p>
         <h1 className="mt-5 font-heading text-4xl text-bone">
           {mode === "forgot" ? (sl ? "Pozabljeno geslo" : "Forgot password") : sl ? "Prijava" : "Sign in"}
         </h1>
@@ -179,7 +185,7 @@ export default function StarCalendarLogin({ expired }: { expired: boolean }) {
           </form>
         )}
 
-        <Link href="/zvezdni-koledar" className="mt-10 inline-block text-sm text-bone underline">
+        <Link href={poetry ? "/poetry" : "/zvezdni-koledar"} className="mt-10 inline-block text-sm text-bone underline">
           {sl ? "Še nimaš računa? 7 dni brezplačno →" : "No account yet? 7 days free →"}
         </Link>
       </Container>
