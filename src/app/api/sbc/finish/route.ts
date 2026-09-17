@@ -4,7 +4,7 @@ import { getStripeClient } from "@/lib/payments";
 import { getSiteUrl } from "@/lib/siteUrl";
 import { applySubscription } from "@/lib/starCalendar/billing";
 import { sendWelcomeEmail } from "@/lib/starCalendar/emails";
-import { SESSION_COOKIE, sessionCookieOptions, sessionValue } from "@/lib/starCalendar/session";
+import { SESSION_COOKIE, SIGNED_IN_HINT, hintCookieOptions, sessionCookieOptions, sessionValue } from "@/lib/starCalendar/session";
 import { feedUrls, getMember, saveMember } from "@/lib/starCalendar/store";
 
 /** Stripe Checkout returns here: record the subscription, sign the member in, welcome them. */
@@ -36,5 +36,6 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(new URL("/zvezdni-koledar/moj?welcome=1", request.url), 303);
   const { value, maxAge } = sessionValue(email);
   response.cookies.set(SESSION_COOKIE, value, { ...sessionCookieOptions, maxAge });
+  response.cookies.set(SIGNED_IN_HINT, "1", { ...hintCookieOptions, maxAge });
   return response;
 }

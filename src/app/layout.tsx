@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter, UnifrakturMaguntia } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/shared/SiteHeader";
@@ -7,6 +7,8 @@ import SpiritualBackdrop from "@/components/shared/SpiritualBackdrop";
 import Footer from "@/components/shared/Footer";
 import PlaceholderBanner from "@/components/shared/PlaceholderBanner";
 import CookieBanner from "@/components/shared/cookies/CookieBanner";
+import InstallAppPrompt from "@/components/shared/InstallAppPrompt";
+import OwnerAlerts from "@/components/shared/OwnerAlerts";
 import StructuredData from "@/components/seo/StructuredData";
 import { CartProvider } from "@/lib/cart/CartContext";
 import { organizationJsonLd } from "@/lib/structuredData";
@@ -37,11 +39,19 @@ export const metadata: Metadata = {
   },
   description:
     "Original paintings by Urška — a storytelling gallery of mood, memory, and light. Shipping from Slovenia, EU, worldwide.",
+  applicationName: "Spirituality by Urška",
+  // Opens full-screen with its own icon when added to an iPhone home screen.
+  appleWebApp: { capable: true, title: "Spirituality", statusBarStyle: "black-translucent" },
   openGraph: {
     title: "Art by Urška",
     description: "Original paintings by Urška — a storytelling gallery of mood, memory, and light.",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#030303",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -55,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <IntroSplash />
         <SpiritualBackdrop />
         <CartProvider>
+          <OwnerAlerts />
           <PlaceholderBanner />
           <SiteHeader />
           <main id="main-content" className="flex-1">
@@ -62,6 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <Footer />
           <CookieBanner />
+          <InstallAppPrompt />
         </CartProvider>
       </body>
     </html>

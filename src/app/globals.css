@@ -145,3 +145,12 @@ body:has(.spirit-light) {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(5vw, -7vw) scale(1.2); }
 }
+
+/* Install-app demo: the finger presses down once per step. */
+@keyframes install-demo-tap {
+  0%, 55%, 100% { transform: scale(1); }
+  70% { transform: scale(0.8); }
+}
+.install-demo-tap {
+  animation: install-demo-tap 2.6s ease-in-out infinite;
+}

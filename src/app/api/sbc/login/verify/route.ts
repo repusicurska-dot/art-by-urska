@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SESSION_COOKIE, sessionCookieOptions, sessionValue, verifyLoginToken } from "@/lib/starCalendar/session";
+import { SESSION_COOKIE, SIGNED_IN_HINT, hintCookieOptions, sessionCookieOptions, sessionValue, verifyLoginToken } from "@/lib/starCalendar/session";
 
 /** The sign-in link from the email: sets the session cookie and opens the member page. */
 export async function GET(request: NextRequest) {
@@ -13,5 +13,6 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(new URL("/zvezdni-koledar/moj", request.url), 303);
   const { value, maxAge } = sessionValue(email);
   response.cookies.set(SESSION_COOKIE, value, { ...sessionCookieOptions, maxAge });
+  response.cookies.set(SIGNED_IN_HINT, "1", { ...hintCookieOptions, maxAge });
   return response;
 }

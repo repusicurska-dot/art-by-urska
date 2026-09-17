@@ -40,6 +40,8 @@ export async function createSubscriptionCheckout(member: Member): Promise<string
     },
     metadata: { product: "star-business-calendar", email: member.email },
     locale: sl ? "sl" : "en",
+    // Country of the buyer, for the EU VAT (OSS) threshold count and for invoices.
+    billing_address_collection: "required",
     allow_promotion_codes: true,
     success_url: `${site}/api/sbc/finish?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${site}/zvezdni-koledar?canceled=1`,

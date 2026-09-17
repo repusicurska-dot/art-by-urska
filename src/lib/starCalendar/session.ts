@@ -30,6 +30,13 @@ export async function currentMemberEmail(): Promise<string | null> {
   return readSession(jar.get(SESSION_COOKIE)?.value);
 }
 
+/**
+ * A readable companion cookie holding no data except "signed in", so client code can skip
+ * member-only requests for ordinary visitors. Never trusted for access — the session is.
+ */
+export const SIGNED_IN_HINT = "sbc_signed_in";
+export const hintCookieOptions = { httpOnly: false, secure: true, sameSite: "lax" as const, path: "/" };
+
 export const sessionCookieOptions = {
   httpOnly: true,
   secure: true,
