@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Container from "./Container";
 import Logo from "./Logo";
+import ProtectedEmail from "./ProtectedEmail";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookies/CookieBanner";
 
 const legalLinks = [
@@ -23,6 +24,9 @@ export default function Footer() {
             <Logo ring wordmark className="text-bone" iconClassName="h-11 w-11" />
             <p className="mt-3 text-sm text-smoke max-w-xs">
               Original paintings, made in Slovenia, shared with the world.
+            </p>
+            <p className="mt-3 text-sm text-smoke">
+              <ProtectedEmail className="hover:text-bone transition-colors underline" />
             </p>
             <div className="flex items-center gap-4 mt-6">
               <a

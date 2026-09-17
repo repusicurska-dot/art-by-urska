@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { motion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import ContactForm from "@/components/contact/ContactForm";
+import ProtectedEmail from "@/components/shared/ProtectedEmail";
 import { fadeInUp } from "@/lib/motion";
 
 export default function ContactContent() {
@@ -27,6 +28,9 @@ export default function ContactContent() {
         >
           Get in touch
         </motion.h1>
+        <p className="-mt-4 mb-10 text-bone/80">
+          Write through the form below, or email Urška directly at <ProtectedEmail />.
+        </p>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
