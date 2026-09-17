@@ -11,15 +11,26 @@ export default function SkyBackdrop() {
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div className="ambient-motion sky-drift absolute inset-[-6%]">
         <Image
-          src="/images/sky.jpg"
+          src="/images/sky-2560.webp"
           alt=""
           fill
           priority
           sizes="100vw"
           className="object-cover"
-          style={{ filter: "blur(1px) saturate(1.08)" }}
+          quality={92}
+          style={{ filter: "saturate(1.06)" }}
         />
       </div>
+
+      {/* A woven canvas grain, so the enlarged painting reads as a canvas rather than a photo. */}
+      <div
+        className="absolute inset-0 opacity-[0.07] mix-blend-multiply"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9 0.75' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23c)'/%3E%3C/svg%3E\")",
+          backgroundSize: "180px 180px",
+        }}
+      />
 
       {/* A veil of light: keeps the plum text readable over the darker cloud banks and lets the
           bright centre of the painting carry the page. */}

@@ -8,8 +8,6 @@ import Container from "@/components/shared/Container";
 import { fadeInUp } from "@/lib/motion";
 import TarotReading from "./TarotReading";
 import LiveReadingBooking from "./LiveReadingBooking";
-import SpiritualityStarfield from "./SpiritualityStarfield";
-import SpiritualityAurora from "./SpiritualityAurora";
 import IntentionCompass from "./IntentionCompass";
 import MoonToday from "./MoonToday";
 import BreathingPause from "./BreathingPause";
@@ -157,10 +155,7 @@ export default function SpiritualityContent() {
     // palette while this page is open (see globals.css). `isolate` + the backdrops' -z-10
     // keep the aurora and stars behind the content — without it the fixed aurora painted
     // over every non-positioned section and washed the text out.
-    <div className="spirit-light spirit-ground relative isolate" lang={lang}>
-      <SpiritualityAurora />
-      <SpiritualityStarfield />
-
+    <div className="spirit-light relative isolate" lang={lang}>
       <section className="relative min-h-[60vh] flex items-center justify-center px-6 py-24 text-center">
         <Container className="max-w-2xl">
           {/* Labelled as page-scoped: without it the two buttons read like a site-wide

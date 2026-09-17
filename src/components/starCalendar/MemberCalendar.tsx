@@ -154,7 +154,7 @@ export default function MemberCalendar({
   const fieldLabel = "mb-2 block text-xs uppercase tracking-widest text-bone";
 
   return (
-    <div className="spirit-light spirit-ground relative isolate" lang={lang}>
+    <div className="spirit-light relative isolate" lang={lang}>
       <Container className="max-w-5xl px-6 py-16 md:py-20">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

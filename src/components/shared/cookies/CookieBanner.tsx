@@ -57,7 +57,7 @@ export default function CookieBanner() {
       aria-label="Cookie preferences"
       className="fixed inset-x-0 bottom-0 z-[200] p-4 sm:p-6"
     >
-      <div className="reading-panel mx-auto max-w-2xl rounded-2xl p-6 text-bone md:p-8">
+      <div className="mx-auto max-w-2xl rounded-2xl bg-paper/70 p-6 text-bone backdrop-blur-md md:p-8">
         {!managing ? (
           <>
             <p className="text-sm leading-relaxed text-bone/85">
