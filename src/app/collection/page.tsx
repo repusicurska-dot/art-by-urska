@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 export default function CollectionPage() {
   const artworks = getAllArtworks();
   return (
-    // art-ground lifts the page off pure black — a warm graphite lit from above, so the
-    // paintings sit in a room rather than a void (see globals.css).
-    <div className="art-ground relative">
+    // A warm gallery-white wall washed with the paintings' own palette — see .art-light in
+    // globals.css, which also lightens the header and footer while this page is open.
+    <div className="art-light art-ground relative isolate">
       <CollectionContent artworks={artworks} />
       <InTheHome />
     </div>
