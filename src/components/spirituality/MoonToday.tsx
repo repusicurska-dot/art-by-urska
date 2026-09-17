@@ -71,7 +71,7 @@ export default function MoonToday({ lang }: { lang: Lang }) {
                   )}
                 </p>
                 <p className="mt-5 font-heading italic text-xl text-bone">{phase.intention[lang]}</p>
-                <p className="mt-2 leading-relaxed text-bone/75">{phase.prompt[lang]}</p>
+                <p className="mt-2 leading-relaxed text-bone">{phase.prompt[lang]}</p>
               </>
             )}
           </div>

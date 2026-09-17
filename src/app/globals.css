@@ -90,8 +90,8 @@ h1, h2, h3, h4 {
    first server-rendered paint, with no dark flash before hydration. */
 body:has(.spirit-light) {
   --color-ink: #f3eadf;
-  --color-bone: #2f2838;
-  --color-smoke: #6f6470;
+  --color-bone: #2a2233;
+  --color-smoke: #574b5b;
   --color-raised: #f3ebe0;
   --color-paper: #fffdf9;
   --color-charcoal: #4b3a5e;
