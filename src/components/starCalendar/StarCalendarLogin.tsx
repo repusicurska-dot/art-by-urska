@@ -81,7 +81,7 @@ export default function StarCalendarLogin({ expired }: { expired: boolean }) {
   const label = "mb-2 block text-xs uppercase tracking-widest text-bone";
 
   return (
-    <div className="spirit-light spirit-ground relative isolate min-h-[70vh]" lang={lang}>
+    <div className="spirit-light relative isolate min-h-[70vh]" lang={lang}>
       <Container className="max-w-md px-6 py-24 text-center">
         <p className="text-xs uppercase tracking-[0.3em] text-smoke">✨ {sl ? "Zvezdni poslovni koledar" : "Star Business Calendar"}</p>
         <h1 className="mt-5 font-heading text-4xl text-bone">

@@ -183,8 +183,7 @@ body:has(.spirit-light) {
 
 /* Long-form text sits on a soft pane of light rather than straight on the clouds. */
 .reading-panel {
-  background: color-mix(in srgb, var(--color-paper) 82%, transparent);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(43, 36, 49, 0.06);
-  box-shadow: 0 30px 70px -45px rgba(74, 58, 88, 0.5);
+  /* Barely there: a breath of light under long text, with no frame around it. */
+  background: color-mix(in srgb, var(--color-paper) 55%, transparent);
+  backdrop-filter: blur(4px);
 }

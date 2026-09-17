@@ -171,7 +171,7 @@ export default function StarCalendarLanding({
   }
 
   return (
-    <div className="spirit-light spirit-ground relative isolate" lang={lang}>
+    <div className="spirit-light relative isolate" lang={lang}>
       <section className="px-6 pt-20 pb-16 text-center md:pt-28">
         <Container className="max-w-3xl">
           <div className="mb-8 flex items-center justify-center gap-2" role="group" aria-label="Language">
