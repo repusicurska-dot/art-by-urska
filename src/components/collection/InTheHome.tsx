@@ -29,7 +29,7 @@ const GALLERY: Shot[] = [
 
 function WideShot({ src, alt, ratio }: { src: string; alt: string; ratio: string }) {
   return (
-    <div className="relative w-full overflow-hidden rounded-sm" style={{ aspectRatio: ratio }}>
+    <div className="art-card relative w-full overflow-hidden rounded-2xl" style={{ aspectRatio: ratio }}>
       <Image src={src} alt={alt} fill sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
     </div>
   );
@@ -37,13 +37,13 @@ function WideShot({ src, alt, ratio }: { src: string; alt: string; ratio: string
 
 export default function InTheHome() {
   return (
-    <section className="border-t border-bone/10 bg-ink py-24 md:py-32">
+    <section className="border-t border-bone/10 px-2 py-24 md:py-28">
       <Container>
-        <span className="block text-xs tracking-widest uppercase text-smoke">In a home</span>
-        <h2 className="font-gothic text-3xl md:text-4xl text-bone mt-4">
+        <span className="block text-xs tracking-[0.35em] uppercase text-accent-warm">In a home</span>
+        <h2 className="font-gothic text-3xl md:text-5xl text-bone mt-5 leading-[1.1]">
           What they look like on a wall
         </h2>
-        <p className="mt-5 max-w-xl text-bone/70 leading-relaxed">
+        <p className="mt-6 max-w-xl text-lg text-bone/75 leading-relaxed">
           Every piece here is an original, photographed where it actually hangs — so you can see
           the scale before it ever reaches your own wall.
         </p>
@@ -58,14 +58,14 @@ export default function InTheHome() {
 
         <div className="mt-6 gap-6 [column-fill:_balance] sm:columns-2 lg:columns-3">
           {GALLERY.map((shot) => (
-            <div key={shot.src} className="mb-6 break-inside-avoid overflow-hidden rounded-sm">
+            <div key={shot.src} className="art-card group mb-6 break-inside-avoid overflow-hidden rounded-2xl">
               <Image
                 src={shot.src}
                 alt={shot.alt}
                 width={shot.width}
                 height={shot.height}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="h-auto w-full"
+                className="h-auto w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
               />
             </div>
           ))}

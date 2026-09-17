@@ -41,9 +41,11 @@ export default async function ArtworkPage({
   if (!artwork) notFound();
 
   return (
-    <>
+    // Same warm graphite ground as the collection, so a painting's own page doesn't drop
+    // back into flat black (see .art-ground in globals.css).
+    <div className="art-ground relative">
       <StructuredData data={productJsonLd(artwork)} />
       <ArtworkStory artwork={artwork} />
-    </>
+    </div>
   );
 }
