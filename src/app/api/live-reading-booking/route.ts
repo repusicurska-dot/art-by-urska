@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
   if (!VALID_FORMAT_KEYS.has(format)) {
     return NextResponse.json({ error: "Please select a reading format." }, { status: 400 });
   }
-  if (!/^d{4}-d{2}-d{2}$/.test(slotDate) || !/^d{2}:d{2}$/.test(slotTime)) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(slotDate) || !/^\d{2}:\d{2}$/.test(slotTime)) {
     return NextResponse.json({ error: "Please pick a proposed time." }, { status: 400 });
   }
   if (message.length > 5000) {
