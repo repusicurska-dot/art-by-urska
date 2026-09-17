@@ -8,18 +8,22 @@ import { Menu, ShoppingBag, X } from "lucide-react";
 import Container from "./Container";
 import Logo from "./Logo";
 import { useCart } from "@/lib/cart/CartContext";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-const NAV_LINKS = [
-  { href: "/collection", label: "Art" },
-  { href: "/poetry", label: "Poetry" },
-  { href: "/spirituality", label: "Spirituality" },
-  { href: "/climb", label: "Climb" },
-  { href: "/about", label: "About" },
-];
+
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const cart = useCart();
+  const { t } = useLanguage();
+  const navLinks = [
+    { href: "/collection", label: t.nav.art },
+    { href: "/poetry", label: t.nav.poetry },
+    { href: "/spirituality", label: t.nav.spirituality },
+    { href: "/climb", label: t.nav.climb },
+    { href: "/about", label: t.nav.about },
+  ];
   const [menuOpen, setMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -90,16 +94,16 @@ export default function SiteHeader() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-bone focus:text-ink focus:px-4 focus:py-2 focus:rounded-sm"
       >
-        Skip to content
+        {t.nav.skipToContent}
       </a>
 
       <Container className="grid grid-cols-[1fr_auto_1fr] items-center py-5">
-        <Link href="/" className="text-bone justify-self-start" aria-label="Art by Urška — Home">
+        <Link href="/" className="text-bone justify-self-start" aria-label={t.nav.home}>
           <Logo wordmark iconClassName="h-8 w-8" wordmarkClassName="hidden sm:inline" />
         </Link>
 
         <nav aria-label="Primary" className="hidden md:flex items-center gap-10 text-sm tracking-wide text-bone/85">
-          {NAV_LINKS.map((link) => {
+          {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <Link
@@ -118,11 +122,14 @@ export default function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-5 justify-self-end text-bone/85">
+        <div className="flex items-center gap-4 justify-self-end text-bone/85">
+          <span className="hidden md:block">
+            <LanguageSwitcher compact />
+          </span>
           <Link
             href="/cart"
             className="relative hover:text-bone transition-colors"
-            aria-label={`Cart, ${cart.count} item${cart.count === 1 ? "" : "s"}`}
+            aria-label={`${t.nav.cart} (${cart.count})`}
           >
             <ShoppingBag size={19} strokeWidth={1.5} />
             {cart.count > 0 && (
@@ -135,7 +142,7 @@ export default function SiteHeader() {
             type="button"
             onClick={() => setMenuOpen(true)}
             className="md:hidden hover:text-bone transition-colors"
-            aria-label="Open menu"
+            aria-label={t.nav.menu}
             aria-expanded={menuOpen}
           >
             <Menu size={22} strokeWidth={1.5} />
@@ -148,7 +155,7 @@ export default function SiteHeader() {
           scrolled ? "border-white/[0.14]" : "border-transparent"
         }`}
       >
-        Original paintings, made in Slovenia — shipped worldwide
+        {t.nav.tagline}
       </div>
 
       {menuOpen && (
@@ -167,13 +174,13 @@ export default function SiteHeader() {
                 type="button"
                 onClick={() => setMenuOpen(false)}
                 className="text-bone/85 hover:text-bone transition-colors"
-                aria-label="Close menu"
+                aria-label={t.nav.close}
               >
                 <X size={24} strokeWidth={1.5} />
               </button>
             </Container>
             <nav aria-label="Mobile" className="flex flex-col items-center justify-center gap-8 pt-16">
-              {NAV_LINKS.map((link, i) => (
+              {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
                   initial={{ opacity: 0, y: 12 }}
@@ -194,16 +201,19 @@ export default function SiteHeader() {
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.08 * NAV_LINKS.length }}
+                transition={{ duration: 0.4, delay: 0.08 * navLinks.length }}
               >
                 <Link
                   href="/contact"
                   onClick={() => setMenuOpen(false)}
                   className="font-heading text-3xl text-bone/90 hover:text-bone transition-colors"
                 >
-                  Contact
+                  {t.nav.contact}
                 </Link>
               </motion.div>
+              <div className="mt-6">
+                <LanguageSwitcher compact />
+              </div>
             </nav>
           </motion.div>
       )}

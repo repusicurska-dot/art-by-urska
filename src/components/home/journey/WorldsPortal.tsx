@@ -1,34 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
 
-const DIRECTIONS = [
-  {
-    label: "Original Art",
-    description: "The paintings, one by one.",
-    href: "/collection",
-    accent: "var(--color-accent-cold)",
-  },
-  {
-    label: "Poetry",
-    description: "Words the paintings left behind.",
-    href: "/poetry",
-    accent: "var(--color-accent-poetry)",
-  },
-  {
-    label: "Spirituality",
-    description: "Where the brush meets the soul.",
-    href: "/spirituality",
-    accent: "var(--color-accent-spirit)",
-  },
-];
+const DIRECTION_STYLE = [
+  { href: "/collection", accent: "var(--color-accent-cold)" },
+  { href: "/poetry", accent: "var(--color-accent-poetry)" },
+  { href: "/spirituality", accent: "var(--color-accent-spirit)" },
+] as const;
 
 /** A slow-growing light swallows the screen, then opens onto three paths through Urška's world. */
 export default function WorldsPortal() {
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
+  const { t } = useLanguage();
+  const DIRECTIONS = [
+    { ...DIRECTION_STYLE[0], label: t.home.originalArt, description: t.home.originalArtDesc },
+    { ...DIRECTION_STYLE[1], label: t.nav.poetry, description: t.home.poetryDesc },
+    { ...DIRECTION_STYLE[2], label: t.nav.spirituality, description: t.home.spiritualityDesc },
+  ];
 
   const orbScale = useTransform(progress, [0, 0.42], [0.15, 3.6]);
   const orbOpacity = useTransform(progress, [0, 0.1, 0.42], [0, 0.85, 1]);
@@ -40,9 +32,9 @@ export default function WorldsPortal() {
     return (
       <section className="py-28">
         <div className="mx-auto max-w-4xl px-6 text-center">
-          <span className="text-xs tracking-[0.3em] uppercase text-smoke">Three paths</span>
-          <h2 className="mt-4 font-gothic text-3xl md:text-4xl text-bone">Where would you like to go?</h2>
-          <DirectionLinks />
+          <span className="text-xs tracking-[0.3em] uppercase text-smoke">{t.home.worldsTitle}</span>
+          <h2 className="mt-4 font-gothic text-3xl md:text-4xl text-bone">{t.home.finalTitle}</h2>
+          <DirectionLinks directions={DIRECTIONS} />
         </div>
       </section>
     );
@@ -64,19 +56,21 @@ export default function WorldsPortal() {
         <motion.div aria-hidden="true" className="absolute inset-0" style={{ opacity: washOpacity }} />
 
         <motion.div style={{ opacity: linksOpacity, y: linksY }} className="relative px-6 text-center">
-          <span className="text-xs tracking-[0.3em] uppercase text-smoke">Three paths</span>
-          <h2 className="mt-4 font-gothic text-3xl md:text-4xl text-bone">Where would you like to go?</h2>
-          <DirectionLinks />
+          <span className="text-xs tracking-[0.3em] uppercase text-smoke">{t.home.worldsTitle}</span>
+          <h2 className="mt-4 font-gothic text-3xl md:text-4xl text-bone">{t.home.finalTitle}</h2>
+          <DirectionLinks directions={DIRECTIONS} />
         </motion.div>
       </div>
     </section>
   );
 }
 
-function DirectionLinks() {
+type Direction = { href: string; accent: string; label: string; description: string };
+
+function DirectionLinks({ directions }: { directions: Direction[] }) {
   return (
     <div className="mt-12 grid gap-8 sm:grid-cols-3 sm:gap-6">
-      {DIRECTIONS.map((d) => (
+      {directions.map((d) => (
         <Link
           key={d.label}
           href={d.href}

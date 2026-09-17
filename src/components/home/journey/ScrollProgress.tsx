@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { CHAPTERS, ChapterId } from "@/lib/scrollJourney";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 /** Right-edge chapter navigator on desktop; a thin top progress line on mobile. */
 export default function ScrollProgress() {
   const { scrollYProgress } = useScroll();
+  const { t } = useLanguage();
   const barScale = useSpring(scrollYProgress, { stiffness: 300, damping: 40, mass: 0.2 });
   const [active, setActive] = useState<ChapterId>(CHAPTERS[0].id);
 
@@ -68,7 +70,7 @@ export default function ScrollProgress() {
               onClick={() => goTo(chapter.id)}
               className="group flex items-center gap-3 rounded-full py-1.5 pl-4 pr-3 transition-colors"
               aria-current={isActive ? "true" : undefined}
-              aria-label={chapter.label}
+              aria-label={t.home.chapters[chapter.id]}
             >
               <span
                 className={`rounded-full px-3 py-1 text-sm tracking-[0.18em] uppercase transition-all duration-300 ${
@@ -77,7 +79,7 @@ export default function ScrollProgress() {
                     : "text-bone/70 group-hover:text-bone group-focus-visible:text-bone"
                 }`}
               >
-                {chapter.label}
+                {t.home.chapters[chapter.id]}
               </span>
               <span
                 className={`rounded-full transition-all duration-300 ${

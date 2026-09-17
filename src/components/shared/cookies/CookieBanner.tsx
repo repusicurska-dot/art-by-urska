@@ -11,6 +11,7 @@ import {
   subscribeConsent,
   writeConsent,
 } from "@/lib/cookieConsent";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export const OPEN_COOKIE_PREFERENCES_EVENT = "open-cookie-preferences";
 
@@ -23,6 +24,7 @@ const DEFAULT_DRAFT: Record<CookieCategory, boolean> = {
 };
 
 export default function CookieBanner() {
+  const { t } = useLanguage();
   const consent = useSyncExternalStore(
     subscribeConsent,
     getConsentSnapshot,
@@ -61,11 +63,9 @@ export default function CookieBanner() {
         {!managing ? (
           <>
             <p className="text-sm leading-relaxed text-bone/85">
-              We use necessary cookies to run this site. With your consent, we&rsquo;d also use
-              analytics, marketing, and preference cookies — none are currently active. Read more
-              in our{" "}
+              {t.cookies.text}{" "}
               <a href="/legal/cookies" className="underline hover:text-gold-400">
-                Cookie Policy
+                {t.cookies.policyLink}
               </a>
               .
             </p>
@@ -78,7 +78,7 @@ export default function CookieBanner() {
                 }}
                 className="text-sm tracking-widest uppercase bg-gold-600 text-ivory hover:bg-gold-400 transition-colors rounded-full px-6 py-3"
               >
-                Accept all
+                {t.cookies.acceptAll}
               </button>
               <button
                 type="button"
@@ -88,7 +88,7 @@ export default function CookieBanner() {
                 }}
                 className="text-sm tracking-widest uppercase border border-bone/30 hover:border-gold-400 transition-colors rounded-full px-6 py-3"
               >
-                Reject non-essential
+                {t.cookies.rejectNonEssential}
               </button>
               <button
                 type="button"
@@ -98,7 +98,7 @@ export default function CookieBanner() {
                 }}
                 className="text-sm tracking-widest uppercase text-bone/70 hover:text-gold-400 transition-colors px-2 py-3"
               >
-                Manage preferences
+                {t.cookies.manage}
               </button>
             </div>
           </>
@@ -123,7 +123,7 @@ export default function CookieBanner() {
                       <span className="block text-sm">
                         {info.label}
                         {info.required && (
-                          <span className="text-smoke"> — always on</span>
+                          <span className="text-smoke">{t.cookies.alwaysOn}</span>
                         )}
                       </span>
                       <span className="block text-xs text-smoke mt-0.5">{info.description}</span>
@@ -141,7 +141,7 @@ export default function CookieBanner() {
                 }}
                 className="text-sm tracking-widest uppercase bg-gold-600 text-ivory hover:bg-gold-400 transition-colors rounded-full px-6 py-3"
               >
-                Save preferences
+                {t.cookies.save}
               </button>
               <button
                 type="button"

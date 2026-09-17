@@ -5,16 +5,11 @@ import { motion } from "framer-motion";
 import { Artwork } from "@/content/types";
 import EnquireCTA from "./EnquireCTA";
 import ProvisionalPriceNote from "./ProvisionalPriceNote";
-
-const AVAILABILITY_LABEL: Record<Artwork["availability"], string> = {
-  available: "Available",
-  reserved: "Reserved",
-  sold: "Sold",
-  inquire: "Inquire for availability",
-};
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export default function PriceReveal({ artwork }: { artwork: Artwork }) {
   const [revealed, setRevealed] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <motion.div
@@ -25,7 +20,7 @@ export default function PriceReveal({ artwork }: { artwork: Artwork }) {
       transition={{ duration: 0.6 }}
     >
       <p className="font-heading text-xl md:text-2xl italic text-bone/80 max-w-lg mx-auto">
-        This piece is ready to find its home.
+        {t.artwork.readyToFindHome}
       </p>
 
       {!revealed ? (
@@ -48,7 +43,7 @@ export default function PriceReveal({ artwork }: { artwork: Artwork }) {
           </p>
           {!artwork.priceConfirmed && <ProvisionalPriceNote className="mt-2" />}
           <p className="mt-3 text-xs tracking-widest uppercase text-bone/50">
-            {AVAILABILITY_LABEL[artwork.availability]} · VAT: {artwork.vatNote}
+            {t.collection[artwork.availability]} · {t.artwork.specs.vat}: {artwork.vatNote}
           </p>
           <div className="mt-8">
             <EnquireCTA artwork={artwork} />

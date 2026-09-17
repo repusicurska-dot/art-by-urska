@@ -1,11 +1,13 @@
+"use client";
+
 import { Artwork } from "@/content/types";
 import Container from "@/components/shared/Container";
 import { ZONE_LABELS } from "@/lib/shipping";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
-function Row({ label, value }: { label: string; value?: string | number | boolean }) {
+function Row({ label, value, yes, no }: { label: string; value?: string | number | boolean; yes: string; no: string }) {
   if (value === undefined || value === "") return null;
-  const display =
-    typeof value === "boolean" ? (value ? "Yes" : "No") : String(value);
+  const display = typeof value === "boolean" ? (value ? yes : no) : String(value);
   return (
     <div className="flex justify-between gap-6 py-3 border-b border-bone/10 text-sm">
       <dt className="text-bone/50">{label}</dt>
@@ -15,42 +17,39 @@ function Row({ label, value }: { label: string; value?: string | number | boolea
 }
 
 export default function ArtworkSpecs({ artwork }: { artwork: Artwork }) {
+  const { t } = useLanguage();
+  const s = t.artwork.specs;
+  const yes = s.yes;
+  const no = s.no;
   return (
     <section className="py-16 md:py-20">
       <Container className="max-w-2xl">
-        <span className="block text-xs tracking-widest uppercase text-gold-400 mb-6">
-          Specifications
-        </span>
+        <span className="block text-xs tracking-widest uppercase text-gold-400 mb-6">{t.artwork.originalArtwork}</span>
         <dl>
-          <Row label="Year" value={artwork.year ?? "[YEAR PENDING]"} />
-          <Row label="Medium" value={artwork.medium} />
-          <Row label="Materials" value={artwork.materials} />
-          <Row label="Dimensions" value={artwork.dimensions} />
-          <Row label="Weight" value={artwork.weight} />
+          <Row yes={yes} no={no} label={s.year} value={artwork.year ?? "[YEAR PENDING]"} />
+          <Row yes={yes} no={no} label={s.medium} value={artwork.medium} />
+          <Row yes={yes} no={no} label={s.materials} value={artwork.materials} />
+          <Row yes={yes} no={no} label={s.dimensions} value={artwork.dimensions} />
+          <Row yes={yes} no={no} label={s.weight} value={artwork.weight} />
           <Row
-            label="Edition"
+            yes={yes}
+            no={no}
+            label={s.edition}
             value={
               artwork.editionType === "original"
-                ? "Original, one of a kind"
-                : `Edition${artwork.editionNumber ? ` — ${artwork.editionNumber}` : ""}`
+                ? s.originalOneOfAKind
+                : `${s.edition}${artwork.editionNumber ? ` — ${artwork.editionNumber}` : ""}`
             }
           />
-          <Row label="Certificate of authenticity" value={artwork.certificateOfAuthenticity} />
-          <Row label="Framed" value={artwork.framed} />
-          <Row label="SKU" value={artwork.sku} />
-          <Row label="Estimated dispatch" value={artwork.dispatchTime} />
-          <Row
-            label="Ships to"
-            value={artwork.shipsTo.map((z) => ZONE_LABELS[z]).join(", ")}
-          />
-          <Row label="VAT / tax treatment" value={artwork.vatNote} />
-          <Row label="Care information" value={artwork.careInfo} />
+          <Row yes={yes} no={no} label={s.certificate} value={artwork.certificateOfAuthenticity} />
+          <Row yes={yes} no={no} label={s.framed} value={artwork.framed} />
+          <Row yes={yes} no={no} label="SKU" value={artwork.sku} />
+          <Row yes={yes} no={no} label={s.dispatch} value={artwork.dispatchTime} />
+          <Row yes={yes} no={no} label={s.shipsTo} value={artwork.shipsTo.map((z) => ZONE_LABELS[z]).join(", ")} />
+          <Row yes={yes} no={no} label={s.vat} value={artwork.vatNote} />
+          <Row yes={yes} no={no} label={s.care} value={artwork.careInfo} />
         </dl>
-        <p className="mt-6 text-xs text-bone/40 italic">
-          Artwork photography may not perfectly reproduce physical color, texture, or scale
-          across every screen. Dimensions and materials above are accurate; treat photographs as
-          a close representation rather than an exact match.
-        </p>
+        <p className="mt-6 text-xs text-bone/40 italic">{t.artwork.photographyNote}</p>
       </Container>
     </section>
   );
