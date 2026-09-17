@@ -10,6 +10,10 @@ import TarotReading from "./TarotReading";
 import LiveReadingBooking from "./LiveReadingBooking";
 import SpiritualityStarfield from "./SpiritualityStarfield";
 import SpiritualityAurora from "./SpiritualityAurora";
+import IntentionCompass from "./IntentionCompass";
+import MoonToday from "./MoonToday";
+import BreathingPause from "./BreathingPause";
+import GratitudePractice from "./GratitudePractice";
 
 type Lang = "sl" | "en";
 
@@ -32,6 +36,10 @@ interface Copy {
    *  translation of that same line — flagged for her to correct if she'd word it
    *  differently. Further quotes from her notes go here as she sends them. */
   title: string;
+  subtitle: string;
+  ctaPath: string;
+  ctaLive: string;
+  reflectionsEyebrow: string;
   sections: Section[];
   closing: string;
   closingCta: string;
@@ -49,6 +57,11 @@ const COPY: Record<Lang, Copy> = {
   sl: {
     eyebrow: "Duhovnost pri Urški",
     title: "Duhovnost je zame pot nazaj k duši.",
+    subtitle:
+      "Prostor svetlobe za trenutke, ko iščeš mir, jasnost ali samo znak. Izvleci karto dneva, poglej luno, vzemi si minuto tišine — ali se z Urško pogovori v živo.",
+    ctaPath: "Najdi svojo pot danes",
+    ctaLive: "Branje v živo z Urško",
+    reflectionsEyebrow: "Urškine misli",
     sections: [
       {
         heading: "Tišina pred barvo",
@@ -87,6 +100,11 @@ const COPY: Record<Lang, Copy> = {
   en: {
     eyebrow: "Spirituality by Urška",
     title: "Spirituality, for me, is the journey back to the soul.",
+    subtitle:
+      "A place of light for the moments you are looking for peace, clarity, or simply a sign. Draw your card of the day, check the moon, take a minute of stillness — or talk with Urška live.",
+    ctaPath: "Find your path today",
+    ctaLive: "Live reading with Urška",
+    reflectionsEyebrow: "Reflections from Urška",
     sections: [
       {
         heading: "The silence before color",
@@ -134,7 +152,9 @@ export default function SpiritualityContent() {
   return (
     // lang follows the toggle: the page is Slovenian by default while the document is
     // English, and without this a screen reader reads the Slovenian with an English voice.
-    <div className="relative bg-ink" lang={lang}>
+    // spirit-light flips the whole site, header and footer included, to the light dawn
+    // palette while this page is open (see globals.css).
+    <div className="spirit-light relative bg-ink" lang={lang}>
       <SpiritualityAurora />
       <SpiritualityStarfield />
 
@@ -174,16 +194,40 @@ export default function SpiritualityContent() {
             <h1 className="font-heading italic text-3xl md:text-5xl text-bone mt-6 leading-snug">
               {copy.title}
             </h1>
+            <p className="mt-6 text-bone/75 leading-relaxed max-w-xl mx-auto">{copy.subtitle}</p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <a href="#intention" className="btn-primary">
+                {copy.ctaPath}
+              </a>
+              <a href="#live-reading" className="btn-secondary border-accent-warm/50 text-bone hover:border-accent-warm">
+                {copy.ctaLive}
+              </a>
+            </div>
           </motion.div>
         </Container>
       </section>
 
-      <TarotReading lang={lang} />
+      <IntentionCompass lang={lang} />
 
-      <LiveReadingBooking lang={lang} />
+      <MoonToday lang={lang} />
 
-      <section className="pb-24 md:pb-32">
+      <div id="tarot" className="scroll-mt-24">
+        <TarotReading lang={lang} />
+      </div>
+
+      <BreathingPause lang={lang} />
+
+      <GratitudePractice lang={lang} />
+
+      <div id="live-reading" className="scroll-mt-24">
+        <LiveReadingBooking lang={lang} />
+      </div>
+
+      <section id="reflections" className="border-t border-bone/10 pt-24 pb-24 md:pt-32 md:pb-32">
         <Container className="max-w-2xl">
+          <span className="mb-14 block text-center text-xs tracking-[0.3em] uppercase text-smoke">
+            {copy.reflectionsEyebrow}
+          </span>
           <div className="space-y-16">
             {copy.sections.map((section: Section, i: number) => (
               <motion.div

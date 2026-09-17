@@ -53,6 +53,8 @@ ponudnika e-pošte** (Resend ali Postmark). Ena odločitev odpre vse tri.
       v prvi osebi, kot da govoriš ti, zato ne bi smela ostati nepregledana:
       zapisi umetnice, „Pomen“ in „Za zbiratelja“ pri vseh 5 slikah (`artworks.ts`),
       besedilo strani Spirituality, in branja vseh 22 tarot kart (`tarotData.ts`).
+      Novo (2026-09-17): besedila petih poti, lune, minute tišine in „treh luči“
+      (`src/components/spirituality/pathsData.ts`).
 
 ## 4. Nedokončano na strani
 
