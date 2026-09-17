@@ -1,32 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  /* "gold" tokens are now a monochrome silver/graphite accent, not literal gold —
-     kept the names to avoid renaming ~30 component files' class strings. */
-  --color-ivory: #f5f5f3;
-  --color-charcoal: #232323;
-  --color-midnight: #121212;
-  --color-gold-400: #c9c9c5;
-  --color-gold-600: #6b6b67;
-  --color-terracotta: #8b5a52;
-  /* Dark-fantasy homepage/chrome palette. */
-  --color-ink: #030303;
-  --color-bone: #f2f0eb;
-  --color-smoke: #8f8d88;
-  --color-raised: #0b0b0d;
-  /* Scroll-journey accent trio — cold silver, warm champagne, and the two
-     portal-direction hues (bordeaux for Poetry, night-indigo for Spirituality). */
-  --color-accent-cold: #afc4d6;
-  --color-accent-warm: #c5aa82;
+  /* The whole site is a warm, light gallery: a gallery-white ground, deep plum ink for text,
+     and gold as the single accent. The "gold"/"bone"/"ink" token names are kept because ~40
+     component files use them; only their values changed when the site left the dark palette. */
+  --color-ink: #f7f1e8;        /* the ground — gallery white */
+  --color-bone: #2b2431;       /* text — deep plum */
+  --color-smoke: #6d6070;      /* muted text */
+  --color-raised: #efe6da;     /* raised surface */
+  --color-paper: #fffaf3;      /* card surface */
+  --color-ivory: #fffdf8;      /* text on dark buttons and over images */
+  --color-charcoal: #4a3a58;   /* primary button */
+  --color-midnight: #241d2c;
+  --color-gold-400: #c9a45f;
+  --color-gold-600: #96702f;
+  --color-terracotta: #9b5a4f;
+  /* Accents carried over from the night palette, re-tuned for a light ground. */
+  --color-accent-cold: #6f8dab;
+  --color-accent-warm: #96702f;
   --color-accent-poetry: #8a5a63;
   --color-accent-spirit: #5b6f95;
-  /* Soft gold-to-violet iridescence for the Spirituality nebula — gentler and
-     warmer than the plain night-indigo above, same muted/dusty family as the
-     rest of the palette. */
-  --color-aurora-gold: #cba876;
-  --color-aurora-violet: #7d6a99;
-  /* Card surface — only the light Spirituality page redefines it to something distinct. */
-  --color-paper: #f2f0eb;
+  --color-aurora-gold: #f4cf94;
+  --color-aurora-violet: #cdb8ec;
   --font-heading: var(--font-cormorant), serif;
   --font-body: var(--font-inter), sans-serif;
   --font-gothic: var(--font-unifraktur), serif;
@@ -40,9 +35,18 @@ html {
 }
 
 body {
-  background: var(--color-ink);
+  /* The base of the sky (SkyBackdrop draws the clouds and rays on top of this). */
+  background-color: #eef1f6;
+  background-image:
+    linear-gradient(180deg, #e7edf6 0%, #f4f0e8 38%, #f9f2e4 62%, #efe9e2 100%);
+  background-attachment: fixed;
   color: var(--color-bone);
   font-family: var(--font-body);
+}
+
+/* Slow drift for the clouds; stilled for anyone who asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-motion { animation: none !important; }
 }
 
 h1, h2, h3, h4 {
@@ -155,37 +159,6 @@ body:has(.spirit-light) {
   animation: install-demo-tap 2.6s ease-in-out infinite;
 }
 
-/* The Art pages are a gallery, not a cave: a warm gallery-white wall with the palette of the
-   paintings themselves washing across it — blush, lavender and champagne — so colour on the
-   canvases sings instead of fighting black. Flips the shared tokens like the Spirituality page
-   does, from the first server-rendered paint. */
-body:has(.art-light) {
-  --color-ink: #f7f1e8;
-  --color-bone: #2b2431;
-  --color-smoke: #6d6070;
-  --color-raised: #efe6da;
-  --color-paper: #fffaf3;
-  --color-charcoal: #4a3a58;
-  --color-ivory: #fffdf8;
-  --color-gold-600: #96702f;
-  --color-accent-warm: #96702f;
-  background: var(--color-ink);
-  color: var(--color-bone);
-}
-
-.art-ground {
-  background-color: var(--color-ink);
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"),
-    radial-gradient(90% 60% at 8% 0%, rgba(233, 178, 186, 0.4) 0%, transparent 60%),
-    radial-gradient(85% 55% at 95% 12%, rgba(186, 198, 232, 0.42) 0%, transparent 62%),
-    radial-gradient(80% 50% at 85% 92%, rgba(205, 184, 236, 0.38) 0%, transparent 65%),
-    radial-gradient(75% 45% at 5% 85%, rgba(244, 207, 148, 0.4) 0%, transparent 65%),
-    linear-gradient(180deg, #fdf8f1 0%, #f7f1e8 45%, #f4ece2 100%);
-  background-size: 160px 160px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-  background-attachment: scroll, fixed, fixed, fixed, fixed, fixed;
-}
-
 /* Gallery frame for an artwork card — a white mount with a hairline that warms on hover. */
 .art-card {
   background: color-mix(in srgb, var(--color-paper) 88%, transparent);
@@ -197,4 +170,21 @@ body:has(.art-light) {
   transform: translateY(-4px);
   border-color: color-mix(in srgb, var(--color-accent-warm) 55%, transparent);
   box-shadow: 0 36px 60px -34px rgba(74, 58, 88, 0.6), 0 0 34px -14px color-mix(in srgb, var(--color-accent-warm) 55%, transparent);
+}
+
+/* The sky breathes: a very slow drift, so the background is never quite static. */
+@keyframes sky-drift {
+  0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); }
+  50% { transform: scale(1.09) translate3d(-1.2%, 1%, 0); }
+}
+.sky-drift {
+  animation: sky-drift 120s ease-in-out infinite;
+}
+
+/* Long-form text sits on a soft pane of light rather than straight on the clouds. */
+.reading-panel {
+  background: color-mix(in srgb, var(--color-paper) 82%, transparent);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(43, 36, 49, 0.06);
+  box-shadow: 0 30px 70px -45px rgba(74, 58, 88, 0.5);
 }

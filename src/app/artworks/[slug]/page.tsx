@@ -41,8 +41,7 @@ export default async function ArtworkPage({
   if (!artwork) notFound();
 
   return (
-    // The same gallery-white wall as the collection (see .art-light in globals.css).
-    <div className="art-light art-ground relative isolate">
+    <div className="relative">
       <StructuredData data={productJsonLd(artwork)} />
       <ArtworkStory artwork={artwork} />
     </div>

@@ -29,7 +29,7 @@ export default async function CheckoutSuccessPage({
   const paid = session?.payment_status === "paid";
 
   return (
-    <section className="min-h-[70vh] flex items-center justify-center bg-ink px-6 py-24 text-center">
+    <section className="min-h-[70vh] flex items-center justify-center px-6 py-24 text-center">
       <Container className="max-w-xl">
         {paid ? (
           <>

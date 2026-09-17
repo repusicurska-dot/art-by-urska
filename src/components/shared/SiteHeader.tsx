@@ -156,7 +156,7 @@ export default function SiteHeader() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="fixed inset-0 z-[100] bg-ink md:hidden"
+            className="fixed inset-0 z-[100] md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}

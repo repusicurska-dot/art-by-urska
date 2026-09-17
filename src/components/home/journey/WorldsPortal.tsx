@@ -38,7 +38,7 @@ export default function WorldsPortal() {
 
   if (reduceMotion) {
     return (
-      <section className="bg-ink py-28">
+      <section className="py-28">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <span className="text-xs tracking-[0.3em] uppercase text-smoke">Three paths</span>
           <h2 className="mt-4 font-gothic text-3xl md:text-4xl text-bone">Where would you like to go?</h2>
@@ -49,7 +49,7 @@ export default function WorldsPortal() {
   }
 
   return (
-    <section ref={ref} className="relative h-[140vh] md:h-[175vh] bg-ink">
+    <section ref={ref} className="relative h-[140vh] md:h-[175vh]">
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         <motion.div
           aria-hidden="true"
@@ -61,7 +61,7 @@ export default function WorldsPortal() {
               "radial-gradient(circle, rgba(197,170,130,0.9) 0%, rgba(175,196,214,0.55) 45%, rgba(3,3,3,0) 75%)",
           }}
         />
-        <motion.div aria-hidden="true" className="absolute inset-0 bg-ink" style={{ opacity: washOpacity }} />
+        <motion.div aria-hidden="true" className="absolute inset-0" style={{ opacity: washOpacity }} />
 
         <motion.div style={{ opacity: linksOpacity, y: linksY }} className="relative px-6 text-center">
           <span className="text-xs tracking-[0.3em] uppercase text-smoke">Three paths</span>

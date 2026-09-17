@@ -34,7 +34,7 @@ export default function IntroSplash() {
         <motion.div
           key="intro-splash"
           aria-hidden="true"
-          className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-ink"
+          className="fixed inset-0 z-[120] flex flex-col items-center justify-center"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.7, ease: "easeInOut" }}

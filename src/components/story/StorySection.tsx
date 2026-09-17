@@ -24,7 +24,7 @@ export default function StorySection({
   const imageFirst = index % 2 === 0;
 
   return (
-    <section className="py-16 md:py-24 bg-ink">
+    <section className="py-16 md:py-24">
       <Container>
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <motion.div

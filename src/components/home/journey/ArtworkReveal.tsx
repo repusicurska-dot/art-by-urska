@@ -35,7 +35,7 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
 
   if (reduceMotion) {
     return (
-      <div className="bg-ink py-24">
+      <div className="py-24">
         <div className="mx-auto max-w-2xl px-6">
           {artwork.heroImage && (
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md shadow-[0_40px_120px_-30px_rgba(0,0,0,0.7)]">
@@ -49,7 +49,7 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
   }
 
   return (
-    <section ref={ref} className="relative h-[150vh] md:h-[230vh] bg-ink">
+    <section ref={ref} className="relative h-[150vh] md:h-[230vh]">
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         <motion.div
           aria-hidden="true"

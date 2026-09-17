@@ -18,7 +18,7 @@ const legalLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-ink border-t border-white/[0.14] py-14">
+    <footer className="border-t border-white/[0.14] py-14">
       <Container>
         <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>

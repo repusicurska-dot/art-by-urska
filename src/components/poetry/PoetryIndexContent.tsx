@@ -13,7 +13,7 @@ const POETRY_QUOTES = [
 
 export default function PoetryIndexContent() {
   return (
-    <div className="bg-ink">
+    <div className="">
       <section className="flex min-h-[35vh] items-end justify-center px-6 pt-24 text-center">
         <h1 className="block text-xs tracking-[0.3em] uppercase text-smoke">Poetry by Urška</h1>
       </section>

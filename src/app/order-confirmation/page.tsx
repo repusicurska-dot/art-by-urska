@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function OrderConfirmationPage() {
   return (
-    <section className="py-24 md:py-32 text-center bg-ink">
+    <section className="py-24 md:py-32 text-center">
       <Container className="max-w-lg">
         <span className="block text-xs tracking-widest uppercase text-gold-400">
           Order confirmed

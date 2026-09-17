@@ -114,14 +114,14 @@ export default function HorizontalGallery({ artworks }: { artworks: Artwork[] })
 
   if (reduceMotion) {
     return (
-      <section className="bg-ink py-24">
+      <section className="py-24">
         <GalleryMobile artworks={artworks} />
       </section>
     );
   }
 
   return (
-    <section className="bg-ink">
+    <section className="">
       {/* Desktop: scroll-linked horizontal track inside a pinned viewport. */}
       <div ref={wrapperRef} className="relative hidden md:block" style={{ height: `${100 * count}vh` }}>
         <div className="sticky top-0 flex h-screen w-full flex-col justify-center overflow-hidden">

@@ -69,7 +69,7 @@ export default function ArtworkLightbox({
       role="dialog"
       aria-modal="true"
       aria-label={`${artwork.title} — full view`}
-      className="fixed inset-0 z-[200] bg-ink/80 flex items-center justify-center p-4 md:p-10 overflow-y-auto"
+      className="fixed inset-0 z-[200] bg-ink/92 flex items-center justify-center p-4 md:p-10 overflow-y-auto"
       initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
       animate={{ opacity: 1, backdropFilter: reduceMotion ? "blur(0px)" : "blur(14px)" }}
       transition={{ duration: reduceMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -130,7 +130,7 @@ export default function ArtworkLightbox({
             {artwork.title}
           </motion.h2>
           <motion.div
-            className="relative w-full max-w-lg mx-auto md:max-w-none aspect-[4/5] md:h-[80vh] shadow-[0_40px_120px_-20px_rgba(0,0,0,0.7)] bg-ink"
+            className="relative w-full max-w-lg mx-auto md:max-w-none aspect-[4/5] md:h-[80vh] shadow-[0_40px_120px_-30px_rgba(74,58,88,0.5)] bg-raised"
             initial={{
               opacity: 0,
               scale: reduceMotion ? 1 : 0.85,

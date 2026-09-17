@@ -60,7 +60,7 @@ export default function CheckoutContent() {
 
   if (items.length === 0) {
     return (
-      <section className="py-24 md:py-32 text-center bg-ink">
+      <section className="py-24 md:py-32 text-center">
         <Container>
           <p className="text-bone/60">Your cart is empty.</p>
           <Link
@@ -76,7 +76,7 @@ export default function CheckoutContent() {
 
   if (state.status === "checkout-not-live") {
     return (
-      <section className="py-24 md:py-32 text-center bg-ink">
+      <section className="py-24 md:py-32 text-center">
         <Container className="max-w-lg">
           <h1 className="font-heading text-3xl text-bone mb-4">Almost there</h1>
           <p className="text-bone/70 leading-relaxed">{state.message}</p>
@@ -92,7 +92,7 @@ export default function CheckoutContent() {
   }
 
   return (
-    <section className="py-24 md:py-32 bg-ink">
+    <section className="py-24 md:py-32">
       <Container className="max-w-2xl">
         <span className="block text-xs tracking-widest uppercase text-gold-400">Checkout</span>
         <h1 className="font-heading text-4xl md:text-5xl text-bone mt-4 mb-12">
