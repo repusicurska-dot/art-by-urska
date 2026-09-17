@@ -43,9 +43,12 @@ vsi štirje emaili.
 
 - [ ] **53 slovenskih besedil** — delovni list:
       https://claude.ai/code/artifact/1b268c88-61ce-4b80-93dc-8f969084a7c3
-      Brez tega ni dvojezične strani.
-- [ ] **Preostali citati za Poezijo** iz zapiska „trejderji 101“. Stran ima zdaj en sam
-      citat in je zato videti prazna.
+      Ni več ovira: slovenščino sem medtem napisal sam, tvoj vpis jo bo popravil.
+- [ ] **Preostali citati za Poezijo** iz zapiska „trejderji 101“. Stran ni več prazna
+      (glej 5e), a razdelek „Njene besede“ ima še vedno samo en tvoj citat.
+- [ ] **Potrdi ali prepiši tri pisma iz ateljeja** (`src/content/poetry.ts`, označena
+      `approvedByUrska: false`). Napisana so v tvojem imenu in jih naročniki dobijo po emailu —
+      prvo je že vidno na strani. Nato dopisuj eno pismo na teden.
 - [ ] **Povezava do Instagrama.** V nogi je gumb, ki ne vodi nikamor. Ali pošlji povezavo
       ali jo odstranim.
 - [ ] **22 slik tarot kart** — obljubila si jih. Pokončne, razmerje ~1 : 1,7, vsaj
@@ -62,9 +65,9 @@ vsi štirje emaili.
 - [ ] **Climb** je še vedno stran „kmalu“. Ali napiši vsebino ali jo odstranim iz menuja.
 - [ ] **Telefonska branja** so v obrazcu vidna, a onemogočena („kmalu“). Vklopi, ko boš
       pripravljena sprejemati klice.
-- [ ] **Jezikovni gumb v nogi** je onemogočen in ponuja samo angleščino. Zaživi šele s
-      točko 3.
-- [ ] **Dvojezična stran** (angleško + slovensko na vseh straneh) — blokirano na točki 3.
+- [x] **Jezik strani** — celotna stran je v petih jezikih (slovensko, angleško, hrvaško,
+      nemško, italijansko); gumb je v glavi in v nogi. Prevodi so moji, ne prevajalčevi.
+      Dolga samodejna besedila (tarot, koledar, pisma) so v SL in EN, drugje se pokaže EN.
 
 ## 5. Rezervacije in tedenski tarot — koda narejena 2026-09-17
 
@@ -119,6 +122,23 @@ Stari računi brez gesla se lahko prijavijo s povezavo po emailu in si geslo nas
 
 - [x] Stran se lahko doda na domači zaslon (iPhone in Android) in se odpre kot aplikacija z
       ikono UR. Ob prvem obisku na telefonu se pokaže animiran prikaz, kako jo dodaš.
+
+## 5e. Poezija — „Pisma iz ateljeja“ (naročnina 4,99 €/mesec) — narejeno 2026-09-17
+
+Stran `/poetry` je bila prej en citat in povezava naprej — obiskovalec ni imel kaj početi, ti pa
+nisi imela od nje nič. Zdaj je pred njim pismo tega tedna v celoti in brezplačno, pod njim pa
+naročnina: **4,99 € na mesec, prvih 7 dni brezplačno**.
+
+- Vsak četrtek eno pismo po emailu (pesem ali kratko besedilo + ena tvoja slika ob njem).
+- Arhiv vseh pisem na `/poetry/moj`, odpoved z enim klikom.
+- **Isti račun kot Zvezdni koledar** — en e-naslov, eno geslo, naročnini sta ločeni.
+- Če kakšen teden pisma ni, se ne pošlje nič (arhiv ostane odprt). Tako je zapisano tudi
+  v Pogojih, točka 20.
+- Tvoj in Teov naslov imata pisma zastonj.
+
+- [ ] **Pisma** — glej točko 3: potrdi tri že napisana in dopiši naslednja.
+- [ ] Pravni pregled točke 20 v Pogojih.
+- [ ] Prvi preizkus: prijava → Stripe → arhiv → odpoved v 7 dneh (brez plačila).
 
 ## 6. Ob zagonu
 

@@ -154,7 +154,44 @@ export interface Dictionary {
     networkError: string;
   };
   climb: { eyebrow: string; title: string; text: string; back: string };
-  poetry: { eyebrow: string; lead: string };
+  poetry: {
+    eyebrow: string;
+    lead: string;
+    title: string;
+    subtitle: string;
+    cta: string;
+    loginPrompt: string;
+    login: string;
+    sampleEyebrow: string;
+    sampleNote: string;
+    lockedTitle: string;
+    lockedText: string;
+    whatTitle: string;
+    what: { icon: string; title: string; text: string }[];
+    quotesTitle: string;
+    priceTitle: string;
+    priceNote: string;
+    formTitle: string;
+    email: string;
+    password: string;
+    passwordRepeat: string;
+    passwordHint: string;
+    mismatch: string;
+    consent: string;
+    terms: string;
+    submit: string;
+    submitting: string;
+    exists: string;
+    complimentary: string;
+    soon: string;
+    canceled: string;
+    checkoutError: string;
+    languageNote: string;
+    faqTitle: string;
+    faq: { q: string; a: string }[];
+    seePaintings: string;
+    archiveLink: string;
+  };
   legal: { eyebrow: string; lastUpdated: string; pendingTitle: string; pendingBody: string; englishNote: string };
   cookies: {
     text: string;
@@ -322,6 +359,53 @@ const en: Dictionary = {
   poetry: {
     eyebrow: "Poetry by Urška",
     lead: "Poetry is the bridge between what my soul remembers and what my heart longs to say.",
+    title: "Letters from the studio",
+    subtitle:
+      "Every Thursday, one letter from Urška: a poem or a short piece of writing, with one painting standing beside it. Quiet post for people who like words that take their time.",
+    cta: "Read 7 days free",
+    loginPrompt: "Already subscribed?",
+    login: "Sign in",
+    sampleEyebrow: "This week's letter — free to read",
+    sampleNote: "This is the whole letter, exactly as subscribers receive it.",
+    lockedTitle: "The rest of the letters",
+    lockedText: "Every letter stays in your archive — open whenever you need it, not only the week it arrives.",
+    whatTitle: "What arrives",
+    what: [
+      { icon: "🕊️", title: "A letter every Thursday", text: "One poem or short piece of writing in your inbox — never more than one, never a newsletter." },
+      { icon: "🎨", title: "A painting beside the words", text: "Each letter carries one of Urška's paintings, so the words always have something to stand next to." },
+      { icon: "📜", title: "The whole archive", text: "Every letter ever sent stays open to you on your own page, to re-read whenever a line comes back to you." },
+      { icon: "✉️", title: "You can write back", text: "Reply to any letter and it goes straight to Urška — not to a mailing tool." },
+      { icon: "🌱", title: "It keeps the studio going", text: "The subscription pays for canvas, paint and the hours before the paint dries. Nothing is sold to you in the letters." },
+    ],
+    quotesTitle: "Her words",
+    priceTitle: "€4.99 / month",
+    priceNote: "First 7 days free · cancel any time with one click",
+    formTitle: "Start reading",
+    email: "Email",
+    password: "Password (at least 8 characters)",
+    passwordRepeat: "Repeat password",
+    passwordHint: "You'll sign in to your archive with this email and password.",
+    mismatch: "The passwords don't match.",
+    consent:
+      "I agree to the subscription terms. I understand that after the 7-day free trial the subscription renews automatically at €4.99 per month until I cancel, and that the service starts immediately.",
+    terms: "Terms",
+    submit: "Continue to payment — 7 days free",
+    submitting: "Preparing …",
+    exists: "An account with this email already exists. Sign in and add the letters from your page.",
+    complimentary: "✨ This address reads everything for free. Sign in whenever you like.",
+    soon: "The letters open very soon.",
+    canceled: "Payment was cancelled — you haven't been charged. You can try again.",
+    checkoutError: "Something went wrong with the payment. Please try again or write to us.",
+    languageNote: "The letters are written in Slovenian and English — choose which one you'd like to receive when you sign up.",
+    faqTitle: "Questions",
+    faq: [
+      { q: "How often do the letters come?", a: "Once a week, on Thursday. Some weeks there is no letter — then nothing arrives. Your archive keeps everything either way." },
+      { q: "Is this the same account as the Star Business Calendar?", a: "Yes. One email and one password for both; you can hold either subscription on its own or both together." },
+      { q: "How do I cancel?", a: "One click on your own page. You keep reading until the end of the period you've paid for. Cancel within the first 7 days and you pay nothing." },
+      { q: "Can I buy a painting from the letters?", a: "Nothing is sold in the letters. The paintings live in the collection, and that's where they stay." },
+    ],
+    seePaintings: "See the paintings these words belong to →",
+    archiveLink: "My letters",
   },
   legal: {
     eyebrow: "Legal",
@@ -497,6 +581,53 @@ const sl: Dictionary = {
   poetry: {
     eyebrow: "Poezija Urške",
     lead: "Poezija je most med tem, česar se moja duša spominja, in tem, kar si moje srce želi povedati.",
+    title: "Pisma iz ateljeja",
+    subtitle:
+      "Vsak četrtek eno pismo Urške: pesem ali kratko besedilo in ena slika, ki stoji ob njem. Tiha pošta za tiste, ki imajo radi besede, ki si vzamejo čas.",
+    cta: "Beri 7 dni brezplačno",
+    loginPrompt: "Že naročen?",
+    login: "Prijava",
+    sampleEyebrow: "Pismo tega tedna — brezplačno za branje",
+    sampleNote: "To je celotno pismo, natanko tako, kot ga prejmejo naročniki.",
+    lockedTitle: "Ostala pisma",
+    lockedText: "Vsako pismo ostane v tvojem arhivu — odprto takrat, ko ga potrebuješ, ne le v tednu, ko prispe.",
+    whatTitle: "Kaj prejmeš",
+    what: [
+      { icon: "🕊️", title: "Pismo vsak četrtek", text: "Ena pesem ali kratko besedilo v tvojem nabiralniku — nikoli več kot eno in nikoli oglasna pošta." },
+      { icon: "🎨", title: "Slika ob besedah", text: "Vsako pismo spremlja ena Urškina slika, da imajo besede vedno nekaj, ob čemer stojijo." },
+      { icon: "📜", title: "Celoten arhiv", text: "Vsa poslana pisma ostanejo odprta na tvoji strani, da jih prebereš znova, ko se ti kakšna vrstica vrne." },
+      { icon: "✉️", title: "Lahko odpišeš", text: "Na vsako pismo lahko odgovoriš in gre naravnost Urški — ne v orodje za pošiljanje." },
+      { icon: "🌱", title: "Podpiraš atelje", text: "Naročnina plača platno, barve in ure, preden se barva posuši. V pismih se ti ne prodaja ničesar." },
+    ],
+    quotesTitle: "Njene besede",
+    priceTitle: "4,99 € / mesec",
+    priceNote: "Prvih 7 dni brezplačno · odpoveš kadarkoli z enim klikom",
+    formTitle: "Začni brati",
+    email: "E-naslov",
+    password: "Geslo (vsaj 8 znakov)",
+    passwordRepeat: "Ponovi geslo",
+    passwordHint: "Z e-naslovom in geslom se pozneje prijaviš do svojega arhiva.",
+    mismatch: "Gesli se ne ujemata.",
+    consent:
+      "Strinjam se s pogoji naročnine. Razumem, da se po 7 dneh brezplačnega preizkusa naročnina samodejno podaljšuje za 4,99 € na mesec, dokler je ne odpovem, in da storitev začne teči takoj.",
+    terms: "Pogoji",
+    submit: "Nadaljuj na plačilo — 7 dni brezplačno",
+    submitting: "Pripravljam …",
+    exists: "Račun s tem e-naslovom že obstaja. Prijavi se in pisma dodaj na svoji strani.",
+    complimentary: "✨ Ta naslov ima vse brezplačno. Prijavi se, kadar želiš.",
+    soon: "Pisma se odprejo zelo kmalu.",
+    canceled: "Plačilo je bilo prekinjeno — nič ni bilo zaračunano. Poskusiš lahko znova.",
+    checkoutError: "Pri plačilu je šlo nekaj narobe. Poskusi znova ali nam piši.",
+    languageNote: "Pisma nastajajo v slovenščini in angleščini — ob naročilu izbereš, v katerem jeziku jih želiš prejemati.",
+    faqTitle: "Pogosta vprašanja",
+    faq: [
+      { q: "Kako pogosto prihajajo pisma?", a: "Enkrat na teden, ob četrtkih. Kakšen teden pisma ni — takrat ne prispe nič. Arhiv v vsakem primeru ostane tvoj." },
+      { q: "Je to isti račun kot Zvezdni poslovni koledar?", a: "Da. En e-naslov in eno geslo za oboje; naročnino lahko imaš samo eno ali obe hkrati." },
+      { q: "Kako odpovem?", a: "Z enim klikom na svoji strani. Bereš do konca obdobja, ki si ga plačal. Če odpoveš v prvih 7 dneh, ne plačaš nič." },
+      { q: "Lahko iz pisem kupim sliko?", a: "V pismih se ne prodaja ničesar. Slike živijo v zbirki in tam tudi ostanejo." },
+    ],
+    seePaintings: "Poglej slike, ki jim te besede pripadajo →",
+    archiveLink: "Moja pisma",
   },
   legal: {
     eyebrow: "Pravno",
@@ -672,6 +803,53 @@ const hr: Dictionary = {
   poetry: {
     eyebrow: "Poezija Urške",
     lead: "Poezija je most između onoga čega se moja duša sjeća i onoga što moje srce želi reći.",
+    title: "Pisma iz ateljea",
+    subtitle:
+      "Svakog četvrtka jedno pismo od Urške: pjesma ili kratki tekst i jedna slika koja stoji uz njega. Tiha pošta za one koji vole riječi koje si uzimaju vremena.",
+    cta: "Čitaj 7 dana besplatno",
+    loginPrompt: "Već si pretplaćen?",
+    login: "Prijava",
+    sampleEyebrow: "Ovotjedno pismo — besplatno za čitanje",
+    sampleNote: "Ovo je cijelo pismo, točno onakvo kakvo primaju pretplatnici.",
+    lockedTitle: "Ostala pisma",
+    lockedText: "Svako pismo ostaje u tvojoj arhivi — otvoreno kad ti zatreba, ne samo u tjednu kad stigne.",
+    whatTitle: "Što stiže",
+    what: [
+      { icon: "🕊️", title: "Pismo svakog četvrtka", text: "Jedna pjesma ili kratki tekst u tvom sandučiću — nikad više od jednog i nikad reklamna pošta." },
+      { icon: "🎨", title: "Slika uz riječi", text: "Svako pismo prati jedna Urškina slika, da riječi uvijek imaju uz što stajati." },
+      { icon: "📜", title: "Cijela arhiva", text: "Sva poslana pisma ostaju ti otvorena na tvojoj stranici, da ih pročitaš ponovno kad ti se neki redak vrati." },
+      { icon: "✉️", title: "Možeš odgovoriti", text: "Na svako pismo možeš odgovoriti i ide ravno Urški — ne u alat za slanje pošte." },
+      { icon: "🌱", title: "Podupireš atelje", text: "Pretplata plaća platno, boje i sate prije nego se boja osuši. U pismima ti se ništa ne prodaje." },
+    ],
+    quotesTitle: "Njezine riječi",
+    priceTitle: "4,99 € / mjesec",
+    priceNote: "Prvih 7 dana besplatno · otkazuješ bilo kada jednim klikom",
+    formTitle: "Počni čitati",
+    email: "E-adresa",
+    password: "Lozinka (najmanje 8 znakova)",
+    passwordRepeat: "Ponovi lozinku",
+    passwordHint: "S ovom e-adresom i lozinkom poslije se prijavljuješ u svoju arhivu.",
+    mismatch: "Lozinke se ne podudaraju.",
+    consent:
+      "Slažem se s uvjetima pretplate. Razumijem da se nakon 7 dana besplatnog probnog razdoblja pretplata automatski obnavlja za 4,99 € mjesečno dok je ne otkažem i da usluga počinje odmah.",
+    terms: "Uvjeti",
+    submit: "Nastavi na plaćanje — 7 dana besplatno",
+    submitting: "Pripremam …",
+    exists: "Račun s ovom e-adresom već postoji. Prijavi se i dodaj pisma na svojoj stranici.",
+    complimentary: "✨ Ova adresa sve čita besplatno. Prijavi se kad god želiš.",
+    soon: "Pisma se otvaraju vrlo brzo.",
+    canceled: "Plaćanje je prekinuto — ništa nije naplaćeno. Možeš pokušati ponovno.",
+    checkoutError: "Nešto je pošlo po zlu s plaćanjem. Pokušaj ponovno ili nam piši.",
+    languageNote: "Pisma nastaju na slovenskom i engleskom — pri pretplati biraš na kojem ih jeziku želiš primati.",
+    faqTitle: "Česta pitanja",
+    faq: [
+      { q: "Koliko često stižu pisma?", a: "Jednom tjedno, četvrtkom. Pokojeg tjedna pisma nema — tada ne stigne ništa. Arhiva u svakom slučaju ostaje tvoja." },
+      { q: "Je li to isti račun kao Zvjezdani poslovni kalendar?", a: "Da. Jedna e-adresa i jedna lozinka za oboje; možeš imati samo jednu pretplatu ili obje zajedno." },
+      { q: "Kako otkazujem?", a: "Jednim klikom na svojoj stranici. Čitaš do kraja razdoblja koje si platio. Otkažeš li u prvih 7 dana, ne plaćaš ništa." },
+      { q: "Mogu li iz pisama kupiti sliku?", a: "U pismima se ništa ne prodaje. Slike žive u zbirci i ondje i ostaju." },
+    ],
+    seePaintings: "Pogledaj slike kojima te riječi pripadaju →",
+    archiveLink: "Moja pisma",
   },
   legal: {
     eyebrow: "Pravno",
@@ -847,6 +1025,53 @@ const de: Dictionary = {
   poetry: {
     eyebrow: "Poesie von Urška",
     lead: "Poesie ist die Brücke zwischen dem, woran meine Seele sich erinnert, und dem, was mein Herz sagen möchte.",
+    title: "Briefe aus dem Atelier",
+    subtitle:
+      "Jeden Donnerstag ein Brief von Urška: ein Gedicht oder ein kurzer Text, und ein Bild, das daneben steht. Stille Post für alle, die Worte mögen, die sich Zeit lassen.",
+    cta: "7 Tage kostenlos lesen",
+    loginPrompt: "Schon abonniert?",
+    login: "Anmelden",
+    sampleEyebrow: "Der Brief dieser Woche — frei zu lesen",
+    sampleNote: "Das ist der ganze Brief, genau so, wie ihn die Abonnentinnen und Abonnenten bekommen.",
+    lockedTitle: "Die übrigen Briefe",
+    lockedText: "Jeder Brief bleibt in deinem Archiv — offen, wann immer du ihn brauchst, nicht nur in der Woche, in der er ankommt.",
+    whatTitle: "Was ankommt",
+    what: [
+      { icon: "🕊️", title: "Ein Brief jeden Donnerstag", text: "Ein Gedicht oder ein kurzer Text in deinem Postfach — nie mehr als einer und nie Werbung." },
+      { icon: "🎨", title: "Ein Bild neben den Worten", text: "Zu jedem Brief gehört eines von Urškas Bildern, damit die Worte immer etwas haben, woneben sie stehen." },
+      { icon: "📜", title: "Das ganze Archiv", text: "Alle je verschickten Briefe bleiben auf deiner Seite offen — zum Wiederlesen, wenn eine Zeile zurückkommt." },
+      { icon: "✉️", title: "Du kannst antworten", text: "Antworte auf jeden Brief, und er geht direkt an Urška — nicht an ein Versandwerkzeug." },
+      { icon: "🌱", title: "Es trägt das Atelier", text: "Das Abo bezahlt Leinwand, Farbe und die Stunden, bevor die Farbe trocknet. In den Briefen wird dir nichts verkauft." },
+    ],
+    quotesTitle: "Ihre Worte",
+    priceTitle: "4,99 € / Monat",
+    priceNote: "Die ersten 7 Tage kostenlos · jederzeit mit einem Klick kündbar",
+    formTitle: "Zu lesen beginnen",
+    email: "E-Mail",
+    password: "Passwort (mindestens 8 Zeichen)",
+    passwordRepeat: "Passwort wiederholen",
+    passwordHint: "Mit dieser E-Mail und diesem Passwort meldest du dich später in deinem Archiv an.",
+    mismatch: "Die Passwörter stimmen nicht überein.",
+    consent:
+      "Ich stimme den Abo-Bedingungen zu. Mir ist bewusst, dass sich das Abo nach den 7 kostenlosen Tagen automatisch für 4,99 € pro Monat verlängert, bis ich kündige, und dass die Leistung sofort beginnt.",
+    terms: "Bedingungen",
+    submit: "Weiter zur Zahlung — 7 Tage kostenlos",
+    submitting: "Einen Moment …",
+    exists: "Ein Konto mit dieser E-Mail existiert bereits. Melde dich an und füge die Briefe auf deiner Seite hinzu.",
+    complimentary: "✨ Diese Adresse liest alles kostenlos. Melde dich an, wann du magst.",
+    soon: "Die Briefe öffnen sehr bald.",
+    canceled: "Die Zahlung wurde abgebrochen — es wurde nichts berechnet. Du kannst es erneut versuchen.",
+    checkoutError: "Bei der Zahlung ist etwas schiefgegangen. Bitte versuche es erneut oder schreib uns.",
+    languageNote: "Die Briefe entstehen auf Slowenisch und Englisch — bei der Anmeldung wählst du, in welcher Sprache du sie bekommst.",
+    faqTitle: "Fragen",
+    faq: [
+      { q: "Wie oft kommen die Briefe?", a: "Einmal pro Woche, donnerstags. In manchen Wochen gibt es keinen Brief — dann kommt nichts. Dein Archiv bleibt so oder so." },
+      { q: "Ist das dasselbe Konto wie beim Sternen-Geschäftskalender?", a: "Ja. Eine E-Mail, ein Passwort für beides; du kannst ein Abo allein oder beide zusammen haben." },
+      { q: "Wie kündige ich?", a: "Mit einem Klick auf deiner Seite. Du liest bis zum Ende des bezahlten Zeitraums. Kündigst du in den ersten 7 Tagen, zahlst du nichts." },
+      { q: "Kann ich aus den Briefen ein Bild kaufen?", a: "In den Briefen wird nichts verkauft. Die Bilder leben in der Sammlung und bleiben dort." },
+    ],
+    seePaintings: "Sieh die Bilder, zu denen diese Worte gehören →",
+    archiveLink: "Meine Briefe",
   },
   legal: {
     eyebrow: "Rechtliches",
@@ -1022,6 +1247,53 @@ const it: Dictionary = {
   poetry: {
     eyebrow: "Poesia di Urška",
     lead: "La poesia è il ponte tra ciò che la mia anima ricorda e ciò che il mio cuore desidera dire.",
+    title: "Lettere dallo studio",
+    subtitle:
+      "Ogni giovedì una lettera di Urška: una poesia o un breve testo, con accanto un dipinto. Posta silenziosa per chi ama le parole che si prendono il loro tempo.",
+    cta: "Leggi 7 giorni gratis",
+    loginPrompt: "Sei già abbonato?",
+    login: "Accedi",
+    sampleEyebrow: "La lettera di questa settimana — libera da leggere",
+    sampleNote: "Questa è la lettera intera, esattamente come la ricevono gli abbonati.",
+    lockedTitle: "Le altre lettere",
+    lockedText: "Ogni lettera resta nel tuo archivio — aperta quando ti serve, non solo nella settimana in cui arriva.",
+    whatTitle: "Cosa arriva",
+    what: [
+      { icon: "🕊️", title: "Una lettera ogni giovedì", text: "Una poesia o un breve testo nella tua casella — mai più di una e mai pubblicità." },
+      { icon: "🎨", title: "Un dipinto accanto alle parole", text: "Ogni lettera porta con sé un dipinto di Urška, così le parole hanno sempre accanto qualcosa." },
+      { icon: "📜", title: "Tutto l'archivio", text: "Tutte le lettere inviate restano aperte sulla tua pagina, da rileggere quando un verso ti torna in mente." },
+      { icon: "✉️", title: "Puoi rispondere", text: "Rispondi a qualsiasi lettera e arriva direttamente a Urška — non a uno strumento di invio." },
+      { icon: "🌱", title: "Sostiene lo studio", text: "L'abbonamento paga la tela, i colori e le ore prima che il colore asciughi. Nelle lettere non ti si vende nulla." },
+    ],
+    quotesTitle: "Le sue parole",
+    priceTitle: "4,99 € / mese",
+    priceNote: "I primi 7 giorni gratis · disdici quando vuoi con un clic",
+    formTitle: "Inizia a leggere",
+    email: "Email",
+    password: "Password (almeno 8 caratteri)",
+    passwordRepeat: "Ripeti la password",
+    passwordHint: "Con questa email e questa password accederai poi al tuo archivio.",
+    mismatch: "Le password non coincidono.",
+    consent:
+      "Accetto le condizioni dell'abbonamento. Ho compreso che dopo i 7 giorni di prova gratuita l'abbonamento si rinnova automaticamente a 4,99 € al mese finché non lo disdico, e che il servizio inizia subito.",
+    terms: "Condizioni",
+    submit: "Continua al pagamento — 7 giorni gratis",
+    submitting: "Un momento …",
+    exists: "Esiste già un account con questa email. Accedi e aggiungi le lettere dalla tua pagina.",
+    complimentary: "✨ Questo indirizzo legge tutto gratuitamente. Accedi quando vuoi.",
+    soon: "Le lettere aprono molto presto.",
+    canceled: "Il pagamento è stato annullato — non ti è stato addebitato nulla. Puoi riprovare.",
+    checkoutError: "Qualcosa è andato storto con il pagamento. Riprova o scrivici.",
+    languageNote: "Le lettere nascono in sloveno e in inglese — al momento dell'abbonamento scegli in quale lingua riceverle.",
+    faqTitle: "Domande",
+    faq: [
+      { q: "Ogni quanto arrivano le lettere?", a: "Una volta a settimana, il giovedì. Qualche settimana non c'è lettera — allora non arriva nulla. L'archivio resta tuo in ogni caso." },
+      { q: "È lo stesso account del Calendario stellare d'affari?", a: "Sì. Una email e una password per entrambi; puoi avere un solo abbonamento o tutti e due." },
+      { q: "Come disdico?", a: "Con un clic sulla tua pagina. Leggi fino alla fine del periodo pagato. Se disdici entro i primi 7 giorni non paghi nulla." },
+      { q: "Posso comprare un dipinto dalle lettere?", a: "Nelle lettere non si vende nulla. I dipinti vivono nella collezione e lì restano." },
+    ],
+    seePaintings: "Guarda i dipinti a cui appartengono queste parole →",
+    archiveLink: "Le mie lettere",
   },
   legal: {
     eyebrow: "Note legali",

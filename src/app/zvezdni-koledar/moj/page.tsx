@@ -40,9 +40,12 @@ export default async function MemberPage({
     }
   }
 
-  const active = hasAccess(member);
+  // A member can reach this page without birth data — someone who subscribed to the Poetry
+  // letters first has an account but no chart yet. Nothing astronomical may be computed then.
+  const hasBirth = /^\d{4}-\d{2}-\d{2}$/.test(member.birthDate);
+  const active = hasAccess(member) && hasBirth;
   const days = active ? memberMonth(member, year, month) : [];
-  const sunSign = memberSunSign(member);
+  const sunSign = hasBirth ? memberSunSign(member) : null;
 
   return (
     <MemberCalendar
@@ -57,13 +60,16 @@ export default async function MemberPage({
         cancelAtPeriodEnd: !!member.cancelAtPeriodEnd,
         complimentary: isComplimentary(member.email),
         hasPassword: !!member.passwordHash,
+        hasBirth,
       }}
       active={active}
       year={year}
       month={month}
       today={today}
       days={days}
-      summary={active ? { sl: monthSummary(days, "sl", sunSign), en: monthSummary(days, "en", sunSign) } : null}
+      summary={
+        active && sunSign ? { sl: monthSummary(days, "sl", sunSign), en: monthSummary(days, "en", sunSign) } : null
+      }
       sunSign={sunSign}
       feed={feedUrls(member, getSiteUrl())}
       welcome={!!welcome}

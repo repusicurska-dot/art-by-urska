@@ -53,9 +53,17 @@ export async function POST(request: NextRequest) {
 
   const existing = await getMember(email);
 
-  // An account that already exists and still has a password belongs to someone — don't let a
-  // stranger overwrite it (or its birth data) just by typing the address into the sign-up form.
-  if (existing?.passwordHash) {
+  // A member from before passwords existed who is already subscribed: let them in by email link
+  // instead of charging twice — and without letting this form set a password on their account.
+  if (existing && !existing.passwordHash && hasAccess(existing)) {
+    await sendLoginEmail({ ...existing, lang });
+    return NextResponse.json({ alreadyMember: true });
+  }
+
+  // An account that already belongs to someone — because it has a password, or has ever paid —
+  // must not be overwritten (password or birth data) by whoever types the address into the
+  // sign-up form. Members from before passwords existed sign in with an emailed link instead.
+  if (existing?.passwordHash || existing?.stripeCustomerId) {
     return NextResponse.json(
       {
         error: sl
@@ -87,13 +95,6 @@ export async function POST(request: NextRequest) {
     }
     await saveMember(member);
     return NextResponse.json({ complimentary: true });
-  }
-
-  if (existing && hasAccess(existing)) {
-    // Subscribed already (an old account without a password): let them in by email link
-    // instead of charging twice.
-    await sendLoginEmail({ ...existing, lang });
-    return NextResponse.json({ alreadyMember: true });
   }
 
   const member: Member = {

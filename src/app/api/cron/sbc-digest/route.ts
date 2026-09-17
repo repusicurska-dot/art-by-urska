@@ -5,13 +5,18 @@ import { redis } from "@/lib/redis";
 import { syncMember } from "@/lib/starCalendar/billing";
 import { sendMonthlyEmail, sendWeeklyEmail } from "@/lib/starCalendar/emails";
 import { memberMonth, memberUpcoming } from "@/lib/starCalendar/readings";
+import { sendPoetryLetters } from "@/lib/poetry/send";
 import { allMemberEmails, getMember, hasAccess } from "@/lib/starCalendar/store";
 import { isAvailable } from "@/lib/starCalendar/validate";
 
 /**
  * Daily (vercel.json). On the 1st of the month every active member gets their personal monthly
- * horoscope; on Mondays, the week ahead. Each send is claimed per member per period first, so a
- * retried run doesn't email anyone twice.
+ * horoscope; on Mondays, the week ahead; on Thursdays, the Poetry subscribers get that week's
+ * letter from the studio. Each send is claimed per member per period first, so a retried run
+ * doesn't email anyone twice.
+ *
+ * The three jobs share one cron because the Hobby plan allows only a few — see
+ * api/cron/poetry-letter for sending a letter by hand.
  */
 export async function GET(request: NextRequest) {
   if (!isAuthorizedCron(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -19,9 +24,12 @@ export async function GET(request: NextRequest) {
 
   const today = ljubljanaDate();
   const [y, m, d] = today.split("-").map(Number);
-  const monday = new Date(Date.UTC(y, m - 1, d)).getUTCDay() === 1;
+  const weekday = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+  const monday = weekday === 1;
+  const thursday = weekday === 4;
   const firstOfMonth = d === 1;
-  if (!monday && !firstOfMonth) return NextResponse.json({ today, skipped: "nothing due" });
+  const poetry = thursday ? await sendPoetryLetters() : null;
+  if (!monday && !firstOfMonth) return NextResponse.json({ today, poetry, skipped: "nothing else due" });
 
   let monthly = 0;
   let weekly = 0;
@@ -40,5 +48,5 @@ export async function GET(request: NextRequest) {
       if (claimed === "OK" && (await sendWeeklyEmail(member, memberUpcoming(member, 7)))) weekly++;
     }
   }
-  return NextResponse.json({ today, monthly, weekly });
+  return NextResponse.json({ today, monthly, weekly, poetry });
 }
