@@ -7,6 +7,8 @@ export interface LiveReadingPackage {
   description: { sl: string; en: string };
   /** Real pricing, set by Urška on 2026-09-12. */
   price: string;
+  /** Length of the calendar event sent with the booking. */
+  minutes: number;
 }
 
 export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
@@ -19,6 +21,7 @@ export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
       en: "One question that's been on your mind, and a clear space for it.",
     },
     price: "50 €",
+    minutes: 20,
   },
   {
     key: "deep",
@@ -29,6 +32,7 @@ export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
       en: "A full spread, room for several questions, and a conversation about what the cards show.",
     },
     price: "100 €",
+    minutes: 50,
   },
 ];
 
@@ -138,7 +142,7 @@ export const LIVE_READING_LABELS: Record<
     successBody: "Urška te bo v nekaj dneh kontaktirala po emailu, da uskladita termin in ceno.",
     addToCalendar: "Dodaj predlagan termin v svoj koledar",
     disclaimer:
-      "To še ni samodejni koledar ali plačilni sistem — povpraševanja se trenutno beležijo, Urška pa termine potrjuje ročno po emailu. Samodejni email opomnik dan pred terminom bo dodan, ko bo povezan pravi sistem za pošiljanje pošte.",
+      "Povpraševanje prejme Urška po emailu, ti pa potrdilo, da je prispelo. Termin še ni rezerviran, dokler ga Urška ne potrdi — tudi plačilo se uredi šele takrat.",
     priceNote: "Plačilo se uredi ob potrditvi termina.",
   },
   en: {
@@ -160,7 +164,7 @@ export const LIVE_READING_LABELS: Record<
     successBody: "Urška will contact you by email within a few days to confirm a time and price.",
     addToCalendar: "Add the proposed time to your calendar",
     disclaimer:
-      "This isn't an automatic calendar or payment system yet — requests are currently recorded, and Urška confirms time slots manually by email. An automatic reminder email the day before will be added once a real email-sending system is connected.",
+      "Urška receives your request by email, and you get a confirmation that it arrived. The time isn't booked until Urška confirms it — payment is arranged at that point too.",
     priceNote: "Payment is arranged when the time slot is confirmed.",
   },
 };

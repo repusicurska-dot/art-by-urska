@@ -45,7 +45,7 @@ export default function ContactForm() {
           const res = await fetch("/api/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, category, message, company }),
+            body: JSON.stringify({ name, email, category, message, company, piece: piece?.title }),
           });
           const data = await res.json();
           if (!res.ok) {
@@ -156,7 +156,7 @@ export default function ContactForm() {
         {status === "submitting" ? "Sending…" : "Send message"}
       </button>
       <p className="text-xs text-bone/40 italic">
-        This form does not yet deliver to an inbox or CRM — that connection is still pending.
+        Your message goes straight to Urška, who reads every one personally.
       </p>
     </form>
   );
