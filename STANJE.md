@@ -71,9 +71,9 @@ vsi štirje emaili.
 Baza (Upstash Redis prek Vercela, brezplačno), opomniki in tedensko pošiljanje so napisani.
 Začnejo delovati, ko je baza povezana s projektom v Vercelu — do takrat vse deluje kot prej.
 
-- [ ] **Poveži bazo:** Vercel → Storage → Upstash for Redis (Free) → Connect to project.
+- [x] **Baza povezana** 2026-09-17 (Upstash Redis `byurska-db`, Frankfurt, Free).
 - [ ] (priporočeno) V Vercelu dodaj `CRON_SECRET` (poljubno dolgo naključno besedilo).
-- [ ] Preizkus: rezervacija → termin izgine iz izbirnika → email s povezavo „Potrdi / Zavrni“.
+- [x] Preizkus v živo: termin se zadrži in drugi ga ne more več rezervirati (409).
 
 Kako deluje, ko je baza povezana:
 - **Zasedeni termini** — izbrani termin se takoj zadrži in izgine iz izbirnika za vse.
@@ -92,7 +92,7 @@ Stran `/zvezdni-koledar`: osebni astrološki koledar po rojstni karti (🤝 pogo
 ⛔ ne začenjaj, 🧘 čas zase + 💞💰🌿), mesečni osebni horoskop, tedenski pregled, koledar v telefonu.
 7 dni brezplačno, plačilo prek Stripa, odpoved z gumbom. Vsa besedila so samodejna (SL + EN).
 
-- [ ] **Poveži bazo** (isto kot točka 5) — brez nje obrazec kaže „na voljo zelo kmalu“.
+- [x] **Baza povezana** — obrazec za naročnino je odprt.
 - [ ] **Računovodja: davčno potrjevanje računov.** Plačila s kartico v Sloveniji štejejo kot
       gotovinska, zato računi verjetno potrebujejo davčno potrjevanje (velja tudi za trgovino).
       Preveri, preden prvi naročnik plača (7 dni po prijavi).
