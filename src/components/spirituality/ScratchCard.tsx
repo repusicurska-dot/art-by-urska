@@ -188,7 +188,7 @@ export default function ScratchCard({ lang }: { lang: Lang }) {
         {revealed ? labels.revealedLabel : labels.hint}
       </span>
       {revealed && (
-        <span className="mt-1 text-xs text-smoke/70">
+        <span className="mt-1 text-xs text-smoke">
           {labels.comeback} {daysUntilNextMonday()} {lang === "sl" ? "dneh" : "days"}
         </span>
       )}

@@ -22,7 +22,7 @@ const stars = Array.from({ length: STAR_COUNT }, () => ({
 
 export default function SpiritualityStarfield() {
   return (
-    <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
       <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
         {stars.map((s, i) => (
           <circle

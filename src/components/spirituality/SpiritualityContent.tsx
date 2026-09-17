@@ -153,8 +153,10 @@ export default function SpiritualityContent() {
     // lang follows the toggle: the page is Slovenian by default while the document is
     // English, and without this a screen reader reads the Slovenian with an English voice.
     // spirit-light flips the whole site, header and footer included, to the light dawn
-    // palette while this page is open (see globals.css).
-    <div className="spirit-light relative bg-ink" lang={lang}>
+    // palette while this page is open (see globals.css). `isolate` + the backdrops' -z-10
+    // keep the aurora and stars behind the content — without it the fixed aurora painted
+    // over every non-positioned section and washed the text out.
+    <div className="spirit-light spirit-ground relative isolate" lang={lang}>
       <SpiritualityAurora />
       <SpiritualityStarfield />
 
@@ -167,7 +169,7 @@ export default function SpiritualityContent() {
             role="group"
             aria-label="Language for this page"
           >
-            <span className="text-[10px] tracking-[0.25em] uppercase text-smoke/70">
+            <span className="text-[11px] tracking-[0.25em] uppercase text-smoke">
               Read this page in
             </span>
             {(["sl", "en"] as const).map((l) => (
@@ -194,7 +196,7 @@ export default function SpiritualityContent() {
             <h1 className="font-heading italic text-3xl md:text-5xl text-bone mt-6 leading-snug">
               {copy.title}
             </h1>
-            <p className="mt-6 text-bone/75 leading-relaxed max-w-xl mx-auto">{copy.subtitle}</p>
+            <p className="mt-6 text-bone leading-relaxed max-w-xl mx-auto">{copy.subtitle}</p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <a href="#intention" className="btn-primary">
                 {copy.ctaPath}
@@ -238,7 +240,7 @@ export default function SpiritualityContent() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <h2 className="font-heading text-xl md:text-2xl text-bone">{section.heading}</h2>
-                <p className="mt-4 text-bone/70 leading-relaxed">{section.text}</p>
+                <p className="mt-4 text-bone leading-relaxed">{section.text}</p>
 
                 {section.artwork && (
                   <Link
@@ -256,7 +258,7 @@ export default function SpiritualityContent() {
                     </div>
                     <div>
                       <p className="font-heading text-base text-bone">{section.artwork.title}</p>
-                      <span className="text-xs tracking-widest uppercase text-bone/60 group-hover:text-bone transition-colors">
+                      <span className="text-xs tracking-widest uppercase text-bone group-hover:text-bone transition-colors">
                         {section.artwork.cta}
                       </span>
                     </div>
@@ -283,7 +285,7 @@ export default function SpiritualityContent() {
             </p>
             <Link
               href="/collection"
-              className="inline-block mt-8 text-xs tracking-widest uppercase text-bone/85 hover:text-bone transition-colors border-b border-bone/40 pb-1"
+              className="inline-block mt-8 text-xs tracking-widest uppercase text-bone hover:text-bone transition-colors border-b border-bone/40 pb-1"
             >
               {copy.closingCta}
             </Link>

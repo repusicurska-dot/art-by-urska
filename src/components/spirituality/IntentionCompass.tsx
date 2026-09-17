@@ -27,7 +27,7 @@ export default function IntentionCompass({ lang }: { lang: Lang }) {
       <Container className="max-w-4xl text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.eyebrow}</span>
         <h2 className="mt-5 font-heading italic text-3xl md:text-4xl text-bone">{labels.heading}</h2>
-        <p className="mt-4 text-bone/75 leading-relaxed max-w-xl mx-auto">{labels.intro}</p>
+        <p className="mt-4 text-bone leading-relaxed max-w-xl mx-auto">{labels.intro}</p>
 
         <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
           {INTENTIONS.map((intention) => {
@@ -82,7 +82,7 @@ export default function IntentionCompass({ lang }: { lang: Lang }) {
                   <p className="font-heading italic text-2xl leading-snug text-bone">{selected.message[lang]}</p>
 
                   <p className="mt-7 text-xs tracking-widest uppercase text-accent-warm">{labels.practiceLabel}</p>
-                  <p className="mt-2 leading-relaxed text-bone/80">{selected.practice[lang]}</p>
+                  <p className="mt-2 leading-relaxed text-bone">{selected.practice[lang]}</p>
 
                   <a href={`#${selected.anchor}`} className="btn-primary mt-8 inline-block">
                     {selected.anchorLabel[lang]}
@@ -103,7 +103,7 @@ export default function IntentionCompass({ lang }: { lang: Lang }) {
                     />
                   </div>
                   <div>
-                    <p className="text-[10px] tracking-widest uppercase text-smoke">{labels.artworkLabel}</p>
+                    <p className="text-[11px] tracking-widest uppercase text-smoke">{labels.artworkLabel}</p>
                     <p className="mt-1 font-heading text-base text-bone group-hover:underline">
                       {selected.artwork.title}
                     </p>

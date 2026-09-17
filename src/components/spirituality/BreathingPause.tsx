@@ -52,7 +52,7 @@ export default function BreathingPause({ lang }: { lang: Lang }) {
       <Container className="max-w-2xl text-center">
         <span className="block text-xs tracking-[0.3em] uppercase text-smoke">{labels.eyebrow}</span>
         <h2 className="mt-5 font-heading italic text-3xl md:text-4xl text-bone">{labels.heading}</h2>
-        <p className="mt-4 text-bone/75 leading-relaxed max-w-md mx-auto">{labels.intro}</p>
+        <p className="mt-4 text-bone leading-relaxed max-w-md mx-auto">{labels.intro}</p>
 
         <div className="relative mx-auto mt-12 flex h-64 w-64 items-center justify-center">
           <motion.div
@@ -77,7 +77,7 @@ export default function BreathingPause({ lang }: { lang: Lang }) {
               {status === "running" ? labels[step.key] : status === "done" ? "✦" : labels.ready}
             </p>
             {status === "running" && (
-              <p className="mt-1 text-[10px] tracking-widest uppercase text-smoke">
+              <p className="mt-1 text-[11px] tracking-widest uppercase text-smoke">
                 {round + 1} / {ROUNDS}
               </p>
             )}
