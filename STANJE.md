@@ -69,12 +69,17 @@ vsi štirje emaili.
       nemško, italijansko); gumb je v glavi in v nogi. Prevodi so moji, ne prevajalčevi.
       Preverjeno stran za stranjo: domača, zbirka, slika, košarica, plačilo, potrditev
       naročila, 404, o meni, kontakt, poezija, climb, glava in noga.
+- [x] **Spirituality in tarot v vseh petih jezikih** (2026-09-18, na Teovo željo). Vseh 22
+      kart — ime, ključne besede, kratko sporočilo in celotno branje — plus pet poti, luna,
+      minuta tišine, tri luči, praskanica in obrazec za rezervacijo. Tudi tedenski tarot
+      email in pozdravni email ob prijavi. Stran nima več svojega stikala SL/EN; sledi
+      gumbu v glavi. **Branje v živo ostaja v slovenščini ali angleščini** — Urška ga vodi
+      sama in govori ta dva jezika; obrazec zdaj posebej vpraša, v katerem jeziku naj bo.
 - [ ] **Kaj je še vedno samo v angleščini — tvoja odločitev (vprašanje za Tea):**
       1. **Zgodbe ob slikah** (`artworks.ts`: „Her words“, „Meaning“, „For the collector“,
          zapis umetnice) — to je vsebina, ne vmesnik, in je še nepregledana (točka 3).
-      2. **Spirituality in tarot** — cela stran ima svoje stikalo SL/EN, ker branja izvaja
-         Urška in govori ta dva jezika. Prevod bi pomenil 22 branj kart, pet poti, luno in
-         obrazec za rezervacijo × 3 jezike. Če to hočeta, povejta in naredim.
+      2. **Zvezdni koledar** — dnevna branja in besedila koledarja so v SL in EN. Isti
+         razlog kot prej pri tarotu; če hočeta pet jezikov tudi tam, povejta.
       3. **Pravne strani** — namenoma v angleščini, z opombo, da velja angleška različica.
 
 ## 5. Rezervacije in tedenski tarot — koda narejena 2026-09-17
