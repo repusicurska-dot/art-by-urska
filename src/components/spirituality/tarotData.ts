@@ -1,23 +1,44 @@
-export type Lang = "sl" | "en";
+export type { Lang } from "./lang";
+import type { Lang, Text } from "./lang";
+import { TAROT_HR } from "./tarotText.hr";
+import { TAROT_DE } from "./tarotText.de";
+import { TAROT_IT } from "./tarotText.it";
+
+/** One card in one language. The Croatian, German and Italian live in tarotText.<lang>.ts. */
+export interface CardText {
+  name: string;
+  keywords: string[];
+  meaning: string;
+  profile: string;
+}
 
 export interface TarotCard {
   key: string;
   number: number;
-  name: { sl: string; en: string };
+  name: Text;
   /** 3-4 word association list shown as tags under the card name. */
-  keywords: { sl: string[]; en: string[] };
+  keywords: Record<Lang, string[]>;
   /** Short evergreen line shown right under the card. */
-  meaning: { sl: string; en: string };
+  meaning: Text;
   /** The reading itself: four paragraphs, ~550 words, about a three-minute read.
    *  Evergreen and upright-only — reversed meanings are a natural next addition. */
-  profile: { sl: string; en: string };
+  profile: Text;
 }
 
 // The 22 Major Arcana. Traditional, evergreen card meanings (not a personalized reading):
 // generic archetypal characterization, safe to show without her review, but she's welcome
 // to rewrite the voice. Deliberately upright-only for this first pass; reversed meanings
 // and the Minor Arcana are natural follow-ups. The card artwork lives in TarotCardArt.tsx.
-export const TAROT_CARDS: TarotCard[] = [
+interface BaseCard {
+  key: string;
+  number: number;
+  name: Record<"sl" | "en", string>;
+  keywords: Record<"sl" | "en", string[]>;
+  meaning: Record<"sl" | "en", string>;
+  profile: Record<"sl" | "en", string>;
+}
+
+const BASE_CARDS: BaseCard[] = [
   {
     key: "fool",
     number: 0,
@@ -327,6 +348,25 @@ export const TAROT_CARDS: TarotCard[] = [
     },
   },
 ];
+
+/**
+ * The 22 cards in all five languages: the Slovenian and English above, joined with the three
+ * translation files. Missing a card in one of them is a build error, not a silent fallback.
+ */
+export const TAROT_CARDS: TarotCard[] = BASE_CARDS.map((card) => {
+  const hr = TAROT_HR[card.key];
+  const de = TAROT_DE[card.key];
+  const it = TAROT_IT[card.key];
+  if (!hr || !de || !it) throw new Error(`Tarot card "${card.key}" is missing a translation.`);
+  return {
+    key: card.key,
+    number: card.number,
+    name: { ...card.name, hr: hr.name, de: de.name, it: it.name },
+    keywords: { ...card.keywords, hr: hr.keywords, de: de.keywords, it: it.keywords },
+    meaning: { ...card.meaning, hr: hr.meaning, de: de.meaning, it: it.meaning },
+    profile: { ...card.profile, hr: hr.profile, de: de.profile, it: it.profile },
+  };
+});
 
 export function getCardOfTheDayKey(): string {
   const now = new Date();

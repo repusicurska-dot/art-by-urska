@@ -4,18 +4,41 @@ import { useEffect, useRef, useState } from "react";
 import type { Lang } from "./tarotData";
 import { SCRATCH_REWARDS } from "./scratchRewards";
 
-const LABELS: Record<Lang, { heading: string; hint: string; revealedLabel: string; comeback: string }> = {
+const LABELS: Record<Lang, { days: string; heading: string; hint: string; revealedLabel: string; comeback: string }> = {
   sl: {
+    days: "dneh",
     heading: "Tedenska praskanica",
     hint: "Podrgni, da odkriješ",
     revealedLabel: "Tvoje sporočilo tega tedna",
     comeback: "Nova praskanica čez",
   },
   en: {
+    days: "days",
     heading: "Weekly scratch card",
     hint: "Scratch to reveal",
     revealedLabel: "Your message for this week",
     comeback: "New card in",
+  },
+  hr: {
+    days: "dana",
+    heading: "Tjedna strugalica",
+    hint: "Protrljaj da otkriješ",
+    revealedLabel: "Tvoja poruka ovog tjedna",
+    comeback: "Nova kartica za",
+  },
+  de: {
+    days: "Tagen",
+    heading: "Wöchentliches Rubbellos",
+    hint: "Freirubbeln",
+    revealedLabel: "Deine Botschaft für diese Woche",
+    comeback: "Neues Los in",
+  },
+  it: {
+    days: "giorni",
+    heading: "Gratta e vinci settimanale",
+    hint: "Gratta per scoprire",
+    revealedLabel: "Il tuo messaggio di questa settimana",
+    comeback: "Nuova carta tra",
   },
 };
 
@@ -47,8 +70,13 @@ export default function ScratchCard({ lang }: { lang: Lang }) {
   // week) is based on the visitor's own clock, not a build-time snapshot.
   useEffect(() => {
     const key = getISOWeekKey(new Date());
-    const weekNumber = parseInt(key.split("-W")[1], 10) || 0;
-    const rewardText = SCRATCH_REWARDS[lang][weekNumber % SCRATCH_REWARDS[lang].length];
+    const [yearPart, weekPart] = key.split("-W");
+    const weekNumber = parseInt(weekPart, 10) || 0;
+    const year = parseInt(yearPart, 10) || 0;
+    // The year has to be in the index. With the week number alone, a pool longer than 53
+    // could never reach past its 53rd line, and every year repeated the same 53 messages.
+    const pool = SCRATCH_REWARDS[lang];
+    const rewardText = pool[(year * 53 + weekNumber) % pool.length];
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setWeekKey(key);
     setReward(rewardText);
@@ -189,7 +217,7 @@ export default function ScratchCard({ lang }: { lang: Lang }) {
       </span>
       {revealed && (
         <span className="mt-1 text-xs text-smoke">
-          {labels.comeback} {daysUntilNextMonday()} {lang === "sl" ? "dneh" : "days"}
+          {labels.comeback} {daysUntilNextMonday()} {labels.days}
         </span>
       )}
     </div>

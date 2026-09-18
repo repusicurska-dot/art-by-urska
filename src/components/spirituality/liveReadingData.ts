@@ -1,10 +1,10 @@
-import type { Lang } from "./tarotData";
+import type { Lang, Text } from "./lang";
 
 export interface LiveReadingPackage {
   key: string;
-  duration: { sl: string; en: string };
-  title: { sl: string; en: string };
-  description: { sl: string; en: string };
+  duration: Text;
+  title: Text;
+  description: Text;
   /** Real pricing, set by Urška on 2026-09-12. */
   price: string;
   /** Length of the calendar event sent with the booking. */
@@ -14,22 +14,40 @@ export interface LiveReadingPackage {
 export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
   {
     key: "short",
-    duration: { sl: "20 minut", en: "20 minutes" },
-    title: { sl: "Kratko branje", en: "Short reading" },
+    duration: { sl: "20 minut", en: "20 minutes", hr: "20 minuta", de: "20 Minuten", it: "20 minuti" },
+    title: {
+      sl: "Kratko branje",
+      en: "Short reading",
+      hr: "Kratko čitanje",
+      de: "Kurze Lesung",
+      it: "Lettura breve",
+    },
     description: {
       sl: "Eno vprašanje, ki ti trenutno teži misli, in jasen prostor zanj.",
       en: "One question that's been on your mind, and a clear space for it.",
+      hr: "Jedno pitanje koje ti trenutno leži na duši i jasan prostor za njega.",
+      de: "Eine Frage, die dich gerade beschäftigt, und ein klarer Raum dafür.",
+      it: "Una domanda che hai in mente, e uno spazio chiaro per accoglierla.",
     },
     price: "50 €",
     minutes: 20,
   },
   {
     key: "deep",
-    duration: { sl: "50 minut", en: "50 minutes" },
-    title: { sl: "Poglobljeno branje", en: "Deep reading" },
+    duration: { sl: "50 minut", en: "50 minutes", hr: "50 minuta", de: "50 Minuten", it: "50 minuti" },
+    title: {
+      sl: "Poglobljeno branje",
+      en: "Deep reading",
+      hr: "Dublje čitanje",
+      de: "Tiefe Lesung",
+      it: "Lettura profonda",
+    },
     description: {
       sl: "Celoten razlog, čas za več vprašanj in za pogovor o tem, kar karte pokažejo.",
       en: "A full spread, room for several questions, and a conversation about what the cards show.",
+      hr: "Cijeli raspored, prostor za više pitanja i razgovor o onome što karte pokazuju.",
+      de: "Eine vollständige Legung, Raum für mehrere Fragen und ein Gespräch über das, was die Karten zeigen.",
+      it: "Una stesa completa, spazio per più domande e una conversazione su ciò che le carte mostrano.",
     },
     price: "100 €",
     minutes: 50,
@@ -38,7 +56,7 @@ export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
 
 export interface LiveReadingFormat {
   key: "video" | "phone";
-  label: { sl: string; en: string };
+  label: Text;
   /** Phone reading isn't built yet (per Urška's request, to add later) — the option
    *  shows in the form as disabled with a "coming soon" tag, not hidden entirely, so
    *  visitors know it's planned. */
@@ -46,8 +64,15 @@ export interface LiveReadingFormat {
 }
 
 export const LIVE_READING_FORMATS: LiveReadingFormat[] = [
-  { key: "video", label: { sl: "Video klic", en: "Video call" } },
-  { key: "phone", label: { sl: "Telefonski klic", en: "Phone call" }, comingSoon: true },
+  {
+    key: "video",
+    label: { sl: "Video klic", en: "Video call", hr: "Video poziv", de: "Videoanruf", it: "Videochiamata" },
+  },
+  {
+    key: "phone",
+    label: { sl: "Telefonski klic", en: "Phone call", hr: "Telefonski poziv", de: "Telefonat", it: "Telefonata" },
+    comingSoon: true,
+  },
 ];
 
 /**
@@ -89,10 +114,18 @@ export function generateCandidateSlots(weeks = 3): TimeSlot[] {
   return slots;
 }
 
+const DATE_LOCALE: Record<Lang, string> = {
+  sl: "sl-SI",
+  en: "en-GB",
+  hr: "hr-HR",
+  de: "de-DE",
+  it: "it-IT",
+};
+
 export function formatSlotDate(iso: string, lang: Lang): string {
   const [y, m, d] = iso.split("-").map(Number);
   const date = new Date(y, m - 1, d);
-  return date.toLocaleDateString(lang === "sl" ? "sl-SI" : "en-GB", {
+  return date.toLocaleDateString(DATE_LOCALE[lang], {
     weekday: "short",
     day: "numeric",
     month: "short",
@@ -120,6 +153,9 @@ export const LIVE_READING_LABELS: Record<
     addToCalendar: string;
     disclaimer: string;
     priceNote: string;
+    /** Urška holds the reading itself in Slovenian or English — see lang.ts. */
+    readingLanguageLabel: string;
+    readingLanguageHint: string;
   }
 > = {
   sl: {
@@ -144,6 +180,8 @@ export const LIVE_READING_LABELS: Record<
     disclaimer:
       "Povpraševanje prejme Urška po emailu, ti pa potrdilo, da je prispelo. Ko Urška termin potrdi, dobiš potrdilo s terminom za koledar in dan prej opomnik. Plačilo se uredi ob potrditvi.",
     priceNote: "Plačilo se uredi ob potrditvi termina.",
+    readingLanguageLabel: "Jezik branja",
+    readingLanguageHint: "Urška vodi branja v slovenščini in angleščini.",
   },
   en: {
     heading: "Live Tarot Reading with Urška",
@@ -166,5 +204,84 @@ export const LIVE_READING_LABELS: Record<
     disclaimer:
       "Urška receives your request by email, and you get a confirmation that it arrived. Once she confirms, you'll get the time for your calendar and a reminder the day before. Payment is arranged on confirmation.",
     priceNote: "Payment is arranged when the time slot is confirmed.",
+    readingLanguageLabel: "Language of the reading",
+    readingLanguageHint: "Urška gives readings in Slovenian and English.",
+  },
+  hr: {
+    heading: "Tarot čitanje uživo s Urškom",
+    intro:
+      "Uz karte na ovoj stranici možeš rezervirati i osobno čitanje uživo putem video poziva — pitanje koje nosiš dobiva prostor, glas i odgovor u stvarnom vremenu.",
+    packageLabel: "Odaberi čitanje",
+    formatLabel: "Način čitanja",
+    comingSoonTag: "uskoro",
+    slotLabel: "Odaberi predloženi termin",
+    slotHint:
+      "Prikazani su samo slobodni termini. Odabrani termin zadržava se za tebe, a rezerviran je kad ga Urška potvrdi.",
+    nameLabel: "Ime i prezime",
+    emailLabel: "E-adresa",
+    messageLabel: "Pitanje ili kontekst (neobavezno)",
+    messagePlaceholder: "Ako želiš, ukratko opiši što te trenutno zanima.",
+    submit: "Upitaj za termin",
+    submitting: "Šaljem …",
+    successTitle: "Hvala!",
+    successBody: "Termin je zadržan za tebe. Kad ga Urška potvrdi, dobit ćeš potvrdu e-poštom, a dan prije i podsjetnik.",
+    addToCalendar: "Dodaj predloženi termin u svoj kalendar",
+    disclaimer:
+      "Upit prima Urška e-poštom, a ti potvrdu da je stigao. Kad Urška potvrdi termin, dobit ćeš potvrdu s terminom za kalendar i podsjetnik dan ranije. Plaćanje se dogovara pri potvrdi.",
+    priceNote: "Plaćanje se dogovara pri potvrdi termina.",
+    readingLanguageLabel: "Jezik čitanja",
+    readingLanguageHint: "Urška vodi čitanja na slovenskom i engleskom.",
+  },
+  de: {
+    heading: "Live-Tarotlesung mit Urška",
+    intro:
+      "Neben den Karten auf dieser Seite kannst du auch eine persönliche Live-Lesung per Videoanruf buchen — die Frage, die du mit dir trägst, bekommt Raum, eine Stimme und eine Antwort in Echtzeit.",
+    packageLabel: "Lesung wählen",
+    formatLabel: "Format",
+    comingSoonTag: "bald",
+    slotLabel: "Wähl einen vorgeschlagenen Termin",
+    slotHint:
+      "Es werden nur freie Zeiten gezeigt. Der gewählte Termin wird für dich freigehalten und ist gebucht, sobald Urška ihn bestätigt.",
+    nameLabel: "Vor- und Nachname",
+    emailLabel: "E-Mail",
+    messageLabel: "Frage oder Kontext (optional)",
+    messagePlaceholder: "Wenn du magst, beschreib kurz, was dich gerade beschäftigt.",
+    submit: "Nach einem Termin fragen",
+    submitting: "Wird gesendet …",
+    successTitle: "Danke!",
+    successBody:
+      "Dein Termin wird freigehalten. Sobald Urška ihn bestätigt, bekommst du eine Bestätigung per E-Mail und am Tag davor eine Erinnerung.",
+    addToCalendar: "Vorgeschlagenen Termin in deinen Kalender eintragen",
+    disclaimer:
+      "Urška erhält deine Anfrage per E-Mail, du bekommst eine Bestätigung, dass sie angekommen ist. Sobald sie bestätigt, bekommst du den Termin für deinen Kalender und am Tag davor eine Erinnerung. Die Zahlung wird bei der Bestätigung geregelt.",
+    priceNote: "Die Zahlung wird bei der Bestätigung des Termins geregelt.",
+    readingLanguageLabel: "Sprache der Lesung",
+    readingLanguageHint: "Urška hält die Lesungen auf Slowenisch und Englisch.",
+  },
+  it: {
+    heading: "Lettura di tarocchi dal vivo con Urška",
+    intro:
+      "Oltre alle carte di questa pagina puoi prenotare una lettura personale dal vivo in videochiamata — la domanda che porti trova spazio, una voce e una risposta in tempo reale.",
+    packageLabel: "Scegli la lettura",
+    formatLabel: "Formato",
+    comingSoonTag: "presto",
+    slotLabel: "Scegli un orario proposto",
+    slotHint:
+      "Sono mostrati solo gli orari liberi. L'orario che scegli viene tenuto per te e diventa una prenotazione quando Urška lo conferma.",
+    nameLabel: "Nome e cognome",
+    emailLabel: "Email",
+    messageLabel: "Domanda o contesto (facoltativo)",
+    messagePlaceholder: "Se vuoi, descrivi brevemente cosa ti sta a cuore.",
+    submit: "Chiedi un orario",
+    submitting: "Invio …",
+    successTitle: "Grazie!",
+    successBody:
+      "Il tuo orario è tenuto da parte. Quando Urška lo conferma riceverai una conferma via email, e il giorno prima un promemoria.",
+    addToCalendar: "Aggiungi l'orario proposto al tuo calendario",
+    disclaimer:
+      "Urška riceve la tua richiesta via email e tu ricevi conferma che è arrivata. Quando conferma, riceverai l'orario per il calendario e un promemoria il giorno prima. Il pagamento si concorda alla conferma.",
+    priceNote: "Il pagamento si concorda alla conferma dell'orario.",
+    readingLanguageLabel: "Lingua della lettura",
+    readingLanguageHint: "Urška conduce le letture in sloveno e in inglese.",
   },
 };

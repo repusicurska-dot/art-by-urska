@@ -14,21 +14,63 @@ import {
   unsubscribeUrl,
 } from "@/lib/tarotSubscribers";
 
+/** The wrapper around the card's own text, in each of the five languages. */
+const EMAIL_LABELS: Record<
+  Lang,
+  { subject: (name: string) => string; heading: string; readMore: string; signOff: string; unsubscribe: string }
+> = {
+  sl: {
+    subject: (name) => `Tvoja karta tega tedna: ${name}`,
+    heading: "Karta tega tedna",
+    readMore: "Preberi celotno karto in izvleci karto dneva:",
+    signOff: "Z lučjo,",
+    unsubscribe: "Ne želiš več prejemati tedenske karte? Odjava:",
+  },
+  en: {
+    subject: (name) => `Your card this week: ${name}`,
+    heading: "This week's card",
+    readMore: "Read the whole card and draw your card of the day:",
+    signOff: "With light,",
+    unsubscribe: "No longer want the weekly card? Unsubscribe:",
+  },
+  hr: {
+    subject: (name) => `Tvoja karta ovog tjedna: ${name}`,
+    heading: "Karta ovog tjedna",
+    readMore: "Pročitaj cijelu kartu i izvuci kartu dana:",
+    signOff: "Sa svjetlom,",
+    unsubscribe: "Ne želiš više primati tjednu kartu? Odjava:",
+  },
+  de: {
+    subject: (name) => `Deine Karte dieser Woche: ${name}`,
+    heading: "Die Karte dieser Woche",
+    readMore: "Lies die ganze Karte und zieh deine Karte des Tages:",
+    signOff: "Mit Licht,",
+    unsubscribe: "Du willst die Karte der Woche nicht mehr bekommen? Abmelden:",
+  },
+  it: {
+    subject: (name) => `La tua carta di questa settimana: ${name}`,
+    heading: "La carta di questa settimana",
+    readMore: "Leggi la carta intera e pesca la tua carta del giorno:",
+    signOff: "Con luce,",
+    unsubscribe: "Non vuoi più ricevere la carta settimanale? Disiscriviti:",
+  },
+};
+
 function weeklyEmail(card: TarotCard, lang: Lang, email: string) {
   const unsubscribe = unsubscribeUrl(email);
   const page = `${getSiteUrl()}/spirituality#tarot`;
   const firstParagraph = card.profile[lang].split("\n\n")[0];
-  const sl = lang === "sl";
+  const t = EMAIL_LABELS[lang];
   return {
     to: email,
     replyTo: ownerEmail(),
-    subject: sl ? `Tvoja karta tega tedna: ${card.name.sl}` : `Your card this week: ${card.name.en}`,
+    subject: t.subject(card.name[lang]),
     headers: {
       "List-Unsubscribe": `<${oneClickUnsubscribeUrl(email)}>`,
       "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
     text: [
-      sl ? "Karta tega tedna" : "This week's card",
+      t.heading,
       "",
       `${card.name[lang]}`,
       card.keywords[lang].join(" · "),
@@ -37,13 +79,13 @@ function weeklyEmail(card: TarotCard, lang: Lang, email: string) {
       "",
       firstParagraph,
       "",
-      sl ? `Preberi celotno karto in izvleci karto dneva: ${page}` : `Read the whole card and draw your card of the day: ${page}`,
+      `${t.readMore} ${page}`,
       "",
-      sl ? "Z lučjo," : "With light,",
+      t.signOff,
       "Urška",
       "",
       "—",
-      sl ? `Ne želiš več prejemati tedenske karte? Odjava: ${unsubscribe}` : `No longer want the weekly card? Unsubscribe: ${unsubscribe}`,
+      `${t.unsubscribe} ${unsubscribe}`,
     ].join("\n"),
   };
 }
