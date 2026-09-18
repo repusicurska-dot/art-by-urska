@@ -6,10 +6,11 @@ import { Artwork } from "@/content/types";
 import EnquireCTA from "./EnquireCTA";
 import ProvisionalPriceNote from "./ProvisionalPriceNote";
 import { useLanguage } from "@/i18n/LanguageProvider";
+import { formatPrice } from "@/lib/format";
 
 export default function PriceReveal({ artwork }: { artwork: Artwork }) {
   const [revealed, setRevealed] = useState(false);
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   return (
     <motion.div
@@ -39,7 +40,7 @@ export default function PriceReveal({ artwork }: { artwork: Artwork }) {
           className="mt-8"
         >
           <p className="font-heading text-4xl md:text-5xl text-bone">
-            {artwork.price.toLocaleString("en-IE")} €
+            {formatPrice(artwork.price, locale)}
           </p>
           {!artwork.priceConfirmed && <ProvisionalPriceNote className="mt-2" />}
           <p className="mt-3 text-xs tracking-widest uppercase text-bone/50">

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Artwork } from "@/content/types";
 import CustomCursor from "./CustomCursor";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 const CARD_WIDTHS = ["42vw", "34vw", "46vw", "36vw", "40vw"];
 
@@ -84,6 +85,7 @@ function GalleryCard({
 }
 
 export default function HorizontalGallery({ artworks }: { artworks: Artwork[] }) {
+  const { t } = useLanguage();
   const reduceMotion = useReducedMotion();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -132,7 +134,7 @@ export default function HorizontalGallery({ artworks }: { artworks: Artwork[] })
             transition={{ duration: 0.8, ease: "easeOut" }}
           />
           <div className="px-6 pb-10 md:px-16">
-            <span className="text-xs tracking-[0.3em] uppercase text-smoke">The collection</span>
+            <span className="text-xs tracking-[0.3em] uppercase text-smoke">{t.collection.eyebrow}</span>
           </div>
           <motion.div ref={trackRef} className="flex gap-12 px-6 md:px-16" style={{ x }}>
             {artworks.map((artwork, i) => (
@@ -148,7 +150,7 @@ export default function HorizontalGallery({ artworks }: { artworks: Artwork[] })
       {/* Mobile: natural swipe with scroll-snap, no scroll-jacking. */}
       <div className="md:hidden py-20">
         <div className="px-6 pb-8">
-          <span className="text-xs tracking-[0.3em] uppercase text-smoke">The collection</span>
+          <span className="text-xs tracking-[0.3em] uppercase text-smoke">{t.collection.eyebrow}</span>
         </div>
         <GalleryMobile artworks={artworks} />
       </div>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, useMotionValueEvent, useReducedMotion, useTransform } from "framer-motion";
 import { Artwork } from "@/content/types";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 const SPECS_THRESHOLD = 0.7;
 
@@ -87,9 +88,10 @@ export default function ArtworkReveal({ artwork }: { artwork: Artwork }) {
 }
 
 function ArtworkCaption({ artwork, meta }: { artwork: Artwork; meta: string }) {
+  const { t } = useLanguage();
   return (
     <>
-      <span className="text-[11px] tracking-[0.3em] uppercase text-smoke">Original painting</span>
+      <span className="text-[11px] tracking-[0.3em] uppercase text-smoke">{t.artwork.originalArtwork}</span>
       <h2 className="mt-3 font-gothic text-3xl md:text-5xl text-bone">{artwork.title}</h2>
       {meta && <p className="mt-3 text-sm text-bone/70">{meta}</p>}
       <Link

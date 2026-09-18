@@ -6,8 +6,10 @@ import Container from "@/components/shared/Container";
 import ProvisionalPriceNote from "@/components/story/ProvisionalPriceNote";
 import { useCart } from "@/lib/cart/CartContext";
 import { getArtworkBySlug } from "@/lib/content";
-import { ZONE_DESCRIPTIONS, ZONE_LABELS, ZONE_ORDER } from "@/lib/shipping";
+import { ZONE_ORDER } from "@/lib/shipping";
 import { ShippingZone } from "@/content/types";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import { formatPrice } from "@/lib/format";
 
 type SubmitState =
   | { status: "idle" }
@@ -16,6 +18,8 @@ type SubmitState =
   | { status: "checkout-not-live"; message: string };
 
 export default function CheckoutContent() {
+  const { t, locale } = useLanguage();
+  const c = t.checkout;
   const cart = useCart();
   const items = cart.slugs
     .map((slug) => getArtworkBySlug(slug))
@@ -45,7 +49,7 @@ export default function CheckoutContent() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setState({ status: "error", message: data.error ?? "Something went wrong." });
+        setState({ status: "error", message: data.error ?? c.genericError });
         return;
       }
       if (data.url) {
@@ -54,7 +58,7 @@ export default function CheckoutContent() {
       }
       setState({ status: "checkout-not-live", message: data.message });
     } catch {
-      setState({ status: "error", message: "Couldn't reach the server. Please try again." });
+      setState({ status: "error", message: c.networkError });
     }
   }
 
@@ -62,12 +66,12 @@ export default function CheckoutContent() {
     return (
       <section className="py-24 md:py-32 text-center">
         <Container>
-          <p className="text-bone/60">Your cart is empty.</p>
+          <p className="text-bone/60">{t.cart.empty}</p>
           <Link
             href="/collection"
             className="inline-block mt-6 text-sm tracking-widest uppercase text-gold-400 hover:text-bone transition-colors border-b border-gold-400/40 pb-1"
           >
-            Browse the collection →
+            {t.cart.browse}
           </Link>
         </Container>
       </section>
@@ -78,13 +82,13 @@ export default function CheckoutContent() {
     return (
       <section className="py-24 md:py-32 text-center">
         <Container className="max-w-lg">
-          <h1 className="font-heading text-3xl text-bone mb-4">Almost there</h1>
+          <h1 className="font-heading text-3xl text-bone mb-4">{c.almostThere}</h1>
           <p className="text-bone/70 leading-relaxed">{state.message}</p>
           <Link
             href={`/contact?piece=${items[0].slug}`}
             className="btn-primary inline-block mt-8"
           >
-            Go to inquiry form
+            {c.inquiryForm}
           </Link>
         </Container>
       </section>
@@ -94,19 +98,19 @@ export default function CheckoutContent() {
   return (
     <section className="py-24 md:py-32">
       <Container className="max-w-2xl">
-        <span className="block text-xs tracking-widest uppercase text-gold-400">Checkout</span>
+        <span className="block text-xs tracking-widest uppercase text-gold-400">{c.title}</span>
         <h1 className="font-heading text-4xl md:text-5xl text-bone mt-4 mb-12">
-          Complete your order
+          {c.completeOrder}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-10">
           <fieldset className="space-y-6">
             <legend className="text-xs tracking-widest uppercase text-bone/60 mb-2">
-              Contact details
+              {c.contactDetails}
             </legend>
             <div>
               <label htmlFor="name" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
-                Full name
+                {c.name}
               </label>
               <input
                 id="name"
@@ -119,7 +123,7 @@ export default function CheckoutContent() {
             </div>
             <div>
               <label htmlFor="email" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
-                Email
+                {c.email}
               </label>
               <input
                 id="email"
@@ -134,7 +138,7 @@ export default function CheckoutContent() {
 
           <fieldset>
             <legend className="text-xs tracking-widest uppercase text-bone/60 mb-3">
-              Shipping destination
+              {c.destination}
             </legend>
             <div className="space-y-2">
               {ZONE_ORDER.map((z) => (
@@ -151,8 +155,8 @@ export default function CheckoutContent() {
                     className="mt-1"
                   />
                   <span>
-                    <span className="block text-sm text-bone">{ZONE_LABELS[z]}</span>
-                    <span className="block text-xs text-bone/50 mt-0.5">{ZONE_DESCRIPTIONS[z]}</span>
+                    <span className="block text-sm text-bone">{t.zones[z].label}</span>
+                    <span className="block text-xs text-bone/50 mt-0.5">{t.zones[z].description}</span>
                   </span>
                 </label>
               ))}
@@ -161,25 +165,25 @@ export default function CheckoutContent() {
 
           <div className="border-t border-b border-bone/10 py-6 space-y-3">
             <span className="block text-xs tracking-widest uppercase text-bone/60">
-              Order summary
+              {c.orderSummary}
             </span>
             {items.map((item) => (
               <div key={item.slug} className="flex justify-between text-sm text-bone/80">
                 <span>{item.title}</span>
-                <span>{item.price.toLocaleString("en-IE")} €</span>
+                <span>{formatPrice(item.price, locale)}</span>
               </div>
             ))}
             <div className="flex justify-between text-sm text-bone/60 pt-2">
-              <span>VAT / tax</span>
-              <span>See individual artwork specifications</span>
+              <span>{c.vat}</span>
+              <span>{c.vatValue}</span>
             </div>
             <div className="flex justify-between text-sm text-bone/60">
-              <span>Shipping</span>
-              <span>To be confirmed before payment</span>
+              <span>{c.shipping}</span>
+              <span>{c.shippingValue}</span>
             </div>
             <div className="flex justify-between font-heading text-xl text-bone pt-3">
-              <span>Estimated total (excl. shipping)</span>
-              <span>{subtotal.toLocaleString("en-IE")} €</span>
+              <span>{c.estimatedTotal}</span>
+              <span>{formatPrice(subtotal, locale)}</span>
             </div>
             {anyUnconfirmed && <ProvisionalPriceNote />}
           </div>
@@ -193,10 +197,10 @@ export default function CheckoutContent() {
               className="mt-1"
             />
             <span>
-              I have read and accept the{" "}
-              <Link href="/legal/terms" className="underline hover:text-gold-400">Terms &amp; Conditions</Link>,{" "}
-              the <Link href="/legal/returns" className="underline hover:text-gold-400">Returns &amp; Cancellations Policy</Link>,
-              and understand my right of withdrawal where it applies. Placing this order creates an obligation to pay.
+              {c.agree}{" "}
+              <Link href="/legal/terms" className="underline hover:text-gold-400">{c.terms}</Link>,{" "}
+              <Link href="/legal/returns" className="underline hover:text-gold-400">{c.returns}</Link>,{" "}
+              {c.agreeTail}
             </span>
           </label>
 
@@ -211,7 +215,7 @@ export default function CheckoutContent() {
             disabled={state.status === "submitting"}
             className="btn-primary w-full py-4"
           >
-            {state.status === "submitting" ? "Placing order…" : "Place order — payment required"}
+            {state.status === "submitting" ? c.placing : c.place}
           </button>
         </form>
       </Container>

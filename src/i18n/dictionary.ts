@@ -97,6 +97,8 @@ export interface Dictionary {
     viewCart: string;
     inquireAbout: string;
     notAvailableOnline: string;
+    previous: string;
+    next: string;
     photographyNote: string;
   };
   cart: {
@@ -125,6 +127,11 @@ export interface Dictionary {
     returns: string;
     place: string;
     placing: string;
+    completeOrder: string;
+    contactDetails: string;
+    orderSummary: string;
+    inquiryForm: string;
+    agreeTail: string;
     genericError: string;
     networkError: string;
   };
@@ -151,8 +158,11 @@ export interface Dictionary {
       other: string;
     };
     genericError: string;
+    regarding: string;
+    interestedIn: string;
     networkError: string;
   };
+  zones: Record<"SI" | "EU" | "EUROPE_NON_EU" | "INTERNATIONAL", { label: string; description: string }>;
   about: {
     eyebrow: string;
     name: string;
@@ -307,6 +317,8 @@ const en: Dictionary = {
     viewCart: "View cart",
     inquireAbout: "Inquire about this piece",
     notAvailableOnline: "Not currently available to purchase online",
+    previous: "Previous artwork",
+    next: "Next artwork",
     photographyNote:
       "Artwork photography may not perfectly reproduce physical color, texture, or scale across every screen. Dimensions and materials above are accurate; treat photographs as a close representation rather than an exact match.",
   },
@@ -336,6 +348,11 @@ const en: Dictionary = {
     returns: "Returns & Cancellations Policy",
     place: "Place order — payment required",
     placing: "Placing order…",
+    completeOrder: "Complete your order",
+    contactDetails: "Contact details",
+    orderSummary: "Order summary",
+    inquiryForm: "Go to inquiry form",
+    agreeTail: "and understand my right of withdrawal where it applies. Placing this order creates an obligation to pay.",
     genericError: "Something went wrong.",
     networkError: "Couldn't reach the server. Please try again.",
   },
@@ -362,7 +379,23 @@ const en: Dictionary = {
       other: "Other",
     },
     genericError: "Something went wrong. Please try again.",
+    regarding: "Regarding",
+    interestedIn: 'I\u2019m interested in "{title}". ',
     networkError: "Couldn't reach the server. Please try again.",
+  },
+  zones: {
+    SI: { label: "Slovenia", description: "Delivered within Slovenia." },
+    EU: { label: "European Union", description: "Delivered within the European Union." },
+    EUROPE_NON_EU: {
+      label: "Europe (outside the EU)",
+      description:
+        "Delivered within Europe, outside the EU. Customs or import charges may apply depending on destination.",
+    },
+    INTERNATIONAL: {
+      label: "International (worldwide)",
+      description:
+        "Delivered worldwide. Import duties, taxes or customs charges may apply depending on destination and are the recipient's responsibility unless stated otherwise at checkout.",
+    },
   },
   about: {
     eyebrow: "About the artist",
@@ -554,6 +587,8 @@ const sl: Dictionary = {
     viewCart: "Poglej košarico",
     inquireAbout: "Povprašaj o tem delu",
     notAvailableOnline: "Trenutno ni na voljo za spletni nakup",
+    previous: "Prej\u0161nja slika",
+    next: "Naslednja slika",
     photographyNote:
       "Fotografija morda ne prikaže barve, teksture in velikosti popolnoma natančno na vsakem zaslonu. Mere in materiali zgoraj so točni; fotografije so blizu izvirniku, a ne popoln prikaz.",
   },
@@ -583,6 +618,11 @@ const sl: Dictionary = {
     returns: "Pravili o vračilih in odpovedi",
     place: "Oddaj naročilo — sledi plačilo",
     placing: "Oddajam naročilo …",
+    completeOrder: "Dokon\u010daj naro\u010dilo",
+    contactDetails: "Kontaktni podatki",
+    orderSummary: "Povzetek naro\u010dila",
+    inquiryForm: "Na obrazec za povpra\u0161evanje",
+    agreeTail: "in razumem svojo pravico do odstopa, kjer ta velja. Oddaja naro\u010dila pomeni obveznost pla\u010dila.",
     genericError: "Nekaj je šlo narobe.",
     networkError: "Povezava s strežnikom ni uspela. Poskusi znova.",
   },
@@ -609,7 +649,23 @@ const sl: Dictionary = {
       other: "Drugo",
     },
     genericError: "Nekaj je šlo narobe. Poskusi znova.",
+    regarding: "Glede",
+    interestedIn: "Zanima me slika \u201E{title}\u201C. ",
     networkError: "Povezava s strežnikom ni uspela. Poskusi znova.",
+  },
+  zones: {
+    SI: { label: "Slovenija", description: "Dostava po Sloveniji." },
+    EU: { label: "Evropska unija", description: "Dostava po Evropski uniji." },
+    EUROPE_NON_EU: {
+      label: "Evropa (zunaj EU)",
+      description:
+        "Dostava po Evropi zunaj EU. Glede na državo lahko nastanejo carinski ali uvozni stroški.",
+    },
+    INTERNATIONAL: {
+      label: "Mednarodno (ves svet)",
+      description:
+        "Dostava po vsem svetu. Glede na državo lahko nastanejo uvozne dajatve, davki ali carinski stroški, ki jih krije prejemnik, razen če je ob plačilu navedeno drugače.",
+    },
   },
   about: {
     eyebrow: "O umetnici",
@@ -801,6 +857,8 @@ const hr: Dictionary = {
     viewCart: "Pogledaj košaricu",
     inquireAbout: "Upitaj o ovom djelu",
     notAvailableOnline: "Trenutačno nije dostupno za kupnju putem interneta",
+    previous: "Prethodna slika",
+    next: "Sljede\u0107a slika",
     photographyNote:
       "Fotografija možda neće savršeno prenijeti boju, teksturu i veličinu na svakom zaslonu. Dimenzije i materijali iznad su točni; fotografije shvati kao blizak, ali ne i savršen prikaz.",
   },
@@ -830,6 +888,11 @@ const hr: Dictionary = {
     returns: "Pravila o povratu i otkazivanju",
     place: "Pošalji narudžbu — slijedi plaćanje",
     placing: "Šaljem narudžbu …",
+    completeOrder: "Dovr\u0161i narud\u017ebu",
+    contactDetails: "Podaci za kontakt",
+    orderSummary: "Sa\u017eetak narud\u017ebe",
+    inquiryForm: "Na obrazac za upit",
+    agreeTail: "i razumijem svoje pravo na odustanak, gdje se primjenjuje. Slanje narud\u017ebe stvara obvezu pla\u0107anja.",
     genericError: "Nešto je pošlo po zlu.",
     networkError: "Povezivanje s poslužiteljem nije uspjelo. Pokušaj ponovno.",
   },
@@ -856,7 +919,23 @@ const hr: Dictionary = {
       other: "Ostalo",
     },
     genericError: "Nešto je pošlo po zlu. Pokušaj ponovno.",
+    regarding: "Vezano uz",
+    interestedIn: "Zanima me slika \u201E{title}\u201D. ",
     networkError: "Povezivanje s poslužiteljem nije uspjelo. Pokušaj ponovno.",
+  },
+  zones: {
+    SI: { label: "Slovenija", description: "Dostava unutar Slovenije." },
+    EU: { label: "Europska unija", description: "Dostava unutar Europske unije." },
+    EUROPE_NON_EU: {
+      label: "Europa (izvan EU)",
+      description:
+        "Dostava unutar Europe, izvan EU. Ovisno o odredištu mogu nastati carinski ili uvozni troškovi.",
+    },
+    INTERNATIONAL: {
+      label: "Međunarodno (cijeli svijet)",
+      description:
+        "Dostava u cijeli svijet. Ovisno o odredištu mogu nastati uvozne pristojbe, porezi ili carinski troškovi, koje snosi primatelj, osim ako pri plaćanju nije navedeno drukčije.",
+    },
   },
   about: {
     eyebrow: "O umjetnici",
@@ -1048,6 +1127,8 @@ const de: Dictionary = {
     viewCart: "Warenkorb ansehen",
     inquireAbout: "Zu diesem Werk anfragen",
     notAvailableOnline: "Derzeit nicht online erhältlich",
+    previous: "Vorheriges Bild",
+    next: "N\u00e4chstes Bild",
     photographyNote:
       "Fotografien geben Farbe, Textur und Größe nicht auf jedem Bildschirm exakt wieder. Maße und Materialien oben sind korrekt; die Fotos sind eine nahe, aber keine exakte Wiedergabe.",
   },
@@ -1077,6 +1158,11 @@ const de: Dictionary = {
     returns: "Widerrufs- und Rückgaberichtlinie",
     place: "Bestellung abschicken — Zahlung folgt",
     placing: "Bestellung wird gesendet …",
+    completeOrder: "Bestellung abschlie\u00dfen",
+    contactDetails: "Kontaktdaten",
+    orderSummary: "Bestell\u00fcbersicht",
+    inquiryForm: "Zum Anfrageformular",
+    agreeTail: "und verstehe mein Widerrufsrecht, soweit es gilt. Mit dieser Bestellung entsteht eine Zahlungspflicht.",
     genericError: "Etwas ist schiefgelaufen.",
     networkError: "Der Server war nicht erreichbar. Bitte versuche es erneut.",
   },
@@ -1103,7 +1189,23 @@ const de: Dictionary = {
       other: "Sonstiges",
     },
     genericError: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    regarding: "Betrifft",
+    interestedIn: "Ich interessiere mich f\u00fcr \u201E{title}\u201C. ",
     networkError: "Der Server war nicht erreichbar. Bitte versuche es erneut.",
+  },
+  zones: {
+    SI: { label: "Slowenien", description: "Lieferung innerhalb Sloweniens." },
+    EU: { label: "Europäische Union", description: "Lieferung innerhalb der Europäischen Union." },
+    EUROPE_NON_EU: {
+      label: "Europa (außerhalb der EU)",
+      description:
+        "Lieferung innerhalb Europas, außerhalb der EU. Je nach Zielland können Zoll- oder Einfuhrgebühren anfallen.",
+    },
+    INTERNATIONAL: {
+      label: "International (weltweit)",
+      description:
+        "Weltweite Lieferung. Je nach Zielland können Einfuhrabgaben, Steuern oder Zollgebühren anfallen; sie trägt die empfangende Person, sofern beim Bezahlen nichts anderes angegeben ist.",
+    },
   },
   about: {
     eyebrow: "Über die Künstlerin",
@@ -1295,6 +1397,8 @@ const it: Dictionary = {
     viewCart: "Vedi il carrello",
     inquireAbout: "Chiedi informazioni su quest'opera",
     notAvailableOnline: "Al momento non acquistabile online",
+    previous: "Dipinto precedente",
+    next: "Dipinto successivo",
     photographyNote:
       "Le fotografie possono non riprodurre perfettamente colore, texture e dimensioni su ogni schermo. Misure e materiali indicati sopra sono esatti; le foto sono una resa fedele ma non identica.",
   },
@@ -1324,6 +1428,11 @@ const it: Dictionary = {
     returns: "Politica di reso e annullamento",
     place: "Invia l'ordine — segue il pagamento",
     placing: "Invio dell'ordine …",
+    completeOrder: "Completa l\u2019ordine",
+    contactDetails: "Dati di contatto",
+    orderSummary: "Riepilogo dell\u2019ordine",
+    inquiryForm: "Vai al modulo di richiesta",
+    agreeTail: "e comprendo il mio diritto di recesso, ove applicabile. L\u2019invio dell\u2019ordine comporta l\u2019obbligo di pagamento.",
     genericError: "Qualcosa è andato storto.",
     networkError: "Impossibile raggiungere il server. Riprova.",
   },
@@ -1350,7 +1459,23 @@ const it: Dictionary = {
       other: "Altro",
     },
     genericError: "Qualcosa è andato storto. Riprova.",
+    regarding: "Riguardo a",
+    interestedIn: "Mi interessa \u201C{title}\u201D. ",
     networkError: "Impossibile raggiungere il server. Riprova.",
+  },
+  zones: {
+    SI: { label: "Slovenia", description: "Consegna in Slovenia." },
+    EU: { label: "Unione Europea", description: "Consegna nell'Unione Europea." },
+    EUROPE_NON_EU: {
+      label: "Europa (fuori dall'UE)",
+      description:
+        "Consegna in Europa, fuori dall'UE. A seconda della destinazione possono applicarsi dazi doganali o oneri di importazione.",
+    },
+    INTERNATIONAL: {
+      label: "Internazionale (tutto il mondo)",
+      description:
+        "Consegna in tutto il mondo. A seconda della destinazione possono applicarsi dazi, imposte od oneri doganali, a carico di chi riceve, salvo diversa indicazione al momento del pagamento.",
+    },
   },
   about: {
     eyebrow: "Sull'artista",

@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Artwork } from "@/content/types";
 import PlaceholderArt from "@/components/shared/PlaceholderArt";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export default function ArtworkLightbox({
   artworks,
@@ -19,6 +20,7 @@ export default function ArtworkLightbox({
   onIndexChange: (index: number) => void;
   onClose: () => void;
 }) {
+  const { t } = useLanguage();
   const reduceMotion = useReducedMotion();
   const artwork = artworks[index];
   const count = artworks.length;
@@ -80,7 +82,7 @@ export default function ArtworkLightbox({
       <button
         type="button"
         onClick={onClose}
-        aria-label="Close"
+        aria-label={t.common.close}
         className="absolute top-5 right-5 md:top-8 md:right-8 text-bone/80 hover:text-bone transition-colors z-20"
       >
         <X size={26} strokeWidth={1.5} />
@@ -91,7 +93,7 @@ export default function ArtworkLightbox({
           <button
             type="button"
             onClick={goPrev}
-            aria-label="Previous artwork"
+            aria-label={t.artwork.previous}
             className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 text-bone/70 hover:text-bone transition-colors z-20"
           >
             <ChevronLeft size={30} strokeWidth={1.25} />
@@ -99,7 +101,7 @@ export default function ArtworkLightbox({
           <button
             type="button"
             onClick={goNext}
-            aria-label="Next artwork"
+            aria-label={t.artwork.next}
             className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 text-bone/70 hover:text-bone transition-colors z-20"
           >
             <ChevronRight size={30} strokeWidth={1.25} />
@@ -173,7 +175,7 @@ export default function ArtworkLightbox({
               className="inline-block mt-6 text-xs tracking-widest uppercase px-3 py-1 rounded-full border"
               style={{ color: artwork.accentColor, borderColor: `${artwork.accentColor}90` }}
             >
-              {artwork.editionType === "original" ? "Original artwork" : "Edition"}
+              {artwork.editionType === "original" ? t.artwork.originalArtwork : t.artwork.edition}
             </span>
             <Link
               href={`/artworks/${artwork.slug}`}
