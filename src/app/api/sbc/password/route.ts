@@ -1,3 +1,4 @@
+import { API_MESSAGES } from "@/lib/apiMessages";
 import { NextRequest, NextResponse } from "next/server";
 import { clientIp, withinDailyLimit } from "@/lib/rateLimit";
 import { sendPasswordChangedEmail, sendPasswordResetEmail } from "@/lib/starCalendar/emails";
@@ -16,20 +17,20 @@ import { isAvailable, isEmail, parseLang } from "@/lib/starCalendar/validate";
 export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   const lang = parseLang(body.lang);
-  const sl = lang === "sl";
+  const m = API_MESSAGES[lang];
   const action = body.action;
 
   if (!isAvailable()) {
-    return NextResponse.json({ error: sl ? "Trenutno ni na voljo." : "Not available right now." }, { status: 503 });
+    return NextResponse.json({ error: m.notAvailable }, { status: 503 });
   }
 
   if (action === "forgot") {
     const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
     if (!isEmail(email)) {
-      return NextResponse.json({ error: sl ? "Vpiši veljaven e-naslov." : "Please enter a valid email." }, { status: 400 });
+      return NextResponse.json({ error: m.invalidEmail }, { status: 400 });
     }
     if (!(await withinDailyLimit("sbc-forgot", { ip: clientIp(request), email }, { perIp: 10, perEmail: 5 }))) {
-      return NextResponse.json({ error: sl ? "Preveč poskusov danes." : "Too many attempts today." }, { status: 429 });
+      return NextResponse.json({ error: m.tooManyTodayShort }, { status: 429 });
     }
     const member = await getMember(email);
     if (member) await sendPasswordResetEmail({ ...member, lang });
@@ -43,10 +44,10 @@ export async function POST(request: NextRequest) {
     const issue = passwordProblem(body.password, lang);
     if (issue) return NextResponse.json({ error: issue }, { status: 400 });
     if (!isEmail(email)) {
-      return NextResponse.json({ error: sl ? "Povezava ni veljavna." : "That link isn't valid." }, { status: 400 });
+      return NextResponse.json({ error: m.linkInvalid }, { status: 400 });
     }
     if (!(await withinDailyLimit("sbc-reset", { ip: clientIp(request), email }, { perIp: 20, perEmail: 10 }))) {
-      return NextResponse.json({ error: sl ? "Preveč poskusov danes." : "Too many attempts today." }, { status: 429 });
+      return NextResponse.json({ error: m.tooManyTodayShort }, { status: 429 });
     }
 
     const member = await getMember(email);
@@ -54,9 +55,7 @@ export async function POST(request: NextRequest) {
     if (!member || !verifyResetToken(email, exp, token, member.passwordHash)) {
       return NextResponse.json(
         {
-          error: sl
-            ? "Povezava je potekla ali je bila že uporabljena. Zahtevaj novo."
-            : "That link has expired or was already used. Please request a new one.",
+          error: m.linkExpired,
         },
         { status: 400 }
       );
@@ -82,19 +81,19 @@ export async function POST(request: NextRequest) {
     const email = await currentMemberEmail();
     const member = email ? await getMember(email) : null;
     if (!member) {
-      return NextResponse.json({ error: sl ? "Nisi prijavljen." : "You're not signed in." }, { status: 401 });
+      return NextResponse.json({ error: m.notSignedIn }, { status: 401 });
     }
     const issue = passwordProblem(body.password, lang);
     if (issue) return NextResponse.json({ error: issue }, { status: 400 });
     if (!(await withinDailyLimit("sbc-change", { ip: clientIp(request), email: member.email }, { perIp: 20, perEmail: 10 }))) {
-      return NextResponse.json({ error: sl ? "Preveč poskusov danes." : "Too many attempts today." }, { status: 429 });
+      return NextResponse.json({ error: m.tooManyTodayShort }, { status: 429 });
     }
 
     // Members who never had a password (created before passwords) set one without the old one.
     if (member.passwordHash) {
       const current = typeof body.currentPassword === "string" ? body.currentPassword : "";
       if (!(await verifyPassword(current, member.passwordHash))) {
-        return NextResponse.json({ error: sl ? "Trenutno geslo ni pravilno." : "That current password isn't right." }, { status: 401 });
+        return NextResponse.json({ error: m.wrongCurrentPassword }, { status: 401 });
       }
     }
 

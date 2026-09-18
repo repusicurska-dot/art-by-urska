@@ -1,3 +1,4 @@
+import { API_MESSAGES } from "@/lib/apiMessages";
 import { NextRequest, NextResponse } from "next/server";
 import { createSubscriptionCheckout } from "@/lib/starCalendar/billing";
 import { sendLoginEmail } from "@/lib/starCalendar/emails";
@@ -17,23 +18,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
   const lang = parseLang(body.lang);
-  const sl = lang === "sl";
+  const m = API_MESSAGES[lang];
 
   if (!isAvailable()) {
     return NextResponse.json(
-      { error: sl ? "Naročnina bo na voljo zelo kmalu." : "Subscriptions open very soon." },
+      { error: m.subscriptionsSoon },
       { status: 503 }
     );
   }
 
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
   if (!isEmail(email)) {
-    return NextResponse.json({ error: sl ? "Vpiši veljaven e-naslov." : "Please enter a valid email." }, { status: 400 });
+    return NextResponse.json({ error: m.invalidEmail }, { status: 400 });
   }
   const birth = parseBirth(body);
   if (!birth) {
     return NextResponse.json(
-      { error: sl ? "Preveri datum, uro in kraj rojstva." : "Please check your birth date, time and place." },
+      { error: m.checkBirth },
       { status: 400 }
     );
   }
@@ -43,12 +44,12 @@ export async function POST(request: NextRequest) {
   }
   if (body.consent !== true) {
     return NextResponse.json(
-      { error: sl ? "Za nadaljevanje potrdi pogoje naročnine." : "Please accept the subscription terms to continue." },
+      { error: m.acceptTerms },
       { status: 400 }
     );
   }
   if (!(await withinDailyLimit("sbc-start", { ip: clientIp(request), email }, { perIp: 10, perEmail: 5 }))) {
-    return NextResponse.json({ error: sl ? "Preveč poskusov danes. Poskusi jutri." : "Too many attempts today. Please try tomorrow." }, { status: 429 });
+    return NextResponse.json({ error: m.tooManyToday }, { status: 429 });
   }
 
   const existing = await getMember(email);
@@ -66,9 +67,7 @@ export async function POST(request: NextRequest) {
   if (existing?.passwordHash || existing?.stripeCustomerId) {
     return NextResponse.json(
       {
-        error: sl
-          ? "Račun s tem e-naslovom že obstaja. Prijavi se s svojim geslom."
-          : "An account with this email already exists. Please sign in with your password.",
+        error: m.accountExistsSignIn,
         code: "account_exists",
       },
       { status: 409 }
@@ -113,7 +112,7 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error("[sbc] checkout failed:", err);
     return NextResponse.json(
-      { error: sl ? "Plačila trenutno ni mogoče začeti. Poskusi znova čez nekaj minut." : "Couldn't start checkout. Please try again in a few minutes." },
+      { error: m.checkoutFailed },
       { status: 502 }
     );
   }

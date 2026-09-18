@@ -1,3 +1,4 @@
+import { PRODUCT_NAME, type Lang } from "@/lib/astro/texts";
 import type Stripe from "stripe";
 import { getStripeClient } from "@/lib/payments";
 import { getSiteUrl } from "@/lib/siteUrl";
@@ -9,10 +10,18 @@ import { PRICE_EUR_CENTS, TRIAL_DAYS, saveMember, type Member, type MemberStatus
  * monthly on its own. Cancelling is a button on the member page — as easy as signing up.
  */
 
+/** The product as it appears on the Stripe payment page. */
+const PRODUCT_DESCRIPTION: Record<Lang, string> = {
+  sl: "Osebni mesečni koledar in horoskop — Art by Urška",
+  en: "Personal monthly calendar and horoscope — Art by Urška",
+  hr: "Osobni mjesečni kalendar i horoskop — Art by Urška",
+  de: "Persönlicher Monatskalender und Horoskop — Art by Urška",
+  it: "Calendario e oroscopo personale mensile — Art by Urška",
+};
+
 export async function createSubscriptionCheckout(member: Member): Promise<string> {
   const stripe = getStripeClient();
   const site = getSiteUrl();
-  const sl = member.lang === "sl";
 
   const session = await stripe.checkout.sessions.create({
     mode: "subscription",
@@ -25,10 +34,8 @@ export async function createSubscriptionCheckout(member: Member): Promise<string
           unit_amount: PRICE_EUR_CENTS,
           recurring: { interval: "month" },
           product_data: {
-            name: sl ? "Zvezdni poslovni koledar" : "Star Business Calendar",
-            description: sl
-              ? "Osebni mesečni koledar in horoskop — Art by Urška"
-              : "Personal monthly calendar and horoscope — Art by Urška",
+            name: PRODUCT_NAME[member.lang],
+            description: PRODUCT_DESCRIPTION[member.lang],
           },
         },
       },
@@ -39,7 +46,8 @@ export async function createSubscriptionCheckout(member: Member): Promise<string
       metadata: { product: "star-business-calendar", email: member.email },
     },
     metadata: { product: "star-business-calendar", email: member.email },
-    locale: sl ? "sl" : "en",
+    // Stripe supports all five, so the payment page matches the language they signed up in.
+    locale: member.lang,
     // Country of the buyer, for the EU VAT (OSS) threshold count and for invoices.
     billing_address_collection: "required",
     allow_promotion_codes: true,

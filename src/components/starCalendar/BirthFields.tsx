@@ -28,6 +28,14 @@ const COMMON_ZONES = [
  * Birth date, optional time, and the time zone of the birth place (which is what turns a
  * wall-clock birth time into the real moment the chart is cast for).
  */
+const COPY: Record<Lang, { date: string; time: string; place: string; slovenia: string }> = {
+  sl: { date: "Datum rojstva", time: "Ura rojstva (neobvezno)", place: "Kraj rojstva (časovni pas)", slovenia: "Slovenija (Europe/Ljubljana)" },
+  en: { date: "Birth date", time: "Birth time (optional)", place: "Birth place (time zone)", slovenia: "Slovenia (Europe/Ljubljana)" },
+  hr: { date: "Datum rođenja", time: "Sat rođenja (neobavezno)", place: "Mjesto rođenja (vremenska zona)", slovenia: "Slovenija (Europe/Ljubljana)" },
+  de: { date: "Geburtsdatum", time: "Geburtszeit (optional)", place: "Geburtsort (Zeitzone)", slovenia: "Slowenien (Europe/Ljubljana)" },
+  it: { date: "Data di nascita", time: "Ora di nascita (facoltativa)", place: "Luogo di nascita (fuso orario)", slovenia: "Slovenia (Europe/Ljubljana)" },
+};
+
 export default function BirthFields({
   lang,
   value,
@@ -37,7 +45,7 @@ export default function BirthFields({
   value: BirthValue;
   onChange: (v: BirthValue) => void;
 }) {
-  const sl = lang === "sl";
+  const t = COPY[lang];
   // The full zone list differs between the server and each browser, so it is only added after
   // hydration — the server and the first client render both show just the common zones.
   const [zones, setZones] = useState<string[]>(() =>
@@ -67,7 +75,7 @@ export default function BirthFields({
     <div className="grid gap-5 sm:grid-cols-2">
       <div>
         <label htmlFor="sbc-birth-date" className={label}>
-          {sl ? "Datum rojstva" : "Birth date"}
+          {t.date}
         </label>
         <input
           id="sbc-birth-date"
@@ -81,7 +89,7 @@ export default function BirthFields({
       </div>
       <div>
         <label htmlFor="sbc-birth-time" className={label}>
-          {sl ? "Ura rojstva (neobvezno)" : "Birth time (optional)"}
+          {t.time}
         </label>
         <input
           id="sbc-birth-time"
@@ -93,7 +101,7 @@ export default function BirthFields({
       </div>
       <div className="sm:col-span-2">
         <label htmlFor="sbc-birth-zone" className={label}>
-          {sl ? "Kraj rojstva (časovni pas)" : "Birth place (time zone)"}
+          {t.place}
         </label>
         <select
           id="sbc-birth-zone"
@@ -103,7 +111,7 @@ export default function BirthFields({
         >
           {zones.map((z) => (
             <option key={z} value={z}>
-              {z === "Europe/Ljubljana" ? (sl ? "Slovenija (Europe/Ljubljana)" : "Slovenia (Europe/Ljubljana)") : z.replace(/_/g, " ")}
+              {z === "Europe/Ljubljana" ? t.slovenia : z.replace(/_/g, " ")}
             </option>
           ))}
         </select>

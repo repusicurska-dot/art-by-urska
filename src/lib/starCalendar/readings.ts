@@ -22,12 +22,14 @@ export function memberUpcoming(member: Member, count: number): DayReading[] {
   return Array.from({ length: count }, (_, i) => dayReading(ljubljanaDate(i), natal));
 }
 
+/** Just the word "Moon", for the one-line day description. */
+const PLANET_LABEL: Record<Lang, string> = { sl: "Luna", en: "Moon", hr: "Mjesec", de: "Mond", it: "Luna" };
+
 /** Plain-text description of one day, used in emails and calendar events. */
 export function dayDescription(day: DayReading, lang: Lang): string {
-  const sl = lang === "sl";
   return [
     `${TYPE_EMOJI[day.type]} ${TYPE_LABEL[day.type][lang]} — ${TYPE_ADVICE[day.type][lang]}`,
-    `${moonEmoji(day.moonPhase)} ${sl ? "Luna" : "Moon"}: ${moonPhaseName(day.moonPhase, lang)}, ${SIGN_SYMBOL[day.moonSign]} ${SIGN_NAME[day.moonSign][lang]}`,
+    `${moonEmoji(day.moonPhase)} ${PLANET_LABEL[lang]}: ${moonPhaseName(day.moonPhase, lang)}, ${SIGN_SYMBOL[day.moonSign]} ${SIGN_NAME[day.moonSign][lang]}`,
     `${CATEGORY_EMOJI.love} ${starsText(day.stars.love)}  ${CATEGORY_EMOJI.money} ${starsText(day.stars.money)}  ${CATEGORY_EMOJI.health} ${starsText(day.stars.health)}`,
     "",
     ...day.factors.map((f) => factorText(f.factor, lang)),
