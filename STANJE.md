@@ -63,6 +63,8 @@ vsi štirje emaili.
 ## 4. Nedokončano na strani
 
 - [ ] **Climb** je še vedno stran „kmalu“. Ali napiši vsebino ali jo odstranim iz menuja.
+- [ ] **Tehnično opozorilo v konzoli** (React #418, neujemanje pri hidraciji) se izpiše na
+      vsaki strani. Nič ni vidno pokvarjeno, obstajalo je že prej — a naj se odpravi.
 - [ ] **Telefonska branja** so v obrazcu vidna, a onemogočena („kmalu“). Vklopi, ko boš
       pripravljena sprejemati klice.
 - [x] **Jezik strani** — celoten vmesnik je v petih jezikih (slovensko, angleško, hrvaško,
