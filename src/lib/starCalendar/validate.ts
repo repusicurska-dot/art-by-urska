@@ -1,3 +1,4 @@
+import { isLocale } from "@/i18n/locales";
 import type { Lang } from "@/lib/astro/texts";
 
 /** Shared input checks for the Star Business Calendar forms. */
@@ -11,7 +12,7 @@ export function isAvailable(): boolean {
 }
 
 export function parseLang(value: unknown): Lang {
-  return value === "en" ? "en" : "sl";
+  return isLocale(value) ? value : "sl";
 }
 
 export function isEmail(value: string): boolean {

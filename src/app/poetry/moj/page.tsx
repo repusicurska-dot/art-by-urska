@@ -37,7 +37,8 @@ export default async function PoetryArchivePage({
     <PoetryArchive
       member={{
         email: member.email,
-        lang: member.lang,
+        // The letters are written in Slovenian and English; anyone else reads them in English.
+        lang: member.lang === "sl" ? "sl" : "en",
         status: member.poetry?.status ?? "pending",
         accessUntil: member.poetry?.accessUntil ?? null,
         cancelAtPeriodEnd: !!member.poetry?.cancelAtPeriodEnd,
