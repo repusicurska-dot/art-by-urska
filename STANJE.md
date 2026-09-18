@@ -83,7 +83,9 @@ Baza (Upstash Redis prek Vercela, brezplačno), opomniki in tedensko pošiljanje
 Začnejo delovati, ko je baza povezana s projektom v Vercelu — do takrat vse deluje kot prej.
 
 - [x] **Baza povezana** 2026-09-17 (Upstash Redis `byurska-db`, Frankfurt, Free).
-- [ ] (priporočeno) V Vercelu dodaj `CRON_SECRET` (poljubno dolgo naključno besedilo).
+- [ ] **V Vercelu dodaj `CRON_SECRET`** (poljubno dolgo naključno besedilo). Brez njega lahko
+      kdorkoli sproži naše dnevne posle (opomniki, tarot, pisma). Vsak posel si zapomni, kaj je
+      že poslal, zato dvojnih emailov ni — a naj bo vseeno zaklenjeno.
 - [x] Preizkus v živo: termin se zadrži in drugi ga ne more več rezervirati (409).
 
 Kako deluje, ko je baza povezana:
