@@ -8,10 +8,11 @@ import ProvisionalPriceNote from "@/components/story/ProvisionalPriceNote";
 import { useCart } from "@/lib/cart/CartContext";
 import { getArtworkBySlug } from "@/lib/content";
 import { useLanguage } from "@/i18n/LanguageProvider";
+import { formatPrice } from "@/lib/format";
 
 export default function CartContent() {
   const cart = useCart();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const items = cart.slugs
     .map((slug) => getArtworkBySlug(slug))
     .filter((a): a is NonNullable<typeof a> => Boolean(a));
@@ -57,7 +58,7 @@ export default function CartContent() {
                     <p className="text-sm text-bone/50">{item.dimensions}</p>
                   </div>
                   <p className="font-heading text-lg text-bone shrink-0">
-                    {item.price.toLocaleString("en-IE")} €
+                    {formatPrice(item.price, locale)}
                   </p>
                   <button
                     type="button"
@@ -74,7 +75,7 @@ export default function CartContent() {
             <div className="flex items-center justify-between mt-8">
               <span className="text-sm tracking-widest uppercase text-bone/60">{t.cart.subtotal}</span>
               <span className="font-heading text-2xl text-bone">
-                {subtotal.toLocaleString("en-IE")} €
+                {formatPrice(subtotal, locale)}
               </span>
             </div>
             {anyUnconfirmed && <ProvisionalPriceNote className="mt-2 text-right" />}

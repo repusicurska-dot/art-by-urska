@@ -3,17 +3,26 @@
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { getArtworkBySlug } from "@/lib/content";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import type { Dictionary } from "@/i18n/dictionary";
 
-const CATEGORIES = [
-  "Artwork inquiry",
-  "Purchase assistance",
-  "Commission inquiry",
-  "Shipping question",
-  "Press / collaboration",
-  "Other",
+/**
+ * The value sent to the server, paired with the key of its translated label. The values stay
+ * English in every language: the server validates against them and Urška reads them in her
+ * notification email.
+ */
+const CATEGORIES: { value: string; key: keyof Dictionary["contact"]["categories"] }[] = [
+  { value: "Artwork inquiry", key: "artwork" },
+  { value: "Purchase assistance", key: "purchase" },
+  { value: "Commission inquiry", key: "commission" },
+  { value: "Shipping question", key: "shipping" },
+  { value: "Press / collaboration", key: "press" },
+  { value: "Other", key: "other" },
 ];
 
 export default function ContactForm() {
+  const { t } = useLanguage();
+  const c = t.contact;
   const searchParams = useSearchParams();
   const pieceSlug = searchParams.get("piece");
   const piece = pieceSlug ? getArtworkBySlug(pieceSlug) : undefined;
@@ -21,7 +30,10 @@ export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [category, setCategory] = useState(piece ? "Artwork inquiry" : "");
-  const [message, setMessage] = useState(piece ? `I'm interested in "${piece.title}". ` : "");
+  // Null until the visitor types: the opening line has to follow the language, and the language
+  // is only known after hydration, so it can't be baked into the initial state.
+  const [typed, setMessage] = useState<string | null>(null);
+  const message = typed ?? (piece ? c.interestedIn.replace("{title}", piece.title) : "");
   const [company, setCompany] = useState(""); // honeypot
   const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
   const [error, setError] = useState("");
@@ -29,8 +41,8 @@ export default function ContactForm() {
   if (status === "sent") {
     return (
       <div className="text-center py-16">
-        <p className="font-heading text-2xl text-bone">Thank you for your message.</p>
-        <p className="mt-3 text-bone/60">Urška will get back to you personally within a few days.</p>
+        <p className="font-heading text-2xl text-bone">{c.thanks}</p>
+        <p className="mt-3 text-bone/60">{c.thanksBody}</p>
       </div>
     );
   }
@@ -49,13 +61,13 @@ export default function ContactForm() {
           });
           const data = await res.json();
           if (!res.ok) {
-            setError(data.error ?? "Something went wrong. Please try again.");
+            setError(data.error ?? c.genericError);
             setStatus("error");
             return;
           }
           setStatus("sent");
         } catch {
-          setError("Couldn't reach the server. Please try again.");
+          setError(c.networkError);
           setStatus("error");
         }
       }}
@@ -63,7 +75,7 @@ export default function ContactForm() {
     >
       {piece && (
         <div className="rounded-sm border border-gold-600/30 bg-gold-400/10 px-4 py-3 text-sm text-bone/80">
-          Regarding: <strong>{piece.title}</strong>
+          {c.regarding}: <strong>{piece.title}</strong>
         </div>
       )}
 
@@ -82,7 +94,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="name" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
-          Full name
+          {c.name}
         </label>
         <input
           id="name"
@@ -95,7 +107,7 @@ export default function ContactForm() {
       </div>
       <div>
         <label htmlFor="email" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
-          Email
+          {c.email}
         </label>
         <input
           id="email"
@@ -108,7 +120,7 @@ export default function ContactForm() {
       </div>
       <div>
         <label htmlFor="category" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
-          Inquiry type
+          {c.type}
         </label>
         <select
           id="category"
@@ -118,18 +130,18 @@ export default function ContactForm() {
           className="w-full border border-bone/20 rounded-sm px-4 py-3 bg-transparent focus:outline-none focus:border-bone"
         >
           <option value="" disabled>
-            Select one
+            {c.selectOne}
           </option>
-          {CATEGORIES.map((c) => (
-            <option key={c} value={c}>
-              {c}
+          {CATEGORIES.map((option) => (
+            <option key={option.value} value={option.value}>
+              {c.categories[option.key]}
             </option>
           ))}
         </select>
       </div>
       <div>
         <label htmlFor="message" className="block text-xs tracking-widest uppercase text-bone/60 mb-2">
-          Message
+          {c.message}
         </label>
         <textarea
           id="message"
@@ -153,11 +165,9 @@ export default function ContactForm() {
         disabled={status === "submitting"}
         className="btn-primary"
       >
-        {status === "submitting" ? "Sending…" : "Send message"}
+        {status === "submitting" ? c.sending : c.send}
       </button>
-      <p className="text-xs text-bone/40 italic">
-        Your message goes straight to Urška, who reads every one personally.
-      </p>
+      <p className="text-xs text-bone/40 italic">{c.directNote}</p>
     </form>
   );
 }

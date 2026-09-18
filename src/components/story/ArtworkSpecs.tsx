@@ -2,7 +2,6 @@
 
 import { Artwork } from "@/content/types";
 import Container from "@/components/shared/Container";
-import { ZONE_LABELS } from "@/lib/shipping";
 import { useLanguage } from "@/i18n/LanguageProvider";
 
 function Row({ label, value, yes, no }: { label: string; value?: string | number | boolean; yes: string; no: string }) {
@@ -45,7 +44,7 @@ export default function ArtworkSpecs({ artwork }: { artwork: Artwork }) {
           <Row yes={yes} no={no} label={s.framed} value={artwork.framed} />
           <Row yes={yes} no={no} label="SKU" value={artwork.sku} />
           <Row yes={yes} no={no} label={s.dispatch} value={artwork.dispatchTime} />
-          <Row yes={yes} no={no} label={s.shipsTo} value={artwork.shipsTo.map((z) => ZONE_LABELS[z]).join(", ")} />
+          <Row yes={yes} no={no} label={s.shipsTo} value={artwork.shipsTo.map((z) => t.zones[z].label).join(", ")} />
           <Row yes={yes} no={no} label={s.vat} value={artwork.vatNote} />
           <Row yes={yes} no={no} label={s.care} value={artwork.careInfo} />
         </dl>

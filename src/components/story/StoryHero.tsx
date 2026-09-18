@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { motion } from "framer-motion";
 import { Artwork } from "@/content/types";
 import PlaceholderArt from "@/components/shared/PlaceholderArt";
 import BackLink from "@/components/shared/BackLink";
 
 export default function StoryHero({ artwork }: { artwork: Artwork }) {
+  const { t } = useLanguage();
   return (
     <section className="grid md:grid-cols-2 md:h-screen">
       <div className="relative h-[55vh] md:h-screen order-1 bg-midnight">
@@ -44,7 +46,7 @@ export default function StoryHero({ artwork }: { artwork: Artwork }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
         >
-          {artwork.editionType === "original" ? "Original artwork" : "Edition"}
+          {artwork.editionType === "original" ? t.artwork.originalArtwork : t.artwork.edition}
         </motion.span>
 
         {artwork.quote && (
