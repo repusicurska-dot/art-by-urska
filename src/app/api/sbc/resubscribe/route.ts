@@ -1,3 +1,4 @@
+import { API_MESSAGES } from "@/lib/apiMessages";
 import { NextResponse } from "next/server";
 import { createSubscriptionCheckout } from "@/lib/starCalendar/billing";
 import { currentMemberEmail } from "@/lib/starCalendar/session";
@@ -13,14 +14,14 @@ export async function POST() {
   const email = await currentMemberEmail();
   const member = email ? await getMember(email) : null;
   if (!member) return NextResponse.json({ error: "Not signed in." }, { status: 401 });
-  const sl = member.lang === "sl";
+  const m = API_MESSAGES[member.lang];
 
   if (!isAvailable()) {
-    return NextResponse.json({ error: sl ? "Trenutno ni na voljo." : "Not available right now." }, { status: 503 });
+    return NextResponse.json({ error: m.notAvailable }, { status: 503 });
   }
   if (hasAccess(member)) {
     return NextResponse.json(
-      { error: sl ? "Naročnina je že aktivna." : "Your subscription is already active.", code: "already_active" },
+      { error: m.alreadyActive, code: "already_active" },
       { status: 409 }
     );
   }
@@ -30,7 +31,7 @@ export async function POST() {
   } catch (err) {
     console.error("[sbc] resubscribe checkout failed:", err);
     return NextResponse.json(
-      { error: sl ? "Plačila ni bilo mogoče začeti. Poskusi znova čez nekaj minut." : "Couldn't start checkout. Please try again in a few minutes." },
+      { error: m.checkoutFailed },
       { status: 502 }
     );
   }

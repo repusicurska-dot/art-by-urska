@@ -5,24 +5,18 @@ import { getSiteUrl } from "@/lib/siteUrl";
 import { memberSunSign } from "./readings";
 import { resetToken } from "./password";
 import { loginToken } from "./session";
+import { EMAIL_STRINGS, weekdayName } from "./emailStrings";
 import type { Member } from "./store";
 
-/** Every email the Star Business Calendar sends. */
-
-/** Slovenian weekday in the accusative, for "izberi sredo" / "v soboto". */
-function weekdaySl(date: string): string {
-  const [y, m, d] = date.split("-").map(Number);
-  return ["nedeljo", "ponedeljek", "torek", "sredo", "četrtek", "petek", "soboto"][new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
-}
+/** Every email the Star Business Calendar sends, in the member's own language. */
 
 function memberUrl() {
   return `${getSiteUrl()}/zvezdni-koledar/moj`;
 }
 
 function footer(member: Member): string {
-  return member.lang === "sl"
-    ? `\n—\n${PRODUCT_NAME.sl} · Art by Urška\nNaročnino urediš ali odpoveš na ${memberUrl()}\nKoledar je navdih za načrtovanje, ne finančni nasvet.`
-    : `\n—\n${PRODUCT_NAME.en} · Art by Urška\nManage or cancel your subscription at ${memberUrl()}\nThe calendar is inspiration for planning, not financial advice.`;
+  const t = EMAIL_STRINGS[member.lang];
+  return `\n—\n${PRODUCT_NAME[member.lang]} · Art by Urška\n${t.footerManage} ${memberUrl()}\n${t.footerDisclaimer}`;
 }
 
 export function loginLink(email: string): string {
@@ -31,63 +25,42 @@ export function loginLink(email: string): string {
 }
 
 export function sendLoginEmail(member: Member) {
-  const sl = member.lang === "sl";
+  const t = EMAIL_STRINGS[member.lang];
   return sendEmail({
     to: member.email,
     replyTo: ownerEmail(),
-    subject: sl ? `🔑 Prijava v ${PRODUCT_NAME.sl}` : `🔑 Sign in to the ${PRODUCT_NAME.en}`,
-    text: sl
-      ? `Pozdrav,\n\ntukaj je tvoja povezava za prijavo (velja 30 minut):\n${loginLink(member.email)}\n\nČe te prošnje ne prepoznaš, sporočilo preprosto prezri.\n${footer(member)}`
-      : `Hi,\n\nhere is your sign-in link (valid for 30 minutes):\n${loginLink(member.email)}\n\nIf you didn't ask for this, just ignore this email.\n${footer(member)}`,
+    subject: `${t.loginSubject} ${PRODUCT_NAME[member.lang]}`,
+    text: `${t.loginBody(loginLink(member.email))}\n${footer(member)}`,
   });
 }
 
 export function sendWelcomeEmail(member: Member, feedUrl: string) {
-  const sl = member.lang === "sl";
+  const t = EMAIL_STRINGS[member.lang];
+  const product = PRODUCT_NAME[member.lang];
   const sign = memberSunSign(member);
   const until = member.accessUntil ? formatDate(member.accessUntil.slice(0, 10), member.lang, { day: "numeric", month: "long" }) : "";
   return sendEmail({
     to: member.email,
     replyTo: ownerEmail(),
-    subject: sl ? "✨ Dobrodošlica v Zvezdnem poslovnem koledarju" : `✨ Welcome to the ${PRODUCT_NAME.en}`,
-    text: (sl
-      ? [
-          "Pozdrav,",
-          "",
-          `tvoj ${PRODUCT_NAME.sl} je pripravljen. ${SIGN_SYMBOL[sign]} Tvoje sončno znamenje je ${SIGN_NAME[sign].sl}.`,
-          "",
-          `📅 Tvoj koledar: ${memberUrl()}`,
-          `📱 Dodaj ga v telefon (iPhone/Google koledar): ${feedUrl}`,
-          "",
-          "Kaj te čaka:",
-          "🤝 dnevi za pogodbe · 🚀 dnevi za začetke · ⛔ dnevi, ko ne začenjaš ničesar · 🧘 čas zase",
-          "💞 ljubezen · 💰 denar · 🌿 zdravje — vse prilagojeno tvoji rojstni karti.",
-          "Vsak 1. v mesecu dobiš osebni mesečni horoskop, vsak ponedeljek pa pregled tedna.",
-          "",
-          member.status === "trialing" && until ? `🎁 Brezplačni preizkus traja do ${until}. Do takrat lahko kadarkoli odpoveš brez plačila.` : "",
-          "",
-          "Z zvezdami,",
-          "Urška",
-        ]
-      : [
-          "Hi,",
-          "",
-          `your ${PRODUCT_NAME.en} is ready. ${SIGN_SYMBOL[sign]} Your Sun sign is ${SIGN_NAME[sign].en}.`,
-          "",
-          `📅 Your calendar: ${memberUrl()}`,
-          `📱 Add it to your phone (iPhone/Google Calendar): ${feedUrl}`,
-          "",
-          "What to expect:",
-          "🤝 days for contracts · 🚀 days for beginnings · ⛔ days to start nothing · 🧘 time for yourself",
-          "💞 love · 💰 money · 🌿 health — all tuned to your birth chart.",
-          "Every 1st of the month you get a personal monthly horoscope, and every Monday a look at the week.",
-          "",
-          member.status === "trialing" && until ? `🎁 Your free trial runs until ${until}. Cancel any time before then and you won't be charged.` : "",
-          "",
-          "With the stars,",
-          "Urška",
-        ]
-    )
+    subject: `${t.welcomeSubject} ${product}`,
+    text: [
+      t.welcomeGreeting,
+      "",
+      t.welcomeReady(product, SIGN_SYMBOL[sign], SIGN_NAME[sign][member.lang]),
+      "",
+      `${t.welcomeCalendar} ${memberUrl()}`,
+      `${t.welcomePhone} ${feedUrl}`,
+      "",
+      t.welcomeWhat,
+      t.welcomeDayTypes,
+      t.welcomeAreas,
+      t.welcomeCadence,
+      "",
+      member.status === "trialing" && until ? t.welcomeTrial(until) : "",
+      "",
+      t.welcomeSignOff,
+      "Urška",
+    ]
       .join("\n")
       .concat(footer(member)),
   });
@@ -104,20 +77,20 @@ export function sendMonthlyEmail(member: Member, days: DayReading[]) {
 }
 
 export function sendWeeklyEmail(member: Member, week: DayReading[]) {
-  const sl = member.lang === "sl";
+  const t = EMAIL_STRINGS[member.lang];
   const lines = week.map(
     (d) => `${formatDate(d.date, member.lang, { weekday: "short", day: "numeric", month: "numeric" })}  ${TYPE_EMOJI[d.type]} ${TYPE_LABEL[d.type][member.lang]} ${moonEmoji(d.moonPhase)}${d.stars.money >= 2 ? " 💰" : ""}${d.stars.love >= 2 ? " 💞" : ""}${d.stars.health >= 2 ? " 🌿" : ""}`
   );
   const bestContract = week.filter((d) => d.type === "contracts").sort((a, b) => b.scores.contracts - a.scores.contracts)[0];
   const bestStart = week.filter((d) => d.type === "beginnings").sort((a, b) => b.scores.beginnings - a.scores.beginnings)[0];
   const tips: string[] = [];
-  if (bestContract) tips.push(sl ? `🤝 Za pomemben podpis izberi ${weekdaySl(bestContract.date)}.` : `🤝 For an important signature, choose ${formatDate(bestContract.date, "en", { weekday: "long" })}.`);
-  if (bestStart) tips.push(sl ? `🚀 Nekaj novega zaženi v ${weekdaySl(bestStart.date)}.` : `🚀 Launch something new on ${formatDate(bestStart.date, "en", { weekday: "long" })}.`);
+  if (bestContract) tips.push(t.tipContract(weekdayName(bestContract.date, member.lang)));
+  if (bestStart) tips.push(t.tipStart(weekdayName(bestStart.date, member.lang)));
   return sendEmail({
     to: member.email,
     replyTo: ownerEmail(),
-    subject: sl ? "✨ Tvoj teden v zvezdah" : "✨ Your week in the stars",
-    text: `${sl ? "Pregled tvojega tedna:" : "Your week at a glance:"}\n\n${lines.join("\n")}\n\n${tips.join("\n")}\n\n📅 ${memberUrl()}\n${footer(member)}`,
+    subject: t.weeklySubject,
+    text: `${t.weeklyIntro}\n\n${lines.join("\n")}\n\n${tips.join("\n")}\n\n📅 ${memberUrl()}\n${footer(member)}`,
   });
 }
 
@@ -128,26 +101,22 @@ export function passwordResetUrl(member: Member): string {
 
 /** "I forgot my password" — a link that works for an hour, and only until the password changes. */
 export function sendPasswordResetEmail(member: Member) {
-  const sl = member.lang === "sl";
+  const t = EMAIL_STRINGS[member.lang];
   return sendEmail({
     to: member.email,
     replyTo: ownerEmail(),
-    subject: sl ? "🔑 Ponastavitev gesla — Zvezdni poslovni koledar" : "🔑 Reset your password — Star Business Calendar",
-    text: sl
-      ? `Pozdrav,\n\ntukaj je povezava za nastavitev novega gesla (velja eno uro):\n${passwordResetUrl(member)}\n\nČe te prošnje ne prepoznaš, sporočilo mirno prezri — geslo ostane nespremenjeno.\n${footer(member)}`
-      : `Hi,\n\nhere is your link to set a new password (valid for one hour):\n${passwordResetUrl(member)}\n\nIf you didn't ask for this, you can ignore this email — your password stays as it is.\n${footer(member)}`,
+    subject: `${t.resetSubject} ${PRODUCT_NAME[member.lang]}`,
+    text: `${t.resetBody(passwordResetUrl(member))}\n${footer(member)}`,
   });
 }
 
 /** A quiet confirmation, so a password change nobody made doesn't go unnoticed. */
 export function sendPasswordChangedEmail(member: Member) {
-  const sl = member.lang === "sl";
+  const t = EMAIL_STRINGS[member.lang];
   return sendEmail({
     to: member.email,
     replyTo: ownerEmail(),
-    subject: sl ? "✅ Geslo je spremenjeno" : "✅ Your password was changed",
-    text: sl
-      ? `Pozdrav,\n\ngeslo za tvoj Zvezdni poslovni koledar je bilo pravkar spremenjeno.\n\nČe te spremembe ne prepoznaš, takoj odgovori na ta email.\n${footer(member)}`
-      : `Hi,\n\nthe password for your Star Business Calendar was just changed.\n\nIf that wasn't you, reply to this email right away.\n${footer(member)}`,
+    subject: t.changedSubject,
+    text: `${t.changedBody(PRODUCT_NAME[member.lang])}\n${footer(member)}`,
   });
 }

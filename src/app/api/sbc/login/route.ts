@@ -1,3 +1,4 @@
+import { API_MESSAGES } from "@/lib/apiMessages";
 import { NextRequest, NextResponse } from "next/server";
 import { sendLoginEmail } from "@/lib/starCalendar/emails";
 import { SESSION_COOKIE, SIGNED_IN_HINT, hintCookieOptions, sessionCookieOptions, sessionValue } from "@/lib/starCalendar/session";
@@ -16,17 +17,17 @@ import { clientIp, withinDailyLimit } from "@/lib/rateLimit";
 export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   const lang = parseLang(body.lang);
-  const sl = lang === "sl";
+  const m = API_MESSAGES[lang];
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
   const wantsLink = body.mode === "link";
 
   if (!isEmail(email)) {
-    return NextResponse.json({ error: sl ? "Vpiši veljaven e-naslov." : "Please enter a valid email." }, { status: 400 });
+    return NextResponse.json({ error: m.invalidEmail }, { status: 400 });
   }
   if (!isAvailable()) return NextResponse.json({ sent: true });
   if (!(await withinDailyLimit("sbc-login", { ip: clientIp(request), email }, { perIp: 20, perEmail: 10 }))) {
     return NextResponse.json(
-      { error: sl ? "Preveč poskusov prijave danes. Poskusi jutri." : "Too many sign-in attempts today. Please try tomorrow." },
+      { error: m.tooManySignIn },
       { status: 429 }
     );
   }
@@ -44,9 +45,7 @@ export async function POST(request: NextRequest) {
   if (!ok) {
     return NextResponse.json(
       {
-        error: sl
-          ? "Napačen e-naslov ali geslo. Če računa še nimaš, se najprej naroči."
-          : "Wrong email or password. If you don't have an account yet, subscribe first.",
+        error: m.wrongEmailOrPassword,
       },
       { status: 401 }
     );

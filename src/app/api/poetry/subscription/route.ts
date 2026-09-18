@@ -1,3 +1,4 @@
+import { API_MESSAGES } from "@/lib/apiMessages";
 import { NextResponse } from "next/server";
 import { createPoetryCheckout, hasPoetryAccess, setPoetryCancelAtPeriodEnd } from "@/lib/poetry/subscription";
 import { currentMemberEmail } from "@/lib/starCalendar/session";
@@ -12,19 +13,19 @@ export async function POST(request: Request) {
   const email = await currentMemberEmail();
   const member = email ? await getMember(email) : null;
   if (!member) return NextResponse.json({ error: "Not signed in." }, { status: 401 });
-  const sl = member.lang === "sl";
+  const m = API_MESSAGES[member.lang];
 
   const body = (await request.json().catch(() => ({}))) as { action?: unknown };
   const action = body.action;
 
   if (!isAvailable()) {
-    return NextResponse.json({ error: sl ? "Trenutno ni na voljo." : "Not available right now." }, { status: 503 });
+    return NextResponse.json({ error: m.notAvailable }, { status: 503 });
   }
 
   try {
     if (action === "start") {
       if (hasPoetryAccess(member)) {
-        return NextResponse.json({ error: sl ? "Naročnina je že aktivna." : "Already active." }, { status: 409 });
+        return NextResponse.json({ error: m.alreadyActive }, { status: 409 });
       }
       return NextResponse.json({ url: await createPoetryCheckout(member) });
     }
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
   } catch (err) {
     console.error("[poetry] subscription action failed:", err);
     return NextResponse.json(
-      { error: sl ? "Ni uspelo. Poskusi znova." : "That didn't work. Please try again." },
+      { error: m.genericRetry },
       { status: 502 }
     );
   }
