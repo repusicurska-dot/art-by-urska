@@ -113,7 +113,7 @@ Kako deluje, ko je baza povezana:
 
 Stran `/zvezdni-koledar`: osebni astrološki koledar po rojstni karti (🤝 pogodbe, 🚀 začetki,
 ⛔ ne začenjaj, 🧘 čas zase + 💞💰🌿), mesečni osebni horoskop, tedenski pregled, koledar v telefonu.
-7 dni brezplačno, plačilo prek Stripa, odpoved z gumbom. Vsa besedila so samodejna (SL + EN).
+7 dni brezplačno, plačilo prek Stripa, odpoved z gumbom. Vsa besedila so samodejna, v vseh petih jezikih.
 
 - [x] **Baza povezana** — obrazec za naročnino je odprt.
 - [ ] **Računovodja: davčno potrjevanje računov.** Plačila s kartico v Sloveniji štejejo kot
