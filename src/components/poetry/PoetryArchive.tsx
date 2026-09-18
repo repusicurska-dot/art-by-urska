@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Container from "@/components/shared/Container";
-import type { Lang } from "@/lib/astro/texts";
 import type { LetterView } from "@/lib/poetry/view";
+
+/** The letters exist in Slovenian and English — see lib/poetry/subscription.ts. */
+type LetterLang = "sl" | "en";
 
 /**
  * A subscriber's own page: every letter ever sent, and the subscription itself. The letters
@@ -24,7 +26,7 @@ export interface ArchiveLetter {
 
 interface MemberView {
   email: string;
-  lang: Lang;
+  lang: LetterLang;
   status: string;
   accessUntil: string | null;
   cancelAtPeriodEnd: boolean;
@@ -95,7 +97,7 @@ export default function PoetryArchive({
   welcome: boolean;
 }) {
   const router = useRouter();
-  const [lang, setLang] = useState<Lang>(member.lang);
+  const [lang, setLang] = useState<LetterLang>(member.lang);
   const t = COPY[lang];
   const [state, setState] = useState<"idle" | "working" | "error">("idle");
 

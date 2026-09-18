@@ -1,3 +1,4 @@
+import { LOCALES, type Locale } from "@/i18n/locales";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { monthSummary } from "@/lib/astro/texts";
@@ -67,8 +68,14 @@ export default async function MemberPage({
       month={month}
       today={today}
       days={days}
+      // Every language, so switching in the header doesn't need another round trip.
       summary={
-        active && sunSign ? { sl: monthSummary(days, "sl", sunSign), en: monthSummary(days, "en", sunSign) } : null
+        active && sunSign
+          ? (Object.fromEntries(LOCALES.map((l) => [l, monthSummary(days, l, sunSign)])) as Record<
+              Locale,
+              ReturnType<typeof monthSummary>
+            >)
+          : null
       }
       sunSign={sunSign}
       feed={feedUrls(member, getSiteUrl())}

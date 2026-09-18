@@ -1,3 +1,4 @@
+import type { Locale } from "@/i18n/locales";
 import { randomBytes, scrypt as scryptCb, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
 import { sign, verify } from "@/lib/signing";
@@ -21,15 +22,25 @@ const KEY_LENGTH = 64;
 
 export const PASSWORD_MIN_LENGTH = 8;
 
-export function passwordProblem(password: unknown, lang: "sl" | "en"): string | null {
-  if (typeof password !== "string" || password.length < PASSWORD_MIN_LENGTH) {
-    return lang === "sl"
-      ? `Geslo naj ima vsaj ${PASSWORD_MIN_LENGTH} znakov.`
-      : `Your password needs at least ${PASSWORD_MIN_LENGTH} characters.`;
-  }
-  if (password.length > 200) {
-    return lang === "sl" ? "Geslo je predolgo." : "That password is too long.";
-  }
+const TOO_SHORT: Record<Locale, string> = {
+  sl: `Geslo naj ima vsaj ${PASSWORD_MIN_LENGTH} znakov.`,
+  en: `Your password needs at least ${PASSWORD_MIN_LENGTH} characters.`,
+  hr: `Lozinka treba imati barem ${PASSWORD_MIN_LENGTH} znakova.`,
+  de: `Dein Passwort braucht mindestens ${PASSWORD_MIN_LENGTH} Zeichen.`,
+  it: `La password deve avere almeno ${PASSWORD_MIN_LENGTH} caratteri.`,
+};
+
+const TOO_LONG: Record<Locale, string> = {
+  sl: "Geslo je predolgo.",
+  en: "That password is too long.",
+  hr: "Ta je lozinka predugačka.",
+  de: "Dieses Passwort ist zu lang.",
+  it: "Questa password è troppo lunga.",
+};
+
+export function passwordProblem(password: unknown, lang: Locale): string | null {
+  if (typeof password !== "string" || password.length < PASSWORD_MIN_LENGTH) return TOO_SHORT[lang];
+  if (password.length > 200) return TOO_LONG[lang];
   return null;
 }
 
