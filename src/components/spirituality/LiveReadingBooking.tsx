@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Container from "@/components/shared/Container";
 import { buildIcsEvent, downloadIcs } from "@/lib/ics";
-import type { Lang } from "./tarotData";
+import type { Lang, ReadingLang } from "./lang";
+import { defaultReadingLang } from "./lang";
 import {
   LIVE_READING_PACKAGES,
   LIVE_READING_FORMATS,
@@ -15,6 +16,9 @@ import {
 
 export default function LiveReadingBooking({ lang }: { lang: Lang }) {
   const labels = LIVE_READING_LABELS[lang];
+  // The page speaks five languages; the reading itself is held in the two Urška speaks, and
+  // that is also the language of the emails around the booking.
+  const [readingLang, setReadingLang] = useState<ReadingLang>(defaultReadingLang(lang));
   const slots = useMemo(() => generateCandidateSlots(3), []);
   // Slots already held by someone else's request, as "YYYY-MM-DDTHH:mm" — hidden from the picker.
   const [taken, setTaken] = useState<Set<string>>(new Set());
@@ -64,7 +68,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
     const ics = buildIcsEvent({
       title: `${selectedPackage.title[lang]} — Art by Urška`,
       description:
-        lang === "sl"
+        readingLang === "sl"
           ? "Predlagan termin za živo tarot branje. Urška bo termin potrdila po emailu."
           : "Proposed time for a live tarot reading. Urška will confirm it by email.",
       start,
@@ -107,7 +111,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                     message,
                     company,
                     package: packageKey,
-                    lang,
+                    lang: readingLang,
                     format,
                     slot: selectedSlot,
                   }),
@@ -177,6 +181,37 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
                 })}
               </div>
               <p className="mt-2 text-xs text-bone italic">{labels.priceNote}</p>
+            </div>
+
+            <div className="mt-8">
+              <span className="block text-xs tracking-widest uppercase text-bone mb-3">
+                {labels.readingLanguageLabel}
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {(["sl", "en"] as const).map((l) => (
+                  <button
+                    key={l}
+                    type="button"
+                    onClick={() => setReadingLang(l)}
+                    aria-pressed={readingLang === l}
+                    className="rounded-full border px-4 py-2 text-sm transition-colors"
+                    style={{
+                      borderColor:
+                        readingLang === l
+                          ? "var(--color-accent-warm)"
+                          : "color-mix(in srgb, var(--color-bone) 15%, transparent)",
+                      background:
+                        readingLang === l
+                          ? "color-mix(in srgb, var(--color-aurora-gold) 45%, var(--color-paper))"
+                          : "color-mix(in srgb, var(--color-paper) 65%, transparent)",
+                      color: "var(--color-bone)",
+                    }}
+                  >
+                    {l === "sl" ? "Slovensko" : "English"}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-2 text-xs italic text-smoke">{labels.readingLanguageHint}</p>
             </div>
 
             <div className="mt-8">

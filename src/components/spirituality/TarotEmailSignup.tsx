@@ -35,6 +35,33 @@ const LABELS: Record<
     disclaimer:
       "You'll get a welcome email with your card right away. You can unsubscribe at any time.",
   },
+  hr: {
+    heading: "Primaj svoju tjednu kartu",
+    body: "Ostavi svoju e-adresu — svakog tjedna šaljemo novu kartu i njezinu poruku za tebe.",
+    placeholder: "tvoj@email.com",
+    button: "Prijavi se",
+    sending: "Šaljem …",
+    success: "Hvala! Zabilježili smo tvoju prijavu.",
+    disclaimer: "Odmah dobivaš pozdravnu poruku sa svojom kartom. Odjaviti se možeš bilo kada.",
+  },
+  de: {
+    heading: "Deine Karte der Woche",
+    body: "Lass deine E-Mail da — jede Woche schicken wir dir eine neue Karte und ihre Botschaft.",
+    placeholder: "du@email.com",
+    button: "Anmelden",
+    sending: "Wird gesendet …",
+    success: "Danke! Wir haben deine Anmeldung notiert.",
+    disclaimer: "Du bekommst sofort eine Willkommensmail mit deiner Karte. Abmelden kannst du dich jederzeit.",
+  },
+  it: {
+    heading: "Ricevi la tua carta settimanale",
+    body: "Lascia la tua email — ogni settimana ti mandiamo una nuova carta e il suo messaggio.",
+    placeholder: "tua@email.com",
+    button: "Iscriviti",
+    sending: "Invio …",
+    success: "Grazie! Abbiamo registrato la tua iscrizione.",
+    disclaimer: "Ricevi subito un'email di benvenuto con la tua carta. Puoi disiscriverti quando vuoi.",
+  },
 };
 
 export default function TarotEmailSignup({

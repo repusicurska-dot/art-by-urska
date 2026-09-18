@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -13,8 +12,8 @@ import MoonToday from "./MoonToday";
 import BreathingPause from "./BreathingPause";
 import GratitudePractice from "./GratitudePractice";
 import StarCalendarTeaser from "@/components/starCalendar/StarCalendarTeaser";
-
-type Lang = "sl" | "en";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import type { Lang } from "./lang";
 
 interface RelatedArtwork {
   slug: string;
@@ -139,52 +138,156 @@ const COPY: Record<Lang, Copy> = {
     closingCta: "Explore the full collection →",
     signature: "— Urška",
   },
+  hr: {
+    eyebrow: "Duhovnost kod Urške",
+    title: "Duhovnost je za mene put natrag k duši.",
+    subtitle:
+      "Prostor svjetla za trenutke kad tražiš mir, jasnoću ili samo znak. Izvuci kartu dana, pogledaj mjesec, uzmi si minutu tišine — ili razgovaraj s Urškom uživo.",
+    ctaPath: "Pronađi svoj put danas",
+    ctaLive: "Čitanje uživo s Urškom",
+    reflectionsEyebrow: "Urškine misli",
+    sections: [
+      {
+        heading: "Tišina prije boje",
+        text: "Prije nego dodirnem platno, na trenutak zastanem. Ne zato što čekam nadahnuće, nego zato što znam da ono što je uistinu moje ne dolazi u buci. Dolazi u onom tihom prostoru između jednog udaha i sljedećeg — ondje gdje više nema straha od onoga što će nastati.",
+      },
+      {
+        heading: "Od stijene do platna",
+        text: "Davno prije nego sam prvi put uzela kist, učila sam povjerenje na stijeni. Penjanje me naučilo da tijelo zna stvari koje um još ne razumije — kamo ruka seže prije nego oko nađe hvatište, kako dah smiruje strah. Danas slikam na sličan način. Ne planiram svaki potez unaprijed. Vjerujem da će ruka pronaći put, kao što ga je nekoć nalazila na kamenu.",
+      },
+      {
+        heading: "Duše koje se prepoznaju",
+        text: "Vjerujem da neki susreti nisu slučajni. Da postoji stariji oblik sjećanja koji nema veze s datumima ni mjestima — samo s osjećajem da si nekoga već poznavao prije nego si saznao njegovo ime. Ovo je platno rođeno upravo iz tog osjećaja.",
+        artwork: {
+          slug: "artwork-05",
+          title: "Somehow My Heart Still Remembers You",
+          image: "/images/somehow-my-heart.jpg",
+          cta: "Pogledaj ovo djelo →",
+        },
+      },
+      {
+        heading: "Kad tama nije neprijatelj",
+        text: "Neka od mojih najtamnijih platna nastala su u razdobljima kad sam se osjećala najizgubljenije. I svaki put sam iznova otkrila isto: tama nije suprotnost svjetlu, ona je samo prostor u kojem se svjetlo još nije pokazalo. Hrabrost nije odsutnost straha — hrabrost je odluka da usprkos strahu klekneš i počneš. Iz toga je nastala ova slika.",
+        artwork: {
+          slug: "artwork-02",
+          title: "The Prophecy",
+          image: "/images/the-prophecy.jpg",
+          cta: "Pogledaj ovo djelo →",
+        },
+      },
+    ],
+    closing:
+      "Svaka slika na ovoj stranici rodila se iz nečega što sam prvo osjetila kao duhovnu istinu, a tek onda kao sliku. Ako te je neka od ovih misli dotaknula, vjerojatno je platno kojem pripada za tebe.",
+    closingCta: "Istraži cijelu zbirku →",
+    signature: "— Urška",
+  },
+  de: {
+    eyebrow: "Spiritualität bei Urška",
+    title: "Spiritualität ist für mich der Weg zurück zur Seele.",
+    subtitle:
+      "Ein Ort des Lichts für die Momente, in denen du Frieden, Klarheit oder einfach ein Zeichen suchst. Zieh deine Karte des Tages, schau nach dem Mond, nimm dir eine Minute Stille — oder sprich live mit Urška.",
+    ctaPath: "Finde heute deinen Weg",
+    ctaLive: "Live-Lesung mit Urška",
+    reflectionsEyebrow: "Gedanken von Urška",
+    sections: [
+      {
+        heading: "Die Stille vor der Farbe",
+        text: "Bevor ich die Leinwand berühre, halte ich einen Moment inne. Nicht weil ich auf Inspiration warte, sondern weil ich weiß, dass das, was wirklich meins ist, nicht im Lärm ankommt. Es kommt in jenem stillen Raum zwischen einem Atemzug und dem nächsten — dort, wo die Angst vor dem, was entstehen könnte, nicht mehr wohnt.",
+      },
+      {
+        heading: "Vom Fels zur Leinwand",
+        text: "Lange bevor ich je einen Pinsel hielt, lernte ich am Fels zu vertrauen. Das Klettern hat mich gelehrt, dass der Körper Dinge weiß, die der Verstand noch nicht eingeholt hat — wohin die Hand greift, bevor das Auge den Griff findet, wie der Atem die Angst beruhigt. Heute male ich auf sehr ähnliche Weise. Ich plane nicht jeden Strich im Voraus. Ich vertraue darauf, dass meine Hand den Weg findet, so wie sie ihn einst am Stein gefunden hat.",
+      },
+      {
+        heading: "Seelen, die einander erkennen",
+        text: "Ich glaube, manche Begegnungen sind kein Zufall. Dass es eine ältere Form von Erinnerung gibt, die nichts mit Daten oder Orten zu tun hat — nur mit dem Gefühl, jemanden schon gekannt zu haben, bevor du seinen Namen erfuhrst. Genau aus diesem Gefühl ist dieses Bild entstanden.",
+        artwork: {
+          slug: "artwork-05",
+          title: "Somehow My Heart Still Remembers You",
+          image: "/images/somehow-my-heart.jpg",
+          cta: "Dieses Werk ansehen →",
+        },
+      },
+      {
+        heading: "Wenn Dunkelheit nicht der Feind ist",
+        text: "Einige meiner dunkelsten Bilder entstanden in Zeiten, in denen ich mich am verlorensten fühlte. Und jedes Mal entdeckte ich dasselbe: Dunkelheit ist nicht das Gegenteil von Licht, sie ist nur der Raum, in dem das Licht noch nicht angekommen ist. Mut ist nicht die Abwesenheit von Angst — Mut ist die Entscheidung, trotzdem niederzuknien und anzufangen. Daraus ist dieses Bild entstanden.",
+        artwork: {
+          slug: "artwork-02",
+          title: "The Prophecy",
+          image: "/images/the-prophecy.jpg",
+          cta: "Dieses Werk ansehen →",
+        },
+      },
+    ],
+    closing:
+      "Jedes Bild auf dieser Seite begann als etwas, das ich zuerst als spirituelle Wahrheit empfand und erst dann als Bild. Wenn dich einer dieser Gedanken angesprochen hat, gehört die Leinwand dazu wahrscheinlich dir.",
+    closingCta: "Die ganze Sammlung entdecken →",
+    signature: "— Urška",
+  },
+  it: {
+    eyebrow: "Spiritualità secondo Urška",
+    title: "La spiritualità, per me, è la via del ritorno all'anima.",
+    subtitle:
+      "Un luogo di luce per i momenti in cui cerchi pace, chiarezza o solo un segno. Pesca la tua carta del giorno, guarda la luna, prenditi un minuto di quiete — oppure parla dal vivo con Urška.",
+    ctaPath: "Trova oggi il tuo cammino",
+    ctaLive: "Lettura dal vivo con Urška",
+    reflectionsEyebrow: "Pensieri di Urška",
+    sections: [
+      {
+        heading: "Il silenzio prima del colore",
+        text: "Prima di toccare la tela mi fermo un istante. Non perché aspetti l'ispirazione, ma perché so che ciò che è davvero mio non arriva nel rumore. Arriva in quello spazio silenzioso tra un respiro e il successivo — là dove non abita più la paura di ciò che potrebbe nascere.",
+      },
+      {
+        heading: "Dalla roccia alla tela",
+        text: "Molto prima di tenere in mano un pennello, imparavo a fidarmi su una parete. L'arrampicata mi ha insegnato che il corpo sa cose che la mente non ha ancora raggiunto — dove arriva la mano prima che l'occhio trovi l'appiglio, come il respiro placa la paura. Oggi dipingo in modo molto simile. Non pianifico ogni pennellata in anticipo. Mi fido che la mano trovi la strada, come la trovava un tempo sulla pietra.",
+      },
+      {
+        heading: "Anime che si riconoscono",
+        text: "Credo che certi incontri non siano casuali. Che esista una forma di memoria più antica, che non ha nulla a che fare con date o luoghi — solo con la sensazione di aver già conosciuto qualcuno prima di sapere il suo nome. Questa tela è nata esattamente da quella sensazione.",
+        artwork: {
+          slug: "artwork-05",
+          title: "Somehow My Heart Still Remembers You",
+          image: "/images/somehow-my-heart.jpg",
+          cta: "Guarda quest'opera →",
+        },
+      },
+      {
+        heading: "Quando il buio non è il nemico",
+        text: "Alcune delle mie tele più scure sono nate nei periodi in cui mi sentivo più persa. E ogni volta ho scoperto la stessa cosa: il buio non è l'opposto della luce, è solo lo spazio in cui la luce non è ancora arrivata. Il coraggio non è l'assenza di paura — è la decisione di inginocchiarsi e cominciare lo stesso. Da qui è nato questo dipinto.",
+        artwork: {
+          slug: "artwork-02",
+          title: "The Prophecy",
+          image: "/images/the-prophecy.jpg",
+          cta: "Guarda quest'opera →",
+        },
+      },
+    ],
+    closing:
+      "Ogni dipinto di questo sito è cominciato come qualcosa che ho sentito prima come verità spirituale e solo dopo come immagine. Se uno di questi pensieri ti ha parlato, probabilmente ti parlerà anche la tela a cui appartiene.",
+    closingCta: "Esplora tutta la collezione →",
+    signature: "— Urška",
+  },
 };
 
 export default function SpiritualityContent() {
-  // English by default so this page matches the rest of the site — a visitor arriving
-  // from an English nav shouldn't suddenly hit Slovenian. The toggle keeps Slovenian
-  // one click away, and also switches the tarot reading and the booking form.
-  const [lang, setLang] = useState<Lang>("en");
+  // This page used to carry its own Slovenian/English switch, because the tarot readings
+  // only existed in those two. They exist in all five now, so it follows the site-wide
+  // switcher like every other page. The live reading is still held in Slovenian or
+  // English — the booking form asks which, separately (see lang.ts).
+  const { locale } = useLanguage();
+  const lang: Lang = locale;
   const copy = COPY[lang];
 
   return (
-    // lang follows the toggle: the page is Slovenian by default while the document is
-    // English, and without this a screen reader reads the Slovenian with an English voice.
-    // spirit-light flips the whole site, header and footer included, to the light dawn
-    // palette while this page is open (see globals.css). `isolate` + the backdrops' -z-10
-    // keep the aurora and stars behind the content — without it the fixed aurora painted
-    // over every non-positioned section and washed the text out.
+    // lang follows the site switcher: without it a screen reader would read every language
+    // with the document's voice. spirit-light flips the whole site, header and footer
+    // included, to the light dawn palette while this page is open (see globals.css).
+    // `isolate` + the backdrops' -z-10 keep the aurora and stars behind the content —
+    // without it the fixed aurora painted over every non-positioned section and washed
+    // the text out.
     <div className="spirit-light relative isolate" lang={lang}>
       <section className="relative min-h-[60vh] flex items-center justify-center px-6 py-24 text-center">
         <Container className="max-w-2xl">
-          {/* Labelled as page-scoped: without it the two buttons read like a site-wide
-              language switch, which the rest of the site doesn't offer. */}
-          <div
-            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mb-8"
-            role="group"
-            aria-label="Language for this page"
-          >
-            <span className="text-[11px] tracking-[0.25em] uppercase text-smoke">
-              Read this page in
-            </span>
-            {(["sl", "en"] as const).map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => setLang(l)}
-                aria-pressed={lang === l}
-                className={`text-xs tracking-widest uppercase px-3 py-1.5 rounded-full border transition-colors ${
-                  lang === l
-                    ? "border-bone/60 text-bone"
-                    : "border-bone/15 text-smoke hover:text-bone hover:border-bone/40"
-                }`}
-              >
-                {l === "sl" ? "Slovensko" : "English"}
-              </button>
-            ))}
-          </div>
-
           <motion.div key={lang} initial="hidden" animate="visible" variants={fadeInUp}>
             <span className="block text-xs tracking-[0.3em] uppercase text-smoke">
               {copy.eyebrow}

@@ -45,6 +45,39 @@ const LABELS: Record<
     chooseInstead: "Or choose a card yourself",
     backHint: "Click to turn",
   },
+  hr: {
+    heading: "Tarot",
+    intro:
+      "Karte ne odlučuju umjesto tebe — nude jezik za ono što već nosiš u sebi. Izvuci kartu ili je odaberi sam i poslušaj što ti govori.",
+    drawButton: "Izvuci kartu",
+    drawAgain: "Izvuci ponovno",
+    cardOfDay: "Karta dana",
+    yourCard: "Tvoja karta",
+    chooseInstead: "Ili sam odaberi kartu",
+    backHint: "Klikni za okretanje",
+  },
+  de: {
+    heading: "Tarot",
+    intro:
+      "Die Karten entscheiden nicht für dich — sie geben dem, was du ohnehin trägst, eine Sprache. Zieh eine Karte oder wähl selbst eine, und hör, was sie sagt.",
+    drawButton: "Karte ziehen",
+    drawAgain: "Noch einmal ziehen",
+    cardOfDay: "Karte des Tages",
+    yourCard: "Deine Karte",
+    chooseInstead: "Oder wähl selbst eine Karte",
+    backHint: "Zum Umdrehen klicken",
+  },
+  it: {
+    heading: "Tarocchi",
+    intro:
+      "Le carte non decidono al posto tuo — danno un linguaggio a ciò che già porti dentro. Pesca una carta, o scegline una tu, e ascolta cosa dice.",
+    drawButton: "Pesca una carta",
+    drawAgain: "Pesca di nuovo",
+    cardOfDay: "Carta del giorno",
+    yourCard: "La tua carta",
+    chooseInstead: "Oppure scegli tu una carta",
+    backHint: "Clicca per girare",
+  },
 };
 
 export default function TarotReading({ lang }: { lang: Lang }) {
