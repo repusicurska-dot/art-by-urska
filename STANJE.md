@@ -77,12 +77,15 @@ vsi štirje emaili.
       email in pozdravni email ob prijavi. Stran nima več svojega stikala SL/EN; sledi
       gumbu v glavi. **Branje v živo ostaja v slovenščini ali angleščini** — Urška ga vodi
       sama in govori ta dva jezika; obrazec zdaj posebej vpraša, v katerem jeziku naj bo.
+- [x] **Zvezdni koledar v vseh petih jezikih** (2026-09-18, na Teovo željo). Dnevna branja
+      v celoti — retrogradni planeti, mrki, lune, aspekti, osebni tranziti — mesečni pregled
+      in osebni horoskop, pristajalna stran, članska stran, prijava, geslo in vsi emaili
+      koledarja. Stripe se odpre v jeziku naročnika.
+      Jezikovni gumbi na članski strani ostajajo, ker ta izbira določa tudi jezik emailov.
 - [ ] **Kaj je še vedno samo v angleščini — tvoja odločitev (vprašanje za Tea):**
       1. **Zgodbe ob slikah** (`artworks.ts`: „Her words“, „Meaning“, „For the collector“,
          zapis umetnice) — to je vsebina, ne vmesnik, in je še nepregledana (točka 3).
-      2. **Zvezdni koledar** — dnevna branja in besedila koledarja so v SL in EN. Isti
-         razlog kot prej pri tarotu; če hočeta pet jezikov tudi tam, povejta.
-      3. **Pravne strani** — namenoma v angleščini, z opombo, da velja angleška različica.
+      2. **Pravne strani** — namenoma v angleščini, z opombo, da velja angleška različica.
 
 ## 5. Rezervacije in tedenski tarot — koda narejena 2026-09-17
 
