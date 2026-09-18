@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Stripe from "stripe";
-import Container from "@/components/shared/Container";
+import OrderStatus from "@/components/checkout/OrderStatus";
 
 export const metadata: Metadata = {
   title: "Order confirmed — Art by Urška",
@@ -28,38 +27,5 @@ export default async function CheckoutSuccessPage({
   const session = session_id ? await getSession(session_id) : null;
   const paid = session?.payment_status === "paid";
 
-  return (
-    <section className="min-h-[70vh] flex items-center justify-center px-6 py-24 text-center">
-      <Container className="max-w-xl">
-        {paid ? (
-          <>
-            <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Order confirmed</span>
-            <h1 className="font-heading text-4xl md:text-5xl text-bone mt-6">Thank you.</h1>
-            <p className="mt-6 text-bone/70 leading-relaxed">
-              Your order has been received and payment confirmed. Urška will be in touch personally
-              at {session?.customer_details?.email ?? "the email you provided"} to arrange
-              packaging and shipping.
-            </p>
-          </>
-        ) : (
-          <>
-            <span className="block text-xs tracking-[0.3em] uppercase text-smoke">Almost there</span>
-            <h1 className="font-heading text-4xl md:text-5xl text-bone mt-6">
-              We couldn&apos;t confirm this order
-            </h1>
-            <p className="mt-6 text-bone/70 leading-relaxed">
-              If you completed payment, please contact us with your confirmation email so we can
-              verify it manually.
-            </p>
-          </>
-        )}
-        <Link
-          href="/collection"
-          className="inline-block mt-10 text-sm tracking-widest uppercase text-bone/85 hover:text-bone transition-colors border-b border-bone/40 pb-1"
-        >
-          ← Back to the collection
-        </Link>
-      </Container>
-    </section>
-  );
+  return <OrderStatus variant={paid ? "paid" : "unconfirmed"} email={session?.customer_details?.email} />;
 }

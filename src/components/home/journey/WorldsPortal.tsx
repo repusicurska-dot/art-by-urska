@@ -68,6 +68,7 @@ export default function WorldsPortal() {
 type Direction = { href: string; accent: string; label: string; description: string };
 
 function DirectionLinks({ directions }: { directions: Direction[] }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-12 grid gap-8 sm:grid-cols-3 sm:gap-6">
       {directions.map((d) => (
@@ -89,7 +90,7 @@ function DirectionLinks({ directions }: { directions: Direction[] }) {
             className="mt-5 inline-block border-b pb-1 text-[11px] tracking-widest uppercase text-bone/60 transition-colors group-hover:text-bone"
             style={{ borderColor: "transparent" }}
           >
-            Enter →
+            {t.home.enter}
           </span>
         </Link>
       ))}

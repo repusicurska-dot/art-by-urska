@@ -19,6 +19,7 @@ function GalleryCard({
   index: number;
   onHover: (hovering: boolean) => void;
 }) {
+  const { t } = useLanguage();
   const cardRef = useRef<HTMLDivElement>(null);
 
   function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -77,7 +78,7 @@ function GalleryCard({
           </p>
         </div>
         <span className="mt-3 inline-block border-b border-bone/0 pb-1 text-[11px] tracking-widest uppercase text-bone/70 transition-colors group-hover:border-bone/50 group-hover:text-bone">
-          View artwork
+          {t.home.viewArtwork}
         </span>
       </Link>
     </div>

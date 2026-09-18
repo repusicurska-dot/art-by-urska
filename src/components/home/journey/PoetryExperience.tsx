@@ -3,12 +3,14 @@
 import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import { Artwork } from "@/content/types";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
 
 /** The quote's words assemble themselves out of the dark, then give way to the piece they came from. */
 export default function PoetryExperience({ artwork }: { artwork: Artwork }) {
+  const { t } = useLanguage();
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
   const words = useMemo(() => artwork.quote.split(" "), [artwork.quote]);
@@ -28,7 +30,7 @@ export default function PoetryExperience({ artwork }: { artwork: Artwork }) {
             href="/poetry"
             className="mt-8 inline-block border-b border-bone/40 pb-1 text-xs tracking-widest uppercase text-bone/85 hover:text-bone"
           >
-            Explore poetry →
+            {t.home.discoverPoetry} →
           </Link>
         </div>
       </section>
@@ -62,7 +64,7 @@ export default function PoetryExperience({ artwork }: { artwork: Artwork }) {
               href="/poetry"
               className="mt-10 inline-block border-b border-bone/40 pb-1 text-xs tracking-widest uppercase text-bone/85 transition-colors hover:text-bone hover:border-bone"
             >
-              Explore poetry →
+              {t.home.discoverPoetry} →
             </Link>
           </motion.div>
         </div>

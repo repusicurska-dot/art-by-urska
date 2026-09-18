@@ -52,6 +52,10 @@ export interface Dictionary {
     exploreWorks: string;
     discoverPoetry: string;
     commission: string;
+    paintThanSay: string;
+    viewArtwork: string;
+    enter: string;
+    enterStory: string;
     chapters: { arrival: string; painting: string; collection: string; poetry: string; artist: string };
   };
   collection: {
@@ -162,6 +166,21 @@ export interface Dictionary {
     interestedIn: string;
     networkError: string;
   };
+  orderStatus: {
+    confirmed: string;
+    thankYou: string;
+    receivedBody: string;
+    paidBody: string;
+    yourEmail: string;
+    almostThere: string;
+    notConfirmedTitle: string;
+    notConfirmedBody: string;
+    backToCollection: string;
+    backToGallery: string;
+    notFoundTitle: string;
+    notFoundBody: string;
+    backHome: string;
+  };
   zones: Record<"SI" | "EU" | "EUROPE_NON_EU" | "INTERNATIONAL", { label: string; description: string }>;
   about: {
     eyebrow: string;
@@ -270,6 +289,10 @@ const en: Dictionary = {
     exploreWorks: "Explore original works",
     discoverPoetry: "Discover poetry",
     commission: "Commission a painting",
+    paintThanSay: "Some things are easier to paint than to say.",
+    viewArtwork: "View artwork",
+    enter: "Enter →",
+    enterStory: "Enter the story →",
     chapters: { arrival: "Arrival", painting: "The Painting", collection: "Collection", poetry: "Poetry", artist: "The Artist" },
   },
   collection: {
@@ -382,6 +405,24 @@ const en: Dictionary = {
     regarding: "Regarding",
     interestedIn: 'I\u2019m interested in "{title}". ',
     networkError: "Couldn't reach the server. Please try again.",
+  },
+  orderStatus: {
+    confirmed: "Order confirmed",
+    thankYou: "Thank you.",
+    receivedBody:
+      "Your order has been received. A confirmation email is on its way — if it doesn't arrive shortly, please get in touch and we'll make sure everything is in order.",
+    paidBody:
+      "Your order has been received and the payment confirmed. Urška will be in touch personally at {email} to arrange packaging and shipping.",
+    yourEmail: "the email you gave us",
+    almostThere: "Almost there",
+    notConfirmedTitle: "We couldn't confirm this order",
+    notConfirmedBody:
+      "If you completed the payment, please write to us with your confirmation email so we can check it by hand.",
+    backToCollection: "← Back to the collection",
+    backToGallery: "Back to the gallery →",
+    notFoundTitle: "Page not found",
+    notFoundBody: "The story you're looking for may have moved elsewhere.",
+    backHome: "Back home",
   },
   zones: {
     SI: { label: "Slovenia", description: "Delivered within Slovenia." },
@@ -540,6 +581,10 @@ const sl: Dictionary = {
     exploreWorks: "Razišči originalna dela",
     discoverPoetry: "Odkrij poezijo",
     commission: "Naroči sliko po želji",
+    paintThanSay: "Nekatere stvari je lažje naslikati kot povedati.",
+    viewArtwork: "Poglej sliko",
+    enter: "Vstopi →",
+    enterStory: "Vstopi v zgodbo →",
     chapters: { arrival: "Prihod", painting: "Slika", collection: "Zbirka", poetry: "Poezija", artist: "Umetnica" },
   },
   collection: {
@@ -652,6 +697,24 @@ const sl: Dictionary = {
     regarding: "Glede",
     interestedIn: "Zanima me slika \u201E{title}\u201C. ",
     networkError: "Povezava s strežnikom ni uspela. Poskusi znova.",
+  },
+  orderStatus: {
+    confirmed: "Naročilo potrjeno",
+    thankYou: "Hvala.",
+    receivedBody:
+      "Tvoje naročilo je prispelo. Potrditev po e-pošti je na poti — če je v kratkem ne dobiš, nam piši in bova uredila.",
+    paidBody:
+      "Tvoje naročilo je prispelo in plačilo je potrjeno. Urška te bo osebno kontaktirala na {email} glede pakiranja in pošiljanja.",
+    yourEmail: "naslov, ki si ga vpisal",
+    almostThere: "Še malo",
+    notConfirmedTitle: "Tega naročila ne moremo potrditi",
+    notConfirmedBody:
+      "Če si plačilo zaključil, nam piši in priloži potrdilo iz e-pošte, da ga preverimo ročno.",
+    backToCollection: "← Nazaj k zbirki",
+    backToGallery: "Nazaj v galerijo →",
+    notFoundTitle: "Strani ni mogoče najti",
+    notFoundBody: "Zgodba, ki jo iščeš, se je morda preselila drugam.",
+    backHome: "Nazaj na domačo stran",
   },
   zones: {
     SI: { label: "Slovenija", description: "Dostava po Sloveniji." },
@@ -810,6 +873,10 @@ const hr: Dictionary = {
     exploreWorks: "Istraži originalna djela",
     discoverPoetry: "Otkrij poeziju",
     commission: "Naruči sliku po želji",
+    paintThanSay: "Neke je stvari lakše naslikati nego reći.",
+    viewArtwork: "Pogledaj sliku",
+    enter: "Uđi →",
+    enterStory: "Uđi u priču →",
     chapters: { arrival: "Dolazak", painting: "Slika", collection: "Zbirka", poetry: "Poezija", artist: "Umjetnica" },
   },
   collection: {
@@ -922,6 +989,24 @@ const hr: Dictionary = {
     regarding: "Vezano uz",
     interestedIn: "Zanima me slika \u201E{title}\u201D. ",
     networkError: "Povezivanje s poslužiteljem nije uspjelo. Pokušaj ponovno.",
+  },
+  orderStatus: {
+    confirmed: "Narudžba potvrđena",
+    thankYou: "Hvala.",
+    receivedBody:
+      "Tvoja narudžba je stigla. Potvrda e-poštom je na putu — ako uskoro ne stigne, javi nam se i sve ćemo riješiti.",
+    paidBody:
+      "Tvoja narudžba je stigla i plaćanje je potvrđeno. Urška će ti se osobno javiti na {email} radi pakiranja i slanja.",
+    yourEmail: "adresu koju si upisao",
+    almostThere: "Još malo",
+    notConfirmedTitle: "Ovu narudžbu ne možemo potvrditi",
+    notConfirmedBody:
+      "Ako si dovršio plaćanje, piši nam i priloži potvrdu iz e-pošte da je provjerimo ručno.",
+    backToCollection: "← Natrag na zbirku",
+    backToGallery: "Natrag u galeriju →",
+    notFoundTitle: "Stranica nije pronađena",
+    notFoundBody: "Priča koju tražiš možda se preselila drugamo.",
+    backHome: "Natrag na početnu",
   },
   zones: {
     SI: { label: "Slovenija", description: "Dostava unutar Slovenije." },
@@ -1080,6 +1165,10 @@ const de: Dictionary = {
     exploreWorks: "Originalwerke entdecken",
     discoverPoetry: "Poesie entdecken",
     commission: "Ein Bild in Auftrag geben",
+    paintThanSay: "Manches lässt sich leichter malen als sagen.",
+    viewArtwork: "Bild ansehen",
+    enter: "Eintreten →",
+    enterStory: "In die Geschichte →",
     chapters: { arrival: "Ankunft", painting: "Das Bild", collection: "Sammlung", poetry: "Poesie", artist: "Die Künstlerin" },
   },
   collection: {
@@ -1192,6 +1281,24 @@ const de: Dictionary = {
     regarding: "Betrifft",
     interestedIn: "Ich interessiere mich f\u00fcr \u201E{title}\u201C. ",
     networkError: "Der Server war nicht erreichbar. Bitte versuche es erneut.",
+  },
+  orderStatus: {
+    confirmed: "Bestellung bestätigt",
+    thankYou: "Danke.",
+    receivedBody:
+      "Deine Bestellung ist angekommen. Eine Bestätigung per E-Mail ist unterwegs — falls sie nicht bald eintrifft, melde dich, und wir bringen das in Ordnung.",
+    paidBody:
+      "Deine Bestellung ist angekommen und die Zahlung ist bestätigt. Urška meldet sich persönlich unter {email}, um Verpackung und Versand zu besprechen.",
+    yourEmail: "der angegebenen Adresse",
+    almostThere: "Fast geschafft",
+    notConfirmedTitle: "Diese Bestellung konnten wir nicht bestätigen",
+    notConfirmedBody:
+      "Wenn du die Zahlung abgeschlossen hast, schreib uns bitte mit deiner Bestätigungs-E-Mail, damit wir sie von Hand prüfen können.",
+    backToCollection: "← Zurück zur Sammlung",
+    backToGallery: "Zurück zur Galerie →",
+    notFoundTitle: "Seite nicht gefunden",
+    notFoundBody: "Die Geschichte, die du suchst, ist vielleicht umgezogen.",
+    backHome: "Zur Startseite",
   },
   zones: {
     SI: { label: "Slowenien", description: "Lieferung innerhalb Sloweniens." },
@@ -1350,6 +1457,10 @@ const it: Dictionary = {
     exploreWorks: "Esplora le opere originali",
     discoverPoetry: "Scopri la poesia",
     commission: "Commissiona un dipinto",
+    paintThanSay: "Certe cose è più facile dipingerle che dirle.",
+    viewArtwork: "Guarda il dipinto",
+    enter: "Entra →",
+    enterStory: "Entra nella storia →",
     chapters: { arrival: "Arrivo", painting: "Il dipinto", collection: "Collezione", poetry: "Poesia", artist: "L'artista" },
   },
   collection: {
@@ -1462,6 +1573,24 @@ const it: Dictionary = {
     regarding: "Riguardo a",
     interestedIn: "Mi interessa \u201C{title}\u201D. ",
     networkError: "Impossibile raggiungere il server. Riprova.",
+  },
+  orderStatus: {
+    confirmed: "Ordine confermato",
+    thankYou: "Grazie.",
+    receivedBody:
+      "Il tuo ordine è arrivato. La conferma via email è in viaggio — se non arriva a breve, scrivici e sistemiamo tutto.",
+    paidBody:
+      "Il tuo ordine è arrivato e il pagamento è confermato. Urška ti scriverà personalmente a {email} per concordare imballaggio e spedizione.",
+    yourEmail: "l'indirizzo che ci hai dato",
+    almostThere: "Ci siamo quasi",
+    notConfirmedTitle: "Non siamo riusciti a confermare questo ordine",
+    notConfirmedBody:
+      "Se hai completato il pagamento, scrivici allegando l'email di conferma così lo verifichiamo a mano.",
+    backToCollection: "← Torna alla collezione",
+    backToGallery: "Torna alla galleria →",
+    notFoundTitle: "Pagina non trovata",
+    notFoundBody: "La storia che cerchi potrebbe essersi spostata altrove.",
+    backHome: "Torna alla home",
   },
   zones: {
     SI: { label: "Slovenia", description: "Consegna in Slovenia." },

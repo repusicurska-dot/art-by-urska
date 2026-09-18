@@ -36,7 +36,7 @@ export default function StoryHero({ artwork }: { artwork: Artwork }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <BackLink label="Back" className="text-bone/50 hover:text-bone" />
+          <BackLink label={t.artwork.back} className="text-bone/50 hover:text-bone" />
         </motion.div>
 
         <motion.span

@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, useTransform } from "framer-motion";
 import { Artwork } from "@/content/types";
 import { usePinnedScroll } from "@/lib/usePinnedScroll";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 const PARTICLES = Array.from({ length: 30 }, (_, i) => {
   // Deterministic placement so server and client render identically.
@@ -17,6 +18,7 @@ const PARTICLES = Array.from({ length: 30 }, (_, i) => {
 
 /** Entering the painting's world: plain dark space, drifting light, a single whispered line. */
 export default function ArtworkStory({ artwork }: { artwork: Artwork }) {
+  const { t } = useLanguage();
   const reduceMotion = useReducedMotion();
   const { ref, progress } = usePinnedScroll();
 
@@ -56,9 +58,7 @@ export default function ArtworkStory({ artwork }: { artwork: Artwork }) {
             style={{ opacity: textOpacity, y: textY }}
             className="max-w-xl font-heading italic text-2xl md:text-3xl text-bone"
           >
-            Some things are easier
-            <br />
-            to paint than to say.
+            {t.home.paintThanSay}
           </motion.p>
         </div>
       </div>

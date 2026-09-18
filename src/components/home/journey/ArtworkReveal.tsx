@@ -98,7 +98,7 @@ function ArtworkCaption({ artwork, meta }: { artwork: Artwork; meta: string }) {
         href={`/artworks/${artwork.slug}`}
         className="mt-6 inline-block border-b border-bone/40 pb-1 text-xs tracking-widest uppercase text-bone/85 transition-colors hover:text-bone hover:border-bone"
       >
-        Enter the story →
+        {t.home.enterStory}
       </Link>
     </>
   );
