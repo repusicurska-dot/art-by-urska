@@ -9,6 +9,7 @@ import { isIntroActive } from "@/lib/introSplash";
 import VeilTransition from "./transitions/VeilTransition";
 import PageTurnTransition from "./transitions/PageTurnTransition";
 import FadeTransition from "./transitions/FadeTransition";
+import LogoTransition from "./transitions/LogoTransition";
 
 const HOME_EPIGRAPH =
   "These paintings are more than art — they are pieces of my spirit, woven into every brushstroke.";
@@ -38,7 +39,11 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const segments = pathname.split("/").filter(Boolean);
   let overlay: ReactNode;
 
-  if (segments.length === 0) {
+  // Arriving at any page from inside the site shows the logo first (Teo, 2026-09-21). Going
+  // back keeps the quick transitions below, so the back button never waits on a splash.
+  if (direction === "forward") {
+    overlay = <LogoTransition />;
+  } else if (segments.length === 0) {
     overlay = <VeilTransition epigraph={HOME_EPIGRAPH} direction={direction} />;
   } else if (segments[0] === "artworks" && segments[1]) {
     const artwork = getArtworkBySlug(segments[1]);

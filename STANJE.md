@@ -51,8 +51,9 @@ vsi štirje emaili.
       časih), vsak četrtek gre samo naslednje. Isto pismo nikoli ne gre dvakrat. 8 tednov pred
       koncem zaloge dobita Urška in Teo email. Urška ne pošilja in ne piše ničesar.
 - [x] **Instagram** — @art_by_urska, povezan v nogi (2026-09-21).
-- [ ] **22 slik tarot kart** — obljubila si jih. Pokončne, razmerje ~1 : 1,7, vsaj
-      600 × 1020 pik. Povej tudi, od kod so (tvoje / kupljena licenca / javna domena).
+- [x] **Tarot karte** — 21 naslikanih kart iz Teove slike je na strani (2026-09-21).
+- [ ] **Manjka samo Norec (0)** — na sliki ga ni, zato ima še staro narisano karto. Pošlji eno
+      sliko Norca v istem slogu in jo zamenjam.
 - [ ] **Preberi besedila, ki sem jih napisal jaz, in jih popravi ali potrdi.** Napisana so
       v prvi osebi, kot da govoriš ti, zato ne bi smela ostati nepregledana:
       zapisi umetnice, „Pomen“ in „Za zbiratelja“ pri vseh 5 slikah (`artworks.ts`),
