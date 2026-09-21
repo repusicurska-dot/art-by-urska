@@ -12,7 +12,8 @@ export type World = "art" | "poetry" | "spirituality" | "climb" | "finance";
 /** Where a page belongs: one of the five worlds, or Urška's own home. */
 export type Place = World | "home";
 
-export const FINANCE_URL = "https://www.myedgeofficial.com";
+/** My Edge Official's About page — who they are, rather than the Sentinel front page. */
+export const FINANCE_URL = "https://www.myedgeofficial.com/about";
 
 export const WORLDS: { key: World; href: string; external?: boolean }[] = [
   { key: "art", href: "/art" },
