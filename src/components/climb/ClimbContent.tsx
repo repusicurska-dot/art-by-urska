@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import Container from "@/components/shared/Container";
-import WorldEmblem from "@/components/shared/WorldEmblem";
+import WorldLogo from "@/components/shared/WorldLogo";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { CLIMB_TITLES, HUB } from "@/content/hub";
 
@@ -64,18 +64,10 @@ export default function ClimbContent() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: EASE }}
           >
-            <WorldEmblem world="climb" className="h-28 w-28" delay={0.2} />
+            <WorldLogo world="climb" className="h-44 w-44 md:h-52 md:w-52" delay={0.2} sizes="208px" />
           </motion.div>
-          <motion.p
-            className="mt-8 text-[11px] uppercase tracking-[0.4em] text-gold-600"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-          >
-            Climb by Urška
-          </motion.p>
           <motion.h1
-            className="mt-6 font-heading text-5xl leading-[1.02] text-bone md:text-7xl"
+            className="mt-10 font-heading text-5xl leading-[1.02] text-bone md:text-7xl"
             initial={reduceMotion ? false : { opacity: 0, y: 24, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1.3, delay: 0.5, ease: EASE }}
