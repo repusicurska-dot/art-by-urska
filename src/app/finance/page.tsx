@@ -3,7 +3,7 @@ import FinanceContent from "@/components/finance/FinanceContent";
 
 export const metadata: Metadata = {
   title: "Finance by Urška",
-  description: "Finance by Urška — how Urška learned money and the markets on My Edge Official.",
+  description: "Finance by Urška — a degree in finance, and the markets learned in practice on My Edge Official.",
   alternates: { canonical: "/finance" },
 };
 
