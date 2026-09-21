@@ -10,20 +10,23 @@ import Logo from "./Logo";
 import { useCart } from "@/lib/cart/CartContext";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { HUB } from "@/content/hub";
+import { placeFor, WORLDS, WORLD_NAME } from "@/lib/worlds";
 
 
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const cart = useCart();
-  const { t } = useLanguage();
-  const navLinks = [
-    { href: "/collection", label: t.nav.art },
-    { href: "/poetry", label: t.nav.poetry },
-    { href: "/spirituality", label: t.nav.spirituality },
-    { href: "/climb", label: t.nav.climb },
-    { href: "/about", label: t.nav.about },
-  ];
+  const { t, locale } = useLanguage();
+  const place = placeFor(pathname);
+  // The five worlds; finance is its own site and opens there, in the same tab.
+  const navLinks = WORLDS.map((w) => ({
+    href: w.href,
+    label: HUB[locale].worlds[w.key].nav,
+    external: !!w.external,
+    active: place === w.key,
+  }));
   const [menuOpen, setMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -99,28 +102,27 @@ export default function SiteHeader() {
 
       <Container className="grid grid-cols-[1fr_auto_1fr] items-center py-5">
         <Link href="/" className="text-bone justify-self-start" aria-label={t.nav.home}>
-          <Logo wordmark iconClassName="h-8 w-8" wordmarkClassName="hidden sm:inline" />
+          <Logo wordmark label={WORLD_NAME[place]} iconClassName="h-8 w-8" wordmarkClassName="hidden sm:inline" />
         </Link>
 
         <nav aria-label="Primary" className="hidden md:flex items-center gap-10 text-sm tracking-wide text-bone/85">
           {navLinks.map((link) => {
-            const active = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={active ? "page" : undefined}
-                className={`border-b pb-0.5 transition-colors hover:text-bone ${
-                  active ? "border-bone/60 text-bone" : "border-transparent"
-                }`}
-              >
+            const className = `border-b pb-0.5 transition-colors hover:text-bone ${
+              link.active ? "border-gold-600/70 text-bone" : "border-transparent"
+            }`;
+            return link.external ? (
+              <a key={link.href} href={link.href} className={className}>
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} aria-current={link.active ? "page" : undefined} className={className}>
                 {link.label}
               </Link>
             );
           })}
         </nav>
 
-        <div className="flex items-center gap-4 justify-self-end text-bone/85">
+        <div className="col-start-3 flex items-center gap-4 justify-self-end text-bone/85">
           <span className="hidden md:block">
             <LanguageSwitcher compact />
           </span>
@@ -148,13 +150,15 @@ export default function SiteHeader() {
         </div>
       </Container>
 
-      <div
-        className={`border-t py-1.5 text-center text-[11px] tracking-widest uppercase text-smoke transition-colors duration-500 ${
-          scrolled ? "border-white/[0.14]" : "border-transparent"
-        }`}
-      >
-        {t.nav.tagline}
-      </div>
+      {place === "art" && (
+        <div
+          className={`border-t py-1.5 text-center text-[11px] tracking-widest uppercase text-smoke transition-colors duration-500 ${
+            scrolled ? "border-white/[0.14]" : "border-transparent"
+          }`}
+        >
+          {t.nav.tagline}
+        </div>
+      )}
 
       {menuOpen && (
           <motion.div
@@ -185,13 +189,19 @@ export default function SiteHeader() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.08 * i }}
                 >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="font-heading text-3xl text-bone/90 hover:text-bone transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a href={link.href} className="font-heading text-3xl text-bone/90 hover:text-bone transition-colors">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="font-heading text-3xl text-bone/90 hover:text-bone transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
               <motion.div
@@ -199,13 +209,14 @@ export default function SiteHeader() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.08 * navLinks.length }}
               >
-                <Link
-                  href="/contact"
-                  onClick={() => setMenuOpen(false)}
-                  className="font-heading text-3xl text-bone/90 hover:text-bone transition-colors"
-                >
-                  {t.nav.contact}
-                </Link>
+                <div className="flex gap-8 text-xs uppercase tracking-[0.3em] text-bone/70">
+                  <Link href="/about" onClick={() => setMenuOpen(false)} className="hover:text-bone transition-colors">
+                    {t.nav.about}
+                  </Link>
+                  <Link href="/contact" onClick={() => setMenuOpen(false)} className="hover:text-bone transition-colors">
+                    {t.nav.contact}
+                  </Link>
+                </div>
               </motion.div>
               <div className="mt-6">
                 <LanguageSwitcher compact />

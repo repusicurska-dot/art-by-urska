@@ -3,6 +3,7 @@
 import { useId } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageProvider";
+import { placeFor, WORLD_NAME, type Place } from "@/lib/worlds";
 
 /**
  * The gold "UR — Art by Urška" logo, drawn in on every arrival — and each world begins it in
@@ -15,20 +16,26 @@ import { useLanguage } from "@/i18n/LanguageProvider";
  *   spirituality  a single point of light in the dark grows until the whole logo appears in
  *                 it; a halo opens, rays reach out and stars kindle
  *
- * All three end the same way — a slow gold shimmer across the finished logo.
+ *   home          Urška's own page: a line of light opens like dawn over the monogram, and
+ *                 five small diamonds settle on the ring — one for each of her worlds
+ *   climb         a ridge is drawn, the logo rises up out of it from the bottom, and a dotted
+ *                 route climbs to a flag on the top of the ring
+ *
+ * Every world writes its own name under the monogram ("Poetry by Urška", …); only art keeps
+ * the wordmark that is part of the logo image. All of them end the same way — a slow gold
+ * shimmer across the finished logo.
  *
  * The logo is one image (public/images/logo-ur.webp, background removed); the drawing is done
  * with feathered SVG masks over it, measured to its parts: ring r 426–448 around (450, 449),
  * monogram y 178–672, wordmark y 691–723.
  */
 
-export type ArrivalVariant = "art" | "poetry" | "spirituality";
+/** Finance lives on its own site, so it never draws the logo here. */
+export type ArrivalVariant = Exclude<Place, "finance">;
 
-/** Which world a path belongs to. Everything that isn't poetry or spirituality is art. */
 export function arrivalVariantFor(pathname: string): ArrivalVariant {
-  if (pathname.startsWith("/poetry")) return "poetry";
-  if (pathname.startsWith("/spirituality") || pathname.startsWith("/zvezdni-koledar")) return "spirituality";
-  return "art";
+  const place = placeFor(pathname);
+  return place === "finance" ? "home" : place;
 }
 
 /** Seconds from the start until the drawing — shimmer included — is complete. */
@@ -77,6 +84,15 @@ export default function ArrivalLogo({
           <clipPath id={`wordClip-${id}`}>
             <rect x="0" y="682" width="900" height="52" />
           </clipPath>
+          {/* the whole logo except its own "Art by Urška", for the worlds that write their own name */}
+          <clipPath id={`noWord-${id}`}>
+            <path clipRule="evenodd" d="M-400 -400 H1300 V1300 H-400 Z M125 680 H775 V738 H125 Z" />
+          </clipPath>
+          <linearGradient id={`goldText-${id}`} x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#e6c67e" />
+            <stop offset="55%" stopColor="#b8892f" />
+            <stop offset="100%" stopColor="#8a6122" />
+          </linearGradient>
           <radialGradient id={`halo-${id}`}>
             <stop offset="0%" stopColor="#fff6d8" stopOpacity="0.95" />
             <stop offset="55%" stopColor="#f4dfa6" stopOpacity="0.35" />
@@ -100,8 +116,13 @@ export default function ArrivalLogo({
         </defs>
 
         {variant === "art" && <ArtLogo id={id} at={at} />}
-        {variant === "poetry" && <PoetryLogo id={id} at={at} />}
-        {variant === "spirituality" && <SpiritLogo id={id} at={at} />}
+        <g clipPath={variant === "art" ? undefined : `url(#noWord-${id})`}>
+          {variant === "poetry" && <PoetryLogo id={id} at={at} />}
+          {variant === "spirituality" && <SpiritLogo id={id} at={at} />}
+          {variant === "home" && <HomeLogo id={id} at={at} />}
+          {variant === "climb" && <ClimbLogo id={id} at={at} />}
+        </g>
+        {variant !== "art" && <WordName id={id} at={at} label={WORLD_NAME[variant]} {...WORD_TIMING[variant]} />}
 
         {/* The same ending for every world: a slow gold shimmer across the finished logo. */}
         <g mask={`url(#shape-${id})`}>
@@ -129,6 +150,64 @@ export default function ArrivalLogo({
         </motion.p>
       )}
     </div>
+  );
+}
+
+/** When each world writes its name: [delay, duration]. */
+const WORD_TIMING: Record<Exclude<ArrivalVariant, "art">, { delay: number; duration: number }> = {
+  poetry: { delay: 0.15, duration: 0.95 },
+  spirituality: { delay: 1.0, duration: 0.9 },
+  home: { delay: 1.75, duration: 0.9 },
+  climb: { delay: 1.3, duration: 0.8 },
+};
+
+/**
+ * The world's own name in place of the logo's "Art by Urška": the same spaced gold capitals
+ * between two short rules, sized so even "Spirituality by Urška" stays inside the ring.
+ */
+function WordName({ id, at, label, delay, duration }: { id: string; at: At; label: string; delay: number; duration: number }) {
+  const text = label.toUpperCase();
+  const n = text.length;
+  const fs = Math.min(45, 600 / (n * 0.99));
+  const width = n * fs * 0.99;
+  const rule = width < 470;
+  const left = CX - width / 2;
+  return (
+    <>
+      <defs>
+        <mask id={`nameWipe-${id}`} maskUnits="userSpaceOnUse">
+          <motion.rect
+            x={100}
+            y={660}
+            height={100}
+            fill="white"
+            filter={`url(#feather-${id})`}
+            initial={{ width: 0 }}
+            animate={{ width: 700 }}
+            transition={at(delay, duration)}
+          />
+        </mask>
+      </defs>
+      <g mask={`url(#nameWipe-${id})`} fill={`url(#goldText-${id})`}>
+        <text
+          x={CX}
+          y={723}
+          textAnchor="middle"
+          fontSize={fs}
+          textLength={width}
+          lengthAdjust="spacing"
+          style={{ fontFamily: "var(--font-inter), sans-serif", fontWeight: 500 }}
+        >
+          {text}
+        </text>
+        {rule && (
+          <>
+            <rect x={left - 90} y={705} width={62} height={3.5} rx={1.75} />
+            <rect x={CX + width / 2 + 28} y={705} width={62} height={3.5} rx={1.75} />
+          </>
+        )}
+      </g>
+    </>
   );
 }
 
@@ -439,6 +518,182 @@ function SpiritLogo({ id, at }: { id: string; at: At }) {
           transition={at(2.0 + i * 0.09, 0.55)}
         />
       ))}
+    </>
+  );
+}
+
+/* --------------------------------- Home --------------------------------- */
+
+/** The five worlds, as five diamonds around the ring: art, poetry, spirituality, climb, finance. */
+const FIVE = [-90, -18, 54, 126, 198].map((deg) => {
+  const a = (deg * Math.PI) / 180;
+  return { x: CX + Math.cos(a) * 437, y: CY + Math.sin(a) * 437 };
+});
+
+function HomeLogo({ id, at }: { id: string; at: At }) {
+  return (
+    <>
+      <defs>
+        {/* dawn: a line of light opening upwards and downwards */}
+        <mask id={`homeDawn-${id}`} maskUnits="userSpaceOnUse">
+          <motion.rect
+            x={-100}
+            width={1100}
+            fill="white"
+            filter={`url(#feather-${id})`}
+            initial={{ y: CY, height: 0 }}
+            animate={{ y: -80, height: 1060 }}
+            transition={at(0.55, 1.35)}
+          />
+        </mask>
+        <linearGradient id={`dawnLine-${id}`} x1="0" x2="1">
+          <stop offset="0%" stopColor={GOLD} stopOpacity="0" />
+          <stop offset="50%" stopColor="#f3d58e" stopOpacity="1" />
+          <stop offset="100%" stopColor={GOLD} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      <motion.ellipse
+        cx={CX}
+        cy={CY}
+        rx={520}
+        ry={260}
+        fill={`url(#halo-${id})`}
+        initial={{ opacity: 0, scaleY: 0.1 }}
+        animate={{ opacity: [0, 0.9, 0.35], scaleY: 1 }}
+        style={{ transformOrigin: `${CX}px ${CY}px` }}
+        transition={at(0.4, 1.8)}
+      />
+
+      <Part mask={`homeDawn-${id}`} />
+
+      {/* the line of light itself, drawn out from the centre and then fading into the logo */}
+      <motion.rect
+        y={CY - 2.5}
+        height={5}
+        rx={2.5}
+        fill={`url(#dawnLine-${id})`}
+        initial={{ x: CX, width: 0, opacity: 1 }}
+        animate={{ x: -60, width: 1020, opacity: [1, 1, 0] }}
+        transition={{ x: at(0, 0.7), width: at(0, 0.7), opacity: { ...at(0, 1.6), times: [0, 0.55, 1] } }}
+      />
+
+      {FIVE.map((p, i) => (
+        <g key={i}>
+          <motion.circle
+            cx={p.x}
+            cy={p.y}
+            r={60}
+            fill={`url(#spark-${id})`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.9, 0.35] }}
+            transition={at(1.75 + i * 0.12, 0.8)}
+          />
+          <motion.path
+            d={`M ${p.x} ${p.y - 30} L ${p.x + 19} ${p.y} L ${p.x} ${p.y + 30} L ${p.x - 19} ${p.y} Z`}
+            fill="#fff6dc"
+            stroke={GOLD}
+            strokeWidth={3}
+            style={{ transformOrigin: `${p.x}px ${p.y}px` }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: [0, 1.3, 1], opacity: 1 }}
+            transition={at(1.8 + i * 0.12, 0.5)}
+          />
+        </g>
+      ))}
+    </>
+  );
+}
+
+/* --------------------------------- Climb -------------------------------- */
+
+function ClimbLogo({ id, at }: { id: string; at: At }) {
+  const ridge = "M -150 1010 L 40 880 L 150 945 L 300 790 L 420 900 L 560 760 L 700 890 L 820 820 L 1050 1010";
+  const route = "M 250 1010 C 300 960, 250 900, 330 860 C 400 825, 360 740, 250 700 C 150 660, 60 560, 40 440 C 25 300, 110 170, 250 80 C 330 35, 400 14, 450 11";
+  return (
+    <>
+      <defs>
+        {/* the logo rising up out of the ridge, bottom to top */}
+        <mask id={`climbRise-${id}`} maskUnits="userSpaceOnUse">
+          <motion.rect
+            x={-100}
+            width={1100}
+            height={1300}
+            fill="white"
+            filter={`url(#feather-${id})`}
+            initial={{ y: 1000 }}
+            animate={{ y: -150 }}
+            transition={at(0.45, 1.6)}
+          />
+        </mask>
+        <mask id={`climbRoute-${id}`} maskUnits="userSpaceOnUse">
+          <motion.rect
+            x={-300}
+            width={1500}
+            height={1400}
+            fill="white"
+            initial={{ y: 1060 }}
+            animate={{ y: -150 }}
+            transition={at(0.9, 1.35)}
+          />
+        </mask>
+        <linearGradient id={`ridgeFade-${id}`} x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#e9d3a2" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#e9d3a2" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      {/* the mountains, first as a shadow and then as one line */}
+      <motion.path
+        d={`${ridge} L 1050 1100 L -150 1100 Z`}
+        fill={`url(#ridgeFade-${id})`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={at(0.5, 1)}
+      />
+      <motion.path
+        d={ridge}
+        fill="none"
+        stroke={GOLD}
+        strokeWidth={5}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={at(0, 0.95)}
+      />
+
+      <Part mask={`climbRise-${id}`} />
+
+      {/* the route, climbed hold by hold to the top of the ring */}
+      <motion.path
+        d={route}
+        fill="none"
+        stroke={GOLD}
+        strokeWidth={6}
+        strokeLinecap="round"
+        strokeDasharray="0.1 22"
+        opacity={0.85}
+        mask={`url(#climbRoute-${id})`}
+      />
+
+      {/* and a flag on the summit */}
+      <motion.g
+        style={{ transformOrigin: "450px 11px" }}
+        initial={{ scaleY: 0, opacity: 0 }}
+        animate={{ scaleY: 1, opacity: 1 }}
+        transition={at(2.2, 0.45)}
+      >
+        <line x1={450} y1={11} x2={450} y2={-95} stroke={GOLD} strokeWidth={5} strokeLinecap="round" />
+        <motion.path
+          d="M 452 -95 L 530 -72 L 452 -48 Z"
+          fill={GOLD}
+          style={{ transformOrigin: "452px -72px" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: [0, 1.1, 1] }}
+          transition={at(2.5, 0.5)}
+        />
+      </motion.g>
     </>
   );
 }
