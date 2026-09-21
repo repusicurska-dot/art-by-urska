@@ -64,8 +64,10 @@ vsi štirje emaili.
 ## 4. Nedokončano na strani
 
 - [ ] **Climb** je še vedno stran „kmalu“. Ali napiši vsebino ali jo odstranim iz menuja.
-- [ ] **Tehnično opozorilo v konzoli** (React #418, neujemanje pri hidraciji) se izpiše na
-      vsaki strani. Nič ni vidno pokvarjeno, obstajalo je že prej — a naj se odpravi.
+- [x] **Tehnično opozorilo v konzoli** (React #418) — odpravljeno 2026-09-21. Ni bilo na
+      vsaki strani, samo na Spirituality: termini za branje v živo so se izračunali ob
+      gradnji strani in so se naslednji dan razlikovali od brskalnikovih. Zdaj se izračunajo
+      v brskalniku.
 - [ ] **Telefonska branja** so v obrazcu vidna, a onemogočena („kmalu“). Vklopi, ko boš
       pripravljena sprejemati klice.
 - [x] **Jezik strani** — celoten vmesnik je v petih jezikih (slovensko, angleško, hrvaško,

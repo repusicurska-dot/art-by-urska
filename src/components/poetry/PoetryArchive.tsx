@@ -106,6 +106,8 @@ export default function PoetryArchive({
         day: "numeric",
         month: "long",
         year: "numeric",
+        // Pinned, so the server's day and the visitor's agree and hydration matches.
+        timeZone: "Europe/Ljubljana",
       })
     : "";
 
@@ -205,6 +207,9 @@ export default function PoetryArchive({
                         day: "numeric",
                         month: "long",
                         year: "numeric",
+                        // A date-only string is UTC midnight: read it back in UTC, or visitors
+                        // west of UTC see the day before and hydration no longer matches.
+                        timeZone: "UTC",
                       })}
                     </p>
                     <h2 className="mt-2 font-heading text-2xl text-bone md:text-3xl">{letter.title}</h2>

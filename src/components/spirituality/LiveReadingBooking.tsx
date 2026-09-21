@@ -19,7 +19,14 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
   // The page speaks five languages; the reading itself is held in the two Urška speaks, and
   // that is also the language of the emails around the booking.
   const [readingLang, setReadingLang] = useState<ReadingLang>(defaultReadingLang(lang));
-  const slots = useMemo(() => generateCandidateSlots(3), []);
+  // Built on the client after mount. The page is prerendered once at build time, so slots
+  // computed during render would carry the build day's dates (in the server's timezone) and
+  // stop matching the visitor's clock the day after a deploy — a hydration mismatch.
+  const [slots, setSlots] = useState<TimeSlot[]>([]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSlots(generateCandidateSlots(3));
+  }, []);
   // Slots already held by someone else's request, as "YYYY-MM-DDTHH:mm" — hidden from the picker.
   const [taken, setTaken] = useState<Set<string>>(new Set());
   const refreshTaken = useCallback(async () => {
