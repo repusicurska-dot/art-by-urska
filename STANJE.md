@@ -52,8 +52,7 @@ vsi štirje emaili.
       koncem zaloge dobita Urška in Teo email. Urška ne pošilja in ne piše ničesar.
 - [x] **Instagram** — @art_by_urska, povezan v nogi (2026-09-21).
 - [x] **Tarot karte** — 21 naslikanih kart iz Teove slike je na strani (2026-09-21).
-- [ ] **Manjka samo Norec (0)** — na sliki ga ni, zato ima še staro narisano karto. Pošlji eno
-      sliko Norca v istem slogu in jo zamenjam.
+- [x] **Norec (0)** — dodan 2026-09-21, zdaj je vseh 22 kart v istem slogu.
 - [ ] **Preberi besedila, ki sem jih napisal jaz, in jih popravi ali potrdi.** Napisana so
       v prvi osebi, kot da govoriš ti, zato ne bi smela ostati nepregledana:
       zapisi umetnice, „Pomen“ in „Za zbiratelja“ pri vseh 5 slikah (`artworks.ts`),
@@ -65,7 +64,7 @@ vsi štirje emaili.
 
 - [x] **Climb** — 2026-09-21 nova stran: znak, vsi Urškini plezalni naslovi, kaj ji je dalo plezanje. Zgodbe s stene, treningi in fotografije s plezanja še manjkajo — pošlji jih, ko jih imaš.
 - [x] **Glavna stran je zdaj Urška** (2026-09-21): pet svetov (Art, Poetry, Spirituality, Climb, Finance), vsak s svojim znakom in imenom v logotipu. Galerija je na /art.
-- [ ] **Logo za Climb** — Poetry, Spirituality in Finance imajo zdaj svoje logotipe. Za Climb sem naredil podobnega (isti obroč, napis CLIMB v podobni pisavi). Če Urška želi pravega, ga pošlji v D:local.
+- [x] **Logotipi** — vsak svet ima svoj logo (Art, Poetry, Spirituality, Climb, Finance), glavna stran ima UR. Finance ima zdaj svojo stran /finance z animacijo in povezavo na My Edge Official.
 - [ ] **Finance → myedgeofficial.com v svetlem načinu**: My Edge se privzeto odpre v temnem. To se nastavi v projektu My Edge (privzeta tema = light), ki ga na tem računalniku ni.
 - [x] **Tehnično opozorilo v konzoli** (React #418) — odpravljeno 2026-09-21. Ni bilo na
       vsaki strani, samo na Spirituality: termini za branje v živo so se izračunali ob
