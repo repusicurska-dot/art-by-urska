@@ -20,6 +20,8 @@ export default function FinanceContent() {
   const { locale } = useLanguage();
   const c = HUB[locale];
   const f = c.finance;
+  // My Edge speaks all five of the site's languages; hand over the visitor's.
+  const myEdge = `${FINANCE_URL}?lang=${locale}`;
   const reduceMotion = useReducedMotion();
   const rise = (delay: number) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 30 },
@@ -86,7 +88,7 @@ export default function FinanceContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.0, ease: EASE }}
           >
-            <a href={FINANCE_URL} className="btn-primary mt-10 inline-flex items-center gap-2">
+            <a href={myEdge} className="btn-primary mt-10 inline-flex items-center gap-2">
               {f.visit}
               <ArrowUpRight size={16} />
             </a>
@@ -133,7 +135,7 @@ export default function FinanceContent() {
             <p className="mt-6 text-xs uppercase tracking-[0.4em] text-gold-600">— Urška</p>
           </motion.div>
           <motion.div {...rise(0.15)} className="mt-14 flex flex-col items-center gap-8">
-            <a href={FINANCE_URL} className="btn-primary inline-flex items-center gap-2">
+            <a href={myEdge} className="btn-primary inline-flex items-center gap-2">
               {f.visit}
               <ArrowUpRight size={16} />
             </a>
