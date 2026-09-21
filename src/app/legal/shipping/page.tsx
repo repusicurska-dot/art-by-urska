@@ -10,13 +10,12 @@ export const metadata: Metadata = {
 
 export default function ShippingPage() {
   return (
-    <LegalPageShell title="Shipping & Delivery" updated="2026-08-25">
+    <LegalPageShell title="Shipping & Delivery" updated="2026-09-21">
       <section>
         <h2>1. Processing time</h2>
         <p>
-          Each artwork lists its own estimated dispatch time on its product page — original
-          paintings can require additional preparation and packaging time compared to standard
-          goods.
+          Every painting is packed by hand and handed to the carrier within 7 days of your order.
+          Delivery time after that depends on the destination.
         </p>
       </section>
       <section>
@@ -40,16 +39,23 @@ export default function ShippingPage() {
       <section>
         <h2>4. Packaging and insurance</h2>
         <p>
-          Original artworks are packaged for transit using materials appropriate to their size
-          and medium. [PACKAGING METHOD / MATERIALS — TO BE CONFIRMED.] [INSURANCE COVERAGE — TO
-          BE CONFIRMED — state whether shipments are insured and up to what value.]
+          Each painting is wrapped in bubble wrap or protected with polystyrene, then packed in a
+          sturdy cardboard box, so that the canvas and its corners do not move in transit.
+        </p>
+        <p>
+          Paintings are sent with Pošta Slovenije (the Slovenian national post) with their full
+          purchase price declared as the shipment&rsquo;s value, so the shipment is covered for
+          loss or damage up to that value under the carrier&rsquo;s conditions. Please check the
+          parcel when it arrives and tell us straight away if anything is damaged — keep the
+          packaging, as the carrier will need it for the claim.
         </p>
       </section>
       <section>
         <h2>5. Tracking</h2>
         <p>
-          [TRACKING PROVISION — TO BE CONFIRMED — state whether a tracking number is provided and
-          through which carrier.]
+          You receive a Pošta Slovenije tracking number by email when the painting is sent.
+          Tracking works end to end within Slovenia and the EU; for some countries outside the EU
+          it may stop at the border, where the destination country&rsquo;s post takes over.
         </p>
       </section>
       <section>
