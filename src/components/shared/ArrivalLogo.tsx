@@ -1,9 +1,9 @@
 "use client";
 
-import { useId } from "react";
+import { createContext, useContext, useId } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageProvider";
-import { placeFor, WORLD_NAME, type Place } from "@/lib/worlds";
+import { placeFor, WORLD_LOGO, WORLD_NAME, type Place } from "@/lib/worlds";
 
 /**
  * The gold "UR — Art by Urška" logo, drawn in on every arrival — and each world begins it in
@@ -21,9 +21,10 @@ import { placeFor, WORLD_NAME, type Place } from "@/lib/worlds";
  *   climb         a ridge is drawn, the logo rises up out of it from the bottom, and a dotted
  *                 route climbs to a flag on the top of the ring
  *
- * Every world writes its own name under the monogram ("Poetry by Urška", …); only art keeps
- * the wordmark that is part of the logo image. All of them end the same way — a slow gold
- * shimmer across the finished logo.
+ * Poetry, spirituality and climb draw their own logos (public/images/logo-<world>.webp — the
+ * name in the ring, "by Urška" beneath it); art and Urška's home draw the UR monogram, and home
+ * writes "Urška" in place of "Art by Urška". All of them end the same way — a slow gold shimmer
+ * across the finished logo.
  *
  * The logo is one image (public/images/logo-ur.webp, background removed); the drawing is done
  * with feathered SVG masks over it, measured to its parts: ring r 426–448 around (450, 449),
@@ -41,7 +42,8 @@ export function arrivalVariantFor(pathname: string): ArrivalVariant {
 /** Seconds from the start until the drawing — shimmer included — is complete. */
 export const ARRIVAL_DRAW_SECONDS = 3.2;
 
-const LOGO = "/images/logo-ur.webp";
+/** The logo image the current world is drawing. */
+const LogoSrc = createContext(WORLD_LOGO.art);
 const GOLD = "#b8892f";
 const CX = 450;
 const CY = 449;
@@ -57,6 +59,7 @@ export default function ArrivalLogo({
   reduceMotion?: boolean;
 }) {
   const id = useId().replace(/:/g, "");
+  const src = WORLD_LOGO[variant];
   const { t } = useLanguage();
   const at: At = (delay, duration) => (reduceMotion ? { duration: 0 } : { delay, duration, ease: EASE });
 
@@ -111,18 +114,24 @@ export default function ArrivalLogo({
           </linearGradient>
           {/* The logo's own shape, so the shimmer only touches the gold. */}
           <mask id={`shape-${id}`} maskUnits="userSpaceOnUse" style={{ maskType: "alpha" }}>
-            <image href={LOGO} x="0" y="0" width="900" height="898" />
+            <image href={src} x="0" y="0" width="900" height="898" />
           </mask>
         </defs>
 
-        {variant === "art" && <ArtLogo id={id} at={at} />}
-        <g clipPath={variant === "art" ? undefined : `url(#noWord-${id})`}>
+        <LogoSrc.Provider value={src}>
+          {variant === "art" && <ArtLogo id={id} at={at} />}
           {variant === "poetry" && <PoetryLogo id={id} at={at} />}
           {variant === "spirituality" && <SpiritLogo id={id} at={at} />}
-          {variant === "home" && <HomeLogo id={id} at={at} />}
           {variant === "climb" && <ClimbLogo id={id} at={at} />}
-        </g>
-        {variant !== "art" && <WordName id={id} at={at} label={WORLD_NAME[variant]} {...WORD_TIMING[variant]} />}
+          {variant === "home" && (
+            <>
+              <g clipPath={`url(#noWord-${id})`}>
+                <HomeLogo id={id} at={at} />
+              </g>
+              <WordName id={id} at={at} label={WORLD_NAME.home} delay={1.75} duration={0.9} />
+            </>
+          )}
+        </LogoSrc.Provider>
 
         {/* The same ending for every world: a slow gold shimmer across the finished logo. */}
         <g mask={`url(#shape-${id})`}>
@@ -153,18 +162,7 @@ export default function ArrivalLogo({
   );
 }
 
-/** When each world writes its name: [delay, duration]. */
-const WORD_TIMING: Record<Exclude<ArrivalVariant, "art">, { delay: number; duration: number }> = {
-  poetry: { delay: 0.15, duration: 0.95 },
-  spirituality: { delay: 1.0, duration: 0.9 },
-  home: { delay: 1.75, duration: 0.9 },
-  climb: { delay: 1.3, duration: 0.8 },
-};
-
-/**
- * The world's own name in place of the logo's "Art by Urška": the same spaced gold capitals
- * between two short rules, sized so even "Spirituality by Urška" stays inside the ring.
- */
+/** "Urška" in place of the UR logo's "Art by Urška": the same spaced gold capitals between two rules. */
 function WordName({ id, at, label, delay, duration }: { id: string; at: At; label: string; delay: number; duration: number }) {
   const text = label.toUpperCase();
   const n = text.length;
@@ -213,7 +211,8 @@ function WordName({ id, at, label, delay, duration }: { id: string; at: At; labe
 
 /** The logo image seen through one mask. */
 function Part({ mask }: { mask: string }) {
-  return <image href={LOGO} x="0" y="0" width="900" height="898" mask={`url(#${mask})`} />;
+  const src = useContext(LogoSrc);
+  return <image href={src} x="0" y="0" width="900" height="898" mask={`url(#${mask})`} />;
 }
 
 /* --------------------------------- Art ---------------------------------- */
@@ -335,33 +334,39 @@ function PoetryLogo({ id, at }: { id: string; at: At }) {
   return (
     <>
       <defs>
-        {/* the wordmark, written first */}
+        <clipPath id={`poTop-${id}`}>
+          <rect x="100" y="215" width="700" height="247" />
+        </clipPath>
+        <clipPath id={`poBottom-${id}`}>
+          <rect x="110" y="462" width="680" height="260" />
+        </clipPath>
+        {/* "Poetry", written first */}
         <mask id={`poWord-${id}`} maskUnits="userSpaceOnUse">
-          <g clipPath={`url(#wordClip-${id})`}>
+          <g clipPath={`url(#poTop-${id})`}>
             <motion.rect
-              x={100}
-              y={660}
-              height={100}
+              x={40}
+              y={200}
+              height={280}
               fill="white"
               filter={`url(#feather-${id})`}
               initial={{ width: 0 }}
-              animate={{ width: 760 }}
-              transition={at(0.15, 0.95)}
+              animate={{ width: 860 }}
+              transition={at(0.15, 1.2)}
             />
           </g>
         </mask>
-        {/* the monogram flowing in like ink across a page */}
+        {/* "by Urška" flowing in beneath it like ink across a page */}
         <mask id={`poMono-${id}`} maskUnits="userSpaceOnUse">
-          <g clipPath={`url(#monoClip-${id})`}>
+          <g clipPath={`url(#poBottom-${id})`}>
             <motion.rect
               x={60}
-              y={120}
-              height={600}
+              y={440}
+              height={300}
               fill="white"
               filter={`url(#feather-${id})`}
               initial={{ width: 0 }}
               animate={{ width: 820 }}
-              transition={at(0.8, 1.2)}
+              transition={at(0.95, 1.0)}
             />
           </g>
         </mask>

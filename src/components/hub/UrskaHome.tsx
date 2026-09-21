@@ -7,9 +7,10 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Container from "@/components/shared/Container";
 import WorldEmblem from "@/components/shared/WorldEmblem";
+import WorldLogo from "@/components/shared/WorldLogo";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { HUB } from "@/content/hub";
-import { WORLDS, WORLD_NAME, type World } from "@/lib/worlds";
+import { WORLDS, type World } from "@/lib/worlds";
 
 /**
  * Urška's own home page. The site used to open straight into the gallery; now it opens on
@@ -141,7 +142,7 @@ export default function UrskaHome() {
               <Reveal key={w.key} delay={i * 0.08}>
                 <WorldLink href={w.href} external={!!w.external} className="group flex flex-col items-center gap-4">
                   <span className="text-gold-600 transition-transform duration-500 group-hover:-translate-y-1">
-                    <WorldEmblem world={w.key} className="h-16 w-16" delay={i * 0.1} />
+                    <WorldLogo world={w.key} className="h-24 w-24 md:h-28 md:w-28" delay={i * 0.1} sizes="112px" />
                   </span>
                   <span className="text-[11px] uppercase tracking-[0.3em] text-bone/80 transition-colors group-hover:text-gold-600">
                     {c.worlds[w.key].nav}
@@ -352,7 +353,6 @@ function WorldCard({
   cta: string;
 }) {
   const reduceMotion = useReducedMotion();
-  const [first, ...rest] = WORLD_NAME[world].split(" by ");
   return (
     <motion.div
       initial={reduceMotion ? false : { opacity: 0, y: 50 }}
@@ -379,13 +379,9 @@ function WorldCard({
         <span aria-hidden="true" className="pointer-events-none absolute inset-2 rounded-t-[999px] rounded-b-[22px] border border-gold-400/15" />
 
         <span className="relative font-heading text-sm tracking-[0.3em] text-gold-600/80">{NUMERALS[index]}</span>
-        <span className="relative mt-6 text-gold-600 transition-transform duration-700 ease-out group-hover:scale-110">
-          <WorldEmblem world={world} className="h-24 w-24" delay={0.2 + index * 0.12} />
+        <span className="relative mt-5 transition-transform duration-700 ease-out group-hover:scale-105">
+          <WorldLogo world={world} className="h-40 w-40" delay={0.2 + index * 0.12} />
         </span>
-        <span className="relative mt-8 font-heading text-[1.9rem] leading-none text-bone">{first}</span>
-        {rest.length > 0 && (
-          <span className="relative mt-2 text-[10px] uppercase tracking-[0.4em] text-bone/60">by Urška</span>
-        )}
         <span aria-hidden="true" className="relative mt-6 h-px w-10 bg-gold-400/60 transition-all duration-700 group-hover:w-20" />
         <span className="relative mt-6 flex-1 text-sm leading-relaxed text-bone/75">{line}</span>
         <span className="relative mt-8 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-bone transition-colors group-hover:text-gold-600">

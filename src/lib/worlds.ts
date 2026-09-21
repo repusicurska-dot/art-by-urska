@@ -31,6 +31,20 @@ export const WORLD_NAME: Record<Place, string> = {
   finance: "Finance by Urška",
 };
 
+/**
+ * Each world's own logo: the gold ring with its name inside (Teo, 2026-09-21). Art and the home
+ * page carry the UR monogram. Climb's was set to match the others from the Poetry logo, in
+ * Cinzel, until Urška has her own.
+ */
+export const WORLD_LOGO: Record<Place, string> = {
+  home: "/images/logo-ur.webp",
+  art: "/images/logo-ur.webp",
+  poetry: "/images/logo-poetry.webp",
+  spirituality: "/images/logo-spirituality.webp",
+  climb: "/images/logo-climb.webp",
+  finance: "/images/logo-finance.webp",
+};
+
 const ART_PATHS = ["/art", "/collection", "/artworks", "/cart", "/checkout", "/order-confirmation"];
 
 export function placeFor(pathname: string): Place {
