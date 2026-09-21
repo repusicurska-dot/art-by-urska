@@ -66,6 +66,7 @@ vsi štirje emaili.
 - [x] **Glavna stran je zdaj Urška** (2026-09-21): pet svetov (Art, Poetry, Spirituality, Climb, Finance), vsak s svojim znakom in imenom v logotipu. Galerija je na /art.
 - [x] **Logotipi** — vsak svet ima svoj logo (Art, Poetry, Spirituality, Climb, Finance), glavna stran ima UR. Finance ima zdaj svojo stran /finance z animacijo in povezavo na My Edge Official.
 - [ ] **Finance → myedgeofficial.com v svetlem načinu**: My Edge se privzeto odpre v temnem. To se nastavi v projektu My Edge (privzeta tema = light), ki ga na tem računalniku ni.
+- [ ] **My Edge v jeziku obiskovalca**: povezava s Finance strani pošlje ?lang=sl (en, hr, de, it). My Edge mora ta parameter prebrati in nastaviti svoj jezik (zdaj ga izbere samo ročno v meniju). Spremeniti je treba v projektu My Edge.
 - [x] **Tehnično opozorilo v konzoli** (React #418) — odpravljeno 2026-09-21. Ni bilo na
       vsaki strani, samo na Spirituality: termini za branje v živo so se izračunali ob
       gradnji strani in so se naslednji dan razlikovali od brskalnikovih. Zdaj se izračunajo
