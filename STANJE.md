@@ -4,7 +4,7 @@ Edini veljaven seznam odprtih stvari za byurska.com. Urejeno po tem, kaj kaj blo
 Zgodovina že opravljenega dela je v `OWNER_ACTION_REQUIRED.md` — tam ne iščem odprtih
 nalog, tu so.
 
-Zadnjič posodobljeno: 2026-09-18
+Zadnjič posodobljeno: 2026-09-21
 
 ---
 
@@ -22,12 +22,13 @@ vse ostalo, kar bi kupec pričakoval.
       lahko je ločena številka.
 - [ ] **Pravni pregled šestih strani** (`/legal/*`) pri usposobljeni osebi. Vsaka stran
       ima trenutno na sebi napisano, da še ni pregledana.
-- [ ] **Za vseh 5 slik** (`src/content/artworks.ts`): rok odpreme in navodila za nego
-      (DDV je urejen).
-- [ ] **Dostava** (`/legal/shipping`): način in material pakiranja, ali je pošiljka
-      zavarovana in za koliko, ali kupec dobi sledilno številko in pri katerem prevozniku.
-- [ ] Odloči, ali je posamezna slika običajen original, izdelan po naročilu ali osebno
-      prilagojen — od tega je odvisno, kateri člen o pravici do odstopa velja.
+- [x] **Za vseh 5 slik** — rok odpreme 7 dni in navodila za nego akrila na platnu (2026-09-21).
+- [x] **Dostava** — karton + stiropor ali bubble wrap, Pošta Slovenije, sledilna številka,
+      zavarovano do polne vrednosti (2026-09-21). **Ob oddaji na pošti vedno napiši vrednost
+      slike** (vrednostna pošiljka, do 4.200 €), in kupcu po emailu pošlji sledilno številko —
+      stran oboje obljublja.
+- [x] Vseh 5 slik so že naslikani originali → velja običajnih 14 dni za odstop. Izjema „po
+      naročilu“ velja samo za slike, naročene posebej (gumb „Naroči sliko“).
 
 ## 2. ~~Nihče te ne more doseči~~ — urejeno 2026-09-17
 
@@ -49,8 +50,7 @@ vsi štirje emaili.
 - [ ] **Potrdi ali prepiši tri pisma iz ateljeja** (`src/content/poetry.ts`, označena
       `approvedByUrska: false`). Napisana so v tvojem imenu in jih naročniki dobijo po emailu —
       prvo je že vidno na strani. Nato dopisuj eno pismo na teden.
-- [ ] **Povezava do Instagrama.** V nogi je gumb, ki ne vodi nikamor. Ali pošlji povezavo
-      ali jo odstranim.
+- [x] **Instagram** — @art_by_urska, povezan v nogi (2026-09-21).
 - [ ] **22 slik tarot kart** — obljubila si jih. Pokončne, razmerje ~1 : 1,7, vsaj
       600 × 1020 pik. Povej tudi, od kod so (tvoje / kupljena licenca / javna domena).
 - [ ] **Preberi besedila, ki sem jih napisal jaz, in jih popravi ali potrdi.** Napisana so

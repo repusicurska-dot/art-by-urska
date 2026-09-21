@@ -134,6 +134,16 @@ why I always found my way to you.`;
 
 const ALL_ZONES: Artwork["shipsTo"] = ["SI", "EU", "EUROPE_NON_EU", "INTERNATIONAL"];
 
+/** Urška packs and posts every painting herself within a week of the order (2026-09-21). */
+const DISPATCH_TIME = "Within 7 days of your order";
+
+/**
+ * Care for acrylic on unframed, stretched canvas — the medium of all five paintings. Written from
+ * the standard conservation advice for acrylics; nothing here assumes a varnish layer.
+ */
+const ACRYLIC_CARE =
+  "Hang away from direct sunlight, radiators and damp walls; keep in a room at a steady 18–24 °C. Dust gently with a soft, dry brush or cloth — never water, sprays or cleaning products. Handle by the stretcher bars, not the painted surface, and store upright rather than stacked.";
+
 /**
  * Exactly 5 flagship artworks, all using Urška's real titles and poems
  * (sourced from her Word docs — see note above the poem constants). Their
@@ -191,9 +201,9 @@ export const artworks: Artwork[] = [
     vatNote,
     availability: "available",
     sku: "AU-ART-01",
-    dispatchTime: "[DISPATCH TIME PENDING]",
+    dispatchTime: DISPATCH_TIME,
     shipsTo: ALL_ZONES,
-    careInfo: "[CARE INFORMATION PENDING]",
+    careInfo: ACRYLIC_CARE,
   },
   {
     slug: "artwork-02",
@@ -224,9 +234,9 @@ export const artworks: Artwork[] = [
     vatNote,
     availability: "available",
     sku: "AU-ART-02",
-    dispatchTime: "[DISPATCH TIME PENDING]",
+    dispatchTime: DISPATCH_TIME,
     shipsTo: ALL_ZONES,
-    careInfo: "[CARE INFORMATION PENDING]",
+    careInfo: ACRYLIC_CARE,
   },
   {
     slug: "artwork-03",
@@ -274,9 +284,9 @@ export const artworks: Artwork[] = [
     vatNote,
     availability: "available",
     sku: "AU-ART-03",
-    dispatchTime: "[DISPATCH TIME PENDING]",
+    dispatchTime: DISPATCH_TIME,
     shipsTo: ALL_ZONES,
-    careInfo: "[CARE INFORMATION PENDING]",
+    careInfo: ACRYLIC_CARE,
   },
   {
     slug: "artwork-04",
@@ -307,9 +317,9 @@ export const artworks: Artwork[] = [
     vatNote,
     availability: "available",
     sku: "AU-ART-04",
-    dispatchTime: "[DISPATCH TIME PENDING]",
+    dispatchTime: DISPATCH_TIME,
     shipsTo: ALL_ZONES,
-    careInfo: "[CARE INFORMATION PENDING]",
+    careInfo: ACRYLIC_CARE,
   },
   {
     slug: "artwork-05",
@@ -340,8 +350,8 @@ export const artworks: Artwork[] = [
     vatNote,
     availability: "available",
     sku: "AU-ART-05",
-    dispatchTime: "[DISPATCH TIME PENDING]",
+    dispatchTime: DISPATCH_TIME,
     shipsTo: ALL_ZONES,
-    careInfo: "[CARE INFORMATION PENDING]",
+    careInfo: ACRYLIC_CARE,
   },
 ];

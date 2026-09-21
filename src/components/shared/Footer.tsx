@@ -34,8 +34,10 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4 mt-6">
               <a
-                href="#"
-                title="Instagram — link pending"
+                href="https://www.instagram.com/art_by_urska/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="@art_by_urska"
                 className="text-xs tracking-widest uppercase text-smoke hover:text-bone transition-colors"
               >
                 Instagram
