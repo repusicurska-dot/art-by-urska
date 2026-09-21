@@ -358,6 +358,7 @@ const EMBLEMS: Record<string, React.ReactNode> = {
 
 /** Cards with a painted image in public/images/tarot. Everything else uses the drawn emblem. */
 const PAINTED_CARDS = new Set([
+  "fool",
   "magician",
   "high-priestess",
   "empress",

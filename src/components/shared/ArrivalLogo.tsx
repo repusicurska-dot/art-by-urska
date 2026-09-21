@@ -20,10 +20,12 @@ import { placeFor, WORLD_LOGO, WORLD_NAME, type Place } from "@/lib/worlds";
  *                 five small diamonds settle on the ring — one for each of her worlds
  *   climb         a ridge is drawn, the logo rises up out of it from the bottom, and a dotted
  *                 route climbs to a flag on the top of the ring
+ *   finance       the ring is milled like the edge of a coin, the name is uncovered along a
+ *                 rising line, and a chart climbs beneath it to an arrow
  *
- * Poetry, spirituality and climb draw their own logos (public/images/logo-<world>.webp — the
- * name in the ring, "by Urška" beneath it); art and Urška's home draw the UR monogram, and home
- * writes "Urška" in place of "Art by Urška". All of them end the same way — a slow gold shimmer
+ * Every world draws its own logo (public/images/logo-<world>.webp — the name in the ring,
+ * "by Urška" beneath it); Urška's home draws the UR monogram and writes "Urška" in place of its
+ * "Art by Urška". All of them end the same way — a slow gold shimmer
  * across the finished logo.
  *
  * The logo is one image (public/images/logo-ur.webp, background removed); the drawing is done
@@ -31,12 +33,10 @@ import { placeFor, WORLD_LOGO, WORLD_NAME, type Place } from "@/lib/worlds";
  * monogram y 178–672, wordmark y 691–723.
  */
 
-/** Finance lives on its own site, so it never draws the logo here. */
-export type ArrivalVariant = Exclude<Place, "finance">;
+export type ArrivalVariant = Place;
 
 export function arrivalVariantFor(pathname: string): ArrivalVariant {
-  const place = placeFor(pathname);
-  return place === "finance" ? "home" : place;
+  return placeFor(pathname);
 }
 
 /** Seconds from the start until the drawing — shimmer included — is complete. */
@@ -50,6 +50,9 @@ const CY = 449;
 const EASE = [0.45, 0, 0.25, 1] as const;
 
 type At = (delay: number, duration: number) => object;
+
+/** Rounded, so the server and the browser print the same coordinates and hydration matches. */
+const r2 = (v: number) => Math.round(v * 100) / 100;
 
 export default function ArrivalLogo({
   variant = "art",
@@ -69,7 +72,7 @@ export default function ArrivalLogo({
         viewBox="-160 -160 1220 1218"
         className="h-72 w-72 md:h-96 md:w-96 overflow-visible"
         role="img"
-        aria-label="Art by Urška"
+        aria-label={WORLD_NAME[variant]}
         initial={reduceMotion ? false : { scale: 0.97 }}
         animate={{ scale: 1 }}
         transition={at(0, ARRIVAL_DRAW_SECONDS)}
@@ -82,7 +85,7 @@ export default function ArrivalLogo({
             <feGaussianBlur stdDeviation="22" />
           </filter>
           <clipPath id={`monoClip-${id}`}>
-            <rect x="0" y="150" width="900" height="530" />
+            <rect x="0" y="150" width="900" height="590" />
           </clipPath>
           <clipPath id={`wordClip-${id}`}>
             <rect x="0" y="682" width="900" height="52" />
@@ -123,6 +126,7 @@ export default function ArrivalLogo({
           {variant === "poetry" && <PoetryLogo id={id} at={at} />}
           {variant === "spirituality" && <SpiritLogo id={id} at={at} />}
           {variant === "climb" && <ClimbLogo id={id} at={at} />}
+          {variant === "finance" && <FinanceLogo id={id} at={at} />}
           {variant === "home" && (
             <>
               <g clipPath={`url(#noWord-${id})`}>
@@ -439,10 +443,10 @@ function SpiritLogo({ id, at }: { id: string; at: At }) {
     const a = (i / 16) * Math.PI * 2 - Math.PI / 2;
     const long = i % 2 === 0;
     return {
-      x1: CX + Math.cos(a) * 480,
-      y1: CY + Math.sin(a) * 480,
-      x2: CX + Math.cos(a) * (long ? 610 : 550),
-      y2: CY + Math.sin(a) * (long ? 610 : 550),
+      x1: r2(CX + Math.cos(a) * 480),
+      y1: r2(CY + Math.sin(a) * 480),
+      x2: r2(CX + Math.cos(a) * (long ? 610 : 550)),
+      y2: r2(CY + Math.sin(a) * (long ? 610 : 550)),
       long,
     };
   });
@@ -532,7 +536,7 @@ function SpiritLogo({ id, at }: { id: string; at: At }) {
 /** The five worlds, as five diamonds around the ring: art, poetry, spirituality, climb, finance. */
 const FIVE = [-90, -18, 54, 126, 198].map((deg) => {
   const a = (deg * Math.PI) / 180;
-  return { x: CX + Math.cos(a) * 437, y: CY + Math.sin(a) * 437 };
+  return { x: r2(CX + Math.cos(a) * 437), y: r2(CY + Math.sin(a) * 437) };
 });
 
 function HomeLogo({ id, at }: { id: string; at: At }) {
@@ -699,6 +703,117 @@ function ClimbLogo({ id, at }: { id: string; at: At }) {
           transition={at(2.5, 0.5)}
         />
       </motion.g>
+    </>
+  );
+}
+
+/* -------------------------------- Finance ------------------------------- */
+
+function FinanceLogo({ id, at }: { id: string; at: At }) {
+  // the milled edge of a coin, one tick at a time around the ring
+  const ticks = Array.from({ length: 72 }, (_, i) => {
+    const a = (i / 72) * Math.PI * 2 - Math.PI / 2;
+    return {
+      x1: r2(CX + Math.cos(a) * 466),
+      y1: r2(CY + Math.sin(a) * 466),
+      x2: r2(CX + Math.cos(a) * (i % 6 === 0 ? 500 : 484)),
+      y2: r2(CY + Math.sin(a) * (i % 6 === 0 ? 500 : 484)),
+      i,
+    };
+  });
+  const chart = "M 80 1010 L 220 975 L 320 990 L 450 935 L 560 955 L 700 890 L 840 850";
+  return (
+    <>
+      <defs>
+        {/* the name, uncovered along a rising line from the lower left */}
+        <mask id={`finText-${id}`} maskUnits="userSpaceOnUse">
+          <g clipPath={`url(#finInner-${id})`}>
+            <motion.rect
+              x={-200}
+              y={-300}
+              height={1500}
+              fill="white"
+              filter={`url(#feather-${id})`}
+              transform={`rotate(-18 ${CX} ${CY})`}
+              initial={{ width: 0 }}
+              animate={{ width: 1300 }}
+              transition={at(0.45, 1.4)}
+            />
+          </g>
+        </mask>
+        <clipPath id={`finInner-${id}`}>
+          <circle cx={CX} cy={CY} r={420} />
+        </clipPath>
+        {/* the ring, struck from the lower left all the way round */}
+        <mask id={`finRing-${id}`} maskUnits="userSpaceOnUse">
+          <motion.circle
+            cx={CX}
+            cy={CY}
+            r={437}
+            fill="none"
+            stroke="white"
+            strokeWidth={50}
+            transform={`rotate(135 ${CX} ${CY})`}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={at(0.2, 1.3)}
+          />
+        </mask>
+      </defs>
+
+      {ticks.map((t) => (
+        <motion.line
+          key={t.i}
+          x1={t.x1}
+          y1={t.y1}
+          x2={t.x2}
+          y2={t.y2}
+          stroke={GOLD}
+          strokeWidth={t.i % 6 === 0 ? 5 : 3}
+          strokeLinecap="round"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: t.i % 6 === 0 ? 0.85 : 0.45 }}
+          transition={at(0.1 + (t.i / 72) * 1.1, 0.2)}
+        />
+      ))}
+
+      <Part mask={`finRing-${id}`} />
+      <Part mask={`finText-${id}`} />
+
+      {/* a chart climbing beneath it, ending in an arrow */}
+      <g fill="none" stroke={GOLD} strokeLinecap="round" strokeLinejoin="round">
+        <motion.path
+          d={chart}
+          strokeWidth={6}
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={at(1.5, 0.8)}
+        />
+        <motion.path
+          d="M 790 845 L 845 848 L 830 900"
+          strokeWidth={6}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={at(2.25, 0.25)}
+        />
+      </g>
+      {[
+        [220, 975],
+        [450, 935],
+        [700, 890],
+      ].map(([x, y], i) => (
+        <motion.circle
+          key={i}
+          cx={x}
+          cy={y}
+          r={9}
+          fill={GOLD}
+          style={{ transformOrigin: `${x}px ${y}px` }}
+          initial={{ scale: 0 }}
+          animate={{ scale: [0, 1.4, 1] }}
+          transition={at(1.6 + i * 0.22, 0.4)}
+        />
+      ))}
     </>
   );
 }

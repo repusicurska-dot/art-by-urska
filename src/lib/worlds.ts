@@ -3,7 +3,8 @@
  * art, poetry, spirituality, climbing and finance. The home page is about her; each world has
  * its own emblem, its own name ("… by Urška") and its own way of drawing the logo on arrival.
  *
- * Finance lives on its own site, My Edge Official, and opens there in the same tab.
+ * Finance has its own page here, like the others: how Urška learned the markets on My Edge
+ * Official, with the way through to it.
  */
 
 export type World = "art" | "poetry" | "spirituality" | "climb" | "finance";
@@ -18,7 +19,7 @@ export const WORLDS: { key: World; href: string; external?: boolean }[] = [
   { key: "poetry", href: "/poetry" },
   { key: "spirituality", href: "/spirituality" },
   { key: "climb", href: "/climb" },
-  { key: "finance", href: FINANCE_URL, external: true },
+  { key: "finance", href: "/finance" },
 ];
 
 /** The world's name as it's written in the logo and the header. */
@@ -32,13 +33,12 @@ export const WORLD_NAME: Record<Place, string> = {
 };
 
 /**
- * Each world's own logo: the gold ring with its name inside (Teo, 2026-09-21). Art and the home
- * page carry the UR monogram. Climb's was set to match the others from the Poetry logo, in
- * Cinzel, until Urška has her own.
+ * Each world's own logo: the gold ring with its name inside (Teo, 2026-09-21). Urška's own
+ * home page carries the UR monogram.
  */
 export const WORLD_LOGO: Record<Place, string> = {
   home: "/images/logo-ur.webp",
-  art: "/images/logo-ur.webp",
+  art: "/images/logo-art.webp",
   poetry: "/images/logo-poetry.webp",
   spirituality: "/images/logo-spirituality.webp",
   climb: "/images/logo-climb.webp",
@@ -52,6 +52,7 @@ export function placeFor(pathname: string): Place {
   if (pathname.startsWith("/spirituality") || pathname.startsWith("/zvezdni-koledar") || pathname.startsWith("/rezervacija"))
     return "spirituality";
   if (pathname.startsWith("/climb")) return "climb";
+  if (pathname.startsWith("/finance")) return "finance";
   if (ART_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return "art";
   return "home";
 }
