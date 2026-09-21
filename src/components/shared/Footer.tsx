@@ -61,8 +61,6 @@ export default function Footer() {
               <li>
                 <Link
                   href="/spirituality"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="hover:text-bone transition-colors"
                 >
                   {t.nav.spirituality}
