@@ -63,9 +63,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col text-bone">
         <StructuredData data={organizationJsonLd()} />
-        <IntroSplash />
         <SkyBackdrop />
         <LanguageProvider>
+        {/* Inside the provider: the poetry splash quotes Urška in the visitor's language. */}
+        <IntroSplash />
         <CartProvider>
           <OwnerAlerts />
           <PlaceholderBanner />

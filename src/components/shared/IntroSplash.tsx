@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import ArrivalLogo from "./ArrivalLogo";
+import { usePathname } from "next/navigation";
+import ArrivalLogo, { ARRIVAL_DRAW_SECONDS, arrivalVariantFor } from "./ArrivalLogo";
 import { endIntro } from "@/lib/introSplash";
 
-const HOLD_MS = 1200;
+/** The logo draws itself, then holds a moment before the page appears. */
+const HOLD_MS = ARRIVAL_DRAW_SECONDS * 1000 + 350;
 
 /**
  * The monogram alone on a dark screen for the first moment of every visit, then it
@@ -16,6 +18,7 @@ const HOLD_MS = 1200;
 export default function IntroSplash() {
   const reduceMotion = useReducedMotion();
   const [visible, setVisible] = useState(true);
+  const variant = arrivalVariantFor(usePathname());
 
   useEffect(() => {
     const timer = window.setTimeout(
@@ -34,13 +37,13 @@ export default function IntroSplash() {
         <motion.div
           key="intro-splash"
           aria-hidden="true"
-          className="fixed inset-0 z-[120] flex flex-col items-center justify-center"
+          className="fixed inset-0 z-[250] flex flex-col items-center justify-center"
           style={{ background: "var(--color-ink)" }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.7, ease: "easeInOut" }}
         >
-          <ArrivalLogo reduceMotion={!!reduceMotion} />
+          <ArrivalLogo variant={variant} reduceMotion={!!reduceMotion} />
         </motion.div>
       )}
     </AnimatePresence>
