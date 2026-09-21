@@ -356,6 +356,31 @@ const EMBLEMS: Record<string, React.ReactNode> = {
   ),
 };
 
+/** Cards with a painted image in public/images/tarot. Everything else uses the drawn emblem. */
+const PAINTED_CARDS = new Set([
+  "magician",
+  "high-priestess",
+  "empress",
+  "emperor",
+  "hierophant",
+  "lovers",
+  "chariot",
+  "strength",
+  "hermit",
+  "wheel-of-fortune",
+  "justice",
+  "hanged-man",
+  "death",
+  "temperance",
+  "devil",
+  "tower",
+  "star",
+  "moon",
+  "sun",
+  "judgement",
+  "world",
+]);
+
 export default function TarotCardArt({
   cardKey,
   number,
@@ -367,6 +392,41 @@ export default function TarotCardArt({
   title: string;
   className?: string;
 }) {
+  const fontSize = title.length > 15 ? 10.5 : title.length > 10 ? 12.5 : 15;
+  const letterSpacing = title.length > 15 ? 1.2 : title.length > 10 ? 1.9 : 2.6;
+
+  // The painted cards (public/images/tarot/<key>.webp, cut from Teo's sheet). They carry their own
+  // numeral; their printed English name was cut off, and the name is written below in the
+  // visitor's language instead. The Fool isn't on the sheet, so it keeps the drawn emblem.
+  if (PAINTED_CARDS.has(cardKey)) {
+    return (
+      <svg viewBox="0 0 300 510" className={className} role="img" aria-label={title}>
+        <rect width="300" height="510" fill="var(--color-ink)" />
+        <image
+          href={`/images/tarot/${cardKey}.webp`}
+          x="19"
+          y="14"
+          width="262"
+          height="440"
+          preserveAspectRatio="xMidYMid meet"
+        />
+        <rect x="10" y="10" width="280" height="490" rx="6" fill="none" stroke={GOLD} strokeWidth="1.2" opacity="0.65" />
+        <line x1="92" y1="466" x2="208" y2="466" stroke={GOLD} strokeWidth="0.8" opacity="0.5" />
+        <text
+          x="150"
+          y="488"
+          textAnchor="middle"
+          fill={GOLD}
+          fontSize={fontSize}
+          letterSpacing={letterSpacing}
+          style={{ fontFamily: "var(--font-cormorant), serif" }}
+        >
+          {title.toUpperCase()}
+        </text>
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 300 510" className={className} role="img" aria-label={title}>
       <rect width="300" height="510" fill="var(--color-ink)" />

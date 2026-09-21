@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import Logo from "./Logo";
+import ArrivalLogo from "./ArrivalLogo";
 import { endIntro } from "@/lib/introSplash";
 
 const HOLD_MS = 1200;
@@ -35,22 +35,12 @@ export default function IntroSplash() {
           key="intro-splash"
           aria-hidden="true"
           className="fixed inset-0 z-[120] flex flex-col items-center justify-center"
+          style={{ background: "var(--color-ink)" }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.7, ease: "easeInOut" }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 0.9, ease: "easeOut" }}
-            style={{ color: "var(--color-accent-warm)" }}
-            className="flex flex-col items-center gap-5"
-          >
-            <Logo ring iconClassName="h-24 w-24 md:h-28 md:w-28" />
-            <span className="font-heading text-[11px] md:text-xs tracking-[0.42em] uppercase">
-              Art by Urška
-            </span>
-          </motion.div>
+          <ArrivalLogo reduceMotion={!!reduceMotion} />
         </motion.div>
       )}
     </AnimatePresence>
