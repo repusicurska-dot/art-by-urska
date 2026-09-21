@@ -7,6 +7,7 @@ const SITE_URL = getSiteUrl();
 
 const STATIC_ROUTES = [
   "",
+  "/art",
   "/collection",
   "/about",
   "/contact",

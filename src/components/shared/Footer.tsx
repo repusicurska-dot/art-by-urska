@@ -8,6 +8,8 @@ import { OPEN_INSTALL_PROMPT_EVENT } from "./InstallAppPrompt";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookies/CookieBanner";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { HUB } from "@/content/hub";
+import { WORLDS } from "@/lib/worlds";
 
 const legalLinks = [
   { href: "/legal/terms", label: "Terms & Conditions" },
@@ -19,15 +21,15 @@ const legalLinks = [
 ];
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   return (
     <footer className="border-t border-white/[0.14] py-14">
       <Container>
         <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>
-            <Logo ring wordmark className="text-bone" iconClassName="h-11 w-11" />
+            <Logo ring wordmark label="Urška" className="text-bone" iconClassName="h-11 w-11" />
             <p className="mt-3 text-sm text-smoke max-w-xs">
-              {t.footer.tagline}
+              {HUB[locale].roles}
             </p>
             <p className="mt-3 text-sm text-smoke">
               <ProtectedEmail className="hover:text-bone transition-colors underline" />
@@ -48,24 +50,19 @@ export default function Footer() {
           <div>
             <p className="text-xs tracking-widest uppercase text-smoke/70 mb-4">{t.footer.explore}</p>
             <ul className="space-y-2 text-sm text-smoke">
-              <li>
-                <Link href="/collection" className="hover:text-bone transition-colors">
-                  {t.nav.art}
-                </Link>
-              </li>
-              <li>
-                <Link href="/poetry" className="hover:text-bone transition-colors">
-                  {t.nav.poetry}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/spirituality"
-                  className="hover:text-bone transition-colors"
-                >
-                  {t.nav.spirituality}
-                </Link>
-              </li>
+              {WORLDS.map((w) => (
+                <li key={w.key}>
+                  {w.external ? (
+                    <a href={w.href} className="hover:text-bone transition-colors">
+                      {HUB[locale].worlds[w.key].nav}
+                    </a>
+                  ) : (
+                    <Link href={w.href} className="hover:text-bone transition-colors">
+                      {HUB[locale].worlds[w.key].nav}
+                    </Link>
+                  )}
+                </li>
+              ))}
               <li>
                 <Link href="/zvezdni-koledar" className="hover:text-bone transition-colors">
                   {t.footer.starCalendar}
@@ -124,7 +121,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-12 text-sm text-smoke/60">
-          &copy; {new Date().getFullYear()} Art by Urška. {t.footer.rights}
+          &copy; {new Date().getFullYear()} Urška. {t.footer.rights}
         </p>
       </Container>
     </footer>

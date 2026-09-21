@@ -4,6 +4,8 @@ type LogoProps = {
   wordmark?: boolean;
   iconClassName?: string;
   wordmarkClassName?: string;
+  /** The name beside the monogram — the world you're in. */
+  label?: string;
 };
 
 /**
@@ -23,6 +25,7 @@ export default function Logo({
   wordmark = false,
   iconClassName = "h-8 w-8",
   wordmarkClassName = "",
+  label = "Art by Urška",
 }: LogoProps) {
   return (
     <span className={`inline-flex items-center gap-3 ${className}`}>
@@ -51,7 +54,7 @@ export default function Logo({
       </svg>
       {wordmark && (
         <span className={`font-heading text-[11px] tracking-[0.32em] uppercase leading-none ${wordmarkClassName}`}>
-          Art by Urška
+          {label}
         </span>
       )}
     </span>

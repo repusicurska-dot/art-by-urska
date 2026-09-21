@@ -63,7 +63,9 @@ vsi štirje emaili.
 
 ## 4. Nedokončano na strani
 
-- [ ] **Climb** je še vedno stran „kmalu“. Ali napiši vsebino ali jo odstranim iz menuja.
+- [x] **Climb** — 2026-09-21 nova stran: znak, vsi Urškini plezalni naslovi, kaj ji je dalo plezanje. Zgodbe s stene, treningi in fotografije s plezanja še manjkajo — pošlji jih, ko jih imaš.
+- [x] **Glavna stran je zdaj Urška** (2026-09-21): pet svetov (Art, Poetry, Spirituality, Climb, Finance), vsak s svojim znakom in imenom v logotipu. Galerija je na /art.
+- [ ] **Finance → myedgeofficial.com v svetlem načinu**: My Edge se privzeto odpre v temnem. To se nastavi v projektu My Edge (privzeta tema = light), ki ga na tem računalniku ni.
 - [x] **Tehnično opozorilo v konzoli** (React #418) — odpravljeno 2026-09-21. Ni bilo na
       vsaki strani, samo na Spirituality: termini za branje v živo so se izračunali ob
       gradnji strani in so se naslednji dan razlikovali od brskalnikovih. Zdaj se izračunajo
