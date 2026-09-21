@@ -1,4 +1,5 @@
-import { LETTERS, type PoetryLetter } from "@/content/poetry";
+import type { PoetryLetter } from "@/content/poetry";
+import { currentLetterForDisplay } from "@/lib/poetry/schedule";
 import { ownerEmail, sendEmail } from "@/lib/email";
 import { getSiteUrl } from "@/lib/siteUrl";
 import type { Member } from "@/lib/starCalendar/store";
@@ -17,7 +18,7 @@ function footer(member: Member): string {
 
 export function sendPoetryWelcome(member: Member) {
   const sl = member.lang === "sl";
-  const first = LETTERS[0];
+  const first = currentLetterForDisplay();
   return sendEmail({
     to: member.email,
     replyTo: ownerEmail(),

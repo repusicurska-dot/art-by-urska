@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { URSKA_QUOTES, letterForWeek } from "@/content/poetry";
+import { URSKA_QUOTES } from "@/content/poetry";
+import { currentLetterForDisplay } from "@/lib/poetry/schedule";
 import { letterView } from "@/lib/poetry/view";
 import { currentMemberEmail } from "@/lib/starCalendar/session";
 import { isAvailable } from "@/lib/starCalendar/validate";
-import { isoWeek } from "@/lib/tarotSubscribers";
 import PoetryLanding from "@/components/poetry/PoetryLanding";
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default async function PoetryPage({
   searchParams: Promise<{ canceled?: string; error?: string }>;
 }) {
   const { canceled, error } = await searchParams;
-  const letter = letterForWeek(isoWeek().key);
+  const letter = currentLetterForDisplay();
   return (
     <PoetryLanding
       sample={letter ? { sl: letterView(letter, "sl"), en: letterView(letter, "en") } : null}

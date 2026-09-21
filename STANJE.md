@@ -47,9 +47,9 @@ vsi štirje emaili.
       Ni več ovira: slovenščino sem medtem napisal sam, tvoj vpis jo bo popravil.
 - [ ] **Preostali citati za Poezijo** iz zapiska „trejderji 101“. Stran ni več prazna
       (glej 5e), a razdelek „Njene besede“ ima še vedno samo en tvoj citat.
-- [ ] **Potrdi ali prepiši tri pisma iz ateljeja** (`src/content/poetry.ts`, označena
-      `approvedByUrska: false`). Napisana so v tvojem imenu in jih naročniki dobijo po emailu —
-      prvo je že vidno na strani. Nato dopisuj eno pismo na teden.
+- [x] **Pisma iz ateljeja so samodejna** (2026-09-21) — napisanih je 52 (celo leto, po letnih
+      časih), vsak četrtek gre samo naslednje. Isto pismo nikoli ne gre dvakrat. 8 tednov pred
+      koncem zaloge dobita Urška in Teo email. Urška ne pošilja in ne piše ničesar.
 - [x] **Instagram** — @art_by_urska, povezan v nogi (2026-09-21).
 - [ ] **22 slik tarot kart** — obljubila si jih. Pokončne, razmerje ~1 : 1,7, vsaj
       600 × 1020 pik. Povej tudi, od kod so (tvoje / kupljena licenca / javna domena).
@@ -156,7 +156,7 @@ naročnina: **4,99 € na mesec, prvih 7 dni brezplačno**.
   v Pogojih, točka 20.
 - Tvoj in Teov naslov imata pisma zastonj.
 
-- [ ] **Pisma** — glej točko 3: potrdi tri že napisana in dopiši naslednja.
+- [x] **Pisma** — samodejna, zaloga do septembra 2027 (glej točko 3).
 - [ ] Pravni pregled točke 20 v Pogojih.
 - [ ] Prvi preizkus: prijava → Stripe → arhiv → odpoved v 7 dneh (brez plačila).
 - [ ] **Dva testna računa v bazi** (moja, ob preverjanju v živo): `teo.simonic7+poetrytest@`

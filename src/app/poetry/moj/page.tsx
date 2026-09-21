@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { LETTERS, weekThursday } from "@/content/poetry";
+import { weekThursday } from "@/content/poetry";
+import { lettersSentBy } from "@/lib/poetry/schedule";
 import { letterView } from "@/lib/poetry/view";
 import { hasPoetryAccess, syncPoetry } from "@/lib/poetry/subscription";
 import { currentMemberEmail } from "@/lib/starCalendar/session";
@@ -29,9 +30,13 @@ export default async function PoetryArchivePage({
 
   // Only letters that have actually gone out — a letter dated next week isn't a letter yet.
   const thisWeek = isoWeek().key;
-  const letters: ArchiveLetter[] = LETTERS.filter((l) => l.week <= thisWeek)
-    .sort((a, b) => b.week.localeCompare(a.week))
-    .map((l) => ({ id: l.id, week: l.week, date: weekThursday(l.week), sl: letterView(l, "sl"), en: letterView(l, "en") }));
+  const letters: ArchiveLetter[] = lettersSentBy(thisWeek).map(({ letter, week }) => ({
+    id: letter.id,
+    week,
+    date: weekThursday(week),
+    sl: letterView(letter, "sl"),
+    en: letterView(letter, "en"),
+  }));
 
   return (
     <PoetryArchive
