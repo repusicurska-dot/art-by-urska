@@ -5,42 +5,153 @@ export interface LiveReadingPackage {
   duration: Text;
   title: Text;
   description: Text;
-  /** Real pricing, set by Urška on 2026-09-12. */
+  /**
+   * Draft pricing (2026-09-25), ladder from quickest/cheapest to deepest/priciest —
+   * placeholders for Urška to confirm or adjust, same as the previous two-package
+   * pricing was (set by her on 2026-09-12). Not final until she signs off.
+   */
   price: string;
   /** Length of the calendar event sent with the booking. */
   minutes: number;
 }
 
+/**
+ * Replaced the old duration-only "short / deep" split (2026-09-12) with topic-based
+ * reading types, per Urška's request (2026-09-25): she wants a richer menu of named
+ * readings — love, career, yes/no, etc. — so the offer matches what visitors are
+ * actually searching for, rather than just picking a length. Ordered as a price
+ * ladder: quick/cheap first, deepest/most expensive last.
+ */
 export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
   {
-    key: "short",
-    duration: { sl: "20 minut", en: "20 minutes", hr: "20 minuta", de: "20 Minuten", it: "20 minuti" },
+    key: "yesno",
+    duration: { sl: "10 minut", en: "10 minutes", hr: "10 minuta", de: "10 Minuten", it: "10 minuti" },
     title: {
-      sl: "Kratko branje",
-      en: "Short reading",
-      hr: "Kratko čitanje",
-      de: "Kurze Lesung",
-      it: "Lettura breve",
+      sl: "Da ali ne",
+      en: "Yes or No Tarot",
+      hr: "Da ili ne",
+      de: "Ja oder Nein",
+      it: "Sì o no",
     },
     description: {
-      sl: "Eno vprašanje, ki ti trenutno teži misli, in jasen prostor zanj.",
+      sl: "Hitra karta za vprašanje, ki terja jasen da ali ne.",
+      en: "A quick draw for the question that needs a clear yes or no.",
+      hr: "Brza karta za pitanje koje traži jasan da ili ne.",
+      de: "Eine schnelle Karte für die Frage, die ein klares Ja oder Nein braucht.",
+      it: "Una carta veloce per la domanda che cerca un sì o un no chiaro.",
+    },
+    price: "25 €",
+    minutes: 10,
+  },
+  {
+    key: "single",
+    duration: { sl: "20 minut", en: "20 minutes", hr: "20 minuta", de: "20 Minuten", it: "20 minuti" },
+    title: {
+      sl: "Eno vprašanje",
+      en: "Single Question Reading",
+      hr: "Jedno pitanje",
+      de: "Eine Frage",
+      it: "Una domanda",
+    },
+    description: {
+      sl: "Eno konkretno vprašanje, ki ti trenutno teži misli, in jasen prostor zanj.",
       en: "One question that's been on your mind, and a clear space for it.",
-      hr: "Jedno pitanje koje ti trenutno leži na duši i jasan prostor za njega.",
+      hr: "Jedno konkretno pitanje koje ti trenutno leži na duši i jasan prostor za njega.",
       de: "Eine Frage, die dich gerade beschäftigt, und ein klarer Raum dafür.",
       it: "Una domanda che hai in mente, e uno spazio chiaro per accoglierla.",
     },
-    price: "50 €",
+    price: "45 €",
     minutes: 20,
   },
   {
-    key: "deep",
-    duration: { sl: "50 minut", en: "50 minutes", hr: "50 minuta", de: "50 Minuten", it: "50 minuti" },
+    key: "love",
+    duration: { sl: "30 minut", en: "30 minutes", hr: "30 minuta", de: "30 Minuten", it: "30 minuti" },
     title: {
-      sl: "Poglobljeno branje",
-      en: "Deep reading",
-      hr: "Dublje čitanje",
-      de: "Tiefe Lesung",
-      it: "Lettura profonda",
+      sl: "Ljubezen in odnosi",
+      en: "Love & Relationship Reading",
+      hr: "Ljubav i odnosi",
+      de: "Liebe & Beziehung",
+      it: "Amore e relazioni",
+    },
+    description: {
+      sl: "O srcu, o njem ali njej, o tem, kar med vama resnično je.",
+      en: "About the heart, about them, about what's really between you.",
+      hr: "O srcu, o njemu ili njoj, o onome što je zaista između vas.",
+      de: "Über das Herz, über sie oder ihn, über das, was wirklich zwischen euch ist.",
+      it: "Del cuore, di lui o di lei, di ciò che c'è davvero tra voi.",
+    },
+    price: "65 €",
+    minutes: 30,
+  },
+  {
+    key: "career",
+    duration: { sl: "30 minut", en: "30 minutes", hr: "30 minuta", de: "30 Minuten", it: "30 minuti" },
+    title: {
+      sl: "Kariera in denar",
+      en: "Career & Money Reading",
+      hr: "Karijera i novac",
+      de: "Karriere & Geld",
+      it: "Carriera e denaro",
+    },
+    description: {
+      sl: "Jasnost o poti, ki jo gradiš, in o tem, kar te na njej ovira.",
+      en: "Clarity about the path you're building, and what's standing in its way.",
+      hr: "Jasnoća o putu koji gradiš i o onome što te na njemu koči.",
+      de: "Klarheit über den Weg, den du gehst, und was ihn gerade blockiert.",
+      it: "Chiarezza sul percorso che stai costruendo e su ciò che lo ostacola.",
+    },
+    price: "65 €",
+    minutes: 30,
+  },
+  {
+    key: "general",
+    duration: { sl: "30 minut", en: "30 minutes", hr: "30 minuta", de: "30 Minuten", it: "30 minuti" },
+    title: {
+      sl: "Splošno življenjsko branje",
+      en: "General Life Reading",
+      hr: "Opće životno čitanje",
+      de: "Allgemeine Lebenslesung",
+      it: "Lettura generale di vita",
+    },
+    description: {
+      sl: "Brez enega vprašanja — pogled na to, kje si trenutno na svoji poti.",
+      en: "No single question — a look at where you stand on your path right now.",
+      hr: "Bez jednog pitanja — pogled na to gdje se trenutno nalaziš na svom putu.",
+      de: "Ohne eine einzelne Frage — ein Blick darauf, wo du gerade auf deinem Weg stehst.",
+      it: "Senza una domanda precisa — uno sguardo su dove ti trovi ora nel tuo cammino.",
+    },
+    price: "65 €",
+    minutes: 30,
+  },
+  {
+    key: "future",
+    duration: { sl: "40 minut", en: "40 minutes", hr: "40 minuta", de: "40 Minuten", it: "40 minuti" },
+    title: {
+      sl: "Pot naprej",
+      en: "Future Path Reading",
+      hr: "Put naprijed",
+      de: "Der Weg voraus",
+      it: "Il cammino futuro",
+    },
+    description: {
+      sl: "Kam te trenutna smer resnično vodi, in kaj je pred teboj.",
+      en: "Where your current direction is really taking you, and what lies ahead.",
+      hr: "Kamo te trenutni smjer zaista vodi i što te čeka.",
+      de: "Wohin deine jetzige Richtung dich wirklich führt, und was vor dir liegt.",
+      it: "Dove ti sta davvero portando la tua direzione attuale, e cosa ti aspetta.",
+    },
+    price: "80 €",
+    minutes: 40,
+  },
+  {
+    key: "full",
+    duration: { sl: "60 minut", en: "60 minutes", hr: "60 minuta", de: "60 Minuten", it: "60 minuti" },
+    title: {
+      sl: "Celovita tarot konzultacija",
+      en: "Full Tarot Consultation",
+      hr: "Potpuna tarot konzultacija",
+      de: "Vollständige Tarot-Beratung",
+      it: "Consulto tarocchi completo",
     },
     description: {
       sl: "Celoten razlog, čas za več vprašanj in za pogovor o tem, kar karte pokažejo.",
@@ -49,8 +160,8 @@ export const LIVE_READING_PACKAGES: LiveReadingPackage[] = [
       de: "Eine vollständige Legung, Raum für mehrere Fragen und ein Gespräch über das, was die Karten zeigen.",
       it: "Una stesa completa, spazio per più domande e una conversazione su ciò che le carte mostrano.",
     },
-    price: "100 €",
-    minutes: 50,
+    price: "120 €",
+    minutes: 60,
   },
 ];
 
