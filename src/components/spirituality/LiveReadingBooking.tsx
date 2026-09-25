@@ -157,7 +157,7 @@ export default function LiveReadingBooking({ lang }: { lang: Lang }) {
               <span className="block text-xs tracking-widest uppercase text-bone mb-3">
                 {labels.packageLabel}
               </span>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {LIVE_READING_PACKAGES.map((pkg) => {
                   const isSelected = pkg.key === packageKey;
                   return (
