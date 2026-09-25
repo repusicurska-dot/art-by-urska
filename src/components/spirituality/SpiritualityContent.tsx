@@ -293,7 +293,7 @@ export default function SpiritualityContent() {
               {copy.eyebrow}
             </span>
             <h1 className="font-heading italic text-3xl md:text-5xl text-bone mt-6 leading-snug">
-              {copy.title}
+              &ldquo;{copy.title}&rdquo;
             </h1>
             <p className="mt-6 text-bone leading-relaxed max-w-xl mx-auto">{copy.subtitle}</p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
