@@ -169,6 +169,24 @@ naročnina: **4,99 € na mesec, prvih 7 dni brezplačno**.
       in `teo.simonic7+pismatest2@gmail.com`, geslo `LetterTest2026!`. Nista plačala in
       nimata dostopa — z njima se lahko prijaviš in preizkusiš, ali pa ju pusti pri miru.
 
+## 5f. Branje takoj (samodejna tarot branja) — narejeno 2026-09-28
+
+Na strani Spirituality, med tarotom in branjem v živo. Iste teme kot branja v živo (da/ne,
+eno vprašanje, ljubezen, kariera, splošno, pot naprej), a **samodejna** — Urška ne piše in ne
+pošilja ničesar.
+
+- **1 brezplačno branje na teden** na obiskovalca (kot praskanica; nov teden v ponedeljek).
+- Vsako naslednje: **2 €** (1 karta) ali **3 €** (3 karte), enkratno plačilo prek Stripe.
+- Besedila: 22 kart × ljubezen/delo/pot v vseh 5 jezikih (`src/lib/instantReading/`),
+  karte se izžrebajo naključno → 9.240 različnih branj s 3 kartami na temo.
+- Po plačilu se branje odpre takoj, kopija gre kupcu po emailu (z linkom, ki vedno
+  pokaže iste karte).
+- Branje v živo z rezervacijo termina ostane nespremenjeno.
+- Pogoji točka 21, Zasebnost točka 2 — dopolnjeno.
+
+- [ ] Pravni pregled točke 21 v Pogojih.
+- [ ] Prvi preizkus v živo: branje → plačilo 2 € → vrnitev na stran → email s kopijo.
+
 ## 6. Ob zagonu
 
 - [ ] `NEXT_PUBLIC_SITE_URL` nastavi v Vercelu. (Koda zdaj tudi brez tega uporabi pravi

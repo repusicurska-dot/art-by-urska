@@ -236,7 +236,33 @@ export default function TermsPage() {
         </ul>
       </section>
       <section>
-        <h2>21. Contact</h2>
+        <h2 id="instant-reading">21. Instant tarot readings</h2>
+        <ul>
+          <li>
+            <strong>What it is:</strong> a tarot reading generated automatically on this website the moment you
+            ask for it — cards drawn at random and interpreted from a fixed set of texts. It is not a personal reading
+            by Urška (those are the live readings, booked separately). It is spiritual and entertainment content and is
+            not medical, legal, financial or other professional advice.
+          </li>
+          <li>
+            <strong>Price:</strong> one reading per week is free. Further readings cost €2 (one card) or €3 (three
+            cards) each, paid once through Stripe; there is no subscription. No VAT is charged (seller not registered
+            for VAT).
+          </li>
+          <li>
+            <strong>Right of withdrawal:</strong> a paid reading is digital content supplied immediately. Before paying
+            you expressly request immediate supply and acknowledge that you thereby lose the 14-day right of
+            withdrawal. If a reading you paid for is not delivered, write to us and we will send it or refund you.
+          </li>
+          <li>
+            <strong>Your data:</strong> for the weekly free reading we keep a record of your IP address for one week, to
+            count it. For a paid reading Stripe collects your email address, and we use it only to send you a copy of
+            the reading. Payments are processed by Stripe; we never see your card details.
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>22. Contact</h2>
         <p><ProtectedEmail /></p>
       </section>
     </LegalPageShell>
