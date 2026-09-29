@@ -33,6 +33,11 @@ export default function PrivacyPage() {
             contract.
           </li>
           <li>
+            <strong>Instant tarot readings</strong>: your IP address, kept for one week, only to count the
+            weekly free reading; for a paid reading, the email address you give Stripe, used only to send you
+            a copy of the reading. Legal basis: performance of a contract / legitimate interest.
+          </li>
+          <li>
             <strong>Cookie data</strong>: see our <a href="/legal/cookies">Cookie Policy</a>. Only
             strictly necessary cookies are currently used. Legal basis: legitimate interest
             (necessary cookies) or consent (any future analytics/marketing cookies).

@@ -7,6 +7,7 @@ import Container from "@/components/shared/Container";
 import { fadeInUp } from "@/lib/motion";
 import TarotReading from "./TarotReading";
 import LiveReadingBooking from "./LiveReadingBooking";
+import InstantReading from "./InstantReading";
 import IntentionCompass from "./IntentionCompass";
 import MoonToday from "./MoonToday";
 import BreathingPause from "./BreathingPause";
@@ -319,6 +320,10 @@ export default function SpiritualityContent() {
       <BreathingPause lang={lang} />
 
       <GratitudePractice lang={lang} />
+
+      <div id="instant-reading" className="scroll-mt-24">
+        <InstantReading lang={lang} />
+      </div>
 
       <div id="live-reading" className="scroll-mt-24">
         <LiveReadingBooking lang={lang} />
