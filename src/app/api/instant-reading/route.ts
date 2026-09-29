@@ -10,7 +10,7 @@ import { getSiteUrl } from "@/lib/siteUrl";
 /**
  * Opens an instant reading.
  *   { sessionId }                   — a paid one, after Stripe Checkout. Same cards every time.
- *   { topic, lang, question }       — this week's free one, once per visitor.
+ *   { topic, lang, question }       — this week's free one of that topic, once per visitor.
  */
 export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
   const topic = findInstantTopic(body.topic);
   if (!topic) return NextResponse.json({ code: "bad_topic" }, { status: 400 });
-  if (!(await claimFreeReading(clientIp(request)))) {
+  if (!(await claimFreeReading(clientIp(request), topic.key))) {
     return NextResponse.json({ code: "free_used" }, { status: 429 });
   }
   const reading = composeReading({

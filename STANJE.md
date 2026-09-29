@@ -175,7 +175,8 @@ Na strani Spirituality, med tarotom in branjem v živo. Iste teme kot branja v �
 eno vprašanje, ljubezen, kariera, splošno, pot naprej), a **samodejna** — Urška ne piše in ne
 pošilja ničesar.
 
-- **1 brezplačno branje na teden** na obiskovalca (kot praskanica; nov teden v ponedeljek).
+- **1 brezplačno branje na teden za vsako temo** (6 na teden; Urškina želja 2026-09-29;
+  kot praskanica, nov teden v ponedeljek).
 - Vsako naslednje: **2 €** (1 karta) ali **3 €** (3 karte), enkratno plačilo prek Stripe.
 - Besedila: 22 kart × ljubezen/delo/pot v vseh 5 jezikih (`src/lib/instantReading/`),
   karte se izžrebajo naključno → 9.240 različnih branj s 3 kartami na temo.

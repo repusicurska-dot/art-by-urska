@@ -34,7 +34,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong>Instant tarot readings</strong>: your IP address, kept for one week, only to count the
-            weekly free reading; for a paid reading, the email address you give Stripe, used only to send you
+            weekly free readings; for a paid reading, the email address you give Stripe, used only to send you
             a copy of the reading. Legal basis: performance of a contract / legitimate interest.
           </li>
           <li>

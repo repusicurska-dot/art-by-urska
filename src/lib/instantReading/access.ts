@@ -26,12 +26,13 @@ export function cleanQuestion(value: unknown): string {
 const memory = new Map<string, string>();
 
 /**
- * Claims this week's free reading for the visitor (by IP address). Returns false if it has
- * already been used. The week turns over on Monday, like the scratch card.
+ * Claims this week's free reading of one topic for the visitor (by IP address) — every topic
+ * has its own, at Urška's request (2026-09-29). Returns false if that one has already been
+ * used. The week turns over on Monday, like the scratch card.
  */
-export async function claimFreeReading(ip: string): Promise<boolean> {
+export async function claimFreeReading(ip: string, topic: InstantTopic["key"]): Promise<boolean> {
   const week = isoWeek().key;
-  const key = `ir:free:${week}:${ip}`;
+  const key = `ir:free:${week}:${topic}:${ip}`;
   if (isRedisConfigured()) {
     try {
       const ok = await redis<string | null>(["SET", key, "1", "NX", "EX", 8 * 86400]);
@@ -40,8 +41,8 @@ export async function claimFreeReading(ip: string): Promise<boolean> {
       console.error("[instant-reading] redis unavailable, using memory:", err);
     }
   }
-  if (memory.get(ip) === week) return false;
-  memory.set(ip, week);
+  if (memory.get(key) === week) return false;
+  memory.set(key, week);
   return true;
 }
 

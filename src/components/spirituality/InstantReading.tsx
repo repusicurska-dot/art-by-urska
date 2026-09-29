@@ -20,7 +20,10 @@ import {
  * which sends the visitor back with ?reading=<session id> to open the paid reading.
  */
 
-const STORAGE_KEY = "au-instant-reading-v1";
+// v2: one free reading per topic per week (v1 held a single one for all topics).
+const STORAGE_KEY = "au-instant-reading-v2";
+
+type FreeWeek = Partial<Record<InstantTopicKey, InstantReadingResult | null>>;
 
 function isoWeekKey(date: Date): string {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
@@ -49,31 +52,28 @@ export default function InstantReading({ lang }: { lang: Lang }) {
   const [error, setError] = useState("");
   const [reading, setReading] = useState<InstantReadingResult | null>(null);
   const [emailed, setEmailed] = useState(false);
-  // null until mounted: whether this browser has already used this week's free reading.
-  const [freeUsed, setFreeUsed] = useState<boolean | null>(null);
-  const [weekReading, setWeekReading] = useState<InstantReadingResult | null>(null);
+  // null until mounted. A topic listed here has had its free reading this week (the reading
+  // itself kept, when there is one, so it can be opened again).
+  const [freeWeek, setFreeWeek] = useState<FreeWeek | null>(null);
   const [paidSession, setPaidSession] = useState<string | null>(null);
 
   const topic = INSTANT_TOPICS.find((t) => t.key === topicKey) ?? INSTANT_TOPICS[0];
+  const freeUsed = freeWeek === null ? null : topic.key in freeWeek;
+  const weekReading = freeWeek?.[topic.key] ?? null;
 
   useEffect(() => {
     const week = isoWeekKey(new Date());
-    let used = false;
-    let saved: InstantReadingResult | null = null;
+    let saved: FreeWeek = {};
     try {
       const stored = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null") as
-        | { week?: string; reading?: InstantReadingResult }
+        | { week?: string; topics?: FreeWeek }
         | null;
-      if (stored?.week === week) {
-        used = true;
-        saved = stored.reading ?? null;
-      }
+      if (stored?.week === week && stored.topics) saved = stored.topics;
     } catch {
-      // No storage — the server still limits the free reading.
+      // No storage — the server still limits the free readings.
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setFreeUsed(used);
-    setWeekReading(saved);
+    setFreeWeek(saved);
     const session = new URLSearchParams(window.location.search).get("reading");
     if (session) setPaidSession(session);
   }, []);
@@ -115,11 +115,11 @@ export default function InstantReading({ lang }: { lang: Lang }) {
     };
   }, [paidSession, lang, labels.error, labels.paidNotFound, reduceMotion]);
 
-  function rememberFree(r: InstantReadingResult | null) {
-    setFreeUsed(true);
-    if (r) setWeekReading(r);
+  function rememberFree(key: InstantTopicKey, r: InstantReadingResult | null) {
+    const next: FreeWeek = { ...freeWeek, [key]: r };
+    setFreeWeek(next);
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ week: isoWeekKey(new Date()), reading: r }));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ week: isoWeekKey(new Date()), topics: next }));
     } catch {
       // Ignore.
     }
@@ -136,13 +136,13 @@ export default function InstantReading({ lang }: { lang: Lang }) {
       });
       const data = (await res.json().catch(() => ({}))) as { reading?: InstantReadingResult; code?: string };
       if (res.status === 429 && data.code === "free_used") {
-        rememberFree(null);
+        rememberFree(topic.key, null);
         setStatus("idle");
         setError(labels.rateLimited);
         return;
       }
       if (!res.ok || !data.reading) throw new Error(data.code);
-      rememberFree(data.reading);
+      rememberFree(topic.key, data.reading);
       setReading(data.reading);
       setEmailed(false);
       setStatus("shown");
