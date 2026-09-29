@@ -4,8 +4,8 @@ import type { Lang, Text } from "./lang";
  * Instant readings: the same kinds of reading as the live ones (yes/no, love, career…), but
  * drawn and written automatically, on the spot, with no appointment and no work for Urška.
  *
- * Works like the weekly scratch card: every visitor gets one free reading a week. More than
- * that, they unlock for 2 € (one card) or 3 € (three cards) through Stripe. The live readings
+ * Works like the weekly scratch card: every visitor gets one free reading a week in each topic
+ * (Urška, 2026-09-29 — six free a week in all). More than that, they unlock for 2 € (one card) or 3 € (three cards) through Stripe. The live readings
  * with Urška stay exactly as they were, below this section.
  *
  * This file is shared with the browser: topic names, prices and labels only. The card texts
@@ -182,9 +182,9 @@ export const INSTANT_LABELS: Record<
   sl: {
     heading: "Branje takoj",
     intro:
-      "Brez termina in brez čakanja: izberi temo, osredotoči se na vprašanje in karte se razkrijejo takoj. Vsak teden je eno branje zate brezplačno — za več ga odkleneš za 2 ali 3 €.",
+      "Brez termina in brez čakanja: izberi temo, osredotoči se na vprašanje in karte se razkrijejo takoj. Vsak teden je eno branje na vsako temo zate brezplačno — za več ga odkleneš za 2 ali 3 €.",
     freeBadge: "To branje je ta teden brezplačno",
-    freeUsed: "Brezplačno branje tega tedna je porabljeno. Novo čez",
+    freeUsed: "Brezplačno branje te teme je ta teden porabljeno. Novo čez",
     days: "dni",
     questionLabel: "Tvoje vprašanje (neobvezno)",
     questionPlaceholder: "Na kaj misliš, ko vlečeš karto?",
@@ -198,7 +198,7 @@ export const INSTANT_LABELS: Record<
     emailed: "Kopijo branja smo poslali tudi na tvoj e-naslov.",
     disclaimer: "Branja so za razmislek in navdih, ne nasvet (zdravniški, pravni ali finančni).",
     error: "Nekaj ni uspelo. Poskusi znova čez trenutek.",
-    rateLimited: "Brezplačno branje tega tedna je že porabljeno.",
+    rateLimited: "Brezplačno branje te teme je ta teden že porabljeno.",
     paidNotFound: "Plačila nismo našli. Če si plačal, nam piši in branje pošljemo.",
     liveHint: "Želiš pogovor z Urško v živo? Rezerviraj termin spodaj.",
     cards1: "1 karta",
@@ -207,9 +207,9 @@ export const INSTANT_LABELS: Record<
   en: {
     heading: "Instant reading",
     intro:
-      "No appointment, no waiting: choose a theme, hold your question in mind, and the cards turn over straight away. One reading a week is free — after that, unlock another for 2 or 3 €.",
+      "No appointment, no waiting: choose a theme, hold your question in mind, and the cards turn over straight away. One reading a week in every theme is free — after that, unlock another for 2 or 3 €.",
     freeBadge: "This week's reading is free",
-    freeUsed: "This week's free reading is used. Next one in",
+    freeUsed: "This week's free reading for this theme is used. Next one in",
     days: "days",
     questionLabel: "Your question (optional)",
     questionPlaceholder: "What's on your mind as you draw?",
@@ -223,7 +223,7 @@ export const INSTANT_LABELS: Record<
     emailed: "We've also sent a copy of the reading to your email.",
     disclaimer: "Readings are for reflection and inspiration, not medical, legal or financial advice.",
     error: "Something went wrong. Please try again in a moment.",
-    rateLimited: "This week's free reading has already been used.",
+    rateLimited: "This week's free reading for this theme has already been used.",
     paidNotFound: "We couldn't find the payment. If you paid, write to us and we'll send your reading.",
     liveHint: "Want to talk with Urška live? Book a time below.",
     cards1: "1 card",
@@ -232,9 +232,9 @@ export const INSTANT_LABELS: Record<
   hr: {
     heading: "Čitanje odmah",
     intro:
-      "Bez termina i bez čekanja: odaberi temu, usredotoči se na pitanje i karte se otkrivaju odmah. Svaki tjedan jedno je čitanje besplatno — za više ga otključaš za 2 ili 3 €.",
+      "Bez termina i bez čekanja: odaberi temu, usredotoči se na pitanje i karte se otkrivaju odmah. Svaki tjedan jedno je čitanje za svaku temu besplatno — za više ga otključaš za 2 ili 3 €.",
     freeBadge: "Ovo čitanje je ovaj tjedan besplatno",
-    freeUsed: "Besplatno čitanje ovog tjedna je iskorišteno. Novo za",
+    freeUsed: "Besplatno čitanje ove teme ovaj je tjedan iskorišteno. Novo za",
     days: "dana",
     questionLabel: "Tvoje pitanje (neobavezno)",
     questionPlaceholder: "Na što misliš dok vučeš kartu?",
@@ -248,7 +248,7 @@ export const INSTANT_LABELS: Record<
     emailed: "Kopiju čitanja poslali smo i na tvoju e-adresu.",
     disclaimer: "Čitanja su za razmišljanje i nadahnuće, a ne savjet (liječnički, pravni ili financijski).",
     error: "Nešto nije uspjelo. Pokušaj ponovno za trenutak.",
-    rateLimited: "Besplatno čitanje ovog tjedna već je iskorišteno.",
+    rateLimited: "Besplatno čitanje ove teme ovaj je tjedan već iskorišteno.",
     paidNotFound: "Nismo pronašli uplatu. Ako si platio, piši nam i poslat ćemo ti čitanje.",
     liveHint: "Želiš razgovor s Urškom uživo? Rezerviraj termin ispod.",
     cards1: "1 karta",
@@ -257,9 +257,9 @@ export const INSTANT_LABELS: Record<
   de: {
     heading: "Sofort-Lesung",
     intro:
-      "Kein Termin, kein Warten: Wähl ein Thema, halte deine Frage im Sinn, und die Karten decken sich sofort auf. Eine Lesung pro Woche ist kostenlos — danach schaltest du weitere für 2 oder 3 € frei.",
+      "Kein Termin, kein Warten: Wähl ein Thema, halte deine Frage im Sinn, und die Karten decken sich sofort auf. Pro Woche ist in jedem Thema eine Lesung kostenlos — danach schaltest du weitere für 2 oder 3 € frei.",
     freeBadge: "Diese Lesung ist diese Woche kostenlos",
-    freeUsed: "Die kostenlose Lesung dieser Woche ist verbraucht. Die nächste in",
+    freeUsed: "Die kostenlose Lesung zu diesem Thema ist diese Woche verbraucht. Die nächste in",
     days: "Tagen",
     questionLabel: "Deine Frage (optional)",
     questionPlaceholder: "Woran denkst du, während du ziehst?",
@@ -273,7 +273,7 @@ export const INSTANT_LABELS: Record<
     emailed: "Eine Kopie der Lesung haben wir dir auch per E-Mail geschickt.",
     disclaimer: "Die Lesungen dienen der Besinnung und Inspiration, nicht als medizinischer, rechtlicher oder finanzieller Rat.",
     error: "Etwas ist schiefgelaufen. Bitte versuch es gleich noch einmal.",
-    rateLimited: "Die kostenlose Lesung dieser Woche wurde bereits genutzt.",
+    rateLimited: "Die kostenlose Lesung zu diesem Thema wurde diese Woche bereits genutzt.",
     paidNotFound: "Wir konnten die Zahlung nicht finden. Wenn du bezahlt hast, schreib uns, und wir schicken dir deine Lesung.",
     liveHint: "Möchtest du live mit Urška sprechen? Buch unten einen Termin.",
     cards1: "1 Karte",
@@ -282,9 +282,9 @@ export const INSTANT_LABELS: Record<
   it: {
     heading: "Lettura immediata",
     intro:
-      "Nessun appuntamento, nessuna attesa: scegli un tema, tieni a mente la tua domanda e le carte si scoprono subito. Una lettura a settimana è gratuita — per altre, sbloccale a 2 o 3 €.",
+      "Nessun appuntamento, nessuna attesa: scegli un tema, tieni a mente la tua domanda e le carte si scoprono subito. Ogni settimana una lettura per ogni tema è gratuita — per altre, sbloccale a 2 o 3 €.",
     freeBadge: "Questa lettura è gratuita questa settimana",
-    freeUsed: "La lettura gratuita di questa settimana è usata. La prossima tra",
+    freeUsed: "La lettura gratuita di questo tema è usata per questa settimana. La prossima tra",
     days: "giorni",
     questionLabel: "La tua domanda (facoltativa)",
     questionPlaceholder: "A cosa pensi mentre peschi?",
@@ -298,7 +298,7 @@ export const INSTANT_LABELS: Record<
     emailed: "Ti abbiamo inviato una copia della lettura anche via email.",
     disclaimer: "Le letture sono per riflessione e ispirazione, non consigli medici, legali o finanziari.",
     error: "Qualcosa non ha funzionato. Riprova tra un momento.",
-    rateLimited: "La lettura gratuita di questa settimana è già stata usata.",
+    rateLimited: "La lettura gratuita di questo tema è già stata usata questa settimana.",
     paidNotFound: "Non abbiamo trovato il pagamento. Se hai pagato, scrivici e ti invieremo la lettura.",
     liveHint: "Vuoi parlare dal vivo con Urška? Prenota un orario qui sotto.",
     cards1: "1 carta",

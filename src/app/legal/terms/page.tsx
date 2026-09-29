@@ -245,7 +245,7 @@ export default function TermsPage() {
             not medical, legal, financial or other professional advice.
           </li>
           <li>
-            <strong>Price:</strong> one reading per week is free. Further readings cost €2 (one card) or €3 (three
+            <strong>Price:</strong> one reading per week in each theme is free. Further readings cost €2 (one card) or €3 (three
             cards) each, paid once through Stripe; there is no subscription. No VAT is charged (seller not registered
             for VAT).
           </li>
